@@ -26,7 +26,7 @@
 					<p class="item_name">숙소명</p>
 					<p>주소 : 서울시 강남구 테헤란로 10길 9 그랑프리 빌딩 4F</p>
 					<p>예약날짜 : 2021.01.01 ~ 2021.01.02</p>
-					<p>숙박인원 : 4명</p>
+					<p>숙박인원 : 4명zz</p>
 					<div class="btn_wrap">
 						<a href="${contextPath}/payment" class="btn btnType1 btnSizeS"><span>결제하기</span></a>
 						<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
