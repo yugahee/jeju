@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>제주라도 넘어갈까</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/main.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="main.html">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소예약</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="reservation_view.html">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<!-- 로그인 했을 때 -->
+				<div class="userArea nologin">
+					<a href="#" class="btn btnType2 btnSizeS"><span>로그인</span></a>
+					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
+				</div>
+				<div class="userArea" style="display: none">										
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 회원일 때 -->
+                    <ul class="userCon" id="guestUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 관리자일 떄 -->
+                    <ul class="userCon" id="adminUserCon">
+                        <li><a href="#">계정 관리</a></li>
+                        <li><a href="#">비밀번호 관리</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="main">
+            <div class="sec01">
+                <div class="container">
+                    <div class="simple_search">
+                        <form>
+                            <div class="inp_text">
+                                <label>체크인</label>
+                                <input type="date" name="checkin" id="checkin" placeholder="체크인"/>
+                            </div>
+                            <div class="inp_text">
+                                <label>체크아웃</label>
+                                <input type="date" name="checkin" id="checkin" placeholder="체크아웃"/>
+                            </div>
+                            <div class="inp_box">
+                                <label>위치선택</label>
+                                <div class="selectbox">
+                                    <button class="title" type="button" title="위치옵션 선택">위치</button>
+                                    <ul class="selList">
+                                        <li>
+                                            <input type="radio" value="" class="option" id="east" name="east" />
+                                            <label for="sel1_1">동부</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="west" name="west" />
+                                            <label for="sel1_2">서부</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="north" name="north" />
+                                            <label for="sel1_3">북부</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="south" name="south">
+                                            <label for="sel1_4">남부</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="center" name="center">
+                                            <label for="sel1_4">중부</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="inp_box">
+                                <label>인원수</label>
+                                <div class="inp_qty">
+                                    <button type="button" onclick="qtyDown(this)" title="인원감소">
+                                        <img src="../resources/images/common/qty_down.gif" alt="인원감소">
+                                    </button>
+                                    <input type="text" title="인원수입력" value="1">
+                                    <button type="button" onclick="qtyUp(this)" title="인원추가">
+                                        <img src="../resources/images/common/qty_up.gif" alt="인원추가">
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btnType1 btnSizeL"><span>검색</span></a>
+                        </form>
+                    </div>
+                </div>
+            </div><!--sec01 END-->
+            <div class="sec02">
+                <div class="container">
+                    <h2>추천숙소</h2>
+                    <ul class="recommend_list">
+                        <li>
+                            <a href='#'>
+                                <div class="item_img" style="background-image : url('../resources/images/ygh/item.jpg')"></div>
+                                <div class="item_info">
+                                    <p class="item_name"><span class="item_location">동부</span> 숙소명</p>
+                                    <p class="item_title">숙소제목</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#'>
+                                <div class="item_img" style="background-image : url('../resources/images/ygh/item.jpg')"></div>
+                                <div class="item_info">
+                                    <p class="item_name"><span class="item_location">동부</span> 숙소명</p>
+                                    <p class="item_title">숙소제목</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#'>
+                                <div class="item_img" style="background-image : url('../resources/images/ygh/item.jpg')"></div>
+                                <div class="item_info">
+                                    <p class="item_name"><span class="item_location">동부</span> 숙소명</p>
+                                    <p class="item_title">숙소제목</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href='#'>
+                                <div class="item_img" style="background-image : url('../resources/images/ygh/item.jpg')"></div>
+                                <div class="item_info">
+                                    <p class="item_name"><span class="item_location">동부</span> 숙소명</p>
+                                    <p class="item_title">숙소제목</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+		</div>
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

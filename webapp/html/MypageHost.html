@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>마이페이지</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+	
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+    <!-- 호스트 마이페이지 화면 -->
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소관리</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>						
+					</ul>
+				</div>
+				<div class="userArea">
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="side_layout">
+			<div class="container">
+				<nav class="sub_menu">
+                    <ul>
+                        <li><a href="#">내정보</a></li>
+                        <li><a href="#">1:1 문의</a></li>
+                        <li><a href="#">회원탈퇴</a></li>
+                    </ul>
+                </nav>
+                <div class="host_mypage">
+                    <div class="hostprofile_wrap">
+                        <img src="../resources/images/usericon.png">
+                        <h3> 호스트 아이디 </h3>
+                        <span>호스트</span>
+                    </div>
+					<div class="tabType1 al_c hostmainsub">
+						<ul>
+							<li class="on roomli"><a>숙소</a></li>
+							<li class="reviewli"><a>게스트 후기</a></li>
+						</ul>
+					</div>
+					<div class="hostpagetab roomtab">
+						<!-- 숙소 리스트 있는 경우 -->
+						<ul>
+							<li class="main_roomlist">
+								<a href="#"><img src="../resources/images/host/house.png"></a><br>
+								<h3>푸른바다 제주펜션</h3>
+							</li>
+							<li class="main_roomlist">
+								<a href="#"><img src="../resources/images/host/house.png"></a><br>
+								<h3>협재바다 늘푸른가옥</h3>
+							</li>	
+						</ul>
+						
+						<!-- 숙소 리스트 없는 경우 -->
+						<!-- <div class="noData">
+							<p>등록된 숙소가 없습니다.</p>
+							<a  href="#" class="subtxt"><u>숙소를 간편하게 바로 등록해보세요!</u></a>
+						</div> -->
+					</div>
+					<!-- 게스트 후기 탭 클릭 시 -->
+					<div class="hostpagetab reviewtab">
+						<div class="tblType1 reviewtab_wrap">
+							<table class="reviewtbl">
+								<colgroup>
+									<col style="width:50px">
+									<col style="width:500px">
+									<col style="width:100px">
+								</colgroup>
+								<tbody>
+									<tr>
+										<td><div class="review_no">1</div></td>
+										<!-- 리뷰 내용은 글자 50개 까지 노출 -->
+										<td><a href="#"><div class="review_content">사장님이 너무 친절하시고 숙소도 깔끔해요</div></a></td>
+										<td><div class="review_writer">jejulove</div></td>
+									</tr>
+									<tr>
+										<td><div class="review_no">2</div></td>
+										<td><a href="#"><div class="review_content">제주바다가 창문으로 바로 보여요. 노을이 너무 예뻐요. 인생샷 건졌습니다.
+										</div></a></td>
+										<td><div class="review_writer">jejugood</div></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- 페이징 -->
+						<div class="paging">
+							<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
+							<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+							<span class="current">1</span>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+							<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+							<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+						</div>
+
+						<!-- 등록 된 후기 없을 경우 -->
+						<!-- <div class="noData">
+							<p>등록된 후기가 없습니다.</p>
+						</div> -->
+					</div>
+                </div>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
+<script>
+    let roomli = document.querySelector(".roomli");
+    let reviewli = document.querySelector(".reviewli");
+    let roomtab = document.querySelector(".roomtab");
+    let reviewtab = document.querySelector(".reviewtab");
+
+    roomli.onclick = editStart;
+    reviewli.onclick = editStart;
+
+    function editStart(){
+        if(this == roomli){
+            reviewtab.replaceWith(roomtab);
+            reviewtab.style.display = "none"
+            roomtab.style.display = "block"
+            
+            roomli.classList.toggle("on");
+            reviewli.classList.toggle("on");
+        } else{
+            roomtab.replaceWith(reviewtab);
+            roomtab.style.display = "none";
+            reviewtab.style.display = "block";
+            roomli.classList.toggle("on");
+            reviewli.classList.toggle("on");
+        }
+    }
+</script>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>제주라도 넘어갈까</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소예약</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="#">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<div class="userArea">
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 회원일 때 -->
+                    <ul class="userCon" id="guestUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 관리자일 떄 -->
+                    <ul class="userCon" id="adminUserCon">
+                        <li><a href="#">계정 관리</a></li>
+                        <li><a href="#">비밀번호 관리</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="side_layout">
+			<div class="container">
+				<nav class="sub_menu">
+                    <ul>
+                        <li><a href="../html/mypage.html">내 정보</a></li>
+                        <li><a href="#">포인트</a></li>
+                        <li><a href="../html/delete.html" class="active">회원 탈퇴</a></li>
+                    </ul>
+                </nav>
+                <div class="sub mypage">
+                    <h2>회원 탈퇴</h2>
+                    <ul>
+                        <li>• 현재 사용 중이신 계정 정보의 복구는 불가합니다.</li><br>
+                        <li>• 작성된 글과 댓글은 삭제되지 않습니다.</li><br>
+                        <li>• 수집된 개인 정보는 탈퇴 후 3년간 유지 후 파기됩니다.</li><br>
+                        <li>• 탈퇴하시는 이유를 골라주세요</li>
+                        <span class="inp_radio">
+                            <input type="radio" name="radio" id="radio1_1">
+                            <label for="radio1_1">더 이상 사용할 의사가 없어서</label>
+                        </span>
+                        <span class="inp_radio">
+                            <input type="radio" name="radio" id="radio1_2">
+                            <label for="radio1_2">안전 또는 사생활 보호에 관한 우려가 있어서</label>
+                        </span>
+                        <span class="inp_radio">
+                            <input type="radio" name="radio" id="radio1_3">
+                            <label for="radio1_3">다른 사이트가 더 좋아서</label>
+                        </span>
+                        <span class="inp_radio">
+                            <input type="radio" name="radio" id="radio1_4">
+                            <label for="radio1_4">이용이 불편하고 장애가 많아서</label>
+                        </span>
+                        <span class="inp_radio">
+                            <input type="radio" name="radio" id="radio1_5">
+                            <label for="radio1_5">기타</label>
+                        </span>
+                    </ul>
+                    <div class="delBtn">
+                        <span class="inp_check">
+                            <input type="checkbox" name="chk1" id="chk1_1">
+                            <label for="chk1_1">상기 내용을 확인하였으며 동의합니다.</label>
+                        </span>
+                        <div class="btn_wrap">
+                            <button class="btn btnType2 btnSizeM disabled" id="delBtn" disabled 
+                            onclick="showLayerAlert('그동안 제주라도 이용할까를 이용해주셔서 <br> 감사합니다.');"><span>탈퇴하기</span></button>
+                        </div>
+                        <div id="layer_alert" class="layerPop layerConfirm">
+                            <div class="layerBody">
+                                <div class="btn_wrap">
+                                    <a href="#" class="btn btnType2 btnSizeM"><span>확인</span></a>
+                                    <a href="#" class="btn btnType2 btnSizeM" onclick="hideLayer('layer_alert');return false;"><span>취소</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+			</div>
+		</div>
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

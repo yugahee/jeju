@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>제주라도 넘어갈까</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+
+	<!-- swiper -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+	<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소예약</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="#">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<!-- 로그인 했을 때 -->
+				<div class="userArea nologin">
+					<a href="#" class="btn btnType2 btnSizeS"><span>로그인</span></a>
+					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
+				</div>
+				<div class="userArea" style="display: none">										
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 회원일 때 -->
+                    <ul class="userCon" id="guestUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 관리자일 떄 -->
+                    <ul class="userCon" id="adminUserCon">
+                        <li><a href="#">계정 관리</a></li>
+                        <li><a href="#">비밀번호 관리</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="lodging_detail">
+			<div class="container">
+				<!-- Slider main container -->
+					<div class="swiper">
+						<!-- Additional required wrapper -->
+						<div class="swiper-wrapper">
+							<!-- Slides -->
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소.png">
+							</div>
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소2.png">
+							</div>
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소3.png">
+							</div>
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소4.png">
+							</div>	
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소4.png">
+							</div>				
+							<div class="swiper-slide">
+								<img src="../resources/images/숙소5.png">
+							</div>					
+						</div>
+						
+						<!-- If we need navigation buttons -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>					
+					</div>
+					<script>
+						const swiper = new Swiper('.swiper', {
+							navigation: {
+								nextEl: ".swiper-button-next",
+								prevEl: ".swiper-button-prev",
+								},
+						});
+
+					</script>	
+					<!--숙소 소개 글씨-->
+					<div class="title_text">
+						<span>숙소 소개</span>
+					</div>
+					<!-- 동영상 -->
+					<div class="videoWrap"> 
+						<div class="content"> 
+							<iframe width="956" height="538" src="https://www.youtube.com/embed/bzS-w6D3nGc" 
+							title="YouTube video player" frameborder="0"
+							 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div> 
+					</div>
+					<!-- 숙소소개 설명 -->
+					<p class="room_content content_substr">
+						안녕하세요, 한라산을 넘어오는 숲길의 아름다운 모습들을 눈에 담고 있으면 금방 저희 숙소를 만나실 수 있어요.
+						서귀포의 아름다운 자연 속 조용하고 한적한 분위기를 느끼실 수 있어요, 프라이빗 한 감성은 덤이랍니다!
+						답답하지 않은 층고로 탁 트인 내부와 침실, 복층 테라스까지 매일 아침 한라산의 맑은 공기와 밝은 햇살을 맞이할 수 있는 매력포인트까지
+						느낄 수 있습니다. 맑은 공기와 푸르른 잎들 사이를 거니며 자연에서의 행복을 느껴보세요 
+						마당에서 바비큐 파티를 즐기실 수 있도록 필요한 장비들을 구비해놓았습니다. 
+					</p>
+
+					<p class="room_content content_no_substr" style="display: none;">
+						안녕하세요. 여유가있는 곳 !! 제주도에서 프리미엄 집을 찾고계시진 않나요?
+						<br>
+						저희 집은 고급스러운 주거공간과 조용한 위치에 있는 집으로써 소품하나하나에 정성스럽게 배치해놨답니다:) 
+						<br>
+						만족하실 제주살이를 지낼수있도록 , 호스트가 직접 관리에 신경을 많이 쓰려고 노력했답니다:) 
+						<br>
+						제주시 , 서귀포 중간에 있기때문에 생활하시기 편리한 동선으로 이루어져있습니다.
+					</p>
+
+					<div id="event-star"></div>
+					<button type="button" class="btn-more">숙소 소개 더 보기</button>
+					<!-- <button type="button" class="btn-more closed" style="display: none">숙소 소개 닫기</butto> -->
+					<!--숙소 시설 글씨-->
+					<div class="title_text">
+						<span>숙소 시설</span>
+					</div>
+					<div class="minititle_text">
+						<span>기본</span>
+					</div>
+					<div class="text_group">
+						<ul>
+							<li>숙소종류 : 쓰리룸이상 </li>   <li>건물평수 : 0 </li> 
+							<li>방수 : 3 </li> <li>침대수 : 0 </li> 
+						</ul>
+					</div>
+					<button type="button" class="btn-more">숙소 시설 더 보기</button>
+					<div class="title_text">
+						<span>환불 정책</span>
+					</div>
+
+					<pre>
+
+- 제주라도넘어갈까맨션은 게스트님, 호스트님 간의 안전한 거래를 위해 중재자 역할을 합니다.
+
+- 환불 요청 접수 기준은 당사의 운영시간 내 ‘환불 요청'이 접수된 시간, ‘1:1 채팅상담’에 기록된 시간, ‘환불신청’이 접수된 시간 기준으로 합니다.
+
+- 예약 변경 및 취소를 원하실 경우, 제주라도넘어갈까맨션의 서비스 이용료를 제외한 호스트님의 개별 숙소 환불 정책을 우선 적용합니다.
+
+- 위약금 발생 시 호스트님과 게스트님 간 합의가 있더라도 제주라도넘어갈까맨션의 위약금(총 숙박료의 10%)이 발생합니다.
+
+- 호스트님과 게스트님의 원만한 합의를 우선으로 하며, 합의가 이루어지지 않을 경우 제주라도넘어갈까맨션의 환불 규정에 따릅니다.
+   단, 호스트님 귀책사유로 발생된 모든 환불 건에 대해서 위약금을 지불하셔야 할 수 있습니다.
+
+- 결제 24시간 이후부터 입실 180일 전인 경우 계약금 100% 환불이 가능합니다.
+					</pre>
+					<div class="hostBox">
+						<div class="profileSort">
+							<div class="profile">
+
+							</div>
+						</div>
+						<div class="hostName">
+							<h3>호스트 알리님</h3>
+						</div>
+						<div>
+							<button class="btn btnType1 btnSizeL"><span>호스트에게 연락하기</span></button>
+						</div>
+					</div>
+
+					<div class="tt">
+						<img src="../resources/images/star.png" width="20px" height="20px">
+						<span class="text3">후기 91개</span>
+					</div>
+
+					<div class="review tt">
+						<img src="../resources/images/star.png" width="20px" height="20px">
+						<span class="text3">4.47 후기 30개</span>
+					</div>
+					<div class="reviewBox">
+						<ul class="reviewSort">
+							<li>
+								<div class="userBox">
+									<img src="../resources/images/user.png">
+									<p>
+										<span class="userSize">이상*</span>
+										<span class="reviewDate">2021-01-01</span>
+									</p>
+									<div>
+										<img src="../resources/images/별.png">
+									</div>
+								</div>
+								<p class="reviewContent" id="Greview1">
+									운치있는 단지에 있는 숙소라 그런지 
+									분위기도 좋고 프라이빗했어요~  
+									복층이라 2층이 좀 더울 것 같았는데  
+									에어컨이 다 구비되어 있어서 시원했어요 
+									침대도 푹신해서 잘 때 너무 편안했어요 
+									만족합니다 ㅎㅎ
+								</p>
+							</li>
+							<li>
+								<div class="userBox">
+									<img src="../resources/images/user.png">
+									<p>
+										<span class="userSize">이상*</span>
+										<span class="reviewDate">2021-01-01</span>
+									</p>
+									<div>
+										<img src="../resources/images/별.png">
+									</div>
+								</div>
+								<p class="reviewContent" id="Greview2">
+									운치있는 단지에 있는 숙소라 그런지 
+									분위기도 좋고 프라이빗했어요~  
+									복층이라 2층이 좀 더울 것 같았는데  
+									에어컨이 다 구비되어 있어서 시원했어요 
+									침대도 푹신해서 잘 때 너무 편안했어요 
+									만족합니다 ㅎㅎ
+								</p>
+							</li>
+						</ul>												
+					</div>
+					<!--페이징-->
+					<div class="paging">
+						<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
+						<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+						<a href="#">1</a>
+						<span class="current">2</span>
+						<a href="#">3</a>
+						<a href="#">4</a>
+						<a href="#">5</a>
+						<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+						<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					</div>
+
+			</div>	
+			<div class="box">
+				<div class="boxChild1">
+					<div class="item">
+						<label id="labelCheck">체크인</label>
+						<div class="inp_text inp_margin1">
+							<input class="" type="date" name="checkIn" id="checkIn" />
+						</div>
+					</div>
+					<div class="item">
+						<label id="labelCheckOut">체크아웃</label>
+						<div class="inp_text inp_margin2">
+							<input type="date" name="checkOut" id="checkOut" />
+						</div>
+					</div> 
+				</div>
+				<div class="item">
+					<span>인원</span>
+					<div class="inp_qty inp_margin3 ">
+						<button type="button" onclick="qtyDown(this)" title="인원감소">
+							<img src="../resources/images/common/qty_down.gif" alt="인원감소">
+						</button>
+						<input type="text" title="인원수" value="1">
+						<button type="button" onclick="qtyUp(this)" title="인원증가">
+							<img src="../resources/images/common/qty_up.gif" alt="인워증가">
+						</button>
+					</div>
+				</div>
+				<div class="boxChild3">
+					<div id="won1">예상결제금액:</div>
+					<div id="won2">20000</div>
+				</div>
+				<a href="#" class="btn btnType1 btnSizeL reserve_request"><span>예약 신청</span></a>
+			</div>
+		</div>
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

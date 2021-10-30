@@ -1,0 +1,1512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Style Guide</title>
+<title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="title" content="">
+<link rel="shortcut icon" type="image/x-icon" href="">
+<link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+<script type="text/javascript" src="../resources/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+<script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="../resources/js/ui.js"></script>
+<script>
+$(function(){
+    $('.uinav a').click(function(){
+        var tar = $(this).attr('href');
+        var tarPos = $(tar).offset().top;
+            tarPos = tarPos - $('.uinav').outerHeight();
+        $('html, body').animate({'scrollTop':tarPos}, 300);
+        return false;
+    });
+});
+</script>
+<!-- 이런 식으로 본인만의 css 추가 생성 -->
+<link type="text/css" rel="stylesheet" href="../resources/css/sh.css">
+</head>
+<body>
+<div id="wrap">
+
+<div id="uiwrap" class="uiwrap">
+    <div class="uinav">
+        <a href="#color">color</a>
+        <a href="#conP0">font</a>
+        <a href="#conP1">button</a>
+        <a href="#conP2">checkbox, radiobox</a>
+        <a href="#conP3">selectbox, search</a>
+        <a href="#conP4">form</a>
+        <a href="#conP5">grade</a>
+        <a href="#conP7">tab</a>
+        <a href="#conP8">table</a>
+        <a href="#conP9">filtering</a>
+        <a href="#conP12">paging</a>
+        <a href="#conP14">layer</a>
+        <a href="#conP15">nodata</a>
+    </div>
+    <div id="color" class="conP">
+        <h2>color</h2>
+        <h3>1. PRIMARY COLOR</h3>
+        <div class="colorbox">
+            <div class="box">#ff8b33</div>
+            <div class="box">#999999</div>
+            <div class="box">#024137</div>
+            <div class="box" style="color:#222;">#ffffff</div>
+        </div>
+        <h3>2. BG/LINE COLOR</h3>
+        <div class="colorbox">
+            <div class="box" style="color:#222;">#cccccc</div>
+            <div class="box" style="color:#222;">#eeeeee</div>
+            <div class="box">#ff8b33</div>
+            <div class="box" style="color:#222;">#ffffff</div>
+        </div>
+        <h3>3. FONT COLOR</h3>
+        <div class="colorbox">
+            <div class="box">#101010</div>
+            <div class="box">#555555</div>
+            <div class="box">#ff8b33</div>
+            <div class="box">#d10000</div>
+            <div class="box" style="color:#222;">#ffffff</div>
+        </div>
+    </div>
+    <style>
+    .colorbox div {display:inline-block;width:200px;height:100px;text-align:center;color:#fff;line-height:100px;}
+    </style>
+    <script>
+    $('.colorbox .box').each(function(){
+        var colorcode = $(this).text();
+        $(this).css('background',colorcode);
+    });
+    </script>
+    <div id="conP0" class="conP">
+        <h2>font</h2>
+        <h3>폰트</h3>
+        <p class="note">Noto Sans KR을 사용하며, 폰트 굵기는 font-weight로 구분한다. <br /> 기본설정은 <span style="text-decoration:underline;">font-weight:400</span></p>
+        <div class="txt" style="font-weight:700;">
+            <p class="Medium" style="font-weight:700">Noto Sans KR - BOLD - font-weight:700
+                <span style="font-weight:700">
+                    가나다라마바사아자차카타파하<br />
+                    0123456789
+                </span>
+            </p>
+            <p style="font-weight:400;">Noto Sans KR - NORMAL - font-weight:400
+                <span style="font-weight:400;">
+                    가나다라마바사아자차카타파하<br />
+                    0123456789
+                </span>
+            </p>
+        </div>
+        <h3>가격 표시</h3>
+        <p class="note">화폐단위는 :after로 통합관리하며, 금액이 아닌 경우 nm 클래스 추가.</p>
+        <div class="price">
+            <span class="cost">10,987</span>
+            <span class="cost"><span class="normal">1,000</span> 10,987</span>
+            <span class="cost nm">20%</span>
+            <span class="cost nm"><span class="normal">30%</span> 20%</span>
+        </div>
+        <div class="price">
+            <span class="cost type2">10,987</span>
+            <span class="cost type2"><span class="normal">1,000</span> 10,987</span>
+            <span class="cost type2 nm">20%</span>
+            <span class="cost type2 nm"><span class="normal">30%</span> 20%</span>
+        </div>
+        <xmp>
+            <span class="cost">10,987</span>
+            <span class="cost"><span class="normal">1,000</span> 10,987</span>
+            <span class="cost nm">20%</span>
+            <span class="cost nm"><span class="normal">30%</span> 20%</span>
+            <span class="cost type2">10,987</span>
+            <span class="cost type2"><span class="normal">1,000</span> 10,987</span>
+            <span class="cost type2 nm">20%</span>
+            <span class="cost type2 nm"><span class="normal">30%</span> 20%</span>
+        </xmp>
+    </div>
+    <style>
+    #conP0 .txt {padding:30px 20px;font-size:30px;line-height:30px;color:#222;}
+    #conP0 .txt p span {display:block;font-size:20px;line-height:24px;}
+    #conP0 .txt p:last-child {margin-top:20px;}
+    #conP0 .price .cost {margin-right:15px;}
+    </style>
+    <div id="conP1" class="conP">
+        <h2>button</h2>
+        <h3>Type1. 버튼</h3>
+        <div class="btn_wrap">
+            <a href="#" class="btn btnType1 btnSizeL"><span>링크L</span></a>
+            <a href="#" class="btn btnType1 btnSizeL disabled"><span>링크비활성화</span></a>
+            <a href="#" class="btn btnType1 btnSizeM"><span>링크M</span></a>
+            <a href="#" class="btn btnType1 btnSizeM"><span class="arr-right">링크M-arr</span></a>
+            <a href="#" class="btn btnType1 btnSizeS"><span>링크S</span></a>
+            <a href="#" class="btn btnType1 btnSizeS"><span class="arr-right">링크S-arr</span></a>
+        </div>
+        <div class="btn_wrap">
+            <button class="btn btnType1 btnSizeL"><span>버튼L</span></button>
+            <button class="btn btnType1 btnSizeL disabled"><span>버튼비활성화</span></button>
+            <button class="btn btnType1 btnSizeM"><span>버튼M</span></button>
+            <button class="btn btnType1 btnSizeM"><span class="arr-right">버튼M-arr</span></button>
+            <button class="btn btnType1 btnSizeS"><span>버튼S</span></button>
+            <button class="btn btnType1 btnSizeS"><span class="arr-right">버튼S-arr</span></button>
+        </div>
+        <xmp>            
+            <div class="btn_wrap">
+                <a href="#" class="btn btnType1 btnSizeL"><span>링크L</span></a>
+                <a href="#" class="btn btnType1 btnSizeL disabled"><span>링크비활성화</span></a>
+                <a href="#" class="btn btnType1 btnSizeM"><span>링크M</span></a>
+                <a href="#" class="btn btnType1 btnSizeM"><span class="arr-right">링크M-arr</span></a>
+                <a href="#" class="btn btnType1 btnSizeS"><span>링크S</span></a>
+                <a href="#" class="btn btnType1 btnSizeS"><span class="arr-right">링크S-arr</span></a>
+            </div>
+            <div class="btn_wrap">
+                <button class="btn btnType1 btnSizeL"><span>버튼L</span></button>
+                <button class="btn btnType1 btnSizeL disabled"><span>버튼비활성화</span></button>
+                <button class="btn btnType1 btnSizeM"><span>버튼M</span></button>
+                <button class="btn btnType1 btnSizeM"><span class="arr-right">버튼M-arr</span></button>
+                <button class="btn btnType1 btnSizeS"><span>버튼S</span></button>
+                <button class="btn btnType1 btnSizeS"><span class="arr-right">버튼S-arr</span></button>
+            </div>
+        </xmp>
+        <h3>Type2. 취소</h3>
+        <div class="btn_wrap">
+            <a href="#" class="btn btnType2 btnSizeL"><span>링크L</span></a>
+                <a href="#" class="btn btnType2 btnSizeL"><span class="arr-right">링크L</span></a>
+            <a href="#" class="btn btnType2 btnSizeL disabled"><span>링크비활성화</span></a>
+            <a href="#" class="btn btnType2 btnSizeM"><span>링크M</span></a>
+            <a href="#" class="btn btnType2 btnSizeM"><span class="arr-right">링크M-arr</span></a>
+            <a href="#" class="btn btnType2 btnSizeS"><span>링크S</span></a>
+            <a href="#" class="btn btnType2 btnSizeS"><span class="arr-right">링크S-arr</span></a>
+        </div>
+        <div class="btn_wrap">
+            <button class="btn btnType2 btnSizeL"><span>버튼L</span></button>
+            <button class="btn btnType2 btnSizeL disabled"><span>버튼비활성화</span></button>
+            <button class="btn btnType2 btnSizeM"><span>버튼M</span></button>
+            <button class="btn btnType2 btnSizeM"><span class="arr-right">버튼M-arr</span></button>
+            <button class="btn btnType2 btnSizeS"><span>버튼S</span></button>
+            <button class="btn btnType2 btnSizeS"><span class="arr-right">버튼S-arr</span></button>
+        </div>
+        <xmp>            
+            <div class="btn_wrap">
+                <a href="#" class="btn btnType2 btnSizeL"><span>링크L</span></a>
+                <a href="#" class="btn btnType2 btnSizeL disabled"><span>링크비활성화</span></a>
+                <a href="#" class="btn btnType2 btnSizeM"><span>링크M</span></a>
+                <a href="#" class="btn btnType2 btnSizeM"><span class="arr-right">링크M-arr</span></a>
+                <a href="#" class="btn btnType2 btnSizeS"><span>링크S</span></a>
+                <a href="#" class="btn btnType2 btnSizeS"><span class="arr-right">링크S-arr</span></a>
+            </div>
+            <div class="btn_wrap">
+                <button class="btn btnType2 btnSizeL"><span>버튼L</span></button>
+                <button class="btn btnType2 btnSizeL disabled"><span>버튼비활성화</span></button>
+                <button class="btn btnType2 btnSizeM"><span>버튼M</span></button>
+                <button class="btn btnType2 btnSizeM"><span class="arr-right">버튼M-arr</span></button>
+                <button class="btn btnType2 btnSizeS"><span>버튼S</span></button>
+                <button class="btn btnType2 btnSizeS"><span class="arr-right">버튼S-arr</span></button>
+            </div>
+        </xmp>
+        <h3>Type3. 아이콘</h3>
+        <div class="btn_wrap">
+            <button class="btn_viewAll">전체보기</button>
+            <a href="#" class="btnTypeIcon btn_modify">수정</a>
+            <a href="#" class="btnTypeIcon btn_delete">삭제</a>
+            <a href="#" class="btnTypeIcon btn_cancel">수정취소</a>
+        </div>
+        <xmp>            
+            <div class="btn_wrap">
+                <button class="btn_viewAll">전체보기</button>
+                <a href="#" class="btnTypeIcon btn_modify">수정</a>
+                <a href="#" class="btnTypeIcon btn_delete">삭제</a>
+                <a href="#" class="btnTypeIcon btn_cancel">수정취소</a>
+            </div>
+        </xmp>
+    </div>
+    <style>
+        #conP1 .btn_wrap {margin-top:10px;}
+        /*.btn_wrap > a,
+        .btn_wrap > span,
+        .btn_wrap > button {margin-right:80px;}*/
+    </style>
+    <div id="conP2" class="conP">
+        <h2>checkbox, radiobox</h2>
+        <h3>checkbox</h3>
+        <div>
+            <span class="inp_check">
+                <input type="checkbox" name="chk1" id="chk1_1">
+                <label for="chk1_1">chk1</label>
+            </span>
+            <span class="inp_check checked">
+                <input type="checkbox" name="chk1" id="chk1_2" checked="checked">
+                <label for="chk1_2">chk2</label>
+            </span>
+            <span class="inp_check readOnly">
+                <input type="checkbox" name="chk1" id="chk1_3" readonly>
+                <label for="chk1_3">chk3</label>
+            </span>
+            <span class="inp_check checked readOnly">
+                <input type="checkbox" name="chk1" id="chk1_4" checked="checked" readonly>
+                <label for="chk1_4">chk4</label>
+            </span>
+            <span class="inp_check disabled">
+                <input type="checkbox" name="chk1" id="chk1_5" disabled>
+                <label for="chk1_5">chk5</label>
+            </span>
+        </div>
+        <xmp>
+            <span class="inp_check">
+                <input type="checkbox" name="chk1" id="chk1_1">
+                <label for="chk1_1">chk1</label>
+            </span>
+            <span class="inp_check checked">
+                <input type="checkbox" name="chk1" id="chk1_2" checked="checked">
+                <label for="chk1_2">chk2</label>
+            </span>
+            <span class="inp_check readOnly">
+                <input type="checkbox" name="chk1" id="chk1_3" readonly>
+                <label for="chk1_3">chk3</label>
+            </span>
+            <span class="inp_check checked readOnly">
+                <input type="checkbox" name="chk1" id="chk1_4" checked="checked" readonly>
+                <label for="chk1_4">chk4</label>
+            </span>
+            <span class="inp_check disabled">
+                <input type="checkbox" name="chk1" id="chk1_5" disabled>
+                <label for="chk1_5">chk5</label>
+            </span>
+        </xmp>
+        <h3>radiobox</h3>
+        <div>
+            <span class="inp_radio">
+                <input type="radio" name="radio1" id="radio1_1">
+                <label for="radio1_1">radio1</label>
+            </span>
+            <span class="inp_radio checked">
+                <input type="radio" name="radio1" id="radio1_2" checked="checked">
+                <label for="radio1_2">radio2</label>
+            </span>
+        </div>
+        <div>
+            <span class="inp_radio readOnly">
+                <input type="radio" name="radio2" id="radio2_3" readonly>
+                <label for="radio2_3">radio3</label>
+            </span>
+            <span class="inp_radio checked readOnly">
+                <input type="radio" name="radio2" id="radio2_4" checked="checked" readonly>
+                <label for="radio2_4">radio4</label>
+            </span>
+            <span class="inp_radio disabled">
+                <input type="radio" name="radio2" id="radio2_5" disabled>
+                <label for="radio2_5">radio5</label>
+            </span>
+        </div>
+        <xmp>
+            <span class="inp_radio">
+                <input type="radio" name="radio1" id="radio1_1">
+                <label for="radio1_1">radio1</label>
+            </span>
+            <span class="inp_radio checked">
+                <input type="radio" name="radio1" id="radio1_2" checked="checked">
+                <label for="radio1_2">radio2</label>
+            </span>
+        </div>
+        <div>
+            <span class="inp_radio readOnly">
+                <input type="radio" name="radio2" id="radio2_3" readonly>
+                <label for="radio2_3">radio3</label>
+            </span>
+            <span class="inp_radio checked readOnly">
+                <input type="radio" name="radio2" id="radio2_4" checked="checked" readonly>
+                <label for="radio2_4">radio4</label>
+            </span>
+            <span class="inp_radio disabled">
+                <input type="radio" name="radio2" id="radio2_5" disabled>
+                <label for="radio2_5">radio5</label>
+            </span>
+        </xmp>
+    </div>
+    <div id="conP3" class="conP">
+        <h2>selectbox, search</h2>
+        <h3>selectbox</h3>
+        <div class="selectbox">
+            <button class="title" type="button" title="검색옵션 선택">옵션을 선택하세요.</button>
+            <ul class="selList">
+                <li>
+                    <input type="radio" value="" class="option" id="sel1_1" name="select1" />
+                    <label for="sel1_1">01. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel1_2" name="select1" />
+                    <label for="sel1_2">02. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel1_3" name="select1" />
+                    <label for="sel1_3">03. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel1_4" name="select1">
+                    <label for="sel1_4">04. OPTION</label>
+                </li>
+            </ul>
+        </div>
+        <div class="selectbox disabled">
+            <button class="title" type="button" title="검색옵션 선택">옵션을 선택하세요.</button>
+            <ul class="selList">
+                <li>
+                    <input type="radio" value="" class="option" id="sel2_1" name="select2" />
+                    <label for="sel2_1">01. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel2_2" name="select2" />
+                    <label for="sel2_2">02. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel2_3" name="select2" />
+                    <label for="sel2_3">03. OPTION</label>
+                </li>
+                <li>
+                    <input type="radio" value="" class="option" id="sel2_4" name="select2">
+                    <label for="sel2_4">04. OPTION</label>
+                </li>
+            </ul>
+        </div>
+        <xmp>            
+            <div class="selectbox">
+                <button class="title" type="button" title="검색옵션 선택">옵션을 선택하세요.</button>
+                <ul class="selList">
+                    <li>
+                        <input type="radio" value="" class="option" id="sel1_1" name="select1" />
+                        <label for="sel1_1">01. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel1_2" name="select1" />
+                        <label for="sel1_2">02. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel1_3" name="select1" />
+                        <label for="sel1_3">03. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel1_4" name="select1">
+                        <label for="sel1_4">04. OPTION</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="selectbox disabled">
+                <button class="title" type="button" title="검색옵션 선택">옵션을 선택하세요.</button>
+                <ul class="selList">
+                    <li>
+                        <input type="radio" value="" class="option" id="sel2_1" name="select2" />
+                        <label for="sel2_1">01. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel2_2" name="select2" />
+                        <label for="sel2_2">02. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel2_3" name="select2" />
+                        <label for="sel2_3">03. OPTION</label>
+                    </li>
+                    <li>
+                        <input type="radio" value="" class="option" id="sel2_4" name="select2">
+                        <label for="sel2_4">04. OPTION</label>
+                    </li>
+                </ul>
+            </div>
+        </xmp>
+        <h3>search</h3>
+		<div style="max-width:980px">
+			<div class="listTotal">
+				<p class="totalCnt">총 32,000건</p>
+				<div class="sortArea">
+					<div class="inp_text search">
+						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
+						<a href="#" class="btn_sch">검색</a>
+					</div>
+				</div>
+			</div>
+		</div>
+        <xmp>
+            <div class="listTotal">
+                <p class="totalCnt">총 32,000건</p>
+                <div class="sortArea">
+                    <div class="inp_text search">
+                        <input type="text" name="" id="" placeholder="검색어를 입력하세요">
+                        <a href="#" class="btn_sch">검색</a>
+                    </div>
+                </div>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP4" class="conP">
+        <h2>form</h2>
+        <h3>제품수량조절</h3>
+        <div>
+            <div class="inp_qty">
+                <button type="button" onclick="qtyDown(this)" title="수량감소">
+                    <img src="../resources/images/common/qty_down.gif" alt="수량감소">
+                </button>
+                <input type="text" title="선택품목갯수" value="1">
+                <button type="button" onclick="qtyUp(this)" title="수량추가">
+                    <img src="../resources/images/common/qty_up.gif" alt="수량추가">
+                </button>
+            </div>
+            <div class="inp_qty readOnly">
+                <button type="button" onclick="qtyDown(this)" title="수량감소">
+                    <img src="../resources/images/common/qty_down.gif" alt="수량감소">
+                </button>
+                <input type="text" title="선택품목갯수" value="1" readonly>
+                <button type="button" onclick="qtyUp(this)" title="수량추가">
+                    <img src="../resources/images/common/qty_up.gif" alt="수량추가">
+                </button>
+            </div>
+        </div>
+        <xmp>            
+            <div class="inp_qty">
+                <button type="button" onclick="qtyDown(this)" title="수량감소">
+                    <img src="../resources/images/common/qty_down.gif" alt="수량감소">
+                </button>
+                <input type="text" title="선택품목갯수" value="1">
+                <button type="button" onclick="qtyUp(this)" title="수량추가">
+                    <img src="../resources/images/common/qty_up.gif" alt="수량추가">
+                </button>
+            </div>
+            <div class="inp_qty readOnly">
+                <button type="button" onclick="qtyDown(this)" title="수량감소">
+                    <img src="../resources/images/common/qty_down.gif" alt="수량감소">
+                </button>
+                <input type="text" title="선택품목갯수" value="1" readonly>
+                <button type="button" onclick="qtyUp(this)" title="수량추가">
+                    <img src="../resources/images/common/qty_up.gif" alt="수량추가">
+                </button>
+            </div>
+        </xmp>
+        <h3>input text</h3>
+        <div>
+            <div class="inp_text">
+                <input type="text" name="" id="" value="123" />
+            </div>
+            <div class="inp_text">
+                <input type="text" name="" id="" class="readOnly" value="비활성화" readonly />
+            </div>
+            <div class="inp_text inp_error">
+                <input type="text" name="" id="" class="error" />
+            </div>
+            <p class="error">error error error 에러 메세지</p>
+        </div>
+        <xmp>            
+            <div class="inp_text">
+                <input type="text" name="" id="" />
+            </div>
+            <div class="inp_text">
+                <input type="text" name="" id="" class="readOnly" readonly />
+            </div>
+            <div class="inp_text inp_error">
+                <input type="text" name="" id="" class="error" />
+            </div>
+            <p class="error">error error error 에러 메세지</p>
+        </xmp>
+        <h3>텍스트상자</h3>
+        <div class="textbox">
+            <textarea placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+            <span class="charCnt"><em>0</em>/200</span>
+        </div>
+        <div class="textbox">
+            <textarea class="readOnly" readonly placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+            <span class="charCnt"><em>0</em>/200</span>
+        </div>
+        <div class="textbox">
+            <textarea class="error" placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+            <span class="charCnt"><em>0</em>/200</span>
+        </div>
+        <xmp>            
+            <div class="textbox">
+                <textarea placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+                <span class="charCnt"><em>0</em>/200</span>
+            </div>
+            <div class="textbox">
+                <textarea class="readOnly" readonly placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+                <span class="charCnt"><em>0</em>/200</span>
+            </div>
+            <div class="textbox">
+                <textarea class="error" placeholder="상품 후기 내용을 입력해 주세요"></textarea>
+                <span class="charCnt"><em>0</em>/200</span>
+            </div>
+        </xmp>
+    </div>
+    <style>
+    #conP4 > div {margin-top:20px;}
+    </style>
+    <div id="conP5" class="conP">
+        <h2>grade</h2>
+		<h3>리스트 일반</h3>
+		<div class="rating_star">
+			<span class="starPoint p5">5</span><br />
+			<span class="starPoint p4">4</span><br />
+			<span class="starPoint p3">3</span><br />
+			<span class="starPoint p2">2</span><br />
+			<span class="starPoint p1">1</span><br />
+			<span class="starPoint p0">0</span><br />
+		</div>
+<xmp>
+	<div class="rating_star">
+		<span class="starPoint p5">5</span>
+		<span class="starPoint p4">4</span>
+		<span class="starPoint p3">3</span>
+		<span class="starPoint p2">2</span>
+		<span class="starPoint p1">1</span>
+		<span class="starPoint p0">0</span>
+	</div>
+
+</xmp>
+		<h3>후기쓰기 - 별점부여</h3>
+		<div class="rating_star_large">
+			<div class="pointArea">
+				<span class="pointBg">이 제품은 <em>5</em>점입니다.</span>
+				<span class="starPoint p2">
+					<button>1점 선택</button>
+					<button>2점 선택</button>
+					<button>3점 선택</button>
+					<button>4점 선택</button>
+					<button>5점 선택</button>
+				</span>
+			</div>
+		</div>
+
+<xmp>
+	<div class="rating_star_large">
+		<div class="pointArea">
+			<span class="pointBg">이 제품은 <em>5</em>점입니다.</span>
+			<span class="starPoint p2">
+				<button>1점 선택</button>
+				<button>2점 선택</button>
+				<button>3점 선택</button>
+				<button>4점 선택</button>
+				<button>5점 선택</button>
+			</span>
+		</div>
+	</div>
+
+</xmp>
+
+    </div>
+    <div id="conP7" class="conP">
+        <h2>tab</h2>
+        <h3>탭스타일1</h3>
+        <div class="tabType1">
+            <ul>
+                <li class="on"><a href="#">진행중인 이벤트</a></li>
+                <li><a href="#">당첨자 발표</a></li>
+                <li><a href="#">종료된 이벤트</a></li>
+            </ul>
+        </div>
+        <xmp>            
+            <div class="tabType1">
+                <ul>
+                    <li class="on"><a href="#">진행중인 이벤트</a></li>
+                    <li><a href="#">당첨자 발표</a></li>
+                    <li><a href="#">종료된 이벤트</a></li>
+                </ul>
+            </div>
+        </xmp>
+        <div class="tabType1 al_c">
+            <ul>
+                <li class="on"><a href="#">진행중인 이벤트</a></li>
+                <li><a href="#">당첨자 발표</a></li>
+                <li><a href="#">종료된 이벤트</a></li>
+            </ul>
+        </div>
+        <xmp>
+            <div class="tabType1 al_c">
+                <ul>
+                    <li class="on"><a href="#">진행중인 이벤트</a></li>
+                    <li><a href="#">당첨자 발표</a></li>
+                    <li><a href="#">종료된 이벤트</a></li>
+                </ul>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP8" class="conP">
+        <h2>table</h2>
+        <h3>tblType1</h3>
+        <div class="tblType1">
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col style="width:15%">
+                    <col style="width:*">
+                    <col style="width:40%">
+                    <col style="width:50px">
+                </colgroup>
+                <thead class="blind">
+                    <th>쿠폰종류</th>
+                    <th>쿠폰명</th>
+                    <th>쿠폰혜택</th>
+                    <th>쿠폰삭제</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="cp_cate">
+                                장바구니 쿠폰
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cp_txt">
+                                앱 사전등록 1,000원 할인 쿠폰
+                                <span class="cp_pdt">더 마스크 라인 전체</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cp_price">
+                                <span class="won">-1,000won</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn_wrap">
+                                <button class="btnTypeIcon btn_delete"><span class="blind">삭제</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="cp_cate">
+                                상품 쿠폰
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cp_txt">
+                                상품 1+1 쿠폰
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cp_price">더마클리어 마이크로폼 증정</div>
+                        </td>
+                        <td>
+                            <div class="btn_wrap">
+                                <button class="btnTypeIcon btn_delete"><span class="blind">삭제</span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <xmp>                
+            <div class="tblType1">
+                <table>
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:*">
+                        <col style="width:40%">
+                        <col style="width:50px">
+                    </colgroup>
+                    <thead class="blind">
+                        <th>쿠폰종류</th>
+                        <th>쿠폰명</th>
+                        <th>쿠폰혜택</th>
+                        <th>쿠폰삭제</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="cp_cate">
+                                    장바구니 쿠폰
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cp_txt">
+                                    앱 사전등록 1,000원 할인 쿠폰
+                                    <span class="cp_pdt">더 마스크 라인 전체</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cp_price">
+                                    <span class="won">-1,000won</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn_wrap">
+                                    <button class="btnTypeIcon btn_delete"><span class="blind">삭제</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="cp_cate">
+                                    상품 쿠폰
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cp_txt">
+                                    상품 1+1 쿠폰
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cp_price">더마클리어 마이크로폼 증정</div>
+                            </td>
+                            <td>
+                                <div class="btn_wrap">
+                                    <button class="btnTypeIcon btn_delete"><span class="blind">삭제</span></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xmp>
+
+        <h3>tblType2</h3>
+        <div class="tblType2 noBorder">
+            <table>
+                <caption></caption>
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="width:*;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>카드종류</th>
+                        <td>개인</td>
+                    </tr>
+                    <tr>
+                        <th>카드정보</th>
+                        <td>6546-****-****-2312</td>
+                    </tr>
+                    <tr>
+                        <th>대표카드</th>
+                        <td>
+                            <span class="inp_radio checked">
+                                <input type="radio" name="radio2" id="radio2_1" checked="checked">
+                                <label for="radio2_1">지정</label>
+                            </span>
+                            <span class="inp_radio">
+                                <input type="radio" name="radio2" id="radio2_2">
+                                <label for="radio2_2">미지정</label>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="va_m">카드명</th>
+                        <td>
+                            <div class="inp_text">
+                                <input type="text" name="" id="" placeholder="카드 정보를 구별할 수 있는 별칭을 적어주세요.">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="tbl_sub">
+            <li>이 주문 상품은 결제완료 시점에서 2일에서 3영업일 이내 배송이 되며 도서산간 및 행사 시 지연될 수 있습니다.</li>
+        </ul>
+        <xmp>            
+            <div class="tblType2 noBorder">
+                <table>
+                    <caption></caption>
+                    <colgroup>
+                        <col style="width:20%;">
+                        <col style="width:*;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>카드종류</th>
+                            <td>개인</td>
+                        </tr>
+                        <tr>
+                            <th>카드정보</th>
+                            <td>6546-****-****-2312</td>
+                        </tr>
+                        <tr>
+                            <th>대표카드</th>
+                            <td>
+                                <span class="inp_radio checked">
+                                    <input type="radio" name="radio2" id="radio2_1" checked="checked">
+                                    <label for="radio2_1">지정</label>
+                                </span>
+                                <span class="inp_radio">
+                                    <input type="radio" name="radio2" id="radio2_2">
+                                    <label for="radio2_2">미지정</label>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="va_m">카드명</th>
+                            <td>
+                                <div class="inp_text">
+                                    <input type="text" name="" id="" placeholder="카드 정보를 구별할 수 있는 별칭을 적어주세요.">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="tbl_sub">
+                <li>이 주문 상품은 결제완료 시점에서 2일에서 3영업일 이내 배송이 되며 도서산간 및 행사 시 지연될 수 있습니다.</li>
+            </ul>
+        </xmp>
+
+        <h3>tblType3</h3>
+		<div class="tblType3 noBorT noBorB">
+			<table summary="목록">
+				<caption>목록</caption>
+				<colgroup>
+					<col style="width:9.2%">
+					<col style="width:*">
+					<col style="width:13.8%">
+					<col style="width:13.8%">
+					<col style="width:9.2%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>NO</th>
+						<th>제목</th>
+						<th>ID</th>
+						<th>작성일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+                    <tr>
+                        <td>2</td>
+                        <td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>굳</a></td>
+                        <td>4re****</td>
+                        <td>2017.06.05</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>잘받았습니다</a></td>
+                        <td>4re****</td>
+                        <td>2017.06.05</td>
+                        <td>52</td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+		<xmp>
+            <div class="tblType3 noBorT noBorB boardList">
+            	<table summary="이벤트 후기 목록">
+            		<caption>이벤트 후기 목록</caption>
+            		<colgroup>
+            			<col style="width:9.2%">
+            			<col style="width:*">
+            			<col style="width:13.8%">
+            			<col style="width:13.8%">
+            			<col style="width:9.2%">
+            		</colgroup>
+            		<thead>
+            			<tr>
+            				<th>NO</th>
+            				<th>제목</th>
+            				<th>ID</th>
+            				<th>작성일</th>
+            				<th>조회수</th>
+            			</tr>
+            		</thead>
+            		<tbody>
+            			<tr>
+            				<td>2</td>
+            				<td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>굳</a></td>
+            				<td>4re****</td>
+            				<td>2017.06.05</td>
+            				<td>100</td>
+            			</tr>
+            			<tr>
+            				<td>1</td>
+            				<td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>잘받았습니다</a></td>
+            				<td>4re****</td>
+            				<td>2017.06.05</td>
+            				<td>52</td>
+            			</tr>
+            		</tbody>
+            	</table>
+            </div>
+		</xmp>
+
+        <h3>tblType_form</h3>
+        <div class="tblType_form">
+            <table width="100%">
+                <colgroup>
+                    <col style="width:21%;">
+                    <col style="width:*;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>최근 배송지</th>
+                        <td>
+                            <div class="recently_deli">
+                                <div class="selectbox disabled">
+                                    <button class="title" type="button">박루리 : (139-752) 서울특별시 노원구 상계동 동일로 2길 주공아파트 206동 201호</button>
+                                    <ul class="selList">
+                                        <li>
+                                            <input type="radio" value="" class="option" id="select_tel1" name="select_tel" />
+                                            <label for="select_tel1">010</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="select_tel2" name="select_tel" />
+                                            <label for="select_tel2">011</label>
+                                        </li>
+                                    </ul>
+                                </div>                              
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>받으시는 분</th>
+                        <td>
+                            <div class="inp_text inp_cell">
+                                <input type="text" name="" id="" value="박루리" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>휴대전화</th>
+                        <td>
+                            <div class="inp_text inp_tel">
+                                <span class="tel_box">
+                                    <div class="selectbox">
+                                        <button class="title" type="button" title="검색옵션 선택">010</button>
+                                        <ul class="selList">
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_tel1" name="select_tel" />
+                                                <label for="select_tel1">010</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_tel2" name="select_tel" />
+                                                <label for="select_tel2">011</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </span>
+                                <span class="tel_bar">-</span>
+                                <span class="tel_box"><input type="text" name="" id="" value="1234" /></span>
+                                <span class="tel_bar">-</span>
+                                <span class="tel_box"><input type="text" name="" id="" value="5678" /></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td>
+                            <div class="inp_addr">
+                                <div class="addr_post">
+                                    <div class="inp_text">
+                                        <input type="text" name="" id="" value="139-752" />
+                                    </div>
+                                    <div class="btn_wrap">
+                                        <button class="btn btnType2 btnSizeM"><span>우편번호검색</span></button>
+                                    </div>
+                                </div>
+                                <div class="addr_detail">
+                                    <div class="inp_text">
+                                        <input type="text" name="" id="" value="서울특별시 노원구 상계동 동일로 2길 주공 아파트" />
+                                    </div>
+                                </div>
+                                <div class="addr_detail">
+                                    <div class="inp_text">
+                                        <input type="text" name="" id="" value="206동 201호" />
+                                    </div>
+                                </div>
+                                <div class="inp_check">
+                                    <input type="checkbox" name="chk1" id="chk1_1">
+                                    <label for="chk1_1">기본 배송지로 저장</label>
+                                </div>
+                            </div>
+                            <div class="btn_wrap al_r">
+                                <a href="#" class="btn btnType2 btnSizeM"><span>확인</span></a>
+                                <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="borderT">
+                        <th>배송시 요청사항</th>
+                        <td>
+                            <div class="deli_msg">
+                                <div class="selectbox">
+                                    <button class="title" type="button" title="배송메세지 선택">메시지를 선택해 주세요</button>
+                                    <ul class="selList">
+                                        <li>
+                                            <input type="radio" value="" class="option" id="select_msg1" name="select_msg" />
+                                            <label for="select_msg1">배송 전에 연락주세요.</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="select_msg2" name="select_msg" />
+                                            <label for="select_msg2">부재시 경비실에 맡겨주세요.</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="" class="option" id="select_msg3" name="select_msg" />
+                                            <label for="select_msg3">직접입력</label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="inp_text">
+                                    <input type="text" name="" id="">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <xmp>
+            <div class="tblType_form">
+                <table width="100%">
+                    <colgroup>
+                        <col style="width:21%;">
+                        <col style="width:*;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>최근 배송지</th>
+                            <td>
+                                <div class="recently_deli">
+                                    <div class="selectbox disabled">
+                                        <button class="title" type="button">박루리 : (139-752) 서울특별시 노원구 상계동 동일로 2길 주공아파트 206동 201호</button>
+                                        <ul class="selList">
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_tel1" name="select_tel" />
+                                                <label for="select_tel1">010</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_tel2" name="select_tel" />
+                                                <label for="select_tel2">011</label>
+                                            </li>
+                                        </ul>
+                                    </div>                              
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>받으시는 분</th>
+                            <td>
+                                <div class="inp_text inp_cell">
+                                    <input type="text" name="" id="" value="박루리" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>휴대전화</th>
+                            <td>
+                                <div class="inp_text inp_tel">
+                                    <span class="tel_box">
+                                        <div class="selectbox">
+                                            <button class="title" type="button" title="검색옵션 선택">010</button>
+                                            <ul class="selList">
+                                                <li>
+                                                    <input type="radio" value="" class="option" id="select_tel1" name="select_tel" />
+                                                    <label for="select_tel1">010</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" value="" class="option" id="select_tel2" name="select_tel" />
+                                                    <label for="select_tel2">011</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </span>
+                                    <span class="tel_bar">-</span>
+                                    <span class="tel_box"><input type="text" name="" id="" value="1234" /></span>
+                                    <span class="tel_bar">-</span>
+                                    <span class="tel_box"><input type="text" name="" id="" value="5678" /></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                                <div class="inp_addr">
+                                    <div class="addr_post">
+                                        <div class="inp_text">
+                                            <input type="text" name="" id="" value="139-752" />
+                                        </div>
+                                        <div class="btn_wrap">
+                                            <button class="btn btnType2 btnSizeM"><span>우편번호검색</span></button>
+                                        </div>
+                                    </div>
+                                    <div class="addr_detail">
+                                        <div class="inp_text">
+                                            <input type="text" name="" id="" value="서울특별시 노원구 상계동 동일로 2길 주공 아파트" />
+                                        </div>
+                                    </div>
+                                    <div class="addr_detail">
+                                        <div class="inp_text">
+                                            <input type="text" name="" id="" value="206동 201호" />
+                                        </div>
+                                    </div>
+                                    <div class="inp_check">
+                                        <input type="checkbox" name="chk1" id="chk1_1">
+                                        <label for="chk1_1">기본 배송지로 저장</label>
+                                    </div>
+                                </div>
+                                <div class="btn_wrap al_r">
+                                    <a href="#" class="btn btnType2 btnSizeM"><span>확인</span></a>
+                                    <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="borderT">
+                            <th>배송시 요청사항</th>
+                            <td>
+                                <div class="deli_msg">
+                                    <div class="selectbox">
+                                        <button class="title" type="button" title="배송메세지 선택">메시지를 선택해 주세요</button>
+                                        <ul class="selList">
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_msg1" name="select_msg" />
+                                                <label for="select_msg1">배송 전에 연락주세요.</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_msg2" name="select_msg" />
+                                                <label for="select_msg2">부재시 경비실에 맡겨주세요.</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" value="" class="option" id="select_msg3" name="select_msg" />
+                                                <label for="select_msg3">직접입력</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="inp_text">
+                                        <input type="text" name="" id="">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP9" class="conP">
+        <h2>filtering</h2>
+		<div style="max-width:980px">
+			<div class="listTotal">
+				<p class="totalCnt">총 32,000건</p>
+				<div class="sortArea">
+					<div class="inp_text search">
+						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
+						<a href="#" class="btn_sch">검색</a>
+					</div>
+					<div class="selectbox">
+						<button class="title" type="button" title="검색옵션 선택">최신 리뷰순</button>
+						<ul class="selList" style="max-height: 0px; display: none;">
+							<li>
+								<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
+								<label for="sel1_1">최신 리뷰순</label>
+							</li>
+							<li>
+								<input type="radio" value="" class="option" id="sel1_2" name="select1">
+								<label for="sel1_2">리뷰 많은순</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+        <xmp>
+            <div class="listTotal">
+                <p class="totalCnt">총 32,000건</p>
+                <div class="sortArea">
+                    <div class="inp_text search">
+                        <input type="text" name="" id="" placeholder="검색어를 입력하세요">
+                        <a href="#" class="btn_sch">검색</a>
+                    </div>
+                    <div class="selectbox">
+                        <button class="title" type="button" title="검색옵션 선택">최신 리뷰순</button>
+                        <ul class="selList" style="max-height: 0px; display: none;">
+                            <li>
+                                <input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
+                                <label for="sel1_1">최신 리뷰순</label>
+                            </li>
+                            <li>
+                                <input type="radio" value="" class="option" id="sel1_2" name="select1">
+                                <label for="sel1_2">리뷰 많은순</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP12" class="conP">
+        <h2>paging</h2>
+        <div class="paging">
+            <span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
+            <span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+            <a href="#">1</a>
+            <span class="current">2</span>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+            <span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+        </div>
+        <xmp>
+            <div class="paging">
+                <span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
+                <span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+                <a href="#">1</a>
+                <span class="current">2</span>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+                <span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP14" class="conP">
+        <h2>layer</h2>
+        <h3>기본형태</h3>
+        <p class="note">
+            #container 와 #footer 사이 형제요소로 넣는다.<br><br>
+            showLayer('레이어 아이디명') / hideLayer('레이어 아이디명')<br>
+            .layerTit : 제목 부분 / .layerBody : 본문 컨텐츠 부분
+        </p>
+        <div class="btn_wrap">
+            <button class="btn btnType2 btnSizeM" onclick="showLayer('layerPop');"><span>레이어팝업</span></button>
+            <button class="btn btnType2 btnSizeM" onclick="showLayer('layer_payOneClick');"><span>예시 : 원클릭 결제</span></button>
+            <button class="btn btnType2 btnSizeM" onclick="showLayer('layer_outOfStock');"><span>예시 : tblType2</span></button>
+        </div>
+        <div id="layerPop" class="layerPop">
+            <div class="layerTit">
+                <h4>레이어 제목</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('layerPop');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+                레이어 내용
+                <div class="layerSubtit">
+                    <h5>카드번호 입력</h5>
+                </div>
+            </div>  
+        </div>
+        <!-- layer :: 원클릭카드등록 : S -->
+        <div id="layer_payOneClick" class="layerPop layer_payOneClick">
+            <div class="layerTit">
+                <h4>원클릭 결제 신용카드 관리</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('layer_payOneClick');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+                <div class="cardinfo">
+                    <p>선택한 카드 : <span>현대카드 (개인)</span></p>
+                </div>
+                <div class="tblType2 noBorder">
+                    <table>
+                        <caption></caption>
+                        <colgroup>
+                            <col style="width:20%;">
+                            <col style="width:*;">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>카드종류</th>
+                                <td>
+                                    개인
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>카드정보</th>
+                                <td>6546-****-****-2312</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cautionList">
+                    <dl>
+                        <dt>카드정보 저장 안내</dt>
+                        <dd>대표카드로 설정된 카드는 원클릭결제 시 자동으로 결제에 사용됩니다. </dd>
+                        <dd>카드정보는 ㈜엘지유플러스 전자결제에서만 관리되며 에서는 저장되지 않습니다.</dd>
+                        <dd>휴대폰 분실 등을 통한 타인의 자동결제에 대해서는 에서 책임지지 않습니다. </dd>
+                    </dl>
+                </div>
+                <div class="btn_wrap">
+                    <button class="btn btnType2 btnSizeM"><span>저장</span></button>
+                    <button class="btn btnType2 btnSizeM"><span>카드삭제</span></button>
+                </div>
+            </div>
+        </div>
+        <!-- layer :: 원클릭카드등록 : E -->        
+        <!-- layer :: tblType2 : S -->
+        <div id="layer_outOfStock" class="layerPop layer_outOfStock">
+            <div class="layerTit">
+                <h4>원클릭 결제 신용카드 관리</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('layer_outOfStock');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+                <div class="cardinfo">
+                    <p>선택한 카드 : <span>현대카드 (개인)</span></p>
+                </div>
+                <div class="tblType2 noBorder">
+                    <table>
+                        <caption></caption>
+                        <colgroup>
+                            <col style="width:20%;">
+                            <col style="width:*;">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>카드종류</th>
+                                <td>
+                                    개인
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>카드정보</th>
+                                <td>6546-****-****-2312</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cautionList">
+                    <dl>
+                        <dt>카드정보 저장 안내</dt>
+                        <dd>대표카드로 설정된 카드는 원클릭결제 시 자동으로 결제에 사용됩니다. </dd>
+                        <dd>카드정보는 ㈜엘지유플러스 전자결제에서만 관리되며 에서는 저장되지 않습니다.</dd>
+                        <dd>휴대폰 분실 등을 통한 타인의 자동결제에 대해서는 에서 책임지지 않습니다. </dd>
+                    </dl>
+                </div>
+                <div class="btn_wrap">
+                    <button class="btn btnType2 btnSizeM"><span>저장</span></button>
+                    <button class="btn btnType2 btnSizeM"><span>카드삭제</span></button>
+                </div>
+            </div>
+        </div>
+        <!-- layer :: tblType2 : E -->
+        
+        <xmp>            
+            <div id="layerPop" class="layerPop">
+                <div class="layerTit">
+                    <h4>레이어 제목</h4>
+                    <button class="btn_closeLayer" onclick="hideLayer('layerPop');"><span class="blind">레이어팝업 닫기</span></button>
+                </div>
+                <div class="layerBody">
+                    레이어 내용
+                </div>  
+            </div>
+        </xmp>
+
+        <h3>시스템얼럿형태</h3>
+        <p class="note">
+            #container 와 #footer 사이 형제요소로 넣는다.<br>
+            showLayerAlert('얼럿문구텍스트') / hideLayer('layer_alert')
+        </p>
+        <div class="btn_wrap">
+            <button class="btn btnType2 btnSizeM" onclick="showLayerAlert('얼럿문구를 넣습니다.');"><span>예시 : showLayerAlert('얼럿문구를 넣습니다.');</span></button>
+        </div>
+        <div id="layer_alert" class="layerPop layerConfirm">
+            <div class="layerBody">
+                <p class="txt">등록 된 기프트 카드가 없습니다.</p>
+                <p class="subtxt">기프트 카드 등록 후 이용하시기 바랍니다.</p>
+                <div class="btn_wrap">
+                    <a href="#" class="btn btnType2 btnSizeM"><span>확인</span></a>
+                    <a href="#" class="btn btnType2 btnSizeM" onclick="hideLayer('layer_alert');return false;"><span>취소</span></a>
+                </div>
+            </div>
+        </div>
+        <xmp>            
+            <div class="btn_wrap">
+                <button class="btn btnType2 btnSizeM" onclick="showLayerAlert('얼럿문구를 넣습니다.');"><span>예시 : showLayerAlert('얼럿문구를 넣습니다.');</span></button>
+            </div>
+        </xmp>
+    </div>
+    <div id="conP15" class="conP">
+        <h2>no data</h2>
+        <p class="note">컨텐츠가 없을 경우 노출되는 문구. 안내문구는 컨텐츠 내용에 따라 달라질 수 있다.</p>
+        <div class="noData">
+            <p>등록된 게시글이 없습니다.</p>
+            <p class="subtxt">빠른 시일 내에 진행할 예정이니 쇼핑찬스 상품으로 <br />좋은 기회를 누리세요!</p>
+        </div>
+        <xmp>
+            <div class="noData">
+                <p>등록된 게시글이 없습니다.</p>
+                <p class="subtxt">빠른 시일 내에 진행할 예정이니 쇼핑찬스 상품으로 <br />좋은 기회를 누리세요!</p>
+            </div>
+        </xmp>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<style>
+    
+/*
+
+     가이드 CSS
+
+*/
+/* GNB */
+#top_menu {position:relative;width:100%;min-height:100%;padding:0 30px 0;background:#222222;box-sizing:border-box;}
+#top_menu:after {content:'';display:block;clear:both;}
+#top_menu .logo {position:absolute;left:30px;top:50%;transform:translateY(-50%);}
+#top_menu .list {float:left;padding-left:150px;}
+#top_menu .list li {float:left; margin-right:20px;}
+#top_menu p.txt {float:right; padding:3px 15px 0 0;}
+
+/* 왼쪽메뉴 */
+#left_category {overflow:hidden;overflow-y:auto;width:219px;height:100%;padding:0px 0 0;font-family:'HL';border-right:1px solid #eeeeee;box-sizing:border-box;}
+.menu_list {margin-top:15px;}
+.menu_list > ul > li {padding:30px 25px;font-family:'HL';font-size:16px;letter-spacing:0;border-top:1px solid #eeeeee;}
+.menu_list > ul > li span {display:inline-block;font-weight:400;transition-duration:.3s;}
+.menu_list > ul > li a {display:inline-block;font-weight:400;text-transform:uppercase;transition-duration:.3s;}
+.menu_list > ul > li.active span,
+.menu_list > ul > li.active > a,
+.menu_list > ul > li a:hover {color:#222222;}
+.menu_list > ul > li.active {font-family:'HB';}
+.menu_list > ul > li:first-child {border-top:0px;}
+.menu_list .depth2 {padding-top:4px;}
+.menu_list .depth2 li {padding-top:10px;padding-left:15px;font-family:'NotoL';font-size:15px;line-height:20px;color:#999999;}
+.menu_list .depth2 li a {position:relative;text-transform:none;
+	font-size:12px;line-height:20px;color:#999999;}
+.menu_list .depth2 li.active a,
+.menu_list .depth2 li a:hover {font-weight:400;color:#222222;}
+.menu_list .depth2 li a:after {content:'';display:block;position:absolute;left:0px;bottom:-2px;width:0%;height:1px;background:#909090;transition-duration:.3s;}
+.menu_list .depth2 li.active a:after,
+.menu_list .depth2 li a:hover:after {width:100%;}
+
+/* contents */
+.uiwrap {padding:50px 30px;box-sizing:border-box;}
+#uiwrap.uiwrap {padding-top:80px;}
+.pagever {position:absolute;right:10px;top:30px;font-family:tahoma;font-size:11px;color:#555;z-index:500;}
+
+/* publishing 정의 */
+.list_file {padding:20px 0;}
+.list_file ul ul ul {margin-top:0px;}
+.list_file li {padding-left:20px;font-family:tahoma;font-size:12px;line-height:20px;}
+.list_file ul ul ul li:last-child {margin-bottom:15px;}
+
+/* 화면 레이아웃 */
+.list_layout {}
+.list_layout li img {width:400px;margin:0 10px;border:1px solid #eee;}
+
+/* 스타일가이드 */
+.uinav {position:fixed;left:-2px;top:0;width:100%;padding:15px 30px 20px;padding-right:135px;background:#fff;border-bottom:1px solid #eeeeee;z-index:100;box-sizing:border-box;}
+.uinav a {display:inline-block;padding:0 20px;margin:0 2px;font-family:tahoma,'HL';font-size:10px;text-transform:uppercase;line-height:20px;color:#555555;background:#eeeeee;border:1px solid #dcdcdc;transition-duration:0s;}
+.uinav a:focus,
+.uinav a:hover {color:#fff;background:#39b5b7;border:1px solid #39b5b7;}
+
+.uiwrap h2 {display: inline-block;position:relative;padding-left:25px;margin-bottom:20px;text-transform:uppercase;font-family:'HB','NotoL';font-size:20px;line-height:36px;color:#222;}
+.uiwrap h2:before {content:'＋';display:block;position:absolute;left:0;top:0;}
+.uiwrap h2:after {content:'';display:block;position:absolute;left:0;bottom:0;width: 100%;height:1px;background:#222;}
+.uiwrap h3 {margin: 20px 0 10px 0;text-transform:uppercase;font-family:'HB','NotoB';font-size:14px;color:#000;}
+.uiwrap .conP {padding: 20px 0; border-bottom: solid 0px #e8e8e8;}
+.uiwrap .note {line-height:1.8em; padding:10px 20px; margin-bottom: 10px; background:#f9f4f4;}
+.uiwrap xmp {display:block;margin:20px 0;font-family:tahoma,'NotoL';font-size:11px;color:#555;background:#f1f0f0;}
+legend {display:none;}
+
+.tbl_publist {position:relative;border-top:1px solid #222222;}
+.tbl_publist table {table-layout:fixed;width:100%;}
+.tbl_publist th {font-weight:300;background:#f9f9f9;border-bottom:1px solid #eeeeee;}
+.tbl_publist thead th {padding:10px 0;font-weight:normal;font-family:'HB';color:#222;}
+.tbl_publist tbody th {padding:3px 18px;text-align:center;}
+.tbl_publist tbody td {padding:3px 12px;font-size:12px;border-left:1px solid #eeeeee;border-bottom:1px solid #eeeeee;}
+.tbl_publist tbody td:hover {background:#eeeeee;}
+.tbl_publist tbody .cancel {text-decoration:line-through;}
+.tbl_publist tbody .hover {background:#eeeeee;}
+.tbl_publist tbody td.alignC {text-align:center;}
+.tbl_publist tbody td select {width:100%;font-size:12px;}
+.tbl_publist tbody td a,
+.tbl_publist tbody td .txt_link {color:#555555;}
+.tbl_publist tbody td a:hover {color:#222222;text-decoration:underline;}
+
+.noBorder {border-top:0;}
+</style>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>달력관리</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+    <!-- 숙소 등록 페이지의 달력관리페이지 -->
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소관리</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>						
+					</ul>
+				</div>
+				<div class="userArea">
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="side_layout">
+			<div class="container">
+				<!-- 서브 메뉴 바 -->
+				<div class="container_roomenroll">
+				<h3>숙소설정</h3>
+				<br>
+				<nav class="sub_menu_roomenroll">
+					<a href="#" class="roommenu">
+						<span class="menu-left">기본설정</span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					</a>
+					<a href="#" class="roommenu">
+						<span class="menu-left">위치/사진/동영상</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					</a>
+					<a href="#" class="roommenu">
+						<span class="menu-left">예약/요금 설정</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					</a>
+                </nav>
+				<br>
+                <a href="#" class="roommenu_cal">
+					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
+					<span class="menu-right-cal">달력관리</span>
+				</a>
+				<br>
+				<div class="btn_wrap">
+					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
+				</div>	
+                </div>
+
+				<!-- 등록 내용 화면 -->
+				<div class="roomenroll_basic">
+                    <form>
+                        <table border="1" class="roomenroll_cal">
+                            <tr height="50px">
+                                <th>일</th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                                <th>토</th>
+                            </tr>
+                            <tr height="50px">
+                                <td>1</td>
+								<td>2</td>
+								<td>3</td>
+								<td>4</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+                            </tr>
+							<tr class="cal_status">
+                                <td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+                            </tr>
+							<tr height="50px">
+                                <td>8</td>
+								<td>9</td>
+								<td>10</td>
+								<td>11</td>
+								<td>12</td>
+								<td>13</td>
+								<td>14</td>
+                            </tr>
+							<tr class="cal_status">
+                                <td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+                            </tr>
+							<tr height="50px">
+                                <td>15</td>
+								<td>16</td>
+								<td>17</td>
+								<td>18</td>
+								<td>19</td>
+								<td>20</td>
+								<td>21</td>
+                            </tr>
+							<tr class="cal_status">
+                                <td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+                            </tr>
+							<tr height="50px">
+                                <td>22</td>
+								<td>23</td>
+								<td>24</td>
+								<td>25</td>
+								<td>26</td>
+								<td>27</td>
+								<td>28</td>
+                            </tr>
+							<tr class="cal_status">
+                                <td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+                            </tr>
+							<tr height="50px">
+                                <td>29</td>
+								<td>30</td>
+								<td>31</td>
+								<td>1</td>
+								<td>2</td>
+								<td>3</td>
+								<td>4</td>
+                            </tr>
+							<tr class="cal_status">
+                                <td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+								<td>예약가능</td>
+                            </tr>
+
+                        </table>
+					</form>
+                </div>
+			</div>
+		</div>
+
+        <!-- 레이어 팝업 - 날짜 클릭 시 나타나는 팝업
+        showLayer('레이어 아이디명') / hideLayer('레이어 아이디명')
+        .layerTit : 제목 부분 / .layerBody : 본문 컨텐츠 부분-->
+        <div id="peakSeason" class="layerPop">
+            <div class="layerTit">
+                <h4>성수기 설정</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('peakSeason');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+                
+            </div>  <!-- 레이어 내용 부분 끝 -->
+        </div>
+
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

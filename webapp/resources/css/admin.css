@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+/* layout */
+.wrap{min-width:1200px;height: 100%;padding-left:250px}
+.wrap:after {content:""; display:block; clear:both;}
+.lnb{float:left;width:250px;height: 100%;margin-left: -250px;box-sizing: border-box;}
+.lnb .logo{height: 80px; border-bottom: 1px solid #eee;text-align: center; }
+.lnb .logo img{margin-top:10px;width:150px;}
+.lnb .menuList {border-right: 1px solid #eee; height: calc(100% - 81px); text-align: center;}
+.lnb .menuList > li > a{position:relative;display: block;height: 60px;line-height: 60px;font-size:18px;font-weight: 700;}
+.lnb .subMenu {display:none;}
+.lnb .active + .subMenu {display:block;}
+.lnb .subMenu a{display:block;padding:10px 15px}
+.lnb a:hover,
+.lnb a.active{color:#FF8B33;}
+.gnb {height:80px;border-bottom:1px solid #eee;background:#fff}
+.gnb .userArea{position: relative;margin: 20px 60px 0px 0;float: right;}
+.gnb .userCon{top: 60px;}
+
+/* 로그인 */
+#adLogin {width:100%;height:100%;background:#ccc;}
+#adLogin .adLogCon {position:absolute;left:50%;top:50%;width:450px;height:440px;margin:-220px 0 0 -242.5px;background: #eeeeee;}
+#adLogin .adLogCon .adTtl {padding-top:40px;text-align:center;}
+#adLogin .adLogCon .adTtl .title{margin-top:10px;font-size:18px;font-weight:700;}
+#adLogin .adLogCon .inputArea {width:340px;margin:30px auto;}
+#adLogin .adLogCon .inputArea .inp_text + .inp_text{margin-top:20px;}
+#adLogin .adLogCon .inputArea .inp_check{margin-top:10px;}
+#adLogin .adLogCon .inputArea .btn_wrap{margin-top:20px;}
+
+.content{margin:30px;}
+
+.listTit{color:#FF8B33;font-size:18px;font-weight:700;margin-bottom:30px;}
+.listSearch{padding:30px;background:#eee;}
+.search{float:right;}
+.listTotal{margin:30px 0;}
+.totalCnt{float:left;line-height:40px;font-weight:700;}
+
+.paging{margin-top:50px;}
+
+.layerBody{padding-top:30px;}
+.tblType2 th {vertical-align: middle;font-weight: 700;}
+
+#blackUserPop .layerBody,
+#inquirePop .layerBody,
+#roomsPop .layerBody{max-height:500px;overflow:auto;}
+#blackUserPop .total{padding-bottom:10px;}
+#blackUserPop .total span{color:#d10000;font-weight:700;}
+#blackUserPop tbody{border-top:1px solid #eeeeee;}
+
+.calendar {margin-bottom:10px;}
+.calendar .ctit {margin-bottom: 10px;font-weight: 700;}
+.calendar .inp_text{width:500px;}
+.calendar .inp_text input[type=date]{width:150px;}
+
+.recPlace.btn_wrap{margin-top:30px;text-align: right;}
+
+.recPlaceArea{width:1000px;margin:0 auto}
+.recPlaceArea .inp_text{width: 240px;}
+#output {max-height: 126px;}
+.recPlaceArea .textbox{width:85%;}
+
+.tblType3{max-height: 350px;overflow: auto;}
+.tblType3.noBorB tbody tr{cursor:pointer;}
+.tblType3.noBorB tbody tr:hover{background: #eee;}
+.tblType3.noBorB tbody tr td{text-overflow:ellipsis; overflow:hidden;white-space:nowrap;}
+.tblType3.noBorB.recPlace tbody tr{cursor:auto;}
+.tblType3.recPlace td a.active{color:#FF8B33;text-decoration:underline;}
+
+.adinfoForm{margin:0 auto;width:400px;padding-bottom: 50px;}
+.adinfoForm dt{margin-top:10px;}
+.adinfoForm dd{margin-top:5px;}
+.adinfoForm dd:after{content:'';clear:right;display: block;}
+.adinfoForm .inp_text + .btn {margin-top:10px;float: right;}
+.adinfoForm .btn_wrap{margin-top:30px;}

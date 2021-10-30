@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>숙소등록-위치/사진/동영상</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+    <!-- 숙소 등록 페이지의 위치/사진/동영상페이지 -->
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소관리</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>						
+					</ul>
+				</div>
+				<div class="userArea">
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="side_layout">
+			<div class="container">
+				<!-- 서브 메뉴 바 -->
+				<div class="container_roomenroll">
+				<p>숙소설정</p>
+				<br>
+				<nav class="sub_menu_roomenroll">
+					<a href="#" class="roommenu">
+						<span class="menu-left">기본설정</span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					</a>
+					<a href="#" class="roommenu">
+						<span class="menu-left">위치/사진/동영상</span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					</a>
+					<a href="#" class="roommenu">
+						<span class="menu-left">예약/요금 설정</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					</a>
+                </nav>
+				<br>
+                <a href="#" class="roommenu_cal">
+					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
+					<span class="menu-right-cal">달력관리</span>
+				</a>
+				<br>
+				<div class="btn_wrap">
+					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
+				</div>	
+                </div>
+
+				<!-- 등록 내용 화면 -->
+				<div class="roomenroll_basic">
+					<!-- ** 위치설정 ** -->
+					<form method="" action="">
+						<div class="roomenroll_title_main">
+							<h2>위치</h2><span>숙소의 위치를 설정하세요.</span>
+						</div>
+						<div class="roomenroll_content">
+							<div class="roomenroll_title_sub">
+								<p>숙소 지역</p>
+							</div>
+							<br>
+                            <div class="selectbox roomenroll_opt">
+                                <button class="title" type="button" title="검색옵션 선택">지역</button>
+                                <ul class="selList">
+                                    <li>
+                                        <input type="radio" value="" class="option" id="sel1_1" name="buildingsort" />
+                                        <label for="sel1_1">동부</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" value="" class="option" id="sel1_2" name="buildingsort" />
+                                        <label for="sel1_2">서부</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" value="" class="option" id="sel1_3" name="buildingsort" />
+                                        <label for="sel1_3">중부</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" value="" class="option" id="sel1_4" name="buildingsort">
+                                        <label for="sel1_4">남부</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" value="" class="option" id="sel1_5" name="buildingsort">
+                                        <label for="sel1_5">북부</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <br>
+							<div class="inp_text roomenroll_inp roomenroll_opt">
+								<input type="text" name="" id="" placeholder="상세주소를 입력하세요." required>
+							</div>
+                            <!-- 지도 api !!! -->
+							<div class="roomenroll_map">
+                                <h1>지도 API자리</h1>
+                            </div>
+						</div>	
+                        <div class="roomenroll_title_main main2">
+                            <h2>사진&동영상</h2><span>숙소의 사진과 동영상을 등록하세요.</span>
+                        </div>
+                        <div class="roomenroll_content">
+                            <div class="roomenroll_title">
+                                <p>유튜브 주소</p><span>※ 숙소 내부 동영상을 올리시면 예약율이 오릅니다.</span>
+                            </div>
+                            <br>
+                            <div class="inp_text roomenroll_inp roomenroll_opt">
+                                <input type="text" name="" id="" placeholder="동영상 링크주소를 입력하세요.">
+                            </div>
+                            <br>
+							<div class="roomenroll_photo">
+								<p>사진선택 &nbsp;|</p>
+								<div class="roomenroll_photobtn" onclick="uploadimg();">
+									<img src="../resources/images/common/ico_addFile_on.png">
+									<span>사진올리기</span>	
+								</div>
+								<input type="file" class="roomphoto_upload">
+								<p>사진이동 &nbsp;|</p>
+								<div class="roomphotobtn_prev arrmovebtn"><img src="../resources/images/common/arr_selectT.png"></div>
+								<div class="roomphotobtn_next arrmovebtn"><img src="../resources/images/common/arr_selectB.png"></div>		 
+								<p>* 첫번째 사진은 숙소의 메인사진으로 사용됩니다.</p>
+							</div>
+							<br>	
+                            <div class="roomenroll_photo_wrap">
+								<!-- 업로드 된 이미지 추가되는 부분 (아래 이미지는 임시용) -->
+								<img src="../resources/images/temp/imgfile_temp01.jpg">
+								<img src="../resources/images/temp/imgfile_temp02.jpg">
+								<img src="../resources/images/temp/imgfile_temp03.jpg">
+								<img src="../resources/images/temp/imgfile_temp04.jpg">
+                            </div>
+                        </div>	
+						<div class="btn_wrap roomregistbtn2">
+							<a href="#" class="btn btnType1 btnSizeS" type="button"><span>다음</span></a>   
+						</div>	
+					</form>
+                </div>
+			</div>
+		</div>
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>
+		let fileUploadOpen = document.querySelector(".roomphoto_upload");
+
+		function uploadimg(){
+			fileUploadOpen.click();
+		}
+
+		fileUploadOpen.addEventListener('change', addimg);
+
+		function addimg(){
+			// 파일 선택 후 해당 이미지파일 보이기
+		}
+
+		// 참고.
+		// function preview(){
+        //      if (this.files && this.files[0]) {
+        //         let index = Array.from(document.querySelectorAll(".imgUpload")).indexOf(this); 
+        //         let reader = new FileReader();
+        //         reader.readAsDataURL(this.files[0]);
+        //         reader.onload = function () {
+        //             document.querySelectorAll(".preview")[index].innerHTML = "<img src=" + reader.result + ">";
+        //         }
+        //     }
+        // }
+
+	</script>
+</body>
+</html>

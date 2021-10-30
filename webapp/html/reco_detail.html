@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>제주라도 넘어갈까</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+	
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소예약</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="#">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<!-- 로그인 했을 때 -->
+				<div class="userArea nologin">
+					<a href="#" class="btn btnType2 btnSizeS"><span>로그인</span></a>
+					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
+				</div>
+				<div class="userArea" style="display: none">										
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 회원일 때 -->
+                    <ul class="userCon" id="guestUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 관리자일 떄 -->
+                    <ul class="userCon" id="adminUserCon">
+                        <li><a href="#">계정 관리</a></li>
+                        <li><a href="#">비밀번호 관리</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+
+		<div class="main">  <!-- 메인 시작 -->
+			<div class="container">
+				<div class="detail_upper">
+					<div class="prev_page"> <!-- back 버튼 -->
+						<a href="../html/reco_main.html" class="btn btnType2 btnSizeM"><span class="arr-left">&lt;&lt; &nbsp;이전으로</span></a>
+					</div>
+					
+					<div class="like"><!-- 하트 -->
+						<a href="#">
+							<img class="heart" src="../resources/images/ch/heart_empty.png" />
+						</a>
+						<p class="count">200</p>
+					</div>
+				</div><!-- detail_upper end -->
+
+				<div class="banner"><!--배너-->
+					<a href="../html/test_main.html"><img src="../resources/images/ch/banner.jpg"></a>
+				</div><!--배너 끝-->
+				
+				<div class="detail_content">
+					<div class="detail_exp"><!-- 소개 부분 -->
+						<div class="imageArea" style="background-image: url(../resources/images/ch/item.jpg);">
+						</div>
+						<div class="star_average">
+							<p>제목</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>(3.2/5)</p>
+						</div>
+						<div class="reco_address">주소</div>
+						<div class="exp">설명</div>
+					</div>
+
+					<div class="reco_map"><!-- 맵부분 시작 -->
+						<div class="map_api">지도 api</div>
+						<div class="map_url">
+							<button class="btn btnType1 btnSizeM"><span>네이버맵 연결</span></button>
+							<button class="btn btnType1 btnSizeM"><span>카카오맵 연결</span></button>
+						</div>
+					</div><!-- 맵부분 끝 -->
+
+					<div class="detail_review"><!-- 한줄평 시작 -->
+						<p>회원 리뷰</p>
+						<div class="detail_comment">
+							<p>id</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>comment</p>
+							<p>202x.xx.xx hh:mm:ss</p>
+							<div class="change_button">
+								<a href="#" type="button">수정</a>
+								<a href="#" type="button">삭제</a>
+							</div>
+						</div>
+
+						<div class="detail_comment">
+							<p>id</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>comment</p>
+							<p>202x.xx.xx hh:mm:ss</p>
+							<div class="change_button">
+								<a href="#" type="button">수정</a>
+								<a href="#" type="button">삭제</a>
+							</div>
+						</div>
+
+						<div class="detail_comment">
+							<p>id</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>comment</p>
+							<p>202x.xx.xx hh:mm:ss</p>
+							<div class="change_button">
+								<a href="#" type="button">수정</a>
+								<a href="#" type="button">삭제</a>
+							</div>
+						</div>
+
+						<div class="detail_comment">
+							<p>id</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>comment</p>
+							<p>202x.xx.xx hh:mm:ss</p>
+							<div class="change_button">
+								<a href="#" type="button">수정</a>
+								<a href="#" type="button">삭제</a>
+							</div>
+						</div>
+
+						<div class="detail_comment">
+							<p>id</p>
+							<div class="rating_star">
+								<span class="starPoint p5">5</span>
+							</div>
+							<p>comment</p>
+							<p>202x.xx.xx hh:mm:ss</p>
+							<div class="change_button">
+								<a href="#" type="button">수정</a>
+								<a href="#" type="button">삭제</a>
+							</div>
+						</div>
+					</div><!-- 한줄평 끝 -->
+				</div><!-- detail_content end -->
+			</div>
+		</div><!-- 메인 끝 -->
+
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

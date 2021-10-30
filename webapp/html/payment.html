@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>제주라도 넘어갈까</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="main.html">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소예약</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="reservation_view.html">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<!-- 로그인 했을 때 -->
+				<div class="userArea nologin">
+					<a href="#" class="btn btnType2 btnSizeS"><span>로그인</span></a>
+					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
+				</div>
+				<div class="userArea" style="display: none">										
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 회원일 때 -->
+                    <ul class="userCon" id="guestUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+                    <!-- 관리자일 떄 -->
+                    <ul class="userCon" id="adminUserCon">
+                        <li><a href="#">계정 관리</a></li>
+                        <li><a href="#">비밀번호 관리</a></li>
+                        <li><a href="#">로그아웃</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="payment">
+			<from method="post">   
+				<div class="container">          
+					<h2>결제</h2>
+					<div class="sec sec01">                
+						<h4>숙박 정보</h4>
+						<div class="rooms_info">
+							<p class="room_name">숙소명</p>
+							<p>주소 : 서울특별시 강남구 테헤란로 10길 9 그랑프리 빌딩</p>
+							<p>숙박인원 : 4명</p>
+						</div>
+						<div class="check_date">
+							<div class="chkdate_box">
+								<p>체크인</p>
+								<p class="date">2021.01.01(월)</p>
+							</div>
+							<div class="chkdate_box">
+								<p>체크인</p>
+								<p class="date">2021.01.02(화)</p>
+							</div>
+						</div>
+					</div><!--sec01 END-->
+					<div class="sec sec02">
+						<h4>예약자 정보</h4>
+						<div class="tblType2 noBorder">
+							<table>
+								<caption></caption>
+								<colgroup>
+									<col width="20%">
+									<col width="*">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>예약자 이름</th>
+										<td>
+											<div class="inp_text">
+												<input type="text" name="reserUserName" id="reserUserName" placeholder="예약자 성함을 입력해주세요">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th>휴대폰번호</th>
+										<td>
+											<div class="inp_text">
+												<input type="text" name="reserphone" id="reserphone" placeholder="'-' 없이 입력해주세요">
+											</div>
+										</td>
+									</tr>								
+								</tbody>
+							</table>
+						</div>						
+					</div><!-- sec02 ENDs-->
+					<div class="sec sec03">
+						<h4>포인트 및 결제 정보</h4>
+						<div class="tblType2 noBorder">
+							<table>
+								<caption></caption>
+								<colgroup>
+									<col width="20%">
+									<col width="*">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>예약금액</th>
+										<td>60,000원</td>
+									</tr>
+									<tr>
+										<th>포인트 사용</th>
+										<td>
+											<span class="inp_check">
+												<input type="checkbox" name="pointChk" id="pointChk">
+												<label for="pointChk">포인트사용</label>
+											</span>
+										</td>
+									</tr>
+									<tr class="point_using" style="display: none">
+										<th></th>
+										<td>
+											<div class="using_box">
+												<p>포인트 사용 가능 금액 : <b>1,000p</b></p>
+												<p>※ 100p 이상 사용 가능</p>
+												<div class="poin_input">
+													<div class="inp_text">
+														<input type="text" name="usePoint" id="usePoint" placeholder="사용 포인트 입력"/>
+													</div>		
+													<a href="#" class="btn btnType1 btnSizeM"><span>사용</span></a>										
+												</div>
+											</div>
+										</td>
+									</tr>	
+									<tr class="borderT total">
+										<th>총 결제금액</th>
+										<td>60,000원</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>						
+					</div><!-- sec03 ENDs-->
+					<div class="sec sec04">
+						<h4>이용약관</h4>
+						<div class="all_chk">
+							<span class="inp_check allChk">
+								<input type="checkbox" name="agreeChk" id="allChk">
+								<label for="allChk">전체 동의합니다.</label>
+							</span>
+						</div>
+						<ul class="agree_box">
+							<li>
+								<span class="inp_check">
+									<input type="checkbox" name="agreeChk" id="agreeChk1">
+									<label for="agreeChk1">숙소이용 및 취소 / 환불규정 동의 (필수)</label>
+								</span>
+							</li>
+							<li>
+								<span class="inp_check">
+									<input type="checkbox" name="agreeChk" id="agreeChk2">
+									<label for="agreeChk2">개인정보 수집 및 이용동의 (필수)</label>
+								</span>
+							</li>
+							<li>
+								<span class="inp_check">
+									<input type="checkbox" name="agreeChk" id="agreeChk3">
+									<label for="agreeChk3">개인정보 제3자 제공 동의 (필수)</label>
+								</span>
+							</li>
+						</ul>
+					</div><!-- sec04 ENDs-->
+					<button type="button" class="btn btnType1 btnSizeL payment_submit" onclick="location.href='payment_result.html'"><span>결제하기</span></button>
+				</div>
+			</from>
+		</div>
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

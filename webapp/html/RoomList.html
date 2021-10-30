@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>숙소관리</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/images/favicon.png">
+    <script src="../resources/js/jquery-1.11.2.min.js"></script>
+    <script src="../resources/js/common.js"></script>    
+    <script type="text/javascript" src="../resources/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="../resources/js/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../resources/js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="../resources/js/ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">
+
+    <script type="text/javascript" src="../resources/js/contents.js"></script>
+</head>
+<body>
+    <!-- 호스트 마이페이지 화면 -->
+	<div id="wrap">
+		<header id="header">
+			<div class="inner">					
+				<div class="logo">
+					<a href="#">
+						<img src="../resources/images/logo.png" alt="" />
+					</a>
+				</div>
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="#">숙소관리</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>						
+					</ul>
+				</div>
+				<div class="userArea">
+                    <img src="../resources/images/usericon.png" onclick="userCon()"/>                   
+                    <!-- 호스트일 때-->
+                    <ul class="userCon" id="hostUserCon">
+                        <li><a href="#">로그아웃</a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li><a href="#">메신저</a></li>
+						<li><a href="#">신고게시판</a></li>
+                    </ul>
+				</div>
+			</div>
+		</header>
+		<div class="side_layout">
+			<div class="container">
+				<!-- 목록 화면 -->
+				<div class="roomlist">
+					<form method="" action="">
+						<div class="roomenroll_title_main">
+							<h2>숙소목록</h2><span>RoomList</span>
+						</div>
+						<div class="roomlist_statuslist">
+							<ul class="roomlist_ul">
+								<li>미완성</li>
+								<li>승인대기</li>
+								<li>승인반려</li>
+								<li>등록완료</li>
+							</ul>
+						</div>
+						<br>
+						<div class="roomlist_sub">
+							<div class="selectbox roomlist_sel">
+								<button class="title" type="button" title="검색옵션 선택">검색옵션</button>
+								<ul class="selList">
+									<li>
+										<input type="radio" value="" class="option" id="sel1_1" name="select1" />
+										<label for="sel1_1">숙소이름</label>
+									</li>
+								</ul>
+							</div>
+							<div class="listTotal roomlist_search">
+								<!-- <p class="totalCnt">총 1건</p> -->
+								<div class="sortArea">
+									<div class="inp_text search">
+										<input type="text" name="" id="" placeholder="검색어를 입력하세요">
+										<a href="#" class="btn_sch">검색</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="roomlist_content">
+							<div class="tblType3 noBorT noBorB boardList">
+								<table summary="숙소목록">
+									<colgroup>
+										<col style="width:9.2%">
+										<col style="width:20%">
+										<col style="width:9.2%">
+										<col style="width:12.8%">
+										<col style="width:12.8%">
+										<col style="width:30%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>NO</th>
+											<th>방사진</th>
+											<th>상태</th>
+											<th>숙소이름</th>
+											<th>숙소생성일</th>
+											<th>관리</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td class="al_l"><a href="#"><img src="../resources/images/host/house.png" class="roomlist_img"></a></td>
+											<td><span class="roomlist_status">등록완료</span></td>
+											<td>바다내음 제주집</td>
+											<td>2021.10.20 15:30</td>
+											<td>
+												<div class="roomlist_btn">
+												<div class="btn_wrap"><a href="#" class="btn btnType1 btnSizeS"><span>달력관리</span></a></div>
+												<div class="btn_wrap"><a href="#" class="btn btnType2 btnSizeS"><span>수정</span></a></div>
+												<div class="btn_wrap"><a href="#" class="btn btnType3 btnSizeS"><span>삭제</span></a></div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- 페이징 -->
+						<div class="paging">
+							<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
+							<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+							<span class="current">1</span>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+							<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+							<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+						</div>
+                    </form>
+                </div>
+			</div>
+		</div>
+
+		<footer id="footer">
+			<div class="inner">
+				<div class="fLogo">
+					<img src="../resources/images/flogo.png" alt="">
+				</div>
+				<div class="fInfo">
+					<div class="tit">(주)제주라도넘어갈까</div>
+					<div class="addr">서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</div>
+					<div class="copyright">Copyright © 1998-2021 KH Information Educational Institute All Right Reserved</div>						
+					<div class="flinkArea">
+						<span>
+							<a href="#">이용약관</a>
+						</span>
+						<span>
+							<a href="#">개인정보처리방침</a>
+						</span>
+						<span>
+							<a href="#">관리자</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script>
+			let roomli = document.querySelector(".roomli");
+			let reviewli = document.querySelector(".reviewli");
+			let roomtab = document.querySelector(".roomtab");
+			let reviewtab = document.querySelector(".reviewtab");
+
+			roomli.onclick = editStart;
+			reviewli.onclick = editStart;
+
+			function editStart(){
+				if(this == roomli){
+					reviewtab.replaceWith(roomtab);
+					reviewtab.style.display = "none"
+					roomtab.style.display = "block"
+					
+					roomli.classList.toggle("on");
+					reviewli.classList.toggle("on");
+				} else{
+					roomtab.replaceWith(reviewtab);
+					roomtab.style.display = "none";
+					reviewtab.style.display = "block";
+					roomli.classList.toggle("on");
+					reviewli.classList.toggle("on");
+				}
+			}
+		
+
+	</script>
+</body>
+</html>
