@@ -8,34 +8,34 @@
 				<p>숙소설정</p>
 				<br>
 				<nav class="sub_menu_roomenroll">
-					<a href="#" class="roommenu">
-						<span class="menu-left">기본설정</span>
-						<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
+					<a class="roommenu">  <!-- 수정페이지에서만 href="#"으로 연결 -->
+						<span class="menu-left" style="color:#ff8b33">기본설정</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
-					<a href="#" class="roommenu">
+					<a class="roommenu">
 						<span class="menu-left">위치/사진/동영상</span>
-						<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
-					<a href="#" class="roommenu">
+					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
-						<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
                 </nav>
 				<br>
                 <a href="#" class="roommenu_cal">
-					<span class="menu-left-cal"><img src="${ contextPath }/resources/images/common/ico_cal.png"></span>
+					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
 				<br>
-				<div class="btn_wrap">
+<!-- 				<div class="btn_wrap">
 					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	
+				</div>	 -->
                 </div>
 
-				<!-- 등록 내용 화면 -->
+				<!-------------------- 등록 내용 화면 ------------------------------------------->
 				<div class="roomenroll_basic">
 					<!-- ** 기본설정 1 ** -->
-					<form method="post" action="${ contextPath }/host/roomenrollbasic" name="roomeenrollbasic"> 
+					<form method="post" action="${ contextPath }/host/roomenrollbasic"> 
 						<div class="roomenroll_title_main">
 							<h2>설명</h2><span>숙소를 소개해주세요.</span>
 						</div>
@@ -64,7 +64,7 @@
 								<p>숙소 소개</p>
 							</div>
 							<div class="textbox roomenroll_introduce">
-								<textarea name="roomdes" placeholder="숙소를 소개하는 내용을 작성해주세요."></textarea>
+								<textarea name="roomdes" placeholder="숙소를 소개하는 내용을 작성해주세요." required></textarea>
 							</div>
 						</div>
 						<!-- ** 기본설정 2 ** -->
@@ -84,15 +84,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="0" class="option" id="roomcnt0" name="room" />
+												<input type="radio" value="0" class="option" id="roomcnt0" name="room" required>
 												<label for="roomcnt0">0</label>
 											</li>
 											<li>
-												<input type="radio" value="1" class="option" id="roomcnt1" name="room" />
+												<input type="radio" value="1" class="option" id="roomcnt1" name="room">
 												<label for="roomcnt1">1</label>
 											</li>
 											<li>
-												<input type="radio" value="2" class="option" id="roomcnt2" name="room" />
+												<input type="radio" value="2" class="option" id="roomcnt2" name="room">
 												<label for="roomcnt2">2</label>
 											</li>
 											<li>
@@ -138,15 +138,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="0" class="option" id="bedcnt0" name="bed" />
+												<input type="radio" value="0" class="option" id="bedcnt0" name="bed" required>
 												<label for="bedcnt0">0</label>
 											</li>
 											<li>
-												<input type="radio" value="1" class="option" id="bedcnt1" name="bed" />
+												<input type="radio" value="1" class="option" id="bedcnt1" name="bed">
 												<label for="bedcnt1">1</label>
 											</li>
 											<li>
-												<input type="radio" value="2" class="option" id="bedcnt2" name="bed" />
+												<input type="radio" value="2" class="option" id="bedcnt2" name="bed">
 												<label for="bedcnt2">2</label>
 											</li>
 											<li>
@@ -192,15 +192,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="0" class="option" id="bathroomcnt0" name="bath" />
+												<input type="radio" value="0" class="option" id="bathroomcnt0" name="bath" required>
 												<label for="bathroomcnt0">0</label>
 											</li>
 											<li>
-												<input type="radio" value="1" class="option" id="bathroomcnt1" name="bath" />
+												<input type="radio" value="1" class="option" id="bathroomcnt1" name="bath">
 												<label for="bathroomcnt1">1</label>
 											</li>
 											<li>
-												<input type="radio" value="2" class="option" id="bathroomcnt2" name="bath" />
+												<input type="radio" value="2" class="option" id="bathroomcnt2" name="bath">
 												<label for="bathroomcnt2">2</label>
 											</li>
 											<li>
@@ -232,15 +232,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="원룸" class="option" id="roomtype1" name="roomtype" />
+												<input type="radio" value="원룸" class="option" id="roomtype1" name="roomtype" required>
 												<label for="roomtype1">원룸</label>
 											</li>
 											<li>
-												<input type="radio" value="투룸" class="option" id="roomtype2" name="roomtype" />
+												<input type="radio" value="투룸" class="option" id="roomtype2" name="roomtype">
 												<label for="roomtype2">투룸</label>
 											</li>
 											<li>
-												<input type="radio" value="쓰리룸이상" class="option" id="roomtype3" name="roomtype" />
+												<input type="radio" value="쓰리룸이상" class="option" id="roomtype3" name="roomtype">
 												<label for="roomtype3">쓰리룸 이상</label>
 											</li>
 											<li>
@@ -258,15 +258,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="원룸" class="option" id="buildingtype1" name="buildingtype" />
+												<input type="radio" value="원룸" class="option" id="buildingtype1" name="buildingtype" required>
 												<label for="buildingtype1">원룸</label>
 											</li>
 											<li>
-												<input type="radio" value="빌라" class="option" id="buildingtype2" name="buildingtype" />
+												<input type="radio" value="빌라" class="option" id="buildingtype2" name="buildingtype">
 												<label for="buildingtype2">빌라</label>
 											</li>
 											<li>
-												<input type="radio" value="펜션" class="option" id="buildingtype3" name="buildingtype" />
+												<input type="radio" value="펜션" class="option" id="buildingtype3" name="buildingtype">
 												<label for="buildingtype3">펜션</label>
 											</li>
 											<li>
@@ -292,43 +292,43 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="모름" class="option" id="roomsize1" name="roomsize" />
+												<input type="radio" value="모름" class="option" id="roomsize1" name="roomsize">
 												<label for="roomsize1">모름</label>
 											</li>
 											<li>
-												<input type="radio" value="5평" class="option" id="roomsize2" name="roomsize" />
+												<input type="radio" value="5평" class="option" id="roomsize2" name="roomsize">
 												<label for="roomsize2">5평</label>
 											</li>
 											<li>
-												<input type="radio" value="5~10평" class="option" id="roomsize3" name="roomsize" />
-												<label for="roomsize3">5~10평</label>
+												<input type="radio" value="6~10평" class="option" id="roomsize3" name="roomsize">
+												<label for="roomsize3">6~10평</label>
 											</li>
 											<li>
-												<input type="radio" value="10~15평" class="option" id="roomsize4" name="roomsize">
-												<label for="roomsize4">10~15평</label>
+												<input type="radio" value="11~15평" class="option" id="roomsize4" name="roomsize">
+												<label for="roomsize4">11~15평</label>
 											</li>
 											<li>
-												<input type="radio" value="15~20평" class="option" id="roomsize5" name="roomsize">
-												<label for="roomsize5">15~20평</label>
+												<input type="radio" value="16~20평" class="option" id="roomsize5" name="roomsize">
+												<label for="roomsize5">16~20평</label>
 											</li>
 											<li>
-												<input type="radio" value="20~25평" class="option" id="roomsize6" name="roomsize">
-												<label for="roomsize6">20~25평</label>
+												<input type="radio" value="21~25평" class="option" id="roomsize6" name="roomsize">
+												<label for="roomsize6">21~25평</label>
 											</li>
 											<li>
-												<input type="radio" value="25~30평" class="option" id="roomsize7" name="roomsize">
-												<label for="roomsize7">25~30평</label>
+												<input type="radio" value="26~30평" class="option" id="roomsize7" name="roomsize">
+												<label for="roomsize7">26~30평</label>
 											</li>
 											<li>
-												<input type="radio" value="30~40평" class="option" id="roomsize8" name="roomsize">
-												<label for="roomsize8">30~40평</label>
+												<input type="radio" value="31~40평" class="option" id="roomsize8" name="roomsize">
+												<label for="roomsize8">31~40평</label>
 											</li>
 											<li>
-												<input type="radio" value="40~50평" class="option" id="roomsize9" name="roomsize">
-												<label for="roomsize9">40~50평</label>
+												<input type="radio" value="41~50평" class="option" id="roomsize9" name="roomsize">
+												<label for="roomsize9">41~50평</label>
 											</li>
 											<li>
-												<input type="radio" value="50평 초과" class="option" id="roomsize10" name="roomsize">
+												<input type="radio" value="50평초과" class="option" id="roomsize10" name="roomsize">
 												<label for="roomsize10">50평 초과</label>
 											</li>
 										</ul>
@@ -351,15 +351,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="09:00" class="option" id="starttime1" name="starttime" />
+												<input type="radio" value="09:00" class="option" id="starttime1" name="starttime" required>
 												<label for="starttime1">09:00</label>
 											</li>
 											<li>
-												<input type="radio" value="10:00" class="option" id="starttime2" name="starttime" />
+												<input type="radio" value="10:00" class="option" id="starttime2" name="starttime">
 												<label for="starttime2">10:00</label>
 											</li>
 											<li>
-												<input type="radio" value="11:00" class="option" id="starttime3" name="starttime" />
+												<input type="radio" value="11:00" class="option" id="starttime3" name="starttime">
 												<label for="starttime3">11:00</label>
 											</li>
 											<li>
@@ -413,15 +413,15 @@
 										<button class="title" type="button" title="검색옵션 선택">선택</button>
 										<ul class="selList">
 											<li>
-												<input type="radio" value="09:00" class="option" id="endtime1" name="endtime" />
+												<input type="radio" value="09:00" class="option" id="endtime1" name="endtime" required>
 												<label for="endtime1">09:00</label>
 											</li>
 											<li>
-												<input type="radio" value="10:00" class="option" id="endtime2" name="endtime" />
+												<input type="radio" value="10:00" class="option" id="endtime2" name="endtime">
 												<label for="endtime2">10:00</label>
 											</li>
 											<li>
-												<input type="radio" value="11:00" class="option" id="endtime3" name="endtime" />
+												<input type="radio" value="11:00" class="option" id="endtime3" name="endtime">
 												<label for="endtime3">11:00</label>
 											</li>
 											<li>
@@ -485,7 +485,7 @@
 									<ul>
 										<li>
 											<span class="inp_check">
-												<input type="checkbox" name="roomfac" id="fac1" value="TV">
+												<input type="checkbox" name="roomfac" id="fac1" value="TV" required>
 												<label for="fac1">TV</label>
 											</span>
 										</li>
@@ -659,7 +659,7 @@
 							</div>
 						</div>
 						<div class="btn_wrap roomregistbtn2">
-							<a href="#" class="btn btnType1 btnSizeS" type="button" onclick="submit();"><span>다음</span></a>   
+							<button class="btn btnType1 btnSizeS"><span>다음</span></button>   
 						</div>	
 					</form>
                 </div>
@@ -685,11 +685,7 @@
 			}
 
 		};
-		
-		// 제출하기
-		function submit(){
-			document.forms.roomeenrollbasic.submit();
-		}
+	
 		</script>
 		
 <%@include file="/views/common/footer.jsp" %>

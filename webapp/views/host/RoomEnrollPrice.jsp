@@ -209,8 +209,8 @@
                             </div>
                         </div>    
                         <br>
-						<div class="btn_wrap roomregistbtn2">
-							<a href="#" class="btn btnType1 btnSizeS" type="button"><span>다음</span></a>   
+						<div class="btn_wrap roomregistbtn2"> 
+							<button class="btn btnType1 btnSizeS"><span>등록</span></button>   
 						</div>	
 					</form>
                 </div>

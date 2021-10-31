@@ -8,15 +8,15 @@
 				<p>숙소설정</p>
 				<br>
 				<nav class="sub_menu_roomenroll">
-					<a href="#" class="roommenu">
+					<a class="roommenu">
 						<span class="menu-left">기본설정</span>
 						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
-					<a href="#" class="roommenu">
-						<span class="menu-left">위치/사진/동영상</span>
-						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					<a class="roommenu">
+						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
-					<a href="#" class="roommenu">
+					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
 						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
@@ -26,16 +26,29 @@
 					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
-				<br>
+<!-- 				<br>
 				<div class="btn_wrap">
 					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	
+				</div>	 -->
                 </div>
 
-				<!-- 등록 내용 화면 -->
+				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
 				<div class="roomenroll_basic">
 					<!-- ** 위치설정 ** -->
-					<form method="" action="">
+					<form method="post" action="${ contextPath }/host/roomenrollphoto" enctype="multipart/form-data">
+					<input type="hidden" name="roomname" value="${ rooms.roomName }">
+					<input type="hidden" name="roomtitle" value="${ rooms.roomTitle }">
+					<input type="hidden" name="roomdes" value="${ rooms.roomDes }">
+					<input type="hidden" name="room" value="${ rooms.room }">
+					<input type="hidden" name="bed" value="${ rooms.bed }">
+					<input type="hidden" name="bath" value="${ rooms.bath }">
+					<input type="hidden" name="roomtype" value="${ rooms.roomType }">
+					<input type="hidden" name="buildingtype" value="${ rooms.buildingType }">
+					<input type="hidden" name="roomsize" value="${ rooms.roomSize }">
+					<input type="hidden" name="starttime" value="${ rooms.startTime }">
+					<input type="hidden" name="endtime" value="${ rooms.endTime }">
+					<input type="hidden" name="roomfac" value="${ rooms.roomFac }">
+					
 						<div class="roomenroll_title_main">
 							<h2>위치</h2><span>숙소의 위치를 설정하세요.</span>
 						</div>
@@ -48,30 +61,30 @@
                                 <button class="title" type="button" title="검색옵션 선택">지역</button>
                                 <ul class="selList">
                                     <li>
-                                        <input type="radio" value="" class="option" id="sel1_1" name="buildingsort" />
-                                        <label for="sel1_1">동부</label>
+                                        <input type="radio" value="동부" class="option" id="location1" name="location" required>
+                                        <label for="location1">동부</label>
                                     </li>
                                     <li>
-                                        <input type="radio" value="" class="option" id="sel1_2" name="buildingsort" />
-                                        <label for="sel1_2">서부</label>
+                                        <input type="radio" value="서부" class="option" id="location2" name="location">
+                                        <label for="location2">서부</label>
                                     </li>
                                     <li>
-                                        <input type="radio" value="" class="option" id="sel1_3" name="buildingsort" />
-                                        <label for="sel1_3">중부</label>
+                                        <input type="radio" value="중부" class="option" id="location3" name="location">
+                                        <label for="location3">중부</label>
                                     </li>
                                     <li>
-                                        <input type="radio" value="" class="option" id="sel1_4" name="buildingsort">
-                                        <label for="sel1_4">남부</label>
+                                        <input type="radio" value="남부" class="option" id="location4" name="location">
+                                        <label for="location4">남부</label>
                                     </li>
                                     <li>
-                                        <input type="radio" value="" class="option" id="sel1_5" name="buildingsort">
-                                        <label for="sel1_5">북부</label>
+                                        <input type="radio" value="북부" class="option" id="location5" name="location">
+                                        <label for="location5">북부</label>
                                     </li>
                                 </ul>
                             </div>
                             <br>
 							<div class="inp_text roomenroll_inp roomenroll_opt">
-								<input type="text" name="" id="" placeholder="상세주소를 입력하세요." required>
+								<input type="text" name="address" placeholder="상세주소를 입력하세요." required>
 							</div>
                             <!-- 지도 api !!! -->
 							<div class="roomenroll_map">
@@ -87,7 +100,7 @@
                             </div>
                             <br>
                             <div class="inp_text roomenroll_inp roomenroll_opt">
-                                <input type="text" name="" id="" placeholder="동영상 링크주소를 입력하세요.">
+                                <input type="text" name="roomlink" id="roomlink" placeholder="동영상 링크주소를 입력하세요.">
                             </div>
                             <br>
 							<div class="roomenroll_photo">
@@ -106,13 +119,11 @@
                             <div class="roomenroll_photo_wrap">
 								<!-- 업로드 된 이미지 추가되는 부분 (아래 이미지는 임시용) -->
 								<img src="../resources/images/temp/imgfile_temp01.jpg">
-								<img src="../resources/images/temp/imgfile_temp02.jpg">
-								<img src="../resources/images/temp/imgfile_temp03.jpg">
-								<img src="../resources/images/temp/imgfile_temp04.jpg">
+	
                             </div>
                         </div>	
 						<div class="btn_wrap roomregistbtn2">
-							<a href="#" class="btn btnType1 btnSizeS" type="button"><span>다음</span></a>   
+							<button class="btn btnType1 btnSizeS"><span>다음</span></button>   
 						</div>	
 					</form>
                 </div>

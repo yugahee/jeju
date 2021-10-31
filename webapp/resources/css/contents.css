@@ -1010,8 +1010,8 @@
      .side_layout .roommenu img { width: 20px; height: 20px;}
      .side_layout .roommenu .menu-left { display: inline-block; width: 200px;  height: 60px; line-height: 60px;}
      .side_layout .roommenu .menu-right { display: inline;  height: 60px; line-height: 60px;}
-     .menu-left:hover { color: #ff8b33; }
      .menu-right-cal:hover { color: #ff8b33;}
+
      .container_roomenroll p:first-of-type { font-size: 1.3em; font-weight: 700;}
 
      .side_layout .roommenu_cal { margin-top: 10px;  height: auto;}
