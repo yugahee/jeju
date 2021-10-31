@@ -77,7 +77,7 @@ scope="application"/>
 				</div>
 				<!-- 로그인 했을 때 -->
 				<div class="userArea nologin">
-					<a href="#" class="btn btnType2 btnSizeS"><span>로그인</span></a>
+					<a href="${ contextPath }/login" class="btn btnType2 btnSizeS"><span>로그인</span></a>
 					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
 				</div>
 				<div class="userArea" style="display: none">										
