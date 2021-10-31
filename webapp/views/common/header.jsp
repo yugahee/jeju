@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% 
+	// session 객체에 담긴 loginUser 정보를 변수에 담아두기
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,6 +58,20 @@ scope="application"/>
 						</li>
 						<li>
 							<a href="${ contextPath }/reservation/checkView">예약조회</a>
+						</li>						
+					</ul>
+				</div>
+				<!-- 호스트로 로그인 했을 때 -->
+				<div class="menuList" style="display: none">
+					<ul>
+						<li>
+							<a href="#">숙소관리</a>
+						</li>
+						<li>
+							<a href="#">추천장소</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
 						</li>						
 					</ul>
 				</div>
