@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/member/Login.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/login.jsp").forward(request, response);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 		String user_pwd = request.getParameter("userPwd");
 		
 		Member loginUser = new MemberService().loginMember(user_id, user_pwd);
-		System.out.println(loginUser);
+		//System.out.println(loginUser);
 	
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
