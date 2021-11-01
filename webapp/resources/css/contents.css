@@ -1073,9 +1073,10 @@
      .peaktb > th { border-bottom: 1px solid #cccccc;}
 
      /* 레이어 팝업 - 성수기 추가 */
-     .roomenroll_peakopt { margin-top: 30px;}
-     .peakopt2 { visibility: hidden;}
+     .roomenroll_peakopt { margin-top: 40px;}
      .roomenroll_opt2 { margin-bottom: 50px; width: 200px;}
+     .peakdate { color: #999999; }
+	 .pkalign { margin-left: 80px;}
      .hiddenlayerpop { display: none;}
 
      /* 레이어 팝업 2 - 숙소등록요청 */
