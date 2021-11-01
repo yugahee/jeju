@@ -5,6 +5,9 @@ import member.model.vo.Member;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MemberService {
 	
@@ -18,6 +21,19 @@ public class MemberService {
 		close(conn);
 		
 		return loginMember;
+	}
+
+	public Map<String, Object> selectList() {
+		Connection conn = getConnection();
+		
+		List<Member> MemberList = MemberDao.selectList(conn);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
 	}
 
 }
