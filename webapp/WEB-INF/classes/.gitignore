@@ -1,6 +1,4 @@
 /host/
 /member/
-/reservation/
-/point/
-/sql/
+/reservation
 /room/
