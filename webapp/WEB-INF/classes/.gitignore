@@ -1,13 +1,8 @@
 /host/
 /member/
 /reservation/
-<<<<<<< HEAD
-/room/
-=======
 /point/
 /room/
 /sql/
-
-
->>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
 /admin/
+

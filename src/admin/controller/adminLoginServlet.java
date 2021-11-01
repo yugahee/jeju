@@ -1,6 +1,7 @@
 package admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,10 +50,9 @@ public class adminLoginServlet extends HttpServlet {
 			session.setMaxInactiveInterval(6000);			
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath() + "/admin");
-			
+			response.sendRedirect(request.getContextPath() + "/admin");			
 		}else {
-			request.setAttribute("message", "로그인에 실패하였습니다.");
+			request.setAttribute("message", "로그인 오류");
 			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
 		}
 	}

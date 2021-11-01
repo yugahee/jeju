@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -140,7 +144,7 @@ scope="application"/>
 					<table summary="회원 테이블">
 						<caption>회원 테이블</caption>
 						<colgroup>
-							<col width="4%">
+							<col width="5%">
 							<col width="10%">
 							<col width="8%">
 							<col width="*">
@@ -168,104 +172,21 @@ scope="application"/>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="Member" items="${ MemberList }" varStatus="status">
 							<tr onclick="showLayer('userAdPop')">
-								<td>1</td>
-								<td>user1</td>
-								<td>안나현</td>
-								<td>email1@gmail.com</td>
-								<td>010-4123-6554</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.10.15</td>
-								<td>2021.10.15</td>
-								<td>1</td>
-								<td>정상</td>
+								<td>${ status.count }</td>
+								<td>${ Member.user_id }</td>
+								<td>${ Member.user_name }</td>
+								<td>${ Member.email }</td>
+								<td>${ Member.phone }</td>
+								<td>${ Member.point }</td>
+								<td>${ Member.user_type }</td>
+								<td><fmt:formatDate value="${ Member.enroll_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td><fmt:formatDate value="${ Member.modify_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td>${ Member.report_count }</td>
+								<td>${ Member.status }</td>
 							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>2</td>
-								<td>user2</td>
-								<td>류상훈</td>
-								<td>email2@gmail.com</td>
-								<td>010-4143-2554</td>
-								<td>1000</td>
-								<td>게스트</td>
-								<td>2021.10.13</td>
-								<td>2021.10.16</td>
-								<td>5</td>
-								<td>블랙</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>3</td>
-								<td>user3</td>
-								<td>유가희</td>
-								<td>email3@gmail.com</td>
-								<td>010-5543-1554</td>
-								<td>5000</td>
-								<td>게스트</td>
-								<td>2020.10.13</td>
-								<td>2020.10.20</td>
-								<td>2</td>
-								<td>휴면</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>4</td>
-								<td>user4</td>
-								<td>이지희</td>
-								<td>email4@gmail.com</td>
-								<td>010-9243-2854</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.09.12</td>
-								<td>2021.10.28</td>
-								<td>3</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>5</td>
-								<td>user5</td>
-								<td>이효은</td>
-								<td>email5@gmail.com</td>
-								<td>010-3581-1513</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.22</td>
-								<td>2021.10.30</td>
-								<td>0</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>6</td>
-								<td>user6</td>
-								<td>정온화</td>
-								<td>email6@gmail.com</td>
-								<td>010-8151-5148</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>1</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>7</td>
-								<td>helloeveryone</td>
-								<td>네글자인</td>
-								<td>emailaddress7@gmail.com</td>
-								<td>010-9999-8888</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>1</td>
-								<td>탈퇴</td>
-							</tr>
-							<!-- <tr>
-								<td>1</td>
-								<td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>잘받았습니다</a></td>
-								<td>4re****</td>
-								<td>2017.06.05</td>
-								<td>52</td>
-							</tr> -->
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
