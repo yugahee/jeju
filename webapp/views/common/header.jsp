@@ -51,7 +51,7 @@ scope="application"/>
 				<div class="menuList">
 					<ul>
 						<li>
-							<a href="#">숙소예약</a>
+							<a href="${ contextPath }/room/reservation">숙소예약</a>
 						</li>
 						<li>
 							<a href="#">추천장소</a>
