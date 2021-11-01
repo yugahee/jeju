@@ -1,11 +1,16 @@
 package reservation.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import host.model.vo.Rooms;
+import reservation.model.service.ReservationService;
 
 /**
  * Servlet implementation class Room_reservation
@@ -27,7 +32,7 @@ public class Room_reservation extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		List<Rooms> roomList = new ReservationService().selectRoom();
 		
 		
 		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
