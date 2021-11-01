@@ -26,6 +26,10 @@ public class Room_reservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
 		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
 	}
 
