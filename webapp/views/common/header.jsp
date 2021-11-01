@@ -105,4 +105,3 @@ scope="application"/>
 				</div>
 			</div>
 		</header>
-	</div>
