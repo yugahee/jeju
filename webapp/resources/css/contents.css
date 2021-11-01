@@ -592,6 +592,8 @@
      .lodging_lineup{
      display: flex;
      align-items: flex-start;
+     border-bottom: 1px solid lightgray;
+     padding-bottom: 13px;
      } 
 
 
@@ -618,6 +620,7 @@
      margin-left: 50px; */
      font-weight : bold;
      font-size: 15px;  
+     margin-top: 8px;
      }
 
      .text3{
