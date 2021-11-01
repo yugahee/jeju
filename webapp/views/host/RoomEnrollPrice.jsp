@@ -35,7 +35,7 @@
 		<!-- 등록 내용 화면 -->
 		<div class="roomenroll_basic">
 			<!-- ** 요금설정 ** -->
-			<form method="post" action="${ contextPath }/host/roomenrollprice">
+			<form method="post" action="${ contextPath }/host/roomenrollbasic2">
 				<input type="hidden" name="roomname" value="${ rooms.roomName }">
 				<input type="hidden" name="roomtitle" value="${ rooms.roomTitle }">
 				<input type="hidden" name="roomdes" value="${ rooms.roomDes }">
