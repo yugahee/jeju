@@ -13,12 +13,12 @@
 						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
 					<a class="roommenu">
-						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
-					</a>
-					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					</a>					
+					<a class="roommenu">
+						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
                 </nav>
 				<br>
@@ -35,7 +35,7 @@
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
 				<div class="roomenroll_basic">
 					<!-- ** 위치설정 ** -->
-					<form method="post" action="${ contextPath }/host/roomenrollphoto" enctype="multipart/form-data">
+					<form method="post" action="" enctype="multipart/form-data">
 					<input type="hidden" name="roomname" value="${ rooms.roomName }">
 					<input type="hidden" name="roomtitle" value="${ rooms.roomTitle }">
 					<input type="hidden" name="roomdes" value="${ rooms.roomDes }">
@@ -48,6 +48,17 @@
 					<input type="hidden" name="starttime" value="${ rooms.startTime }">
 					<input type="hidden" name="endtime" value="${ rooms.endTime }">
 					<input type="hidden" name="roomfac" value="${ rooms.roomFac }">
+					<input type="hidden" name="minstay" value="${ rooms.minStay }">
+					<input type="hidden" name="maxstay" value="${ rooms.maxStay }">
+					<input type="hidden" name="minpeople" value="${ rooms.minPeople }">
+					<input type="hidden" name="maxpeople" value="${ rooms.maxPeople }">
+					<input type="hidden" name="price" value="${ rooms.price }">
+					<input type="hidden" name="extracost" value="${ rooms.extraCost }">
+					<c:if test="${ rooms.peak != null }">
+						<input type="hidden" name="peakstart" value="${ rooms.peak.peakStart }">
+						<input type="hidden" name="peakend" value="${ rooms.peak.peakEnd }">
+						<input type="hidden" name="peakprice" value="${ rooms.peak.peakPrice }">
+					</c:if>
 					
 						<div class="roomenroll_title_main">
 							<h2>위치</h2><span>숙소의 위치를 설정하세요.</span>

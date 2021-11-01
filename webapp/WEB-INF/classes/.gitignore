@@ -1,5 +1,9 @@
 /host/
 /member/
-/reservation/
 /point/
+/reservation/
+<<<<<<< HEAD
+/point/
+=======
+>>>>>>> refs/heads/main
 /sql/
