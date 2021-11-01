@@ -48,6 +48,17 @@
 					<input type="hidden" name="starttime" value="${ rooms.startTime }">
 					<input type="hidden" name="endtime" value="${ rooms.endTime }">
 					<input type="hidden" name="roomfac" value="${ rooms.roomFac }">
+					<input type="hidden" name="minstay" value="${ rooms.minStay }">
+					<input type="hidden" name="maxstay" value="${ rooms.maxStay }">
+					<input type="hidden" name="minpeople" value="${ rooms.minPeople }">
+					<input type="hidden" name="maxpeople" value="${ rooms.maxPeople }">
+					<input type="hidden" name="price" value="${ rooms.price }">
+					<input type="hidden" name="extracost" value="${ rooms.extraCost }">
+					<c:if test="${ rooms.peak != null }">
+						<input type="hidden" name="peakstart" value="${ rooms.peak.peakStart }">
+						<input type="hidden" name="peakend" value="${ rooms.peak.peakEnd }">
+						<input type="hidden" name="peakprice" value="${ rooms.peak.peakPrice }">
+					</c:if>
 					
 						<div class="roomenroll_title_main">
 							<h2>위치</h2><span>숙소의 위치를 설정하세요.</span>

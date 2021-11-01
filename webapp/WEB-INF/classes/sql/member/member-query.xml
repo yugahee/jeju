@@ -11,6 +11,8 @@
 	   AND STATUS = 'Y'
 </entry>
 
+
+
 <entry key="searchMember">
 	SELECT
 		   *
@@ -18,4 +20,11 @@
 	 WHERE USER_TYPE != '관리자'
 </entry>
 
+<entry key="searchMemberDetail">
+	SELECT
+		   *
+	  FROM MEMBER
+	 WHERE USER_TYPE != '관리자'
+	   AND USER_ID = ?
+</entry>
 </properties>

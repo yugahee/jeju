@@ -32,6 +32,8 @@ public class Rooms {
 	private String roomLink;      // 유튜브링크주소
 	private String status;        // 상태 (삭제 : N)
 	
+	private PeakSeason peak;      // 성수기 객체
+	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
 ADDRESS	VARCHAR2(100 BYTE)
@@ -65,7 +67,7 @@ STATUS	VARCHAR2(1 BYTE)*/
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status) {
+			String roomLink, String status, PeakSeason peak) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -95,9 +97,8 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.maxStay = maxStay;
 		this.roomLink = roomLink;
 		this.status = status;
+		this.peak = peak;
 	}
-
-
 
 	public int getRoomNo() {
 		return roomNo;
@@ -324,6 +325,15 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.roomLink = roomLink;
 	}
 
+
+	public PeakSeason getPeak() {
+		return peak;
+	}
+
+	public void setPeak(PeakSeason peak) {
+		this.peak = peak;
+	}
+
 	@Override
 	public String toString() {
 		return "Rooms [roomNo=" + roomNo + ", userId=" + userId + ", address=" + address + ", location=" + location
@@ -333,9 +343,9 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", enrollDate=" + enrollDate
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
-				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + "]";
+				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + "]";
 	}
 
-
+	
 
 }

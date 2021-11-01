@@ -173,7 +173,8 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<c:forEach var="Member" items="${ MemberList }" varStatus="status">
-							<tr onclick="showLayer('userAdPop')">
+							<tr onclick="showLayer('userAdPop'); userdate(this);">
+								<td style="display:none;"><input type="hidden" value="${Member.user_id}"></td>
 								<td>${ status.count }</td>
 								<td>${ Member.user_id }</td>
 								<td>${ Member.user_name }</td>
@@ -220,43 +221,20 @@ scope="application"/>
 						<col style="width:20%;">
 						<col style="width:*;">
 					</colgroup>
-					<tbody>
-						<tr>
-							<th>회원번호</th>
-							<td>3213</td>
-						</tr>
+					<tbody>						
 						<tr>
 							<th>ID</th>
-							<td>user03</td>
+							<td id="mid">user03</td>
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td>주라도</td>
+							<td id="mname">주라도</td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">정상</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">휴면</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">탈퇴</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_4" name="select1" />
-											<label for="sel1_4">블랙</label>
-										</li>
-									</ul>
+								<div id="mstatus" class="selectbox">
+									
 								</div>
 							</td>
 						</tr>
@@ -274,9 +252,48 @@ scope="application"/>
 			</div>			
 			<div class="btn_wrap">
                 <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+				<a href="#none" class="btn btnType2 btnSizeM" onclick="hideLayer('userAdPop');"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
 </body>
 </html>
+<script>
+function userdate(elem){	
+	
+	let userId = $(elem).find('input').val();
+	
+	
+	$.ajax({
+		url : "${contextPath}/admin/userDetail",
+		data : {input : userId},
+		dataType : "json",
+		type : "get",
+		success : function(user){			
+			var html = '';
+			
+			if(user){
+				$("#mid").text(user.user_id);
+				$("#mname").text(user.user_name);
+				if(user.status == 'Y'){										
+					html = '<button class="title" type="button" title="상태">정상</button>'
+						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">정상</label></li>	'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">탈퇴</label></li></ul>';
+				}else{
+					html = '<button class="title" type="button" title="상태">탈퇴</button>'
+						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">정상</label></li>	'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">탈퇴</label></li></ul>';
+				}
+				
+				$("#mstatus").html(html);
+			}else{
+				alert('존재하지 않는 회원번호입니다!');
+			}
+			
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
+</script>

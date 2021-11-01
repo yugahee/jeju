@@ -17,7 +17,7 @@ import member.model.vo.Member;
 
 public class MemberDao {
 	
-	private static Properties memberQuery = new Properties();
+	private Properties memberQuery = new Properties();
 	
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.xml").getPath();
@@ -63,8 +63,9 @@ public class MemberDao {
 		
 		return loginUser;
 	}
+	
 
-	public static List<Member> selectList(Connection conn) {
+	public List<Member> selectList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = memberQuery.getProperty("searchMember");
@@ -98,6 +99,43 @@ public class MemberDao {
 		}
 		
 		return MemberList;
+	}
+
+	public Member selectMemberDetail(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member member = new Member();
+		String sql = memberQuery.getProperty("searchMemberDetail");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {			
+				member.setUser_id(rset.getString("user_id"));
+				member.setUser_pwd(rset.getString("user_pwd"));
+				member.setUser_name(rset.getString("user_name"));
+				member.setEmail(rset.getString("email"));
+				member.setPhone(rset.getString("phone"));
+				member.setPoint(rset.getInt("point"));
+				member.setUser_type(rset.getString("user_type"));
+				member.setEnroll_date(rset.getDate("enroll_date"));
+				member.setModify_date(rset.getDate("modify_date"));
+				member.setReport_count(rset.getInt("report_count"));
+				member.setStatus(rset.getString("status"));				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return member;
 	}
 
 }
