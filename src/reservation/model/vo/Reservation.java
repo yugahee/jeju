@@ -1,11 +1,11 @@
 package reservation.model.vo;
 
-import oracle.sql.DATE;
+import java.sql.Date;
 
 public class Reservation {
 	private int room_reserve;          // 예약번호
-	private DATE start_date;		   // 시작일
-	private DATE end_date;			   // 종료일
+	private Date start_date;		   // 시작일
+	private Date end_date;			   // 종료일
 	private String person_reserve;     // 예약자명 
 	private String pone;			   // 전화번호
 	private String reserve_state;      // 예약상태
@@ -15,7 +15,7 @@ public class Reservation {
 	
 	public Reservation() {}
 
-	public Reservation(int room_reserve, DATE start_date, DATE end_date, String person_reserve, String pone,
+	public Reservation(int room_reserve, Date start_date, Date end_date, String person_reserve, String pone,
 			String reserve_state, int reserve_num, String guest, int room_no) {
 		super();
 		this.room_reserve = room_reserve;
@@ -37,19 +37,19 @@ public class Reservation {
 		this.room_reserve = room_reserve;
 	}
 
-	public DATE getStart_date() {
+	public Date getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(DATE start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
 
-	public DATE getEnd_date() {
+	public Date getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(DATE end_date) {
+	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 
