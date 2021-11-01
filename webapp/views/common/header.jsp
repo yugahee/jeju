@@ -78,17 +78,19 @@ scope="application"/>
 				<!-- 로그인 했을 때 -->
 				<div class="userArea nologin">
 					<a href="${ contextPath }/login" class="btn btnType2 btnSizeS"><span>로그인</span></a>
-					<a href="#" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
+					<a href="${ contextPath }/join" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
 				</div>
 				<div class="userArea" style="display: none">										
-                    <img src="${contextPath}/resources/images/usericon.png" onclick="userCon()"/>                   
-                    <!-- 회원일 때 -->
+                    <img src="${contextPath}/resources/images/usericon.png" onclick="userCon()"/>                  
+                    <!-- 회원일 때 --> 
+                    <c:if test="${ !empty loginUser }">
                     <ul class="userCon" id="guestUserCon" style="display: none">
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="${ contextPath }/logout">로그아웃</a></li>
 						<li><a href="#">마이페이지</a></li>
 						<li><a href="#">메신저</a></li>
 						<li><a href="#">신고게시판</a></li>
                     </ul>
+                    </c:if>
                     <!-- 호스트일 때-->
                     <ul class="userCon" id="hostUserCon" style="display: none">
                         <li><a href="#">로그아웃</a></li>
