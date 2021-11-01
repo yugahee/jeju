@@ -13,12 +13,12 @@
 						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
 					<a class="roommenu">
-						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
-					</a>
-					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					</a>					
+					<a class="roommenu">
+						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
                 </nav>
 				<br>
@@ -35,7 +35,7 @@
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
 				<div class="roomenroll_basic">
 					<!-- ** 위치설정 ** -->
-					<form method="post" action="${ contextPath }/host/roomenrollphoto" enctype="multipart/form-data">
+					<form method="post" action="" enctype="multipart/form-data">
 					<input type="hidden" name="roomname" value="${ rooms.roomName }">
 					<input type="hidden" name="roomtitle" value="${ rooms.roomTitle }">
 					<input type="hidden" name="roomdes" value="${ rooms.roomDes }">
