@@ -10,14 +10,14 @@
 				<nav class="sub_menu_roomenroll">
 					<a class="roommenu">  <!-- 수정페이지에서만 href="#"으로 연결 -->
 						<span class="menu-left" style="color:#ff8b33">기본설정</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
-					</a>
-					<a class="roommenu">
-						<span class="menu-left">위치/사진/동영상</span>
-						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
 					</a>
 					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
+						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					</a>					
+					<a class="roommenu">
+						<span class="menu-left">위치/사진/동영상</span>
 						<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
 					</a>
                 </nav>
@@ -27,9 +27,9 @@
 					<span class="menu-right-cal">달력관리</span>
 				</a>
 				<br>
-<!-- 				<div class="btn_wrap">
-					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	 -->
+ 				<div class="btn_wrap">
+					<a href="#" class="btn btnType1 btnSizeS roomregistbtn" onclick="showLayer('roomenrollbtn');"><span>숙소등록</span></a>   
+				</div>	 
                 </div>
 
 				<!-------------------- 등록 내용 화면 ------------------------------------------->
@@ -665,6 +665,23 @@
                 </div>
 			</div>
 		</div>
+		
+		<!-- 숙소등록 버튼 클릭시 레이아웃 : 완료되지 않은 경우 -->
+        <div id="roomenrollbtn" class="layerPop">
+            <div class="layerTit roomenroll_msg">
+                <img src="../resources/images/host/error_icon.png" width="120px" height="120px">
+            </div>
+            <div class="layerBody">
+                <div class="roomenroll_msg">
+                    <p>설정이 완료되지 않았습니다.</p>
+                    <p>설정을 모두 완료해 주세요.</p>
+                    <div class="btn_wrap roomenroll_content_opt ">
+                        <a href="#" class="btn btnType1 btnSizeS" onclick="hideLayer('roomenrollbtn');"><span>확인</span></a>   
+                    </div>	
+                </div>
+            </div>
+        </div>
+		
 		<script>
 		// 숙소이름 input에 특수문자 입력하는 경우 error 메세지 띄우기
 		document.forms.roomeenrollbasic.oninput = function(){
