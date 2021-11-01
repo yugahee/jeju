@@ -1419,6 +1419,11 @@
           line-height: 1.25;
      }
      
+     /* 장소명 및 사진 클릭 시 커서 모양 변경 */
+	.reco_item div:first-child:hover {
+    cursor: pointer;
+	}
+     
      /* 장소명 및 사진 클릭 시 페이지 이동 */
      .item_info > p:first-child:active, .imageArea:active {
           
@@ -1530,7 +1535,7 @@
      }
      
      /* 회원 리뷰 버튼 디자인 */
-     .detail_review .detail_comment div a {
+     /*.detail_review .detail_comment div a {
           background-color: lightgray;
           border: 1px solid black;
           padding: 1px;
@@ -1540,5 +1545,5 @@
      .detail_review .detail_comment div a:hover {
           background-color: rgb(90, 88, 88);
           color: white;
-     }
+     }*/
 /* 지희님 : E*/
