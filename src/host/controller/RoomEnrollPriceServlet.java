@@ -7,19 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import host.model.vo.Rooms;
-
 /**
- * Servlet implementation class RoomEnrollBasicServlet
+ * Servlet implementation class RoomEnrollPriceServlet
  */
-@WebServlet("/host/roomenrollbasic")
-public class RoomEnrollBasicServlet extends HttpServlet {
+@WebServlet("/host/roomenrollprice")
+public class RoomEnrollPriceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RoomEnrollBasicServlet() {
+    public RoomEnrollPriceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +26,7 @@ public class RoomEnrollBasicServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/host/RoomEnrollBasic.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -46,38 +44,13 @@ public class RoomEnrollBasicServlet extends HttpServlet {
 		int bath = Integer.parseInt(request.getParameter("bath"));
 		String roomType = request.getParameter("roomtype");
 		String buildingType = request.getParameter("buildingtype");
-		
-		String roomSize = "";
-		if(request.getParameter("roomsize") != null) {
-			roomSize = request.getParameter("roomsize");
-		} 
-		
+		String roomSize = request.getParameter("roomsize");
 		String startTime = request.getParameter("starttime");
 		String endTime = request.getParameter("endtime");
-		String[] roomFacArr = request.getParameterValues("roomfac");
+		String roomFac = request.getParameter("roomfac");
 		
-		String roomFac = "";
-		if(roomFacArr != null) {
-			roomFac = String.join(",", roomFacArr);
-		}
 		
-		Rooms rooms = new Rooms();
-		rooms.setRoomName(roomName);
-		rooms.setRoomTitle(roomTitle);
-		rooms.setRoomDes(roomDes);
-		rooms.setRoom(room);
-		rooms.setBed(bed);
-		rooms.setBath(bath);
-		rooms.setRoomType(roomType);
-		rooms.setBuildingType(buildingType);
-		rooms.setRoomSize(roomSize);
-		rooms.setStartTime(startTime);
-		rooms.setEndTime(endTime);
-		rooms.setRoomFac(roomFac);
-		
-		request.setAttribute("rooms", rooms);
-		request.getRequestDispatcher("/views/host/RoomEnrollPrice.jsp").forward(request, response);
-		
+	
 	}
 
 }
