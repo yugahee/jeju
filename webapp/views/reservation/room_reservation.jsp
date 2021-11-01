@@ -38,7 +38,7 @@
 						   </div>
 						   <div class="search_btn">
 								<button type="button" href="#" class="btn btnType1 btnSizeM"><span>검색</span></button>							   
-								<button type="button" href="#" class="btn btnType2 btnSizeM"><span>조건검색</span></button>					   
+								<button type="button" onclick="showLayer('filterSearch');" class="btn btnType2 btnSizeM"><span>조건검색</span></button>					   
 						   </div>
 						   
 						</div>
@@ -177,7 +177,7 @@
 			</div>
 			<div class="btn_wrap">
                 <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-                <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="${contextPath}/room/reservation" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
 		</div>  
 	</div>
