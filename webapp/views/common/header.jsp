@@ -58,7 +58,7 @@ scope="application"/>
 						</li>
 						<li>
 							<a href="${ contextPath }/reservation/checkView">예약조회</a>
-						</li>						
+						</li>					
 					</ul>
 				</div>
 				<!-- 호스트로 로그인 했을 때 -->
@@ -75,35 +75,48 @@ scope="application"/>
 						</li>						
 					</ul>
 				</div>
-				<!-- 로그인 했을 때 -->
+				<!-- 로그인 하기 전 -->
+				<c:if test="${ empty loginUser }">
 				<div class="userArea nologin">
 					<a href="${ contextPath }/login" class="btn btnType2 btnSizeS"><span>로그인</span></a>
 					<a href="${ contextPath }/join" class="btn btnType1 btnSizeS"><span>회원가입</span></a>
 				</div>
-				<div class="userArea" style="display: none">										
+				</c:if>
+				<!-- 로그인 성공 -->
+                <c:if test="${ !empty loginUser }">
+				<div class="userArea">										
                     <img src="${contextPath}/resources/images/usericon.png" onclick="userCon()"/>                  
-                    <!-- 회원일 때 --> 
-                    <c:if test="${ !empty loginUser }">
-                    <ul class="userCon" id="guestUserCon" style="display: none">
+                <c:choose>
+                	<c:when test="${ loginUser.getUser_type() eq '게스트'}">
+                	<!-- 게스트일 때 -->
+                	<ul class="userCon" id="guestUserCon" style="display: none">
                         <li><a href="${ contextPath }/logout">로그아웃</a></li>
 						<li><a href="#">마이페이지</a></li>
 						<li><a href="#">메신저</a></li>
 						<li><a href="#">신고게시판</a></li>
                     </ul>
-                    </c:if>
-                    <!-- 호스트일 때-->
-                    <ul class="userCon" id="hostUserCon" style="display: none">
-                        <li><a href="#">로그아웃</a></li>
+                	</c:when>
+                	<c:when test="${ loginUser.getUser_type() eq '호스트'}">
+                	<!-- 호스트일 때 -->
+                	 <ul class="userCon" id="hostUserCon" style="display: none">
+                        <li><a href="${ contextPath }/logout">로그아웃</a></li>
 						<li><a href="${ contextPath }/host/mypage">마이페이지</a></li>
 						<li><a href="#">메신저</a></li>
 						<li><a href="#">신고게시판</a></li>
                     </ul>
-                    <!-- 관리자일 떄 -->
-                    <ul class="userCon" id="adminUserCon" style="display: none">
+                	</c:when>
+                	<c:otherwise>
+                	<!-- 관리자일 때 -->
+                	<ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="#">계정 관리</a></li>
                         <li><a href="#">비밀번호 관리</a></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a href="${ contextPath }/logout">로그아웃</a></li>
                     </ul>
-				</div>
+                	</c:otherwise>
+                </c:choose>
+                </div>
+                </c:if>
+                    
 			</div>
 		</header>
+		</div>
