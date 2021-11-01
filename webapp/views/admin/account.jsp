@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,7 +78,7 @@ scope="application"/>
                         <dt>이름</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="text" name="" id="" value="관리자"/>
+                                <input type="text" name="" id="" value="<%= loginUser.getUser_name() %>"/>
                             </div>
                         </dd>
                     </dl>
@@ -83,7 +86,7 @@ scope="application"/>
                         <dt>이메일</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="text" name="" id="" class="readOnly" readonly value="admin@gmail.com" />
+                                <input type="text" name="" id="" class="readOnly" readonly value="<%= loginUser.getEmail() %>" />
                             </div>
                             <a href="#" class="btn btnType1 btnSizeS"><span>재설정</span></a>
                         </dd>
@@ -92,7 +95,7 @@ scope="application"/>
                         <dt>아이디</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="text" name="" id="" class="readOnly" readonly value="admin" />
+                                <input type="text" name="" id="" class="readOnly" readonly value="<%= loginUser.getUser_id() %>" />
                             </div>
                         </dd>
                     </dl>
@@ -100,7 +103,7 @@ scope="application"/>
                         <dt>전화번호</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="text" name="" id="" value="010-9999-8888"/>
+                                <input type="text" name="" id="" value="<%= loginUser.getPhone() %>"/>
                             </div>
                         </dd>
                     </dl>
@@ -108,7 +111,7 @@ scope="application"/>
                         <dt>비밀번호</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="password" name="" id="" class="readOnly" readonly value="password" />
+                                <input type="password" name="" id="" class="readOnly" readonly value="<%= loginUser.getUser_pwd() %>" />
                             </div>
                             <a href="#" class="btn btnType1 btnSizeS"><span>재설정</span></a>
                         </dd>

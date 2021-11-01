@@ -11,5 +11,11 @@
 	   AND STATUS = 'Y'
 </entry>
 
+<entry key="searchMember">
+	SELECT
+		   *
+	  FROM MEMBER
+	 WHERE USER_TYPE != '관리자'
+</entry>
 
 </properties>
