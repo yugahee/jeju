@@ -115,8 +115,6 @@ scope="application"/>
                 	</c:otherwise>
                 </c:choose>
                 </div>
-                </c:if>
-                    
+                </c:if>                    
 			</div>
 		</header>
-		</div>
