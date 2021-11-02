@@ -35,13 +35,31 @@ public class MainRamdomRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Rooms> roomList = new ArrayList<>();
-		
+		// 전체 룸 리스트 가져오기
 		roomList = new MainService().randomRoom();
 		
-		System.out.println(roomList);
+		List<Rooms> randomRoomList = new ArrayList<>();
+		int[] num = new int[4];
+		
+		
+		for(int i = 0; i < 4; i++) {
+			int random = (int) (Math.random() * (roomList.size()-1)) + 1;
+			num[i] = random;
+			
+			for(int j = 0; j < i; j++) {
+				if(num[i] == num[j]) {
+					i--;
+				}
+			}
+		}
+		
+		for(int i = 0; i < num.length; i++) {
+			randomRoomList.add(roomList.get(num[i]));
+		}
+		
 		
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(roomList, response.getWriter());
+		new Gson().toJson(randomRoomList, response.getWriter());
 	}
 
 	/**
