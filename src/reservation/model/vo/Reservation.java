@@ -9,7 +9,7 @@ public class Reservation {
 	private String person_reserve;     // 예약자명 
 	private String pone;			   // 전화번호
 	private String reserve_state;      // 예약상태
-	private int reserve_num;		   // 예약인
+	private int reserve_num;		   // 예약인원
 	private String guest;			   // 게스트ID
 	private int room_no;			   // 숙소번호
 	
