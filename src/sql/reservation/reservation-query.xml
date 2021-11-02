@@ -19,7 +19,27 @@
        AND F.STATUS = 'Y'
 	   AND FILE_LEVEL = 0
 </entry>
-
+<entry key="userReservation">
+	SELECT
+	    ROOM_RESERVE
+	    , START_DATE
+	    , END_DATE
+	    , PERSON_RESERVE    
+	    , RESERVE_NUM
+	    , RESERVE_STATE
+	    , ROOM_NO
+	    , ROOM_NAME
+	    , ADDRESS
+	    , START_TIME
+	    , END_TIME
+	    , FILE_PATH
+	    , CHANGE_NAME
+	FROM RESERVATION
+	JOIN ROOMS USING(ROOM_NO)
+	JOIN FILES USING(ROOM_NO)
+	WHERE GUEST = ?
+	AND FILE_LEVEL = 0
+</entry>
 
 
 
