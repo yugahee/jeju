@@ -1,6 +1,7 @@
-package reservation.controller;
+package main.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import host.model.vo.Rooms;
-import reservation.model.service.ReservationService;
+import main.model.service.MainService;
 
 /**
- * Servlet implementation class Room_reservation
+ * Servlet implementation class MainRamdomRoom
  */
-@WebServlet("/room/reservation")
-public class Room_reservation extends HttpServlet {
+@WebServlet("/ramdomRoom")
+public class MainRamdomRoom extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Room_reservation() {
+    public MainRamdomRoom() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +34,32 @@ public class Room_reservation extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Rooms> roomList = new ArrayList<>();
+		// 전체 룸 리스트 가져오기
+		roomList = new MainService().randomRoom();
 		
-		List<Rooms> roomList = new ReservationService().selectRoom();
-		request.setAttribute("roomList", roomList);
+		List<Rooms> randomRoomList = new ArrayList<>();
+		int[] num = new int[4];
+		
+		
+		for(int i = 0; i < 4; i++) {
+			int random = (int) (Math.random() * (roomList.size()-1)) + 1;
+			num[i] = random;
 			
-		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
+			for(int j = 0; j < i; j++) {
+				if(num[i] == num[j]) {
+					i--;
+				}
+			}
+		}
+		
+		for(int i = 0; i < num.length; i++) {
+			randomRoomList.add(roomList.get(num[i]));
+		}
+		
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(randomRoomList, response.getWriter());
 	}
 
 	/**

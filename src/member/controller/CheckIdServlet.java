@@ -42,13 +42,14 @@ public class CheckIdServlet extends HttpServlet {
 		int result = new MemberService().checkId(userId);
 		
 		PrintWriter out = response.getWriter();
-		
+			
 		// 1이 돌아오면 중복 아이디 있는 것 
-		if(result > 1) {
-			out.print("success");
+		if(result > 0) {
+			out.print("fail");			
 		} else {
-			out.print("fail");
+			out.print("success");
 		}
+		
 	}
 
 }

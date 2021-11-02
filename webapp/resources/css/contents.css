@@ -628,11 +628,11 @@
      font-weight: bold;
      }
 
-    .tt{
+    .child2 .roomReview{
    	 display: flex;
 	}
 
-	.tt2{
+	.child2 .roomPrice{
 	   margin-left: 280px;
 	   margin-top: 25px;
 	   font-size: 15px;

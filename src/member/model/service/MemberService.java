@@ -55,4 +55,30 @@ public class MemberService{
 		
 		return user;
 	}
+
+	public int checkId(String userId) {
+		Connection conn = getConnection();
+		
+		int result = memberDao.checkId(conn, userId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertMember(Member member) {
+		Connection conn = getConnection();
+		
+		int result = memberDao.insertMember(conn, member);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }

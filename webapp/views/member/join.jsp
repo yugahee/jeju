@@ -9,7 +9,7 @@
 </style>
  <div class="main">
             <div class="memberJoin">
-                <form action="${ contextPath }/join" method="post">
+                <form action="${ contextPath }/join" method="post" onsubmit="return join();" >
                 <div class="selectMem">
                     <div class="gest" id="gest">
                         <input type="radio" id = "ra_gest" value="gest">
@@ -24,10 +24,10 @@
                 </div>
                 <tbody class="joinForm">
                 	<tr>
-                        <th>카테고리</th><br>
+                        <th>회원 유형</th><br>
                            <td>
                                <div class="selectbox">
-                                   <button class="title" type="button" title="카테고리 선택" >카테고리를 선택하세요</button>
+                                   <button class="title" type="button" title="회원유형 선택" >회원 유형을 선택하세요</button>
                                    <ul class="selList">
                                        <li>
                                            <input type="radio" value="gest" class="option" id="sel2_1" name="userType" onclick="selectType();"/>
@@ -90,13 +90,13 @@
                         <td>
                             <div class="inp_text inp_cell">
                                 <input type="password" name="userPwd2" id="userPwd2" placeholder="비밀번호 확인" required/>
-                                <p class="error" id="error" name="error"></p>
+                                <p class="error" id="error"></p>
                             </div>
                         </td>
                     </tr>
                 </tbody>
                 <div class="joinBtn">
-                    <button  type="submit" id="joinBtn" class="btn btnType1 btnSizeL disabled" onclick="join()" disabled><span>가입</span></button>
+                    <button  type="submit" id="joinBtn" class="btn btnType1 btnSizeL disabled" disabled><span>가입</span></button>
                 </div>
                 </form>
 			</div>
@@ -105,7 +105,8 @@
 <%@ include file="/views/common/footer.jsp" %>
 
 <script>
-	$("#chkId").on('click', function(){
+	 	
+	 $("#chkId").on('click', function(){
 		var userId = $("[name=userId]");
 		// 최종 가입 submit버튼이 가능하게 하기 위한 확인용 변수
 		var idUse = false;
@@ -116,9 +117,10 @@
 		} else {
 			$.ajax({
 				url : "${contextPath}/checkId",
+				type : "post",
 				data : { userId : userId.val() },
-				success : function(thisId){
-					if(thisId != "fail"){
+				success : function(result){
+					if(result != "fail"){
 						if(confirm("사용 가능한 아이디입니다. 해당 아이디로 사용하시려면 확인을 눌러주세요.")){
 							userId.attr('readonly', true);
 							idUse = true;
@@ -134,20 +136,23 @@
 					}
 					
 					if(idUse){
+						// 최종적으로 사용 가능한 아이디로 확인을 누른 경우 disabled 속성을 없애고
 						$("#joinBtn").removeAttr("disabled");
-						// 클래스명에서 disabled도 지워져야 함
+						// 클래스명에서 disabled도 지워짐
+						document.getElementById("joinBtn").className = "btn btnType1 btnSizeL";
 					} else {
+						// 취소 누르면 다시 안되게
 						$("#joinBtn").attr("disabled", true);
-					}
-					
+						document.getElementById("joinBtn").className = "btn btnType1 btnSizeL disabled";
+					}	
 				},
 				error : function (e){
-					console.log(e);
-					// 오류 페이지로 이동
-					<% request.setAttribute("message", "아이디 중복 확인 처리에 실패하였습니다."); %>
-					<% request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response); %>
+					alert("아이디 중복 확인에서 오류가 발생했습니다.");
+				
 				}
 			});
 		}
 	});
+	 	 
+
 </script>

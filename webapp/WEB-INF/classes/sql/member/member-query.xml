@@ -11,7 +11,40 @@
 	   AND STATUS = 'Y'
 </entry>
 
+<entry key="checkId">
+	SELECT
+		   COUNT(*)
+	  FROM MEMBER
+	 WHERE USER_ID = ?	
+</entry>
 
+<entry key="insertMember">
+	INSERT
+	  INTO MEMBER
+	(
+		   USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , PHONE
+		 , EMAIL
+		 , USER_TYPE
+		 , ENROLL_DATE
+		 , MODIFY_DATE
+		 , STATUS
+	)
+	VALUES
+	(
+		   ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , ?
+		 , DEFAULT
+		 , DEFAULT
+		 , DEFAULT
+	)
+</entry>
 
 <entry key="searchMember">
 	SELECT
