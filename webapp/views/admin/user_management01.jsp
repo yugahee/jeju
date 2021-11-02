@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -140,7 +144,7 @@ scope="application"/>
 					<table summary="회원 테이블">
 						<caption>회원 테이블</caption>
 						<colgroup>
-							<col width="4%">
+							<col width="5%">
 							<col width="10%">
 							<col width="8%">
 							<col width="*">
@@ -168,104 +172,22 @@ scope="application"/>
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('userAdPop')">
-								<td>1</td>
-								<td>user1</td>
-								<td>안나현</td>
-								<td>email1@gmail.com</td>
-								<td>010-4123-6554</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.10.15</td>
-								<td>2021.10.15</td>
-								<td>1</td>
-								<td>정상</td>
+							<c:forEach var="Member" items="${ MemberList }" varStatus="status">
+							<tr onclick="showLayer('userAdPop'); userdate(this);">
+								<td style="display:none;"><input type="hidden" value="${Member.user_id}"></td>
+								<td>${ status.count }</td>
+								<td>${ Member.user_id }</td>
+								<td>${ Member.user_name }</td>
+								<td>${ Member.email }</td>
+								<td>${ Member.phone }</td>
+								<td>${ Member.point }</td>
+								<td>${ Member.user_type }</td>
+								<td><fmt:formatDate value="${ Member.enroll_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td><fmt:formatDate value="${ Member.modify_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td>${ Member.report_count }</td>
+								<td>${ Member.status }</td>
 							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>2</td>
-								<td>user2</td>
-								<td>류상훈</td>
-								<td>email2@gmail.com</td>
-								<td>010-4143-2554</td>
-								<td>1000</td>
-								<td>게스트</td>
-								<td>2021.10.13</td>
-								<td>2021.10.16</td>
-								<td>5</td>
-								<td>블랙</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>3</td>
-								<td>user3</td>
-								<td>유가희</td>
-								<td>email3@gmail.com</td>
-								<td>010-5543-1554</td>
-								<td>5000</td>
-								<td>게스트</td>
-								<td>2020.10.13</td>
-								<td>2020.10.20</td>
-								<td>2</td>
-								<td>휴면</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>4</td>
-								<td>user4</td>
-								<td>이지희</td>
-								<td>email4@gmail.com</td>
-								<td>010-9243-2854</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.09.12</td>
-								<td>2021.10.28</td>
-								<td>3</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>5</td>
-								<td>user5</td>
-								<td>이효은</td>
-								<td>email5@gmail.com</td>
-								<td>010-3581-1513</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.22</td>
-								<td>2021.10.30</td>
-								<td>0</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>6</td>
-								<td>user6</td>
-								<td>정온화</td>
-								<td>email6@gmail.com</td>
-								<td>010-8151-5148</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>1</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('userAdPop')">
-								<td>7</td>
-								<td>helloeveryone</td>
-								<td>네글자인</td>
-								<td>emailaddress7@gmail.com</td>
-								<td>010-9999-8888</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>1</td>
-								<td>탈퇴</td>
-							</tr>
-							<!-- <tr>
-								<td>1</td>
-								<td class="al_l"><a href="#"><span class="opt_cate">[분류]</span>잘받았습니다</a></td>
-								<td>4re****</td>
-								<td>2017.06.05</td>
-								<td>52</td>
-							</tr> -->
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -299,43 +221,20 @@ scope="application"/>
 						<col style="width:20%;">
 						<col style="width:*;">
 					</colgroup>
-					<tbody>
-						<tr>
-							<th>회원번호</th>
-							<td>3213</td>
-						</tr>
+					<tbody>						
 						<tr>
 							<th>ID</th>
-							<td>user03</td>
+							<td id="mid">user03</td>
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td>주라도</td>
+							<td id="mname">주라도</td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">정상</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">휴면</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">탈퇴</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_4" name="select1" />
-											<label for="sel1_4">블랙</label>
-										</li>
-									</ul>
+								<div id="mstatus" class="selectbox">
+									
 								</div>
 							</td>
 						</tr>
@@ -353,9 +252,48 @@ scope="application"/>
 			</div>			
 			<div class="btn_wrap">
                 <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+				<a href="#none" class="btn btnType2 btnSizeM" onclick="hideLayer('userAdPop');"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
 </body>
 </html>
+<script>
+function userdate(elem){	
+	
+	let userId = $(elem).find('input').val();
+	
+	
+	$.ajax({
+		url : "${contextPath}/admin/userDetail",
+		data : {input : userId},
+		dataType : "json",
+		type : "get",
+		success : function(user){			
+			var html = '';
+			
+			if(user){
+				$("#mid").text(user.user_id);
+				$("#mname").text(user.user_name);
+				if(user.status == 'Y'){										
+					html = '<button class="title" type="button" title="상태">정상</button>'
+						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">정상</label></li>	'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">탈퇴</label></li></ul>';
+				}else{
+					html = '<button class="title" type="button" title="상태">탈퇴</button>'
+						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">정상</label></li>	'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">탈퇴</label></li></ul>';
+				}
+				
+				$("#mstatus").html(html);
+			}else{
+				alert('존재하지 않는 회원번호입니다!');
+			}
+			
+		},
+		error : function(e){
+			console.log(e);
+		}
+	});
+}
+</script>

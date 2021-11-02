@@ -76,7 +76,7 @@ public class RoomEnrollBasicServlet extends HttpServlet {
 		rooms.setRoomFac(roomFac);
 		
 		request.setAttribute("rooms", rooms);
-		request.getRequestDispatcher("/views/host/RoomEnrollPhoto.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/host/RoomEnrollPrice.jsp").forward(request, response);
 		
 	}
 

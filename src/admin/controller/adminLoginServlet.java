@@ -1,6 +1,7 @@
 package admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +40,7 @@ public class adminLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adUserId = request.getParameter("adUserId");
+		String adUserId = request.getParameter("userId");
 		String adUserPwd = request.getParameter("adUserPwd");
 		
 		Member loginUser = new MemberService().loginMember(adUserId, adUserPwd);
@@ -49,10 +50,9 @@ public class adminLoginServlet extends HttpServlet {
 			session.setMaxInactiveInterval(6000);			
 			session.setAttribute("loginUser", loginUser);
 			
-			response.sendRedirect(request.getContextPath() + "/admin");
-			
+			response.sendRedirect(request.getContextPath() + "/admin");			
 		}else {
-			request.setAttribute("message", "로그인에 실패하였습니다.");
+			request.setAttribute("message", "로그인 오류");
 			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
 		}
 	}

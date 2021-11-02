@@ -5,8 +5,11 @@ import member.model.vo.Member;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class MemberService {
+public class MemberService{
 	
 	private MemberDao memberDao = new MemberDao();
 
@@ -20,4 +23,25 @@ public class MemberService {
 		return loginMember;
 	}
 
+	public Map<String, Object> selectList() {
+		Connection conn = getConnection();
+		
+		List<Member> MemberList = memberDao.selectList(conn);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+
+	public Member selectMemberDetail(String userId) {
+		Connection conn = getConnection();
+		
+		Member user = memberDao.selectMemberDetail(conn, userId);		
+		close(conn);
+		
+		return user;
+	}
 }

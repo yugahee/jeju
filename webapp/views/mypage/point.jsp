@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/views/common/header.jsp" %>
 <div class="side_layout">
 	<div class="container">
@@ -14,32 +15,29 @@
              <h2>포인트</h2>
              <div class="total_point_box">
                  <p class="title"><img src="../resources/images/ygh/wallet.png" />총포인트</p>
-                 <p class="total">10,000p</p>
+                 <p class="total">${ totalPoint }p</p>
              </div>
              <div class="point_history_box">
                  <h4>포인트 이력</h4>
                  <ul class="poin_history">
+                 	<c:forEach var="point" items="${ pointList }">
                      <li>
                          <div class="textArea">
-                             <p>숙소예약</p>
-                             <p>2021.01.01 20:00</p>
+                             <p>포인트 ${ point.pointDivi }</p>
+                             <p><fmt:formatDate value="${point.pointDate}" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></p>
                          </div>
-                         <p class="use_point">1,000p</p>
-                     </li>
-                     <li>
-                         <div class="textArea">
-                             <p>숙소예약</p>
-                             <p>2021.01.01 20:00</p>
-                         </div>
-                         <p class="use_point">1,000p</p>
-                     </li>
-                     <li>
-                         <div class="textArea">
-                             <p>숙소예약</p>
-                             <p>2021.01.01 20:00</p>
-                         </div>
-                         <p class="use_point">1,000p</p>
-                     </li>
+                         <p class="use_point">
+                         	<c:choose>
+	                       		<c:when test="${ point.pointDivi.equals('적립') }">
+	                        		${point.point}p
+	                       		</c:when>
+	                       		<c:otherwise>
+	                       			- ${point.point}p
+	                       		</c:otherwise>
+                       		</c:choose>
+                         </p>
+                     </li>  
+                     </c:forEach>                   
                  </ul>
              </div>
          </div>

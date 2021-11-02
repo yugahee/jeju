@@ -592,6 +592,8 @@
      .lodging_lineup{
      display: flex;
      align-items: flex-start;
+     border-bottom: 1px solid lightgray;
+     padding-bottom: 13px;
      } 
 
 
@@ -618,6 +620,7 @@
      margin-left: 50px; */
      font-weight : bold;
      font-size: 15px;  
+     margin-top: 8px;
      }
 
      .text3{
@@ -1047,12 +1050,12 @@
      /* 사진 등록 부분 */
      .roomenroll_photo { position: relative;}
      .roomenroll_photo > p:first-of-type { position: absolute; left: 10px; padding: 10px 10px; color: #555555;}
-     .roomenroll_photo > p:nth-of-type(2) { position: absolute; left: 300px; padding: 10px 10px; color: #555555;}
+     .roomenroll_photo > p:nth-of-type(2) { position: absolute; left: 300px; padding: 10px 10px; color: #999999;}
      .roomenroll_photo > p:nth-of-type(3) { position: absolute; left: 520px; padding: 10px 10px; color: #999999;}
      .roomenroll_photo .roomenroll_photobtn { padding: 10px 10px; position: absolute; left: 100px;}
      .roomenroll_photo .roomenroll_photobtn:hover { cursor: pointer;}
-     .roomphotobtn_prev { position: absolute; left: 400px; padding: 10px 10px; }
-     .roomphotobtn_next { position: absolute; left: 450px; padding: 10px 10px; }
+/*      .roomphotobtn_prev { position: absolute; left: 400px; padding: 10px 10px; }
+     .roomphotobtn_next { position: absolute; left: 450px; padding: 10px 10px; } */
      .arrmovebtn:hover { cursor: pointer; }
      .roomphoto_upload { display: none;}
      .roomenroll_photo_wrap { margin-top: 50px;}
@@ -1070,9 +1073,10 @@
      .peaktb > th { border-bottom: 1px solid #cccccc;}
 
      /* 레이어 팝업 - 성수기 추가 */
-     .roomenroll_peakopt { margin-top: 30px;}
-     .peakopt2 { visibility: hidden;}
+     .roomenroll_peakopt { margin-top: 40px;}
      .roomenroll_opt2 { margin-bottom: 50px; width: 200px;}
+     .peakdate { color: #999999; }
+	 .pkalign { margin-left: 80px;}
      .hiddenlayerpop { display: none;}
 
      /* 레이어 팝업 2 - 숙소등록요청 */
