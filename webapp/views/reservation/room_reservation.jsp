@@ -54,7 +54,7 @@
 						</div>
 						<div class="child2">
 							<br>
-							<span class="text1" >${ room.roomName }</span> 
+							<span class="text1" >[${ room.location }] ${ room.roomName }</span> 
 							<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
 							<div class="roomReview">
 								<img src="../resources/images/star.png" width="20px" height="20px">
