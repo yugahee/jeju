@@ -41,6 +41,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
 				rooms.setPrice(rset.getInt("price"));
