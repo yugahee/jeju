@@ -35,7 +35,7 @@ public class Rooms {
 	
 	private PeakSeason peak;      // 성수기 객체
 	private List<Files> fileList;    // 파일 리스트
-	private int star; //숙소리뷰테이블의 별점 
+	private double star; //숙소리뷰테이블의 별점 
 	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
@@ -354,14 +354,13 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.fileList = fileList;
 	}
 
-	
 
-	public int getStar() {
+	public double getStar() {
 		return star;
 	}
 
 
-	public void setStar(int star) {
+	public void setStar(double star) {
 		this.star = star;
 	}
 
