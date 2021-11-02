@@ -25,12 +25,14 @@ public class ReservationDao {
 	}
 	
 	
-	public List<Rooms> selectRoom() {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		List<Rooms> roomList = new ArrayList<>();
-		
-		return null;
-	}
+//	public List<Rooms> selectRoom() {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		List<Rooms> roomList = new ArrayList<>();
+//		String sql =  roomQuery.getProperty("selectRoom");
+//		
+//		
+////		return null;
+//	}
 	
 }

@@ -5,6 +5,8 @@
 	// session 객체에 담긴 loginUser 정보를 변수에 담아두기
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -37,8 +39,6 @@
 %>
 </head>
 <body>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 
 	<div id="wrap">
 		<header id="header">
