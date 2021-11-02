@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
@@ -39,23 +40,31 @@ public class JoinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String userType = request.getParameter("userType");
-		String userName = request.getParameter("userName");
-		String userMail = request.getParameter("userMail");
-		String phone = request.getParameter("userTel");
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		String userName = request.getParameter("userName");
+		String phone = request.getParameter("userTel");
+		String email = request.getParameter("userMail");
+		String userType = request.getParameter("userType");
 		
 		Member member = new Member();
 		
-		member.setUser_type(userType);
-		member.setUser_name(userName);
-		member.setEmail(userMail);
-		member.setPhone(phone);
 		member.setUser_id(userId);
 		member.setUser_pwd(userPwd);
+		member.setUser_name(userName);
+		member.setPhone(phone);
+		member.setEmail(email);
+		member.setUser_type(userType);
 		
-		System.out.println(member);
+		int result = new MemberService().insertMember(member);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("message", "회원가입이 완료되었습니다. 로그인 하신 후 이용해주세요.");
+			response.sendRedirect(request.getContextPath());
+		} else {
+			request.setAttribute("message", "회원 가입에 실패했습니다.");
+			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+		}
 	}
 
 }
