@@ -104,3 +104,21 @@
 	</div>
 </div> 
 <%@include file="/views/common/footer.jsp" %>
+<script>
+	$(window).load(function(){
+		$.ajax({
+			url : "${contextPath}/ramdomRoom",
+			dataType : "json",
+			type : "get",
+			success : function(rooms){
+				console.log(rooms);
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+		
+	});
+	
+</script>
