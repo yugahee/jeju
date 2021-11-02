@@ -4,6 +4,8 @@
 <% 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -34,8 +36,6 @@
 	} 
 %>
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
 	<div id="adLogin">
 		<div class="adLogCon">
