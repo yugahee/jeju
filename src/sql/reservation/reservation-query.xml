@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<!-- 숙소예약 화면(썸네일 부분) list  -->
 <entry key="selectRoom">
 	SELECT 
 	       ROOM_NAME
