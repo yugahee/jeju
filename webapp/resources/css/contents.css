@@ -1050,12 +1050,12 @@
      /* 사진 등록 부분 */
      .roomenroll_photo { position: relative;}
      .roomenroll_photo > p:first-of-type { position: absolute; left: 10px; padding: 10px 10px; color: #555555;}
-     .roomenroll_photo > p:nth-of-type(2) { position: absolute; left: 300px; padding: 10px 10px; color: #555555;}
+     .roomenroll_photo > p:nth-of-type(2) { position: absolute; left: 300px; padding: 10px 10px; color: #999999;}
      .roomenroll_photo > p:nth-of-type(3) { position: absolute; left: 520px; padding: 10px 10px; color: #999999;}
      .roomenroll_photo .roomenroll_photobtn { padding: 10px 10px; position: absolute; left: 100px;}
      .roomenroll_photo .roomenroll_photobtn:hover { cursor: pointer;}
-     .roomphotobtn_prev { position: absolute; left: 400px; padding: 10px 10px; }
-     .roomphotobtn_next { position: absolute; left: 450px; padding: 10px 10px; }
+/*      .roomphotobtn_prev { position: absolute; left: 400px; padding: 10px 10px; }
+     .roomphotobtn_next { position: absolute; left: 450px; padding: 10px 10px; } */
      .arrmovebtn:hover { cursor: pointer; }
      .roomphoto_upload { display: none;}
      .roomenroll_photo_wrap { margin-top: 50px;}

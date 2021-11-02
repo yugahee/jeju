@@ -1,6 +1,7 @@
 package host.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Rooms {
 	private int roomNo;
@@ -33,6 +34,7 @@ public class Rooms {
 	private String status;        // 상태 (삭제 : N)
 	
 	private PeakSeason peak;      // 성수기 객체
+	private List<Files> fileList;    // 파일 리스트
 	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
@@ -63,11 +65,12 @@ STATUS	VARCHAR2(1 BYTE)*/
 	
 	public Rooms() {}
 
+
 	public Rooms(int roomNo, String userId, String address, String location, String roomName, String roomTitle,
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status, PeakSeason peak) {
+			String roomLink, String status, PeakSeason peak, List<Files> fileList) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -98,7 +101,10 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.roomLink = roomLink;
 		this.status = status;
 		this.peak = peak;
+		this.fileList = fileList;
 	}
+
+
 
 	public int getRoomNo() {
 		return roomNo;
@@ -333,6 +339,17 @@ STATUS	VARCHAR2(1 BYTE)*/
 	public void setPeak(PeakSeason peak) {
 		this.peak = peak;
 	}
+	
+
+	public List<Files> getFileList() {
+		return fileList;
+	}
+
+
+	public void setFileList(List<Files> fileList) {
+		this.fileList = fileList;
+	}
+
 
 	@Override
 	public String toString() {
@@ -343,8 +360,10 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", enrollDate=" + enrollDate
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
-				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + "]";
+				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
+				+ fileList + "]";
 	}
+
 
 	
 
