@@ -1,3 +1,35 @@
+<<<<<<< HEAD
 /member/
 /recommendation/
 /classes/
+=======
+<<<<<<< HEAD
+
+/point/
+/reservation/
+/sql/
+
+
+/point/
+
+/host/
+
+/common/
+
+/member/
+/point/
+/reservation/
+<<<<<<< HEAD
+/point/
+=======
+>>>>>>> refs/heads/main
+/sql/
+
+/admin/
+/payment/
+/wrapper/
+/filter/
+=======
+/classes/
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
