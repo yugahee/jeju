@@ -5,7 +5,8 @@
 <!-- 숙소예약 화면(썸네일 부분) list  -->
 <entry key="selectRoom">
 	SELECT 
-	       ROOM_NAME
+		   LOCATION	
+	     , ROOM_NAME
 	     , ROOM_TITLE
 	     , PRICE
 	     , STAR
