@@ -33,8 +33,6 @@ public class MemberService{
 		PageInfo pi = new PageInfo(page, listCount, 5, 10);
 		
 		List<Member> MemberList = memberDao.selectList(conn, pi, search);
-
-		System.out.println("가져와라 : " + MemberList);
 		
 		Map<String, Object> returnMap = new HashMap<>();
 

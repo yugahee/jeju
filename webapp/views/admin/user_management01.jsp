@@ -72,22 +72,69 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
+			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">회원관리</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="회원분류">전체</button>
+					<form method="get" action="${ contextPath }/admin/userMg01">
+						<div class="selectbox">
+							<button class="title" type="button">전체</button>
+							<input type="hidden" name="searchCondition" value="">
+							<script>
+								var varName = $('input[name="role"]:checked').val();
+								console.log(varName);
+							</script>
+							<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
+								<li>
+									<input class="option" type="radio" value="all" name="role"
+									<c:if test="${ param.searchCondition == 'all' }"></c:if>>
+									<label for="select_user0">전체</label>
+								</li>
+								<li>
+									<input class="option" type="radio" value="host" name="role"
+									<c:if test="${ param.searchCondition == 'host' }"></c:if>>
+									<label for="select_user1">호스트</label>
+								</li>
+								<li>
+									<input class="option" type="radio" value="guest" name="role"
+									<c:if test="${ param.searchCondition == 'guest' }"></c:if>>
+									<label for="select_user2">게스트</label>
+								</li>
+								<%-- <select>
+									<option value="all"
+									<c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
+									<option value="host"
+									<c:if test="${ param.searchCondition == 'host' }">selected</c:if>>호스트</option>
+									<option value="guest"
+									<c:if test="${ param.searchCondition == 'guest' }">selected</c:if>>게스트</option>
+								</select> --%>
+							</ul>
+						</div>
+						<%-- <span class="input_area"> 
+							<input type="search" name="searchValue" value="${ param.searchValue }">
+						</span>
+						<button type="submit">검색하기</button>	 --%>	
+						<div class="inp_text search">
+							<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="검색어를 입력하세요">
+							<button type="submit" class="btn_sch">검색</button>
+						</div>
+					</form>
+					
+					<!-- <div class="selectbox">
+						<button class="title memberType" type="button" name="searchCondition">전체</button>
 						<ul class="selList" style="max-height: 0px; display: none;">
 							<li>
-								<input type="radio" value="" class="option" id="select_user0" name="select_user">
+								<input type="radio" value="all" class="option" id="select_user0" name="select_user">
 								<label for="select_user0">전체</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user1" name="select_user">
+								<input type="radio" value="host" class="option" id="select_user1" name="select_user">
 								<label for="select_user1">호스트</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user2" name="select_user">
+								<input type="radio" value="guest" class="option" id="select_user2" name="select_user">
 								<label for="select_user2">게스트</label>
 							</li>
 						</ul>
@@ -104,11 +151,11 @@ scope="application"/>
 								<label for="select_search_op1">이름</label>
 							</li>
 						</ul>
-					</div>					
+					</div>			
 					<div class="inp_text search">
 						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
 						<a href="#" class="btn_sch">검색</a>
-					</div>
+					</div> -->
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">

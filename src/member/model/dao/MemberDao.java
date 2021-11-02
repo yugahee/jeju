@@ -74,7 +74,7 @@ public class MemberDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+			 
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
@@ -101,8 +101,7 @@ public class MemberDao {
 				member.setReport_count(rset.getInt("report_count"));
 				member.setStatus(rset.getString("status"));
 				MemberList.add(member);
-			}
-			
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
