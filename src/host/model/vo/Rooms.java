@@ -35,6 +35,7 @@ public class Rooms {
 	
 	private PeakSeason peak;      // 성수기 객체
 	private List<Files> fileList;    // 파일 리스트
+	private int star; //숙소리뷰테이블의 별점 
 	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
@@ -65,12 +66,11 @@ STATUS	VARCHAR2(1 BYTE)*/
 	
 	public Rooms() {}
 
-
 	public Rooms(int roomNo, String userId, String address, String location, String roomName, String roomTitle,
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status, PeakSeason peak, List<Files> fileList) {
+			String roomLink, String status, PeakSeason peak, List<Files> fileList, int star) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -102,7 +102,11 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.status = status;
 		this.peak = peak;
 		this.fileList = fileList;
+		this.star = star;
 	}
+
+
+
 
 
 
@@ -350,6 +354,17 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.fileList = fileList;
 	}
 
+	
+
+	public int getStar() {
+		return star;
+	}
+
+
+	public void setStar(int star) {
+		this.star = star;
+	}
+
 
 	@Override
 	public String toString() {
@@ -361,8 +376,11 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
 				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
-				+ fileList + "]";
+				+ fileList + ", star=" + star + "]";
 	}
+
+
+	
 
 
 	
