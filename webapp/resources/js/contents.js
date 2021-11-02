@@ -147,10 +147,11 @@ $(document).ready(function(){
     /* 하트 체크 */
     $(function(){
         $('.heart').click(function(){
-            if($(this).attr('src') == '/semiProject/resources/images/ch/heart_empty.png'){
-                $(this).attr('src', '/semiProject/resources/images/ch/heart.png');
+            if($(this).attr('src') == '/jeju/resources/images/ch/heart_empty.png'){
+                $(this).attr('src', '/jeju/resources/images/ch/heart.png');
+                console.log("ddd");
             }else{
-                $(this).attr('src', '/semiProject/resources/images/ch/heart_empty.png');
+                $(this).attr('src', '/jeju/resources/images/ch/heart_empty.png');
             }
         });
     });
