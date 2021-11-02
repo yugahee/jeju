@@ -37,7 +37,6 @@ public class pointViewServlet extends HttpServlet {
 		// 해당 유저 포인트 조회
 		ArrayList<Point> pointList = new PointService().selectPoint(userId);		
 		
-		System.out.println(pointList);
 		
 		// 총 포인트 추출
 		int totalPoint = 0;
