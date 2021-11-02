@@ -58,7 +58,7 @@
 							<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
 							<div class="roomReview">
 								<img src="../resources/images/star.png" width="20px" height="20px">
-								<span class="text3" id="reviewStar">{room.star}</span>
+								<span class="text3" id="reviewStar">{ room.star }</span>
 								<span class="text3" id="reviewCount">(후기 12개)</span>
 							</div>
 							<div class="roomPrice">
