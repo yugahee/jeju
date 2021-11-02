@@ -150,7 +150,6 @@ public class MemberDao {
 		return member;
 	}
 
-<<<<<<< HEAD
 	public int getListCount(Connection conn, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -180,7 +179,8 @@ public class MemberDao {
 		}
 		
 		return listCount;
-=======
+	}
+
 	public int checkId(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -231,7 +231,6 @@ public class MemberDao {
 		}
 		
 		return result;
->>>>>>> refs/heads/main
 	}
 
 }
