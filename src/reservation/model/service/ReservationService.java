@@ -12,15 +12,15 @@ public class ReservationService {
 	private ReservationDao reservationDao = new ReservationDao();
 	
 	
-//	public List<Rooms> selectRoom() {
-//		Connection conn = getConnection();
-//		
-//		List<Rooms> roomList = reservationDao.selectRoom(); 
-//		
-//		close(conn);
-//		
-//		return roomList;
-//	}
+	public List<Rooms> selectRoom() {
+		Connection conn = getConnection();
+		
+		List<Rooms> roomList = reservationDao.selectRoom(conn); 
+		
+		close(conn);
+		
+		return roomList;
+	}
 
 	
 }
