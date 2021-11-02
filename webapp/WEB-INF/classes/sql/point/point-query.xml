@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectPoint">
+		SELECT *
+		FROM POINT
+		WHERE USER_ID = ?
+		ORDER BY POINT_NO DESC
+	</entry>
+</properties>

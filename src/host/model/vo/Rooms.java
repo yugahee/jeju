@@ -1,6 +1,7 @@
 package host.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Rooms {
 	private int roomNo;
@@ -13,6 +14,7 @@ public class Rooms {
 	private String roomType;      // 숙소유형(원룸, 투룸, 쓰리룸이상, 복층)
 	private String roomFac;       // 숙소시설
 	private int price;            // 가격
+	private int extraCost;        // 추가인원가격
 	private int minPeople;        // 최소인원
 	private int maxPeople;        // 최대인원
 	private String startTime;     // 입실시간
@@ -28,7 +30,11 @@ public class Rooms {
 	private String roomSize;      // 건물평수(5평, 6~10평 ..)
 	private int minStay;          // 최소숙박일수
 	private int maxStay;          // 최대숙박일수
+	private String roomLink;      // 유튜브링크주소
 	private String status;        // 상태 (삭제 : N)
+	
+	private PeakSeason peak;      // 성수기 객체
+	private List<Files> fileList;    // 파일 리스트
 	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
@@ -59,10 +65,12 @@ STATUS	VARCHAR2(1 BYTE)*/
 	
 	public Rooms() {}
 
+
 	public Rooms(int roomNo, String userId, String address, String location, String roomName, String roomTitle,
-			String roomDes, String roomType, String roomFac, int price, int minPeople, int maxPeople, String startTime,
-			String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus, int room, int bed,
-			int bath, String buildingType, String roomSize, int minStay, int maxStay, String status) {
+			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
+			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
+			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
+			String roomLink, String status, PeakSeason peak, List<Files> fileList) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -74,6 +82,7 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.roomType = roomType;
 		this.roomFac = roomFac;
 		this.price = price;
+		this.extraCost = extraCost;
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.startTime = startTime;
@@ -89,8 +98,13 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.roomSize = roomSize;
 		this.minStay = minStay;
 		this.maxStay = maxStay;
+		this.roomLink = roomLink;
 		this.status = status;
+		this.peak = peak;
+		this.fileList = fileList;
 	}
+
+
 
 	public int getRoomNo() {
 		return roomNo;
@@ -300,18 +314,57 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.status = status;
 	}
 
+	
+	public int getExtraCost() {
+		return extraCost;
+	}
+
+	public void setExtraCost(int extraCost) {
+		this.extraCost = extraCost;
+	}
+
+	public String getRoomLink() {
+		return roomLink;
+	}
+
+	public void setRoomLink(String roomLink) {
+		this.roomLink = roomLink;
+	}
+
+
+	public PeakSeason getPeak() {
+		return peak;
+	}
+
+	public void setPeak(PeakSeason peak) {
+		this.peak = peak;
+	}
+	
+
+	public List<Files> getFileList() {
+		return fileList;
+	}
+
+
+	public void setFileList(List<Files> fileList) {
+		this.fileList = fileList;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Rooms [roomNo=" + roomNo + ", userId=" + userId + ", address=" + address + ", location=" + location
 				+ ", roomName=" + roomName + ", roomTitle=" + roomTitle + ", roomDes=" + roomDes + ", roomType="
-				+ roomType + ", roomFac=" + roomFac + ", price=" + price + ", minPeople=" + minPeople + ", maxPeople="
-				+ maxPeople + ", startTime=" + startTime + ", endTime=" + endTime + ", createDate=" + createDate
-				+ ", modifyDate=" + modifyDate + ", enrollDate=" + enrollDate + ", enrollStatus=" + enrollStatus
-				+ ", room=" + room + ", bed=" + bed + ", bath=" + bath + ", buildingType=" + buildingType
-				+ ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay=" + maxStay + ", status=" + status
-				+ "]";
+				+ roomType + ", roomFac=" + roomFac + ", price=" + price + ", extraCost=" + extraCost + ", minPeople="
+				+ minPeople + ", maxPeople=" + maxPeople + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", enrollDate=" + enrollDate
+				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
+				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
+				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
+				+ fileList + "]";
 	}
-	
+
+
 	
 
 }
