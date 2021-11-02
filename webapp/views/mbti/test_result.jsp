@@ -64,7 +64,7 @@
         </div><!-- 내용부 끝 -->
 
         <div class="test_result-button wrapper"><!-- 버튼부 시작 -->
-            <a href='../html/test_main.html'><img src='${ contextPath }/resources/images/ch/retry.png'></a>
+            <a href="${ contextPath }/mbti/mainView"><img src='${ contextPath }/resources/images/ch/retry.png'></a>
             <a href='#'><img src='${ contextPath }/resources/images/ch/share.png'></a>
         </div><!-- 버튼부 끝 -->
     </div>
