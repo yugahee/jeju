@@ -40,8 +40,8 @@
 		 , ?
 		 , ?
 		 , ?
-		 , DEFAULT
-		 , DEFAULT
+		 , SYSDATE
+		 , SYSDATE
 		 , DEFAULT
 	)
 </entry>
