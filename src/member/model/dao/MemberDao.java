@@ -1,5 +1,7 @@
 package member.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-
-import static common.JDBCTemplate.*;
-
+import admin.model.vo.PageInfo;
+import admin.model.vo.Search;
 import member.model.vo.Member;
 
 public class MemberDao {
@@ -65,14 +66,25 @@ public class MemberDao {
 	}
 	
 
-	public List<Member> selectList(Connection conn) {
+	public List<Member> selectList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = memberQuery.getProperty("searchMember");
 		List<Member> MemberList = new ArrayList<>();
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;		
+			
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
 
 			rset = pstmt.executeQuery();
 			
@@ -136,6 +148,37 @@ public class MemberDao {
 		}
 				
 		return member;
+	}
+
+	public int getListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = memberQuery.getProperty("getListCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			// 검색 SQL문을 실행하는 경우 검색 값 설정
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(1, search.getSearchValue());
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 }

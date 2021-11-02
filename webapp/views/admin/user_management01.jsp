@@ -5,6 +5,8 @@
 <% 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,8 +29,6 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
 	<div id="wrap" class="wrap">
 		<div class="lnb">
@@ -103,14 +103,6 @@ scope="application"/>
 								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
 								<label for="select_search_op1">이름</label>
 							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">이메일</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
-								<label for="select_search_op4">전화번호</label>
-							</li>
 						</ul>
 					</div>					
 					<div class="inp_text search">
@@ -120,7 +112,7 @@ scope="application"/>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
+						<p class="totalCnt">총 ${listCount} 개</p>
 						<div class="selectbox">
 							<button class="title" type="button" title="목록 선택">목록 10개</button>
 							<ul class="selList" style="max-height: 0px; display: none;">
@@ -191,16 +183,53 @@ scope="application"/>
 						</tbody>
 					</table>
 				</div>
+				<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
+					<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
+				</c:if>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/userMg01?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/userMg01?page=${pi.page -1}${searchParam}">
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						</c:otherwise>
+						</c:choose>
+							<span class="blind">이전페이지</span>
+						</a>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/userMg01?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/userMg01?page=${pi.page + 1}${searchParam}">
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						</c:otherwise>
+						</c:choose>
+						<span class="blind">다음페이지</span></a>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/userMg01?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
 			</div>
 			<!-- //contet -->
@@ -224,11 +253,11 @@ scope="application"/>
 					<tbody>						
 						<tr>
 							<th>ID</th>
-							<td id="mid">user03</td>
+							<td id="mid"></td>
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td id="mname">주라도</td>
+							<td id="mname"></td>
 						</tr>
 						<tr>
 							<th>상태</th>
@@ -256,44 +285,39 @@ scope="application"/>
             </div>
 		</div> 
 	</div>
+	
+	<script>
+	function userdate(elem){		
+		let userId = $(elem).find('input').val();	
+		$.ajax({
+			url : "${contextPath}/admin/userDetail",
+			data : {input : userId},
+			dataType : "json",
+			type : "get",
+			success : function(user){			
+				var html = '';			
+				if(user){
+					$("#mid").text(user.user_id);
+					$("#mname").text(user.user_name);
+					if(user.status == 'Y'){										
+						html = '<button class="title" type="button" title="상태">정상</button>'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">정상</label></li>	'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">탈퇴</label></li></ul>';
+					}else{
+						html = '<button class="title" type="button" title="상태">탈퇴</button>'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">정상</label></li>	'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">탈퇴</label></li></ul>';
+					}				
+					$("#mstatus").html(html);
+				}else{
+					alert('존재하지 않는 회원번호입니다!');
+				}			
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	</script>
 </body>
 </html>
-<script>
-function userdate(elem){	
-	
-	let userId = $(elem).find('input').val();
-	
-	
-	$.ajax({
-		url : "${contextPath}/admin/userDetail",
-		data : {input : userId},
-		dataType : "json",
-		type : "get",
-		success : function(user){			
-			var html = '';
-			
-			if(user){
-				$("#mid").text(user.user_id);
-				$("#mname").text(user.user_name);
-				if(user.status == 'Y'){										
-					html = '<button class="title" type="button" title="상태">정상</button>'
-						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">정상</label></li>	'
-						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">탈퇴</label></li></ul>';
-				}else{
-					html = '<button class="title" type="button" title="상태">탈퇴</button>'
-						+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">정상</label></li>	'
-						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">탈퇴</label></li></ul>';
-				}
-				
-				$("#mstatus").html(html);
-			}else{
-				alert('존재하지 않는 회원번호입니다!');
-			}
-			
-		},
-		error : function(e){
-			console.log(e);
-		}
-	});
-}
-</script>

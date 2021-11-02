@@ -37,8 +37,7 @@ public class userDetailServlet extends HttpServlet {
 		System.out.println(member);
 
 		response.setContentType("application/json;charset=utf-8");
-		new Gson().toJson(member, response.getWriter());
-		
+		new Gson().toJson(member, response.getWriter());		
 	}
 
 	/**

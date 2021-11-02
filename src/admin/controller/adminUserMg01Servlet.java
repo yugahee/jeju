@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.model.vo.Search;
 import member.model.service.MemberService;
 
 /**
@@ -39,8 +40,10 @@ public class adminUserMg01Servlet extends HttpServlet {
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
 		
-		Map<String, Object> map = new MemberService().selectList();
-		
+		Map<String, Object> map = new MemberService().selectList(page, new Search(searchCondition, searchValue));
+
+		request.setAttribute("listCount", map.get("listCount"));
+		request.setAttribute("pi", map.get("pi"));
 		request.setAttribute("MemberList", map.get("MemberList"));		
 		
 		request.getRequestDispatcher("/views/admin/user_management01.jsp").forward(request, response);

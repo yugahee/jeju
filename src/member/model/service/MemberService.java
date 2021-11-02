@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import admin.model.vo.PageInfo;
+import admin.model.vo.Search;
+
 public class MemberService{
 	
 	private MemberDao memberDao = new MemberDao();
@@ -23,12 +26,20 @@ public class MemberService{
 		return loginMember;
 	}
 
-	public Map<String, Object> selectList() {
+	public Map<String, Object> selectList(int page, Search search) {
 		Connection conn = getConnection();
 		
-		List<Member> MemberList = memberDao.selectList(conn);
+		int listCount = memberDao.getListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Member> MemberList = memberDao.selectList(conn, pi, search);
+
+		System.out.println("가져와라 : " + MemberList);
 		
 		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
 		returnMap.put("MemberList", MemberList);
 		
 		close(conn);
