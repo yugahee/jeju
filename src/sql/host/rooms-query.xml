@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM
+"http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertRooms">
+		INSERT
+		  INTO ROOMS
+		(
+			   ROOM_NO
+			 , USER_ID
+			 , ADDRESS
+			 , LOCATION
+			 , ROOM_NAME
+			 , ROOM_TITLE
+			 , ROOM_DES
+			 , ROOM_TYPE
+			 , ROOM_FAC
+			 , PRICE
+			 , MIN_PEOPLE
+			 , MAX_PEOPLE
+			 , START_TIME
+			 , END_TIME
+			 , CREATE_DATE
+			 , MODIFY_DATE
+			 , ENROLL_STATUS
+			 , ROOM
+			 , BED
+			 , BATH
+			 , BUILDING_TYPE
+			 , ROOM_SIZE
+			 , MIN_STAY
+			 , MAX_STAY
+			 , STATUS
+			 , ROOM_LINK
+			 , EXTRA_COST
+		)
+		VALUES
+		(
+			   SEQ_ROOMNO.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , SYSDATE
+			 , SYSDATE
+			 , '승인대기'
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , 'Y'
+			 , ?
+			 , ?	 	
+		)
+	</entry>
+
+	<entry key="insertFiles">
+		INSERT
+		  INTO FILES
+		(    
+			   FILE_NO
+			 , CHANGE_NAME
+			 , ROOM_NO
+			 , FILE_PATH
+			 , FILE_LEVEL
+			 , STATUS   
+		)
+		VALUES
+		(
+			   SEQ_FILENO.NEXTVAL
+			 , ?
+			 , SEQ_ROOMNO.CURRVAL   <!-- 현재 전달된 서비스 메소드에서 ROOMS 인서트할때의 ROOMNO값 불러오기 (같은 conn 사용하니까)-->
+			 , ?
+			 , ?
+			 , 'Y'
+		)
+	</entry>
+	
+	<entry key="insertPeakSeason">
+		INSERT
+		  INTO PEAKSEASON
+		  (
+		  	   ROOM_NO
+		  	 , PEAK_START
+		  	 , PEAK_END
+		  	 , PEAK_PRICE
+		  )
+		  VALUES
+		  (
+		  	   SEQ_ROOMNO.CURRVAL   <!-- 현재 전달된 서비스 메소드에서 ROOMS 인서트할때의 ROOMNO값 불러오기 (같은 conn 사용하니까)-->
+		  	 , ?
+		  	 , ?
+		  	 , ?
+		  )
+	</entry>
+
+
+</properties>

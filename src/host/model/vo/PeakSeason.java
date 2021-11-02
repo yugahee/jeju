@@ -1,6 +1,6 @@
 package host.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class PeakSeason {
 	private int roomNo;         // 숙소번호

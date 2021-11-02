@@ -22,14 +22,14 @@
 					</a>
                 </nav>
 				<br>
-                <a href="#" class="roommenu_cal">
+<!--                 <a href="#" class="roommenu_cal">
 					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
-				<br>
-				<div class="btn_wrap">
+				<br> -->
+<!-- 				<div class="btn_wrap">
 					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	
+				</div>	 -->
                 </div>
 
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
@@ -184,30 +184,30 @@
                 </div>
 			</div>
 		</div>
-		
-	<script>
-        // 사진올리기 버튼클릭
-		document.querySelectorAll(".roomenroll_photobtn").forEach(item => item.addEventListener('click', fileUploadOpen));
-        // input type="file" 열기
-        document.querySelectorAll(".roomphoto_upload").forEach(item => item.addEventListener('change', preview));
-
-		function fileUploadOpen(){
-			let index = Array.from(document.querySelectorAll(".roomenroll_photobtn")).indexOf(this);
-            document.querySelectorAll(".roomphoto_upload")[index].click(); 
-		}
-
-		function preview(){
-             if (this.files && this.files[0]) {
-                let index = Array.from(document.querySelectorAll(".roomphoto_upload")).indexOf(this); 
-                let reader = new FileReader();
-                reader.readAsDataURL(this.files[0]);
-                reader.onload = function () {       // div 안에 불러온 파일 추가
-                    document.querySelectorAll(".roomenroll_photo_wrap")[index].innerHTML = "<img src=" + reader.result + ">";
-                }
-            }
-        }
-
-	</script>
+	</div>	
+		<script>
+	        // 사진올리기 버튼클릭
+			document.querySelectorAll(".roomenroll_photobtn").forEach(item => item.addEventListener('click', fileUploadOpen));
+	        // input type="file" 열기
+	        document.querySelectorAll(".roomphoto_upload").forEach(item => item.addEventListener('change', preview));
+	
+			function fileUploadOpen(){
+				let index = Array.from(document.querySelectorAll(".roomenroll_photobtn")).indexOf(this);
+	            document.querySelectorAll(".roomphoto_upload")[index].click(); 
+			}
+	
+			function preview(){
+	             if (this.files && this.files[0]) {
+	                let index = Array.from(document.querySelectorAll(".roomphoto_upload")).indexOf(this); 
+	                let reader = new FileReader();
+	                reader.readAsDataURL(this.files[0]);
+	                reader.onload = function () {       // div 안에 불러온 파일 추가
+	                    document.querySelectorAll(".roomenroll_photo_wrap")[index].innerHTML = "<img src=" + reader.result + ">";
+	                }
+	            }
+	        }
+	
+		</script>
 		
 <%@include file="/views/common/footer.jsp" %>
 

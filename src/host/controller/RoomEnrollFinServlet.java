@@ -1,8 +1,8 @@
 package host.controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import host.model.service.RoomsService;
 import host.model.vo.Files;
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class RoomEnrollFinServlet
@@ -111,14 +112,14 @@ public class RoomEnrollFinServlet extends HttpServlet {
 				&& multiRequest.getParameter("peakprice") != null) {
 					
 			PeakSeason peak = new PeakSeason();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				peak.setPeakStart(sdf.parse(multiRequest.getParameter("peakstart")));   // String으로 넘어온 값을 Date 타입으로 변환
-				peak.setPeakEnd(sdf.parse(multiRequest.getParameter("peakend")));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-					
+
+			// String으로 넘어온 값을 Date 타입으로 변환
+			Date peakStart = Date.valueOf(multiRequest.getParameter("peakstart")); 
+			Date peakEnd = Date.valueOf(multiRequest.getParameter("peakend"));
+				
+			peak.setPeakStart(peakStart);   
+			peak.setPeakEnd(peakEnd);
+	
 			peak.setPeakPrice(Integer.parseInt(multiRequest.getParameter("peakprice")));
 				
 			rooms.setPeak(peak);
@@ -131,7 +132,7 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		rooms.setAddress(address);
 		
 		if(multiRequest.getParameter("roomlink") != null) {
-			rooms.setLocation(multiRequest.getParameter("roomlink"));
+			rooms.setRoomLink(multiRequest.getParameter("roomlink"));
 		}
 		
 		/* 5. 파일 불러오기 */
@@ -158,16 +159,31 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		}
 		
 		rooms.setFileList(fileList);
-		System.out.println(rooms);
+		// System.out.println(rooms);
+		
+		// userid는 로그인한 유저정보 불러와서 대입하기   ---- 통합되었을때 주석 풀기!!!!!!!!!!!!!!!!!!!!!
+//		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+//		rooms.setUserId(userId);
+		
+		// 테스트용 임시 userid host1 이용
+		rooms.setUserId("host1");
 		
 		/* 비즈니스 로직 */
-//		int result = new RoomsService().insertRooms(rooms);
-//		
-//		if(result > 0) {
-//			
-//		} else {
-//			
-//		}
+		int result = new RoomsService().insertRooms(rooms);
+		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/host/roomlist");
+			
+		} else {
+			// 실패 시 저장된 사진 삭제
+			for(Files files : fileList) {    // 이름 변경된 사진 파일 저장해놨으니까		
+				File failedFile = new File(savePath + files.getChangeName());
+				failedFile.delete();
+			}
+						
+			request.setAttribute("message", "숙소 등록에 실패하였습니다.");
+			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+		}
 	}
 
 }
