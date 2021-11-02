@@ -1,6 +1,7 @@
 package host.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -87,20 +88,20 @@ public class RoomEnrollPriceServlet extends HttpServlet {
 		// 성수기 입력사항 있는 경우
 		if(request.getParameter("peakstart") != null && request.getParameter("peakend") != null 
 				&& request.getParameter("peakprice") != null) {
-			
+					
 			PeakSeason peak = new PeakSeason();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				peak.setPeakStart(sdf.parse(request.getParameter("peakstart")));   // String으로 넘어온 값을 Date 타입으로 변환
-				peak.setPeakEnd(sdf.parse(request.getParameter("peakend")));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			
+
+			// String으로 넘어온 값을 Date 타입으로 변환
+			Date peakStart = Date.valueOf(request.getParameter("peakstart")); 
+			Date peakEnd = Date.valueOf(request.getParameter("peakend"));
+				
+			peak.setPeakStart(peakStart);   
+			peak.setPeakEnd(peakEnd);
+	
 			peak.setPeakPrice(Integer.parseInt(request.getParameter("peakprice")));
-			
+				
 			rooms.setPeak(peak);
-		}
+		}		
 		
 		request.setAttribute("rooms", rooms);
 		request.getRequestDispatcher("/views/host/RoomEnrollPhoto.jsp").forward(request, response);

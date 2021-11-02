@@ -22,14 +22,14 @@
 					</a>
                 </nav>
 				<br>
-                <a href="#" class="roommenu_cal">
+<!--                 <a href="#" class="roommenu_cal">
 					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
-				<br>
- 				<div class="btn_wrap">
+				<br> -->
+<!--  				<div class="btn_wrap">
 					<a href="#" class="btn btnType1 btnSizeS roomregistbtn" onclick="showLayer('roomenrollbtn');"><span>숙소등록</span></a>   
-				</div>	 
+				</div>	 --> 
                 </div>
 
 				<!-------------------- 등록 내용 화면 ------------------------------------------->
