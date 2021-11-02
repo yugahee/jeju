@@ -60,4 +60,11 @@
 	 WHERE USER_TYPE != '관리자'
 	   AND USER_ID = ?
 </entry>
+
+<entry key="getListCount">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+</entry>
 </properties>

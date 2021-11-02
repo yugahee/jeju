@@ -99,7 +99,7 @@ button:hover {color:#222;}
 
 
 /* ========== [공통스타일] ========== */
-.noData {padding:170px 0 100px;text-align:center;font-size:16px;color:#555;background:url('../images/common/bg_noData.png') no-repeat center 60px;}
+.noData {padding:170px 0 100px;text-align:center;font-size:16px;color:#555;background:url('/jeju/resources/images/common/bg_noData.png') no-repeat center 60px;}
 .noData .subtxt {margin-top:12px;font-size:12px;line-height:24px;color:#999;}
 .noData .keyword {font-weight:700; color:#222;}
 .noData .btn_wrap {margin-top:20px;}
@@ -115,8 +115,8 @@ button:hover {color:#222;}
      box-sizing:border-box;
 }
 .selectbox.open {border-color:#555555;}
-.selectbox .title {overflow:hidden;position:relative;width:100%;height:38px;line-height:38px;padding-right:30px;text-align:left;text-indent:15px;text-overflow:ellipsis; white-space:nowrap; background:#fff url('../images/common/arr_selectB.png') no-repeat right center;}
-.selectbox.open .title {background:#fff url('/semiProject/resources/images/common/arr_selectT.png') no-repeat right center;}
+.selectbox .title {overflow:hidden;position:relative;width:100%;height:38px;line-height:38px;padding-right:30px;text-align:left;text-indent:15px;text-overflow:ellipsis; white-space:nowrap; background:#fff url('/jeju/resources/images/common/arr_selectB.png') no-repeat right center;}
+.selectbox.open .title {background:#fff url('/jeju/resources/images/common/arr_selectT.png') no-repeat right center;}
 .selectbox .selList {display:none;position:absolute;top:39px;left:-1px;width:100%;background:#fff;border: 1px solid #555555;border-top:none;opacity:0;filter:alpha(opacity=0);}
 .selectbox.open .selList {overflow-y:auto;margin-bottom:30px;-webkit-overflow-scrolling:touch;opacity:1;filter:alpha(opacity=100);z-index: 100;}
 .selectbox .selList li {position:relative;width:100%;background:#fff;}
@@ -137,7 +137,7 @@ button:hover {color:#222;}
 .search input[type=text] {padding:0; padding-right:30px; border:none; border-bottom:1px solid #dcdcdc; background:none; font-size:13px; text-indent:0; color:#999;}
 .search input::-webkit-input-placeholder{color:#999}
 .search input[type=text]:hover, .listTotal .sortArea .search input[type=text]:focus {border-bottom:1px solid #222; color:#222;}
-.search .btn_sch {position:absolute; right:0; top:6px; display:block; width:25px; height:29px; background:url(/semiProject/resources/images/common/btn_search.png) no-repeat 50% 5px; font-size:0; color:transparent;}
+.search .btn_sch {position:absolute; right:0; top:6px; display:block; width:25px; height:29px; background:url(/jeju/resources/images/common/btn_search.png) no-repeat 50% 5px; font-size:0; color:transparent;}
 
 span.inp_text {display:inline-block;vertical-align:middle;}
 .inp_text input {width:100%;height:40px;padding:0 8px;line-height:40px;color:#555;text-indent:4px;border:1px solid #dcdcdc;outline:none;box-sizing:border-box;}
@@ -146,7 +146,7 @@ span.inp_text {display:inline-block;vertical-align:middle;}
 .inp_text input.error {/*color:#d10000;*/border-color:#d10000;}
 .inp_check {display:inline-block;position:relative;margin-right:10px;vertical-align:middle;}
 .inp_check input {display:inline-block;position:absolute;left:0;top:0;width:16px;height:16px;font-size:12px;line-height:16px;opacity:0;filter:alpha(opacity=0);cursor:pointer;z-index:1;}
-.inp_check label {display:inline-block;position:relative;height:16px;padding-left:20px;font-size:12px;line-height:16px;background:url('../images/common/inp_check.png') no-repeat left top;z-index:2;}
+.inp_check label {display:inline-block;position:relative;height:16px;padding-left:20px;font-size:12px;line-height:16px;background:url('/jeju/resources/images/common/inp_check.png') no-repeat left top;z-index:2;}
 .inp_check.checked label {background-position:0 -50px;}
 .inp_check.disabled label {background-position:0 -100px;}
 .inp_check.readOnly label {background-position:0 -100px;}
@@ -156,7 +156,7 @@ span.inp_text {display:inline-block;vertical-align:middle;}
 .inp_check_type2 label {display:block;position:relative;height:16px;padding-left:24px;font-size:14px;line-height:16px;z-index:2;}
 .inp_radio {display:inline-block;position:relative;margin-right:10px;vertical-align: middle;}
 .inp_radio input {display:inline-block;position:absolute;left:0;top:0;width:16px;height:16px;font-size:12px;line-height:16px;opacity:0;filter:alpha(opacity=0);cursor:pointer;z-index:1;}
-.inp_radio label {display:inline-block;position:relative;height:16px;padding-left:20px;font-size:12px;line-height:16px;background:url('../images/common/inp_radio.png') no-repeat left top;z-index:2;}
+.inp_radio label {display:inline-block;position:relative;height:16px;padding-left:20px;font-size:12px;line-height:16px;background:url('/jeju/resources/images/common/inp_radio.png') no-repeat left top;z-index:2;}
 .inp_radio_type2 label {padding-left:24px;font-size:14px;line-height:16px;color:#101010;}
 .inp_radio.checked label {background-position:0 -50px;}
 .inp_radio.disabled label {background-position:0 -100px;}
@@ -290,7 +290,7 @@ textarea.error {color:#d10000;border-color:#d10000;}
 .btnSizeM .arr-right:before {height:6px;margin-top:-6px;}
 .btnSizeM .arr-right:after {height:6px;}
 
-.btnTypeIcon {display:inline-block;position:relative;min-height:16px;padding-left:16px;margin-right:5px;font-size:13px;line-height:15px;color:#555555;text-align:center;text-transform:uppercase;vertical-align:middle;background:url('../images/common/ico_btnTypeIcon.png') no-repeat;box-sizing:border-box;}
+.btnTypeIcon {display:inline-block;position:relative;min-height:16px;padding-left:16px;margin-right:5px;font-size:13px;line-height:15px;color:#555555;text-align:center;text-transform:uppercase;vertical-align:middle;background:url('/jeju/resources/images/common/ico_btnTypeIcon.png') no-repeat;box-sizing:border-box;}
 .btnTypeIcon:hover {color:#101010;}
 .btn_modify {background-position:0 0;}
 .btn_modify:hover {background-position:-150px 0;}
@@ -374,7 +374,7 @@ p.tbl_sub em {font-size:14px;}
 .tblType_form .btn_wrap {margin:20px 0;}
 .tblType_form .btn_wrap .btn {padding:0 18px;}
 .tblType_form .btn_wrap .btnSizeM {min-width:120px;}
-.tblType_form .btn_wrap .ico_modify {padding:0 5px 0 20px;background:url('../images/common/ico_btnTypeIcon.png') no-repeat 0 7px;}
+.tblType_form .btn_wrap .ico_modify {padding:0 5px 0 20px;background:url('/jeju/resources/images/common/ico_btnTypeIcon.png') no-repeat 0 7px;}
 .tblType_form .recently_deli {padding-bottom:20px;}
 .tblType_form .recently_deli .selectbox {width:100%;}
 .tblType_form .deli_msg .selectbox {width:100%;}
@@ -442,7 +442,7 @@ PAGING
 
 
 /* 별점 */
-.rating_star .starPoint {display:inline-block; width:78px; height:14px; background:url(/semiProject/resources/images/common/rating.png) no-repeat; font-size:0; color:transparent; vertical-align:middle;}
+.rating_star .starPoint {display:inline-block; width:78px; height:14px; background:url(/jeju/resources/images/common/rating.png) no-repeat; font-size:0; color:transparent; vertical-align:middle;}
 .rating_star .starPoint.p5 {background-position:0 0;}
 .rating_star .starPoint.p4 {background-position:0 -25px;}
 .rating_star .starPoint.p3 {background-position:0 -50px;}
@@ -457,7 +457,7 @@ PAGING
      -webkit-transition:all .2s ease-out;
      transition:all .2s ease-out;
 }
-.rating_star_large .pointArea .starPoint {overflow:hidden; position:absolute; left:0; top:0; width:100%; height:100%; background:url(/semiProject/resources/images/common/bg_rating.png) no-repeat; font-size:0; color:transparent;}
+.rating_star_large .pointArea .starPoint {overflow:hidden; position:absolute; left:0; top:0; width:100%; height:100%; background:url(/jeju/resources/images/common/bg_rating.png) no-repeat; font-size:0; color:transparent;}
 .rating_star_large .pointArea .starPoint button {float:left; width:26px; height:100%; margin:0 3px; font-size:0; color:transparent;}
 .rating_star_large .pointArea .starPoint button:first-of-type {margin-left:0;}
 .rating_star_large .pointArea .starPoint button:last-of-type {margin-right:0;}

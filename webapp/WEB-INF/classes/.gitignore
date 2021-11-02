@@ -1,4 +1,14 @@
 /classes/
+<<<<<<< HEAD
 /admin/
 /member/
 /sql/
+=======
+/filter/
+/admin/
+/member/
+/sql/
+/host/
+/reservation/
+/main/
+>>>>>>> refs/heads/ryu
