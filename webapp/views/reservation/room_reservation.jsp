@@ -55,13 +55,33 @@
 							<span class="text2">조용한 휴식공간//힐링//바멍</span> <br> <br> <br> 
 							<div class="tt">
 								<img src="../resources/images/star.png" width="20px" height="20px">
-								<span class="text3">4.47 후기</span>
+								<span class="text3" id="reviewStar">4.47</span>
+								<span class="text3" id="reviewCount">(후기 12개)</span>
 							</div>
 							<div class="tt2">
 								<span>54,000/박</span>
 							</div>
 						</div>
 					</div> 		
+					<!-- 두번째 -->
+					<div class="lodging_lineup">
+						<div class="child1">
+							<img src="../resources/images/숙소.png" class="lodging1">
+						</div>
+						<div class="child2">
+							<br>
+							<span class="text1" >[동부] OO펜션</span> 
+							<span class="text2">훌륭한 경관//화창한 날씨//따스함</span> <br> <br> <br> 
+							<div class="tt">
+								<img src="../resources/images/star.png" width="20px" height="20px">
+								<span class="text3" id="reviewStar">3.8</span>
+								<span class="text3" id="reviewCount">(후기 10개)</span>
+							</div>
+							<div class="tt2">
+								<span>60,000/박</span>
+							</div>
+						</div>
+					</div> 	
 			</div>
 		</div>
 	</div>

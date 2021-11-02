@@ -26,16 +26,16 @@
 					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
-<!-- 				<br>
+				<br>
 				<div class="btn_wrap">
 					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	 -->
+				</div>	
                 </div>
 
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
 				<div class="roomenroll_basic">
 					<!-- ** 위치설정 ** -->
-					<form method="post" action="" enctype="multipart/form-data">
+					<form method="post" action="${ contextPath }/host/roomenrollfin" enctype="multipart/form-data">
 					<input type="hidden" name="roomname" value="${ rooms.roomName }">
 					<input type="hidden" name="roomtitle" value="${ rooms.roomTitle }">
 					<input type="hidden" name="roomdes" value="${ rooms.roomDes }">
@@ -116,28 +116,98 @@
                             <br>
 							<div class="roomenroll_photo">
 								<p>사진선택 &nbsp;|</p>
-								<div class="roomenroll_photobtn" onclick="uploadimg();">
-									<img src="../resources/images/common/ico_addFile_on.png">
-									<span>사진올리기</span>	
-								</div>
-								<input type="file" class="roomphoto_upload">
-								<p>사진이동 &nbsp;|</p>
-								<div class="roomphotobtn_prev arrmovebtn"><img src="../resources/images/common/arr_selectT.png"></div>
-								<div class="roomphotobtn_next arrmovebtn"><img src="../resources/images/common/arr_selectB.png"></div>		 
-								<p>* 첫번째 사진은 숙소의 메인사진으로 사용됩니다.</p>
-							</div>
-							<br>	
-                            <div class="roomenroll_photo_wrap">
-								<!-- 업로드 된 이미지 추가되는 부분 (아래 이미지는 임시용) -->
-								<img src="../resources/images/temp/imgfile_temp01.jpg">
-	
+								<div class="roomenroll_photobtn">
+                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <span>메인사진 올리기</span>	
+                                </div>
+                                <p>* 첫번째 사진은 숙소의 메인사진으로 사용됩니다.</p>
                             </div>
+                            <div class="roomenroll_photo_wrap">
+                                <!-- 업로드 된 이미지 추가되는 부분 -->
+                            </div>
+                            <br>
+                            <div class="roomenroll_photo">
+                                <p>사진선택 &nbsp;|</p>
+                                <div class="roomenroll_photobtn">
+                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <span>서브사진1 올리기</span>	
+                                </div>
+                            </div>
+                            <div class="roomenroll_photo_wrap">
+                                <!-- 업로드 된 이미지 추가되는 부분 -->
+                            </div>
+                            <br>
+                            <div class="roomenroll_photo">
+                                <p>사진선택 &nbsp;|</p>
+                                <div class="roomenroll_photobtn">
+                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <span>서브사진2 올리기</span>	
+                                </div>
+                            </div>
+                            <div class="roomenroll_photo_wrap">
+                                <!-- 업로드 된 이미지 추가되는 부분 -->
+                            </div>
+                            <br>
+                            <div class="roomenroll_photo">
+                                <p>사진선택 &nbsp;|</p>
+                                <div class="roomenroll_photobtn">
+                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <span>서브사진3 올리기</span>	
+                                </div>
+                            </div>
+                            <div class="roomenroll_photo_wrap">
+                                <!-- 업로드 된 이미지 추가되는 부분  -->
+                            </div>
+                            <br>
+                            <div class="roomenroll_photo">
+                                <p>사진선택 &nbsp;|</p>
+                                <div class="roomenroll_photobtn">
+                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <span>서브사진4 올리기</span>	
+                                </div>
+                            </div>
+                            <div class="roomenroll_photo_wrap">
+                                <!-- 업로드 된 이미지 추가되는 부분 -->
+                            </div>
+                            
+                            <input type="file" class="roomphoto_upload" name="mainimg" accept="image/jpg,image/jpeg,image/png" required>
+                            <input type="file" class="roomphoto_upload" name="subimg1" accept="image/jpg,image/jpeg,image/png" >
+                            <input type="file" class="roomphoto_upload" name="subimg2" accept="image/jpg,image/jpeg,image/png" >
+                            <input type="file" class="roomphoto_upload" name="subimg3" accept="image/jpg,image/jpeg,image/png" >
+                            <input type="file" class="roomphoto_upload" name="subimg4" accept="image/jpg,image/jpeg,image/png" >
+                            
                         </div>	
 						<div class="btn_wrap roomregistbtn2">
-							<button class="btn btnType1 btnSizeS"><span>다음</span></button>   
+							<button class="btn btnType1 btnSizeS"><span>등록하기</span></button>   
 						</div>	
 					</form>
                 </div>
 			</div>
 		</div>
+		
+	<script>
+        // 사진올리기 버튼클릭
+		document.querySelectorAll(".roomenroll_photobtn").forEach(item => item.addEventListener('click', fileUploadOpen));
+        // input type="file" 열기
+        document.querySelectorAll(".roomphoto_upload").forEach(item => item.addEventListener('change', preview));
+
+		function fileUploadOpen(){
+			let index = Array.from(document.querySelectorAll(".roomenroll_photobtn")).indexOf(this);
+            document.querySelectorAll(".roomphoto_upload")[index].click(); 
+		}
+
+		function preview(){
+             if (this.files && this.files[0]) {
+                let index = Array.from(document.querySelectorAll(".roomphoto_upload")).indexOf(this); 
+                let reader = new FileReader();
+                reader.readAsDataURL(this.files[0]);
+                reader.onload = function () {       // div 안에 불러온 파일 추가
+                    document.querySelectorAll(".roomenroll_photo_wrap")[index].innerHTML = "<img src=" + reader.result + ">";
+                }
+            }
+        }
+
+	</script>
+		
 <%@include file="/views/common/footer.jsp" %>
+

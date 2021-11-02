@@ -1,4 +1,15 @@
+
+/point/
+/reservation/
+/sql/
+
+
+/point/
+
 /host/
+
+/common/
+
 /member/
 /point/
 /reservation/
@@ -7,5 +18,9 @@
 =======
 >>>>>>> refs/heads/main
 /sql/
+<<<<<<< HEAD
 /admin/
 /common/
+=======
+
+>>>>>>> refs/heads/main
