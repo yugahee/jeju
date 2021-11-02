@@ -4,12 +4,23 @@
 
 <entry key="selectRoom">
 	SELECT 
-	      
-
-
-
-
+	       ROOM_NAME
+	     , ROOM_TITLE
+	     , PRICE
+	     , STAR
+	     , FILE_PATH
+	     , CHANGE_NAME
+	  FROM ROOMS R
+	  JOIN FILES F USING(ROOM_NO)
+	  JOIN ROOMS_REVIEW USING(ROOM_NO)
+	 WHERE R.STATUS = 'Y'
+       AND F.STATUS = 'Y'
+	   AND FILE_LEVEL = 0
 </entry>
+
+
+
+
 
 
 </properties>
