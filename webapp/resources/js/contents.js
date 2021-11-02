@@ -37,7 +37,7 @@ function check(regExp, input, msg){
 
 function join(){
     let name = document.getElementById('userName');
-    let mail = document.getElementById('userEmail');
+    let mail = document.getElementById('userMail');
     let phone = document.getElementById('userTel');
     let id = document.getElementById('userId');
     let pwd = document.getElementById('userPwd');
