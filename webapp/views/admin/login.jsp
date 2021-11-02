@@ -46,14 +46,14 @@ scope="application"/>
 			<div class="inputArea">
 				<form name="adloginForm" id="loginForm" method="post" action="<%= request.getContextPath() %>/admin/login">
 					<div class="inp_text">
-						<input type="text" name="adUserId" id="adUserId" maxlength="20" required="required" placeholder="아이디" />
+						<input type="text" name="userId" id="userId" maxlength="20" required="required" placeholder="아이디" />
 					</div>
 					<div class="inp_text">
 						<input type="password" name="adUserPwd" maxlength="20" autocomplete="off" required="required" placeholder="password" />
 					</div>
 					<div class="inp_check">
-						<input type="checkbox" name="id_save" id="id_save">
-						<label for="id_save">아이디 저장</label>
+						<input type="checkbox" name="remember" id="remember">
+						<label for="remember">아이디 저장</label>
 					</div>
 					<div class="btn_wrap al_c">
 						<button class="btn btnType1 btnSizeL" type="submit" value="로그인"><span>로그인</span></button>

@@ -7,6 +7,59 @@ function goTo(to){
 };
 
 $(function(){
+	// checkbox 태그
+	const remeber = document.querySelector("#remember");
+	if(remeber){
+		//userId input 태그
+		const userId = document.querySelector("#userId");
+		// 저장된 쿠키 값 가져오기
+		let rememberId = getCookie("rememberId");
+		// input 태그에 해당 값 넣기(없을 경우 공백이므로 아무 값도 들어가지 않음)
+		userId.value = rememberId;
+		// 위의 코드를 통해 input 태그에 값이 들어간 경우 아이디 저장하기 기능 사용 중이므로
+		if(userId.value != ""){
+			// 아이디 저장하기 체크 박스를 체크한 상태로 만들기
+			remember.checked = true;
+			remember.closest(".inp_check").classList.add('checked');
+		}
+		//체크 박스 체크한 상태에서 input 태그에 값 입력할 경우
+		userId.addEventListener('keyup', function(){
+			// id 저장하기 체크된 상태일 경우
+			if(remember.checked){
+				setCookie("rememberId", userId.value, 7);
+			}
+		});
+		/* 쿠키 저장 (쿠키 이름, 값, 유효 일자) */
+		function setCookie(cookieName, value, exdays){		
+		    let exdate = new Date();
+		    exdate.setDate(exdate.getDate() + exdays);
+		    let cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());   
+		    document.cookie = cookieName + "=" + cookieValue;
+		}
+
+		/* 쿠키 삭제 (쿠키 이름) */
+		function deleteCookie(cookieName){
+			let expireDate = new Date();
+		    expireDate.setDate(expireDate.getDate() - 1);
+		    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+		}
+		/* 쿠키 가져오기 (쿠키 이름) */
+		function getCookie(cookieName) {
+		    cookieName = cookieName + '=';
+		    let cookieData = document.cookie;
+		    let start = cookieData.indexOf(cookieName);
+		    let cookieValue = '';
+		    if(start != -1){
+		        start += cookieName.length;
+		        let end = cookieData.indexOf(';', start);
+		        if(end == -1)end = cookieData.length;
+		        cookieValue = cookieData.substring(start, end);
+		    }
+		    return unescape(cookieValue);
+		}
+	}
+	// 쿠키 끝
+	
 	// 체크박스
 	$(document).on('click', '.inp_check label', function (){
 		if ($(this).parent().hasClass('readOnly')){return false;}
@@ -38,11 +91,17 @@ $(function(){
 				if($(this).attr('for') == 'pointChk'){
 					$('.point_using').hide();
 				}
+				if($(this).attr('for') == 'remember'){
+					deleteCookie("rememberId");// 쿠키 삭제
+				}
 				tar.prop("checked",false);
 			} else {
 				$(this).parent().addClass('checked');
 				if($(this).attr('for') == 'pointChk'){
 					$('.point_using').show();
+				}
+				if($(this).attr('for') == 'remember'){
+					setCookie("rememberId", userId.value, 7);// 쿠키 생성
 				}
 				tar.prop("checked",true);
 			}

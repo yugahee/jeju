@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
 <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">    
 <%@ include file="/views/common/header.jsp" %>    
@@ -45,43 +46,27 @@
 					</form>
 						<!--여기 아래부터 숙소 사진과 옆에 숙소명+숙소제목...-->
 						<!-- <div class="lodfing_title"> -->
+					<c:forEach var="room" items="${ roomList }">
 					<div class="lodging_lineup">
 						<div class="child1">
-							<img src="../resources/images/숙소.png" class="lodging1">
+							<img src="${contextPath}${room.fileList.get(0).filePath}
+							${room.fileList.get(0).changeName}" class="lodging1">
 						</div>
 						<div class="child2">
 							<br>
-							<span class="text1" >[서부] 바닷가펜션</span> 
-							<span class="text2">조용한 휴식공간//힐링//바멍</span> <br> <br> <br> 
-							<div class="tt">
+							<span class="text1" >[${ room.location }] ${ room.roomName }</span> 
+							<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
+							<div class="roomReview">
 								<img src="../resources/images/star.png" width="20px" height="20px">
-								<span class="text3" id="reviewStar">4.47</span>
+								<span class="text3" id="reviewStar">${ room.star }</span>
 								<span class="text3" id="reviewCount">(후기 12개)</span>
 							</div>
-							<div class="tt2">
-								<span>54,000/박</span>
-							</div>
-						</div>
-					</div> 		
-					<!-- 두번째 -->
-					<div class="lodging_lineup">
-						<div class="child1">
-							<img src="../resources/images/숙소.png" class="lodging1">
-						</div>
-						<div class="child2">
-							<br>
-							<span class="text1" >[동부] OO펜션</span> 
-							<span class="text2">훌륭한 경관//화창한 날씨//따스함</span> <br> <br> <br> 
-							<div class="tt">
-								<img src="../resources/images/star.png" width="20px" height="20px">
-								<span class="text3" id="reviewStar">3.8</span>
-								<span class="text3" id="reviewCount">(후기 10개)</span>
-							</div>
-							<div class="tt2">
-								<span>60,000/박</span>
+							<div class="roomPrice">
+								<span>${room.price}/박</span>
 							</div>
 						</div>
 					</div> 	
+					</c:forEach>	
 			</div>
 		</div>
 	</div>

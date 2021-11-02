@@ -54,7 +54,7 @@ scope="application"/>
 							<a href="${ contextPath }/room/reservation">숙소예약</a>
 						</li>
 						<li>
-							<a href="#">추천장소</a>
+							<a href="${ contextPath }/reco/view">추천장소</a>
 						</li>
 						<li>
 							<a href="${ contextPath }/reservation/checkView">예약조회</a>
@@ -68,7 +68,7 @@ scope="application"/>
 							<a href="#">숙소관리</a>
 						</li>
 						<li>
-							<a href="#">추천장소</a>
+							<a href="${ contextPath }/reco/view">추천장소</a>
 						</li>
 						<li>
 							<a href="#">예약관리</a>
@@ -118,5 +118,6 @@ scope="application"/>
                 </c:if>
                     
 			</div>
+
 		</header>
-		
+

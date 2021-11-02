@@ -40,7 +40,7 @@ public class adminLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adUserId = request.getParameter("adUserId");
+		String adUserId = request.getParameter("userId");
 		String adUserPwd = request.getParameter("adUserPwd");
 		
 		Member loginUser = new MemberService().loginMember(adUserId, adUserPwd);

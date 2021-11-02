@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="roomList">
+		SELECT
+		    ROOM_NO
+		    , LOCATION
+		    , ROOM_NAME
+		    , ROOM_TITLE
+		    , FILE_PATH
+		    , CHANGE_NAME
+		FROM ROOMS R
+		JOIN FILES USING(ROOM_NO)
+		WHERE R.STATUS = 'Y'
+		AND FILE_LEVEL = 0
+	</entry>
+</properties>

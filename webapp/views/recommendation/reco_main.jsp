@@ -3,7 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 
 	<div class="banner"><!--배너-->
-		<a href="../html/test_main.html"><img src="../resources/images/ch/banner.jpg"></a>
+		<a href="../html/test_main.html"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
 
 	<div class="main">
@@ -45,24 +45,21 @@
 					</div>
 	
 					<div class='input_box'>
-						<div class="inp_text inp_text2">
-							<input type="text" name="reco_keyword" id="reco_keyword"
-								placeholder="키워드를 입력하세요" />
+							<!-- <div class="inp_text inp_text2">
+								<input type="text" name="reco_keyword" id="reco_keyword" placeholder="키워드를 입력하세요" />
+							</div>
+							<div class="inp_text">
+								<input class="submit" type="submit" name="" id="" value="확인" />
+							</div> -->
+
+							<div class="sortArea">
+								<div class="inp_text search inp_text2">
+									<input type="text" name="" id="" placeholder="키워드를 입력하세요">
+									<a href="#" class="btn_sch">검색</a>
+								</div>
+							</div>
 						</div>
-						<div class="inp_text">
-							<input class="submit" type="submit" name="" id="" value="확인" />
-						</div>
-						<!-- 이게 나은지 밑에게 나은지 -->
-	
-						<!-- <div class="sortArea">
-									<div class="inp_text search">
-										<input type="text" name="" id="" placeholder="키워드를 입력하세요">
-										<a href="#" class="btn_sch">검색</a>
-									</div>
-								</div> -->
-					</div>
-				</div>
-				<!-- sub_upper END -->
+					</div><!-- sub_upper END -->
 	
 				<div class="list_box">
 					<div class="reco_radio">
@@ -79,97 +76,113 @@
 					<!-- 리스트 시작 -->
 					<div class="reco_list">
 						<div class="reco_item">
-							<div class="imageArea"
-								style="background-image: url(../resources/images/ch/item.jpg);">
-							</div>
-							<div class="item_info">
-								<a href="../html/reco_detail.html"><p class="item_title">장소명</p></a>
-								<div class="star_average">
-									<div class="rating_star">
-										<span class="starPoint p5">5</span>
-									</div>
-									<p>(3.2/5)</p>
+								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
+									onclick="location.href='${ contextPath }/reco/detail'">
 								</div>
-								<p class="adress">주소</p>
-								<div class="reco_review">
-									<a href="#" class="btn btnType1 btnSizeS"><span
-										class="arr-right">리뷰쓰기</span></a> <a href="#"> <img
-										class="heart" src="../resources/images/ch/heart_empty.png" />
+								<div class="item_info">
+									<a href="../html/reco_detail.html">
+										<p class="item_title">장소명</p>
 									</a>
-									<p class="count">200</p>
+									<div class="star_average">
+										<div class="rating_star">
+											<span class="starPoint p5">5</span>
+										</div>
+										<p>(3.2/5)</p>
+									</div>
+									<p class="adress">주소</p>
+									<div class="reco_review">
+										<a href="#" class="btn btnType1 btnSizeS">
+											<span class="arr-right">리뷰쓰기</span>
+										</a>
+										<a href="#">
+											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
+										</a>
+										<p class="count">200</p>
+									</div>
 								</div>
 							</div>
-						</div>
 	
 						<div class="reco_item">
-							<div class="imageArea"
-								style="background-image: url(../resources/images/ch/item.jpg);">
-							</div>
-							<div class="item_info">
-								<a href="../html/reco_detail.html"><p class="item_title">장소명</p></a>
-								<div class="star_average">
-									<div class="rating_star">
-										<span class="starPoint p5">5</span>
-									</div>
-									<p>(3.2/5)</p>
+								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
+									onclick="location.href='reco_detail.html'">
 								</div>
-								<p class="adress">주소</p>
-								<div class="reco_review">
-									<a href="#" class="btn btnType1 btnSizeS"><span
-										class="arr-right">리뷰쓰기</span></a> <a href="#"> <img
-										class="heart" src="../resources/images/ch/heart_empty.png" />
+								<div class="item_info">
+									<a href="../html/reco_detail.html">
+										<p class="item_title">장소명</p>
 									</a>
-									<p class="count">200</p>
+									<div class="star_average">
+										<div class="rating_star">
+											<span class="starPoint p5">5</span>
+										</div>
+										<p>(3.2/5)</p>
+									</div>
+									<p class="adress">주소</p>
+									<div class="reco_review">
+										<a href="#" class="btn btnType1 btnSizeS">
+											<span class="arr-right">리뷰쓰기</span>
+										</a>
+										<a href="#">
+											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
+										</a>
+										<p class="count">300</p>
+									</div>
 								</div>
 							</div>
-						</div>
 	
 	
 						<div class="reco_item">
-							<div class="imageArea"
-								style="background-image: url(../resources/images/ch/item.jpg);">
-							</div>
-							<div class="item_info">
-								<a href="../html/reco_detail.html"><p class="item_title">장소명</p></a>
-								<div class="star_average">
-									<div class="rating_star">
-										<span class="starPoint p5">5</span>
-									</div>
-									<p>(3.2/5)</p>
+								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
+									onclick="location.href='reco_detail.html'">
 								</div>
-								<p class="adress">주소</p>
-								<div class="reco_review">
-									<a href="#" class="btn btnType1 btnSizeS"><span
-										class="arr-right">리뷰쓰기</span></a> <a href="#"> <img
-										class="heart" src="../resources/images/ch/heart_empty.png" />
+								<div class="item_info">
+									<a href="../html/reco_detail.html">
+										<p class="item_title">장소명</p>
 									</a>
-									<p class="count">200</p>
+									<div class="star_average">
+										<div class="rating_star">
+											<span class="starPoint p5">5</span>
+										</div>
+										<p>(3.2/5)</p>
+									</div>
+									<p class="adress">주소</p>
+									<div class="reco_review">
+										<a href="#" class="btn btnType1 btnSizeS">
+											<span class="arr-right">리뷰쓰기</span>
+										</a>
+										<a href="#">
+											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
+										</a>
+										<p class="count">200</p>
+									</div>
 								</div>
 							</div>
-						</div>
 	
 						<div class="reco_item">
-							<div class="imageArea"
-								style="background-image: url(../resources/images/ch/item.jpg);">
-							</div>
-							<div class="item_info">
-								<a href="../html/reco_detail.html"><p class="item_title">장소명</p></a>
-								<div class="star_average">
-									<div class="rating_star">
-										<span class="starPoint p5">5</span>
-									</div>
-									<p>(3.2/5)</p>
+								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
+									onclick="location.href='reco_detail.html'">
 								</div>
-								<p class="adress">주소</p>
-								<div class="reco_review">
-									<a href="#" class="btn btnType1 btnSizeS"><span
-										class="arr-right">리뷰쓰기</span></a> <a href="#"> <img
-										class="heart" src="../resources/images/ch/heart_empty.png" />
+								<div class="item_info">
+									<a href="../html/reco_detail.html">
+										<p class="item_title">장소명</p>
 									</a>
-									<p class="count">200</p>
+									<div class="star_average">
+										<div class="rating_star">
+											<span class="starPoint p5">5</span>
+										</div>
+										<p>(3.2/5)</p>
+									</div>
+									<p class="adress">주소</p>
+									<div class="reco_review">
+										<a href="#" class="btn btnType1 btnSizeS">
+											<span class="arr-right">리뷰쓰기</span>
+										</a>
+										<a href="#">
+											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
+										</a>
+										<p class="count">200</p>
+									</div>
 								</div>
 							</div>
-						</div>
 					</div>
 					<!-- 리스트 끝 -->
 				</div>
@@ -177,3 +190,5 @@
 			</div>
 		</div>
 	</div>
+
+<%@ include file="/views/common/footer.jsp" %>

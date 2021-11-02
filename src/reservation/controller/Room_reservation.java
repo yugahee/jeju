@@ -32,9 +32,9 @@ public class Room_reservation extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//List<Rooms> roomList = new ReservationService().selectRoom();
-		
-		
+		List<Rooms> roomList = new ReservationService().selectRoom();
+		request.setAttribute("roomList", roomList);
+			
 		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
 	}
 

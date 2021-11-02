@@ -1,35 +1,26 @@
 
 /* 효은님 */
 /* join */
-let count = 0; // 클릭 할 때마다 바뀌게
 
-function gest(){
-    count++;
-    
-    if(count % 2 == 1) {
-        document.getElementById('gestGray').style.content = "url(/semiProject/resources/images/join/user_orange.png)"
-        document.getElementById('memberG').style.color = "#ff8b33";
-    }
-    else {
-        document.getElementById('gestGray').style.content = "url(/semiProject/resources/images/join/user_gray.png)"
+function selectType(){
+	var type = $("input:radio[name='userType']:checked").val();
+	
+	if(type=='gest') {
+		document.getElementById('gestGray').style.content = "url(/jeju/resources/images/join/user_orange.png)"
+		document.getElementById('memberG').style.color = "#ff8b33";
+		document.getElementById('hostGray').style.content = "url(/jeju/resources/images/join/home_gray.png)";
+		document.getElementById('memberH').style.color = "gray";
+		
+	}
+	else if(type=='host') {
+		document.getElementById('hostGray').style.content = "url(/jeju/resources/images/join/home_orange.png)";
+		document.getElementById('memberH').style.color = "#ff8b33";
+		document.getElementById('gestGray').style.content = "url(/jeju/resources/images/join/user_gray.png)";
         document.getElementById('memberG').style.color = "gray";
-    }
-
+		
+	}
 }
 
-function host(){
-    count++;
-
-    if(count % 2 == 1) {
-        document.getElementById('hostGray').style.content = "url(/semiProject/resources/images/join/home_orange.png)";
-        document.getElementById('memberH').style.color = "#ff8b33";
-    }
-    else {
-        document.getElementById('hostGray').style.content = "url(/semiProject/resources/images/join/home_gray.png)";
-        document.getElementById('memberH').style.color = "gray";
-    }
-
-}
 
 // 입력 값 정규식
 function check(regExp, input, msg){
@@ -46,7 +37,7 @@ function check(regExp, input, msg){
 
 function join(){
     let name = document.getElementById('userName');
-    let mail = document.getElementById('userEmail');
+    let mail = document.getElementById('userMail');
     let phone = document.getElementById('userTel');
     let id = document.getElementById('userId');
     let pwd = document.getElementById('userPwd');
@@ -156,10 +147,11 @@ $(document).ready(function(){
     /* 하트 체크 */
     $(function(){
         $('.heart').click(function(){
-            if($(this).attr('src') == '/semiProject/resources/images/ch/heart_empty.png'){
-                $(this).attr('src', '/semiProject/resources/images/ch/heart.png');
+            if($(this).attr('src') == '/jeju/resources/images/ch/heart_empty.png'){
+                $(this).attr('src', '/jeju/resources/images/ch/heart.png');
+                console.log("ddd");
             }else{
-                $(this).attr('src', '/semiProject/resources/images/ch/heart_empty.png');
+                $(this).attr('src', '/jeju/resources/images/ch/heart_empty.png');
             }
         });
     });
