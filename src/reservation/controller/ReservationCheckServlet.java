@@ -38,7 +38,7 @@ public class ReservationCheckServlet extends HttpServlet {
 		// 예약리스트 가져오기
 		List<Reservation> reservationList = new ReservationService().userReservation(userId);
 		
-		//System.out.println(reservationList);
+		System.out.println(reservationList);
 				
 		request.setAttribute("reservationList", reservationList);
 		request.getRequestDispatcher("/views/reservation/reservationCheckView.jsp").forward(request, response);

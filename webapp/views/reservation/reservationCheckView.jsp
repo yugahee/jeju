@@ -16,9 +16,25 @@
 					<p>예약날짜 : <fmt:formatDate value="${ reserve.start_date }" type="both" pattern="yyyy.MM.dd"/> ~ <fmt:formatDate value="${ reserve.end_date }" type="both" pattern="yyyy.MM.dd"/></p>
 					<p>예약자명 : ${ reserve.person_reserve }</p>
 					<p>숙박인원 : ${ reserve.reserve_num }명</p>
-					<div class="btn_wrap">						
-						<a href="${contextPath}/payment" class="btn btnType1 btnSizeS"><span>결제하기</span></a>
-						<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
+					<div class="btn_wrap">	
+						<c:choose>	
+							<c:when test="${ reserve.reserve_state eq '예약신청' }">
+								<p>호스트에게 예약신청 승인요청중 입니다.</p>
+								<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
+							</c:when>	
+							<c:when test="${ reserve.reserve_state eq '결제대기' }">				
+								<a href="${contextPath}/payment" class="btn btnType1 btnSizeS"><span>결제하기</span></a>
+								<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
+							</c:when>
+							<c:when test="${ reserve.reserve_state eq '예약완료' }">				
+								<p>예약이 완료 되었습니다.</p>
+								<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
+							</c:when>
+							<c:otherwise test="${ reserve.reserve_state eq '숙박완료' }">				
+								<a href="#" class="btn btnType1 btnSizeS"><span>리뷰쓰기</span></a>
+								<a href="#" class="btn btnType2 btnSizeS"><span>신고하기</span></a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
