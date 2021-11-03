@@ -87,7 +87,7 @@ scope="application"/>
 				<div class="userArea">										
                     <img src="${contextPath}/resources/images/usericon.png" onclick="userCon()"/>                  
                 <c:choose>
-                	<c:when test="${ loginUser.getUser_type() eq '게스트'}">
+                	<c:when test="${ loginUser.getUser_type() eq 'gest' ||  loginUser.getUser_type() eq '게스트'}">
                 	<!-- 게스트일 때 -->
                 	<ul class="userCon" id="guestUserCon" style="display: none">
                         <li><a href="${ contextPath }/logout">로그아웃</a></li>
@@ -96,7 +96,7 @@ scope="application"/>
 						<li><a href="#">신고게시판</a></li>
                     </ul>
                 	</c:when>
-                	<c:when test="${ loginUser.getUser_type() eq '호스트'}">
+                	<c:when test="${ loginUser.getUser_type() eq 'host' ||  loginUser.getUser_type() eq '호스트'}">
                 	<!-- 호스트일 때 -->
                 	 <ul class="userCon" id="hostUserCon" style="display: none">
                         <li><a href="${ contextPath }/logout">로그아웃</a></li>
