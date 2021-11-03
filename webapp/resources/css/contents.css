@@ -470,7 +470,7 @@
           margin-bottom: 30px;
      }
      
-     .mypage .btnEmail, .mypage .btnTel {
+     .mypage .btnEmail, .mypage .btnTel, .mypage .btnNumber {
           float: right;
           margin-top: 5px;
      }
@@ -510,11 +510,11 @@
      .layer_text input:focus {color:#101010;border-color:#101010;}
      
      /*---------- 이메일 찾기 화면 ----------*/
-     #userEmail, #mailConfirm {
+     #userEmail, #userNMail, #mailConfirm {
           margin-top: 5px;
      }
      
-     #userEmail, #mailConfirm{
+     #userEmail, #userNMail, #mailConfirm{
           margin-bottom: 30px;
      }
 
