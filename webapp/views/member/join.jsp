@@ -30,11 +30,11 @@
                                    <button class="title" type="button" title="회원유형 선택" >회원 유형을 선택하세요</button>
                                    <ul class="selList">
                                        <li>
-                                           <input type="radio" value="gest" class="option" id="sel2_1" name="userType" onclick="selectType();"/>
+                                           <input type="radio" value="게스트" class="option" id="sel2_1" name="userType" onclick="selectType();"/>
                                            <label for="sel2_1">1. 게스트</label>
                                        </li>
                                        <li>
-                                           <input type="radio" value="host" class="option" id="sel2_2" name="userType" onclick="selectType();"/>
+                                           <input type="radio" value="호스트" class="option" id="sel2_2" name="userType" onclick="selectType();"/>
                                            <label for="sel2_2">2. 호스트</label>
                                        </li>
                                    </ul>

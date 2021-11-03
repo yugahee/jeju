@@ -232,4 +232,63 @@ public class MemberDao {
 		return result;
 	}
 
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUser_name());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getUser_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member updatedMember = new Member();
+		String sql = memberQuery.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updatedMember.setUser_id(rset.getString("user_id"));
+				updatedMember.setUser_pwd(rset.getString("user_pwd"));
+				updatedMember.setUser_name(rset.getString("user_name"));
+				updatedMember.setEmail(rset.getString("email"));
+				updatedMember.setPhone(rset.getString("phone"));
+				updatedMember.setPoint(rset.getInt("point"));
+				updatedMember.setUser_type(rset.getString("user_type"));
+				updatedMember.setEnroll_date(rset.getDate("enroll_date"));
+				updatedMember.setModify_date(rset.getDate("modify_date"));
+				updatedMember.setReport_count(rset.getInt("report_count"));
+				updatedMember.setStatus(rset.getString("status"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return updatedMember;
+	}
+
 }

@@ -79,4 +79,23 @@ public class MemberService{
 		
 		return result;
 	}
+
+	public Member updateMember(Member member) {
+		Connection conn = getConnection();
+		Member updatedMember = null;
+		
+		int result = memberDao.updateMember(conn, member);
+		
+		if(result > 0) {
+			updatedMember = memberDao.selectMember(conn, member.getUser_id());
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		// 수정된 멤버 정보 리턴
+		return updatedMember;
+	}
 }
