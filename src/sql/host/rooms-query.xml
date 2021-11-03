@@ -105,6 +105,83 @@
 		  	 , ?
 		  )
 	</entry>
+	
+	<entry key="selectRooms">
+		SELECT
+			   ROOM_NO
+		     , ROOM_NAME
+		     , ENROLL_STATUS
+		     , CREATE_DATE
+		     , FILE_PATH
+		     , CHANGE_NAME
+		  FROM ROOMS R
+		  JOIN FILES F USING(ROOM_NO)
+		 WHERE R.STATUS = 'Y'
+		   AND F.STATUS = 'Y'
+		   AND FILE_LEVEL = 0
+		   AND USER_ID = ?
+		 ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="selectRoomBasic">
+		SELECT
+			   ROOM_NO	
+		     , ROOM_NAME
+		     , ROOM_TITLE
+		     , ROOM_DES
+		     , ROOM
+		     , BED
+		     , BATH
+		     , ROOM_TYPE
+		     , BUILDING_TYPE
+		     , ROOM_SIZE
+		     , START_TIME
+		     , END_TIME
+		     , ROOM_FAC
+		  FROM ROOMS
+		 WHERE ROOM_NO = ?
+	</entry>
 
+	<entry key="updateRoomBasic">
+		UPDATE
+		 	   ROOMS
+		   SET ROOM_NAME = ?
+		     , ROOM_TITLE = ?
+		     , ROOM_DES = ?
+		     , ROOM = ?
+		     , BED = ?
+		     , BATH = ?
+		     , ROOM_TYPE = ?
+		     , BUILDING_TYPE = ?
+		     , ROOM_SIZE = ?
+		     , START_TIME = ?
+		     , END_TIME = ?
+		     , ROOM_FAC = ?
+		     , MODIFY_DATE = SYSDATE
+	     WHERE ROOM_NO = ?         
+	</entry>
+	
+	<entry key="selectRoomPrice">
+		SELECT
+			   ROOM_NO	
+		     , PRICE
+		     , EXTRA_COST
+		     , MIN_PEOPLE
+		     , MAX_PEOPLE
+		     , MIN_STAY
+		     , MAX_STAY 
+		  FROM ROOMS
+		 WHERE ROOM_NO = ?
+	</entry>
+	
+	<entry key="selectRoomPeak">
+		SELECT
+		       ROOM_NO
+		     , PEAK_START
+		     , PEAK_END
+		     , PEAK_PRICE 
+		  FROM PEAKSEASON
+		 WHERE ROOM_NO = ?	
+	</entry>
 
 </properties>
