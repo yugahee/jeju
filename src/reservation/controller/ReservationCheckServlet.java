@@ -33,6 +33,7 @@ public class ReservationCheckServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+				
 		
 		// 예약리스트 가져오기
 		List<Reservation> reservationList = new ReservationService().userReservation(userId);
