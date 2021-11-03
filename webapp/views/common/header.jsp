@@ -65,7 +65,7 @@ scope="application"/>
 				<div class="menuList" style="display: none">
 					<ul>
 						<li>
-							<a href="#">숙소관리</a>
+							<a href="${ contextPath }/host/roomlist">숙소관리</a>
 						</li>
 						<li>
 							<a href="${ contextPath }/reco/mainView">추천장소</a>
