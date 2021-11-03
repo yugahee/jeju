@@ -1,4 +1,4 @@
-package recommendation.controller;
+package mbti.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RecommendationDetailServlet
+ * Servlet implementation class MbtiTest3Servlet
  */
-@WebServlet("/reco/detail")
-public class RecommendationDetailServlet extends HttpServlet {
+@WebServlet("/mbti/test3")
+public class MbtiTest3Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecommendationDetailServlet() {
+    public MbtiTest3Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class RecommendationDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/recommendation/reco_detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/mbti/test_content3.jsp").forward(request, response);
 	}
 
 	/**

@@ -6,7 +6,7 @@
 			<div class="container">
 				<div class="detail_upper">
 					<div class="prev_page"> <!-- back 버튼 -->
-						<a href="../html/reco_main.html" class="btn btnType2 btnSizeM"><span class="arr-left">&lt;&lt; &nbsp;이전으로</span></a>
+						<a href="${ contextPath }/reco/mainView" class="btn btnType2 btnSizeM"><span class="arr-left">&lt;&lt; &nbsp;이전으로</span></a>
 					</div>
 					
 					<div class="like"><!-- 하트 -->
@@ -18,7 +18,7 @@
 				</div><!-- detail_upper end -->
 
 				<div class="banner"><!--배너-->
-					<a href="../html/test_main.html"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
+					<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 				</div><!--배너 끝-->
 				
 				<div class="detail_content">

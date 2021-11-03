@@ -39,7 +39,8 @@ public class adminUserMg01Servlet extends HttpServlet {
 		
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
-		
+		System.out.println("searchCondition : "+ searchCondition);
+		System.out.println("searchValue : "+ searchValue);
 		Map<String, Object> map = new MemberService().selectList(page, new Search(searchCondition, searchValue));
 
 		request.setAttribute("listCount", map.get("listCount"));

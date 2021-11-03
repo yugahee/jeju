@@ -40,17 +40,43 @@
 		 , ?
 		 , ?
 		 , ?
-		 , DEFAULT
-		 , DEFAULT
+		 , SYSDATE
+		 , SYSDATE
 		 , DEFAULT
 	)
 </entry>
 
 <entry key="searchMember">
-	SELECT
-		   *
-	  FROM MEMBER
-	 WHERE USER_TYPE != '관리자'
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMemberHost">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = '호스트'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMemberGuest">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = '게스트'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="searchMemberDetail">

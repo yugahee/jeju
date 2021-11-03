@@ -3,7 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 
 	<div class="banner"><!--배너-->
-		<a href="../html/test_main.html"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
+		<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
 
 	<div class="main">
@@ -77,7 +77,7 @@
 					<div class="reco_list">
 						<div class="reco_item">
 								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
-									onclick="location.href='${ contextPath }/reco/detail'">
+									onclick="location.href='${ contextPath }/reco/detailView'">
 								</div>
 								<div class="item_info">
 									<a href="../html/reco_detail.html">
@@ -100,6 +100,39 @@
 										<p class="count">200</p>
 									</div>
 								</div>
+								
+								<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
+									<form>
+										<div class="layerTit">
+											<h4>리뷰 등록</h4>
+											
+											<button class="btn_closeLayer" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
+										</div>
+										<div class="layerBody">
+											<h4>장소명</h4>
+											<h4>별점을 등록해주세요</h4>
+		
+											<div class="rating_star_large">		<!-- 별점 시작 -->
+												<div class="pointArea">
+													<span class="pointBg">이 장소는 <em>5</em>점입니다.</span>
+													<span class="starPoint p2">
+														<button>1점 선택</button>
+														<button>2점 선택</button>
+														<button>3점 선택</button>
+														<button>4점 선택</button>
+														<button>5점 선택</button>
+													</span>
+												</div>
+											</div>		<!-- 별점 끝 -->
+											<div>
+												<textarea width="10px;" height="10px;" style="resize: none;" name="content">
+												</textarea>
+												<input type="submit">
+											</div>
+										</div>
+									</form>
+								</div>		<!-- 레이어 끝 -->
+								
 							</div>
 	
 						<div class="reco_item">

@@ -44,8 +44,8 @@
                 <p>3/4</p>
             </div>
             <div class="select-button">
-                <a href="../html/test_content4.html" class="btn btnType2 btnSizeL"><span>오 어디로 여행 가고 싶은데?</span></a>
-                <a href="../html/test_content4.html" class="btn btnType2 btnSizeL"><span>왜 그래, 혹시 무슨 일 있어?</span></a>
+                <a href="${ contextPath }/mbti/test4" class="btn btnType2 btnSizeL"><span>오 어디로 여행 가고 싶은데?</span></a>
+                <a href="${ contextPath }/mbti/test4" class="btn btnType2 btnSizeL"><span>왜 그래, 혹시 무슨 일 있어?</span></a>
             </div>
         </div>
     </div>
