@@ -218,6 +218,7 @@ $(function(){
 		var txt_value = $(this).text();
 		var target = $(this).parents('.selectbox');
 		target.find('.title').text(txt_value);
+		target.find('.inputVal').val(txt_value);
 		target.find('input').removeAttr('checked');
 		$(this).prev('input').attr('checked','checked');
 		$(this).parents('.selList').stop(true, false).animate({'maxHeight' : 0+'px'}, 250, 'easeOutCubic');

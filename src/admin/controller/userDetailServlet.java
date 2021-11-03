@@ -34,8 +34,7 @@ public class userDetailServlet extends HttpServlet {
 		String userId = request.getParameter("input");
 		
 		Member member = new MemberService().selectMemberDetail(userId);
-		System.out.println(member);
-
+		
 		response.setContentType("application/json;charset=utf-8");
 		new Gson().toJson(member, response.getWriter());		
 	}

@@ -30,6 +30,13 @@ scope="application"/>
     
 </head>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -72,8 +79,8 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>
-			<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
-				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
 			</c:if>
 			<div class="content">
 				<div class="listSearch">
@@ -81,81 +88,41 @@ scope="application"/>
 					<form method="get" action="${ contextPath }/admin/userMg01">
 						<div class="selectbox">
 							<button class="title" type="button">전체</button>
-							<input type="hidden" name="searchCondition" value="">
-							<script>
-								var varName = $('input[name="role"]:checked').val();
-								console.log(varName);
-							</script>
+							<input class="inputVal" type="hidden" name="searchCondition" value="전체">
 							<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 								<li>
-									<input class="option" type="radio" value="all" name="role"
-									<c:if test="${ param.searchCondition == 'all' }"></c:if>>
-									<label for="select_user0">전체</label>
+									<input class="option" type="radio" id="sel_type1_1">
+									<label for="sel_type1_1">전체</label>
 								</li>
 								<li>
-									<input class="option" type="radio" value="host" name="role"
-									<c:if test="${ param.searchCondition == 'host' }"></c:if>>
-									<label for="select_user1">호스트</label>
+									<input class="option" type="radio" id="sel_type1_2">
+									<label for="sel_type1_2">호스트</label>
 								</li>
 								<li>
-									<input class="option" type="radio" value="guest" name="role"
-									<c:if test="${ param.searchCondition == 'guest' }"></c:if>>
-									<label for="select_user2">게스트</label>
+									<input class="option" type="radio" id="sel_type1_3">
+									<label for="sel_type1_3">게스트</label>
 								</li>
-								<%-- <select>
-									<option value="all"
-									<c:if test="${ param.searchCondition == 'all' }">selected</c:if>>전체</option>
-									<option value="host"
-									<c:if test="${ param.searchCondition == 'host' }">selected</c:if>>호스트</option>
-									<option value="guest"
-									<c:if test="${ param.searchCondition == 'guest' }">selected</c:if>>게스트</option>
-								</select> --%>
 							</ul>
 						</div>
-						<%-- <span class="input_area"> 
-							<input type="search" name="searchValue" value="${ param.searchValue }">
-						</span>
-						<button type="submit">검색하기</button>	 --%>	
+						<div class="selectbox">
+							<button class="title" type="button">아이디</button>
+							<input class="inputVal" type="hidden" name="searchCondition2" value="아이디">
+							<ul class="selList" id="searchCondition2" style="max-height: 0px; display: none;">
+								<li>
+									<input class="option" type="radio" id="sel_type2_1">
+									<label for="sel_type2_1">아이디</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type2_2">
+									<label for="sel_type2_2">이름</label>
+								</li>
+							</ul>
+						</div>
 						<div class="inp_text search">
 							<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="검색어를 입력하세요">
 							<button type="submit" class="btn_sch">검색</button>
 						</div>
 					</form>
-					
-					<!-- <div class="selectbox">
-						<button class="title memberType" type="button" name="searchCondition">전체</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="all" class="option" id="select_user0" name="select_user">
-								<label for="select_user0">전체</label>
-							</li>
-							<li>
-								<input type="radio" value="host" class="option" id="select_user1" name="select_user">
-								<label for="select_user1">호스트</label>
-							</li>
-							<li>
-								<input type="radio" value="guest" class="option" id="select_user2" name="select_user">
-								<label for="select_user2">게스트</label>
-							</li>
-						</ul>
-					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">아이디</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">아이디</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op1">이름</label>
-							</li>
-						</ul>
-					</div>			
-					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
-					</div> -->
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
@@ -230,9 +197,6 @@ scope="application"/>
 						</tbody>
 					</table>
 				</div>
-				<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
-					<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
-				</c:if>
 				<div class="paging">
 					<span class="first">
 						<a href="${contextPath}/admin/userMg01?page=1${searchParam}">
@@ -243,13 +207,15 @@ scope="application"/>
 						<c:choose>
 						<c:when test="${pi.page > 1 }">				
 						<a href="${contextPath }/admin/userMg01?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
 						</c:when>
 						<c:otherwise>						
 						<a href="#none">
-						</c:otherwise>
-						</c:choose>
 							<span class="blind">이전페이지</span>
 						</a>
+						</c:otherwise>
+						</c:choose>
 					</span>
 					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
 					<c:choose>
@@ -265,12 +231,13 @@ scope="application"/>
 						<c:choose>
 						<c:when test="${ pi.page < pi.maxPage }">				
 						<a href="${contextPath }/admin/userMg01?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
 						</c:when>
 						<c:otherwise>						
 						<a href="#none">
+						<span class="blind">다음페이지</span></a>
 						</c:otherwise>
 						</c:choose>
-						<span class="blind">다음페이지</span></a>
 					</span>
 					<span class="last">
 						<a href="${contextPath }/admin/userMg01?page=${pi.maxPage }${searchParam}">
@@ -327,7 +294,7 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
+                <a href="#none" class="btn btnType1 btnSizeM" onclick="commitData();hideLayer('userAdPop');"><span>적용</span></a>
 				<a href="#none" class="btn btnType2 btnSizeM" onclick="hideLayer('userAdPop');"><span>취소</span></a>
             </div>
 		</div> 
@@ -347,13 +314,15 @@ scope="application"/>
 					$("#mid").text(user.user_id);
 					$("#mname").text(user.user_name);
 					if(user.status == 'Y'){										
-						html = '<button class="title" type="button" title="상태">정상</button>'
-							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">정상</label></li>	'
-							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">탈퇴</label></li></ul>';
+						html = '<button class="title" type="button" title="상태">Y</button>'
+							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="Y">'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">Y</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">N</label></li></ul>';
 					}else{
-						html = '<button class="title" type="button" title="상태">탈퇴</button>'
-							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">정상</label></li>	'
-							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">탈퇴</label></li></ul>';
+						html = '<button class="title" type="button" title="상태">N</button>'
+							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="N">'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">Y</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">N</label></li></ul>';
 					}				
 					$("#mstatus").html(html);
 				}else{
@@ -362,6 +331,23 @@ scope="application"/>
 			},
 			error : function(e){
 				console.log(e);
+			}
+		});
+	}
+	function commitData(){
+		let statusVal = $('.statusVal').val();
+		let idVal = $('#mid').text();
+		$.ajax({
+			url : "${contextPath}/admin/userDetailModify",
+			data : {statusVal : statusVal, idVal : idVal},
+			//dataType : "json",
+			type : "post",
+			success : function(member){	
+				alert('정보 수정 완료');
+				location.reload();
+			},
+			error : function(e){
+				alert('정보 수정 실패');
 			}
 		});
 	}
