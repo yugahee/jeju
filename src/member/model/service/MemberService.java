@@ -26,34 +26,6 @@ public class MemberService{
 		return loginMember;
 	}
 
-	public Map<String, Object> selectList(int page, Search search) {
-		Connection conn = getConnection();
-		
-		int listCount = memberDao.getListCount(conn, search);
-		PageInfo pi = new PageInfo(page, listCount, 5, 10);
-		
-		List<Member> MemberList = memberDao.selectList(conn, pi, search);
-		
-		Map<String, Object> returnMap = new HashMap<>();
-
-		returnMap.put("listCount", listCount);
-		returnMap.put("pi", pi);
-		returnMap.put("MemberList", MemberList);
-		
-		close(conn);
-		
-		return returnMap;
-	}
-
-	public Member selectMemberDetail(String userId) {
-		Connection conn = getConnection();
-		
-		Member user = memberDao.selectMemberDetail(conn, userId);		
-		close(conn);
-		
-		return user;
-	}
-
 	public int checkId(String userId) {
 		Connection conn = getConnection();
 		
@@ -98,8 +70,67 @@ public class MemberService{
 		// 수정된 멤버 정보 리턴
 		return updatedMember;
 	}
-<<<<<<< HEAD
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public Map<String, Object> selectList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = memberDao.getListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Member> MemberList = memberDao.selectList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+
+	public Member selectMemberDetail(String userId) {
+		Connection conn = getConnection();
+		
+		Member user = memberDao.selectMemberDetail(conn, userId);		
+		close(conn);
+		
+		return user;
+	}
 	public int modifyMember(Member member ,String idVal, String statusVal) {
 		Connection conn = getConnection();		
 		int result = memberDao.modifyMember(conn, member, idVal, statusVal);
@@ -114,6 +145,4 @@ public class MemberService{
 		
 		return result;
 	}
-=======
->>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
 }

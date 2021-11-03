@@ -125,6 +125,80 @@ public class MemberDao {
 	}
 	
 
+	public int checkId(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("checkId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				// 결과가 0명인지 1명인지 카운트한 값 = 첫 번째 컬럼의 인덱스를 가져옴
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getUser_id());
+			pstmt.setString(2, member.getUser_pwd());
+			pstmt.setString(3, member.getUser_name());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setString(6, member.getUser_type());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	public List<Member> selectList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -274,59 +348,6 @@ public class MemberDao {
 		return listCount;
 	}
 
-	public int checkId(Connection conn, String userId) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		String sql = memberQuery.getProperty("checkId");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				// 결과가 0명인지 1명인지 카운트한 값 = 첫 번째 컬럼의 인덱스를 가져옴
-				result = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-	public int insertMember(Connection conn, Member member) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String sql = memberQuery.getProperty("insertMember");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getUser_id());
-			pstmt.setString(2, member.getUser_pwd());
-			pstmt.setString(3, member.getUser_name());
-			pstmt.setString(4, member.getPhone());
-			pstmt.setString(5, member.getEmail());
-			pstmt.setString(6, member.getUser_type());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-<<<<<<< HEAD
 	public int modifyMember(Connection conn, Member member, String idVal, String statusVal) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -346,65 +367,7 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
-=======
-	public int updateMember(Connection conn, Member member) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String sql = memberQuery.getProperty("updateMember");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getUser_name());
-			pstmt.setString(2, member.getPhone());
-			pstmt.setString(3, member.getUser_id());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
 	}
 
-	public Member selectMember(Connection conn, String user_id) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Member updatedMember = new Member();
-		String sql = memberQuery.getProperty("selectMember");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, user_id);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				updatedMember.setUser_id(rset.getString("user_id"));
-				updatedMember.setUser_pwd(rset.getString("user_pwd"));
-				updatedMember.setUser_name(rset.getString("user_name"));
-				updatedMember.setEmail(rset.getString("email"));
-				updatedMember.setPhone(rset.getString("phone"));
-				updatedMember.setPoint(rset.getInt("point"));
-				updatedMember.setUser_type(rset.getString("user_type"));
-				updatedMember.setEnroll_date(rset.getDate("enroll_date"));
-				updatedMember.setModify_date(rset.getDate("modify_date"));
-				updatedMember.setReport_count(rset.getInt("report_count"));
-				updatedMember.setStatus(rset.getString("status"));	
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return updatedMember;
->>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
-	}
 
 }
