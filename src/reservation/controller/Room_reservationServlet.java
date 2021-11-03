@@ -16,13 +16,13 @@ import reservation.model.service.ReservationService;
  * Servlet implementation class Room_reservation
  */
 @WebServlet("/room/reservation")
-public class Room_reservation extends HttpServlet {
+public class Room_reservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Room_reservation() {
+    public Room_reservationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,6 +35,8 @@ public class Room_reservation extends HttpServlet {
 		List<Rooms> roomList = new ReservationService().selectRoom();
 		request.setAttribute("roomList", roomList);
 			
+		//System.out.println(roomList);
+		
 		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
 	}
 
