@@ -187,7 +187,9 @@
 	</div>
 	
   	<form name="reservationForm" method="post" action="${contextPath}/room/reserve/detail">
-		<input type="hidden" name="roomNo" value="${roomList.get(0).roomNo}">
+		<c:forEach var="room" items="${roomList}">
+		<input type="hidden" name="roomNo" value="${room.roomNo}">
+		</c:forEach>
 	</form>
 	
 	<script>

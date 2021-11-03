@@ -34,7 +34,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("").forward(request, response);
+		request.getRequestDispatcher("/views/reservation/detail_room_resesrvation.jsp").forward(request, response);
 	}
 
 }
