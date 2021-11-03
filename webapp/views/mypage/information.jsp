@@ -5,9 +5,9 @@
 			<div class="container mypage">
 				<nav class="sub_menu">
                     <ul>
-                        <li><a href="../html/mypage.html" class="active">내 정보</a></li>
-                        <li><a href="#">포인트</a></li>
-                        <li><a href="../html/delete.html">회원 탈퇴</a></li>
+                        <li><a href="${ contextPath }/mypage/modify" class="active">내 정보</a></li>
+                        <li><a href="${ contextPath }/mypage/point">포인트</a></li>
+                        <li><a href="${ contextPath }/mypage/delete">회원 탈퇴</a></li>
                     </ul>
                 </nav>
                 <div class="sub">
@@ -17,13 +17,14 @@
                                 <img  id="userImg" src="${ contextPath }/resources/images/usericon.png"> 
                             </div>
                         </div>
-                        <span id="report">※ 누적 신고 횟수 : 0</span>
+                        <form action="${ contextPath }/mypage/modify" method="post" onsubmit="return join();">
+                        <span id="report">※ 누적 신고 횟수 : ${ loginUser.report_count }</span>
                         <tbody class="inforForm">
                             <tr>
                                 <th>이름</th>
                                 <td>
                                     <div class="inp_text">
-                                        <input type="text" name="userName" id="userName" value=""/>
+                                        <input type="text" name="userName" id="userName" value="${ loginUser.user_name }" required/>
                                     </div>
                                 </td>
                             </tr>
@@ -31,7 +32,7 @@
                                 <th>이메일</th>
                                 <td>
                                     <div class="inp_text" id="usermail">
-                                        <input type="email" name="userMail"  id="userMail" value=""/>
+                                        <input type="email" name="userMail"  id="userMail" value="${ loginUser.email }" readonly/>
                                         <div class="btnEmail">
                                             <a href="../html/findEmail.html" class="btn btnType1 btnSizeS"><span>이메일 재설정</span></a>
                                         </div>
@@ -42,7 +43,7 @@
                                 <th>전화번호</th>
                                 <td>
                                     <div class="inp_text inp_cell">
-                                        <input type="tel" name="userTel" id="userTel" value=""/>
+                                        <input type="tel" name="userTel" id="userTel" value="${ loginUser.phone }" required/>
                                     </div>
                                 </td>
                             </tr>
@@ -50,7 +51,7 @@
                                 <th>아이디</th>
                                 <td>
                                     <div class="inp_text">
-                                        <input type="text" name="userId" id="userId" value=""/>
+                                        <input type="text" name="userId" id="userId" value="${ loginUser.user_id }" readonly/>
                                     </div>
                                 </td>
                             </tr>
@@ -58,9 +59,9 @@
                                 <th>비밀번호</th>
                                 <td>
                                     <div class="inp_text">
-                                        <input type="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요"/>
+                                        <input type="password" name="userPass" id="userPass" placeholder="비밀번호 변경을 원하시면 비밀번호 재설정 버튼을 눌러주세요" readonly/>
                                         <div class="btnTel">
-                                            <button class="btn btnType1 btnSizeS" onclick="showLayer('findPwd');"><span class="find_pwd">비밀번호 재설정</span></button> 
+                                            <button type="button" class="btn btnType1 btnSizeS" onclick="showLayer('findPwd');"><span class="find_pwd">비밀번호 재설정</span></button> 
                                         </div>
                                     </div>
                                 </td>
@@ -69,6 +70,7 @@
                         <div class="saveBtn">
                             <button class="btn btnType1 btnSizeL" id="save"><span>저장하기</span></button>
                         </div>
+                        </form>
                     </div>
                 </div>  
 			</div>
