@@ -65,6 +65,65 @@ public class MemberDao {
 		return loginUser;
 	}
 	
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUser_name());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getUser_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member updatedMember = new Member();
+		String sql = memberQuery.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updatedMember.setUser_id(rset.getString("user_id"));
+				updatedMember.setUser_pwd(rset.getString("user_pwd"));
+				updatedMember.setUser_name(rset.getString("user_name"));
+				updatedMember.setEmail(rset.getString("email"));
+				updatedMember.setPhone(rset.getString("phone"));
+				updatedMember.setPoint(rset.getInt("point"));
+				updatedMember.setUser_type(rset.getString("user_type"));
+				updatedMember.setEnroll_date(rset.getDate("enroll_date"));
+				updatedMember.setModify_date(rset.getDate("modify_date"));
+				updatedMember.setReport_count(rset.getInt("report_count"));
+				updatedMember.setStatus(rset.getString("status"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return updatedMember;
+	}
+	
 
 	public List<Member> selectList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
@@ -72,15 +131,33 @@ public class MemberDao {
 		String sql = memberQuery.getProperty("searchMember");
 		List<Member> MemberList = new ArrayList<>();
 
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = memberQuery.getProperty("searchMemberAllId");
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = memberQuery.getProperty("searchMemberAllName");
+				}
+			}else if((search.getSearchCondition().equals("호스트") || search.getSearchCondition().equals("게스트")) && search.getSearchValue() != null) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = memberQuery.getProperty("searchMemberId");					
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = memberQuery.getProperty("searchMemberName");					
+				}
+			}
+		}
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			 
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			int index = 1;		
-			
-			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+			int index = 1;	
+			if((sql == memberQuery.getProperty("searchMemberAllId")) || (sql == memberQuery.getProperty("searchMemberAllName"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == memberQuery.getProperty("searchMemberId")) || (sql == memberQuery.getProperty("searchMemberName"))) {
+				pstmt.setString(index++, search.getSearchCondition());
 				pstmt.setString(index++, search.getSearchValue());
 			}
 			pstmt.setInt(index++, startRow);
@@ -154,16 +231,33 @@ public class MemberDao {
 		ResultSet rset = null;
 		int listCount = 0;
 		String sql = memberQuery.getProperty("getListCount");
-		
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = memberQuery.getProperty("getListCountAllId");
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = memberQuery.getProperty("getListCountAllName");
+				}
+			}else if((search.getSearchCondition().equals("호스트") || search.getSearchCondition().equals("게스트")) && search.getSearchValue() != null) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = memberQuery.getProperty("getListCountMemberId");					
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = memberQuery.getProperty("getListCountMemberName");					
+				}
+			}
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			// 검색 SQL문을 실행하는 경우 검색 값 설정
-			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
-				pstmt.setString(1, search.getSearchValue());
+			int index = 1;
+			if((sql == memberQuery.getProperty("getListCountAllId")) || (sql == memberQuery.getProperty("getListCountAllName"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == memberQuery.getProperty("getListCountMemberId")) || (sql == memberQuery.getProperty("getListCountMemberName"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
 			}
-			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -230,6 +324,87 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+<<<<<<< HEAD
+	public int modifyMember(Connection conn, Member member, String idVal, String statusVal) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMemberStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, statusVal);
+			pstmt.setString(2, idVal);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+=======
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUser_name());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getUser_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String user_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member updatedMember = new Member();
+		String sql = memberQuery.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_id);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updatedMember.setUser_id(rset.getString("user_id"));
+				updatedMember.setUser_pwd(rset.getString("user_pwd"));
+				updatedMember.setUser_name(rset.getString("user_name"));
+				updatedMember.setEmail(rset.getString("email"));
+				updatedMember.setPhone(rset.getString("phone"));
+				updatedMember.setPoint(rset.getInt("point"));
+				updatedMember.setUser_type(rset.getString("user_type"));
+				updatedMember.setEnroll_date(rset.getDate("enroll_date"));
+				updatedMember.setModify_date(rset.getDate("modify_date"));
+				updatedMember.setReport_count(rset.getInt("report_count"));
+				updatedMember.setStatus(rset.getString("status"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return updatedMember;
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
 	}
 
 }

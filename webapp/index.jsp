@@ -62,18 +62,7 @@
 	<div class="sec02">
 	    <div class="container">
 	        <h2>추천숙소</h2>
-	        <ul class="recommend_list">
-	        	<!--
-	            <li>
-	                <a href='#'>
-	                    <div class="item_img" style="background-image : url('${contextPath}/resources/images/ygh/item.jpg')"></div>
-	                    <div class="item_info">
-	                        <p class="item_name"><span class="item_location">동부</span> 숙소명</p>
-	                        <p class="item_title">숙소제목</p>
-	                    </div>
-	                </a>
-	            </li>
-	            -->
+	        <ul class="recommend_list">	        	
 	        </ul>
 	    </div>
 	</div>
@@ -85,8 +74,7 @@
 			url : "${contextPath}/ramdomRoom",
 			dataType : "json",
 			type : "get",
-			success : function(rooms){
-				console.log(rooms);
+			success : function(rooms){				
 				var html = '';
 				$.each(rooms, function(i){
 					html = '<li><a href="#">'

@@ -45,8 +45,8 @@
                 <p>1/4</p>
             </div>
             <div class="select-button">
-                <a href="../html/test_content2.html" class="btn btnType2 btnSizeL"><span>자전거, 카약 등 다양한 액티비티를 하자!</span></a>
-                <a href="../html/test_content2.html" class="btn btnType2 btnSizeL"><span>편안한 장소에서 느긋하게 힐링하자!</span></a>
+                <a href="${ contextPath }/mbti/test2" class="btn btnType2 btnSizeL"><span>자전거, 카약 등 다양한 액티비티를 하자!</span></a>
+                <a href="${ contextPath }/mbti/test2" class="btn btnType2 btnSizeL"><span>편안한 장소에서 느긋하게 힐링하자!</span></a>
             </div>
         </div>
     </div>

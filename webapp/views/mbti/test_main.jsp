@@ -41,7 +41,7 @@
         <div class="test_home-content wrapper">
             <h1 class="test_page-title">mbti별<br>제주 여행지<br>추천</h1>
             <p>나와 가장 잘 어울리는 여행지는?</p>
-            <a href="../html/test_content1.html" class="btn btnType1 btnSizeL"><span>여행지 찾기 테스트 시작</span></a>
+            <a href="${ contextPath }/mbti/test1" class="btn btnType1 btnSizeL"><span>여행지 찾기 테스트 시작</span></a>
         </div>
     </div>
 </body>

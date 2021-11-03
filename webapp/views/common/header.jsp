@@ -54,7 +54,7 @@ scope="application"/>
 							<a href="${ contextPath }/room/reservation">숙소예약</a>
 						</li>
 						<li>
-							<a href="${ contextPath }/reco/view">추천장소</a>
+							<a href="${ contextPath }/reco/mainView">추천장소</a>
 						</li>
 						<li>
 							<a href="${ contextPath }/reservation/checkView">예약조회</a>
@@ -65,10 +65,10 @@ scope="application"/>
 				<div class="menuList" style="display: none">
 					<ul>
 						<li>
-							<a href="#">숙소관리</a>
+							<a href="${ contextPath }/host/roomlist">숙소관리</a>
 						</li>
 						<li>
-							<a href="${ contextPath }/reco/view">추천장소</a>
+							<a href="${ contextPath }/reco/mainView">추천장소</a>
 						</li>
 						<li>
 							<a href="#">예약관리</a>
@@ -91,7 +91,7 @@ scope="application"/>
                 	<!-- 게스트일 때 -->
                 	<ul class="userCon" id="guestUserCon" style="display: none">
                         <li><a href="${ contextPath }/logout">로그아웃</a></li>
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="${ contextPath }/mypage/modify">마이페이지</a></li>
 						<li><a href="#">메신저</a></li>
 						<li><a href="#">신고게시판</a></li>
                     </ul>

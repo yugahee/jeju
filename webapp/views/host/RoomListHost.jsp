@@ -11,7 +11,7 @@
 						</div>
 						<div class="roomlist_statuslist">
 							<ul class="roomlist_ul">
-								<li>미완성</li>
+								<!-- <li>미완성</li> -->
 								<li>승인대기</li>
 								<li>승인반려</li>
 								<li>등록완료</li>

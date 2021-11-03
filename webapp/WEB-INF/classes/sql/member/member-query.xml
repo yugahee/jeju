@@ -40,12 +40,64 @@
 		 , ?
 		 , ?
 		 , ?
-		 , DEFAULT
-		 , DEFAULT
+		 , SYSDATE
+		 , SYSDATE
 		 , DEFAULT
 	)
 </entry>
+<entry key="updateMember">
+	UPDATE
+		   MEMBER
+	   SET USER_NAME = ?
+	     , PHONE = ?
+	     , MODIFY_DATE = SYSDATE
+	 WHERE USER_ID = ?
+</entry>
+<entry key="selectMember">
+	SELECT
+	  	   USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , PHONE
+		 , EMAIL
+		 , USER_TYPE
+		 , POINT
+		 , ENROLL_DATE
+		 , MODIFY_DATE
+		 , STATUS
+		 , REPORT_COUNT
+	  FROM MEMBER
+	 WHERE USER_ID = ?
+	   AND STATUS = 'Y'
+</entry>
 
+<entry key="updateMember">
+	UPDATE
+		   MEMBER
+	   SET USER_NAME = ?
+	     , PHONE = ?
+	     , MODIFY_DATE = SYSDATE
+	 WHERE USER_ID = ?
+</entry>
+<entry key="selectMember">
+	SELECT
+	  	   USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , PHONE
+		 , EMAIL
+		 , USER_TYPE
+		 , POINT
+		 , ENROLL_DATE
+		 , MODIFY_DATE
+		 , STATUS
+		 , REPORT_COUNT
+	  FROM MEMBER
+	 WHERE USER_ID = ?
+	   AND STATUS = 'Y'
+</entry>
+
+<!-- 전체 조회 -->
 <entry key="searchMember">
 	SELECT *
 	FROM(SELECT ROWNUM RNUM, A.*
@@ -56,35 +108,65 @@
    ORDER BY ENROLL_DATE DESC) A)
 WHERE RNUM BETWEEN ? AND ?
 </entry>
-<entry key="searchMemberHost">
+<!-- 전체 > 아이디 조회 -->
+<entry key="searchMemberAllId">
 	SELECT *
 	FROM(SELECT ROWNUM RNUM, A.*
 	  FROM(SELECT
                  *
     FROM MEMBER
    WHERE USER_TYPE != '관리자'
-     AND USER_TYPE = '호스트'
+     AND USER_ID LIKE '%'|| ? ||'%'
    ORDER BY ENROLL_DATE DESC) A)
 WHERE RNUM BETWEEN ? AND ?
 </entry>
-<entry key="searchMemberGuest">
+<!-- 전체 > 이름 조회 -->
+<entry key="searchMemberAllName">
 	SELECT *
 	FROM(SELECT ROWNUM RNUM, A.*
 	  FROM(SELECT
                  *
     FROM MEMBER
    WHERE USER_TYPE != '관리자'
-     AND USER_TYPE = '게스트'
+     AND USER_NAME LIKE '%'|| ? ||'%'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<!-- 호스트/게스트 > 아이디 조회 -->
+<entry key="searchMemberId">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = ?
+     AND USER_ID LIKE '%'|| ? ||'%'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<!-- 호스트/게스트 > 이름 조회 -->
+<entry key="searchMemberName">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = ?
+     AND USER_NAME LIKE '%'|| ? ||'%'
    ORDER BY ENROLL_DATE DESC) A)
 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<!-- 리스트 갯수 가져오기 -->
 <entry key="searchMemberDetail">
 	SELECT
 		   *
 	  FROM MEMBER
 	 WHERE USER_TYPE != '관리자'
 	   AND USER_ID = ?
+	 ORDER BY ENROLL_DATE DESC
 </entry>
 
 <entry key="getListCount">	
@@ -92,5 +174,48 @@ WHERE RNUM BETWEEN ? AND ?
             COUNT(*)
        FROM MEMBER
       WHERE USER_TYPE != '관리자'
+	 ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getListCountAllId">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+        AND USER_ID LIKE '%'|| ? ||'%'
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getListCountAllName">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+        AND USER_NAME LIKE '%'|| ? ||'%'
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getListCountMemberId">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+    	AND USER_TYPE = ?
+        AND USER_ID LIKE '%'|| ? ||'%'
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getListCountMemberName">
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+    	AND USER_TYPE = ?
+        AND USER_NAME LIKE '%'|| ? ||'%'
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+
+
+<!-- 어드민 회원 상태 수정 -->
+<entry key="updateMemberStatus">
+	UPDATE MEMBER
+	SET STATUS = ?
+   WHERE USER_ID = ?
 </entry>
 </properties>

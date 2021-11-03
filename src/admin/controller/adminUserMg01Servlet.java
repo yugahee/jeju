@@ -38,10 +38,10 @@ public class adminUserMg01Servlet extends HttpServlet {
 		}
 		
 		String searchCondition = request.getParameter("searchCondition");
+		String searchCondition2 = request.getParameter("searchCondition2");
 		String searchValue = request.getParameter("searchValue");
-		System.out.println("searchCondition : "+ searchCondition);
-		System.out.println("searchValue : "+ searchValue);
-		Map<String, Object> map = new MemberService().selectList(page, new Search(searchCondition, searchValue));
+		
+		Map<String, Object> map = new MemberService().selectList(page, new Search(searchCondition, searchCondition2, searchValue));
 
 		request.setAttribute("listCount", map.get("listCount"));
 		request.setAttribute("pi", map.get("pi"));

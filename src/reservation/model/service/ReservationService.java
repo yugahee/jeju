@@ -6,6 +6,7 @@ import static common.JDBCTemplate.*;
 
 import host.model.vo.Rooms;
 import reservation.model.dao.ReservationDao;
+import reservation.model.vo.Reservation;
 
 public class ReservationService {
 
@@ -21,6 +22,20 @@ public class ReservationService {
 		
 		return roomList;
 	}
+
+
+	public List<Reservation> userReservation(String userId) {
+		Connection conn = getConnection();
+		
+		List<Reservation> reservationList = reservationDao.userReservation(conn, userId);
+		
+		close(conn);
+		
+		return reservationList;
+	}
+
+
+	
 
 	
 }
