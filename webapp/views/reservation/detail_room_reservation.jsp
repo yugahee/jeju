@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
 <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">    
+<!-- 더보기 클릭 시 jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
 <!-- swiper  -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
@@ -62,27 +64,21 @@
 						</div> 
 					</div>
 					<!-- 숙소소개 설명 -->
+					
+					<div class="moreSee1">					
+					<ul class="text_group">
 					<p class="room_content content_substr">
 						안녕하세요, 한라산을 넘어오는 숲길의 아름다운 모습들을 눈에 담고 있으면 금방 저희 숙소를 만나실 수 있어요.
 						서귀포의 아름다운 자연 속 조용하고 한적한 분위기를 느끼실 수 있어요, 프라이빗 한 감성은 덤이랍니다!
 						답답하지 않은 층고로 탁 트인 내부와 침실, 복층 테라스까지 매일 아침 한라산의 맑은 공기와 밝은 햇살을 맞이할 수 있는 매력포인트까지
 						느낄 수 있습니다. 맑은 공기와 푸르른 잎들 사이를 거니며 자연에서의 행복을 느껴보세요 
 						마당에서 바비큐 파티를 즐기실 수 있도록 필요한 장비들을 구비해놓았습니다. 
+						
 					</p>
-
-					<p class="room_content content_no_substr" style="display: none;">
-						안녕하세요. 여유가있는 곳 !! 제주도에서 프리미엄 집을 찾고계시진 않나요?
-						<br>
-						저희 집은 고급스러운 주거공간과 조용한 위치에 있는 집으로써 소품하나하나에 정성스럽게 배치해놨답니다:) 
-						<br>
-						만족하실 제주살이를 지낼수있도록 , 호스트가 직접 관리에 신경을 많이 쓰려고 노력했답니다:) 
-						<br>
-						제주시 , 서귀포 중간에 있기때문에 생활하시기 편리한 동선으로 이루어져있습니다.
-					</p>
-
-					<div id="event-star"></div>
-					<button type="button" class="btn-more">숙소 소개 더 보기</button>
-					<!-- <button type="button" class="btn-more closed" style="display: none">숙소 소개 닫기</butto> -->
+					</ul>
+					<button type="button" class="moreBtn1">숙소 소개 더 보기</button>
+					</div>
+					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>
@@ -90,13 +86,26 @@
 					<div class="minititle_text">
 						<span>기본</span>
 					</div>
-					<div class="text_group">
-						<ul>
-							<li>숙소종류 : 쓰리룸이상 </li>   <li>건물평수 : 0 </li> 
-							<li>방수 : 3 </li> <li>침대수 : 0 </li> 
-						</ul>
+
+					<div class="moreSee2">					
+					<ul class="text_group">
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
+					</ul>
+					<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
 					</div>
-					<button type="button" class="btn-more">숙소 시설 더 보기</button>
+					
+					
 					<div class="title_text">
 						<span>환불 정책</span>
 					</div>
@@ -231,5 +240,36 @@
 				<a href="#" class="btn btnType1 btnSizeL reserve_request"><span>예약 신청</span></a>
 			</div>
 		</div>
+
+<script>
+var isOn = false;
+$('.moreBtn1').click(function(){
+  if(!isOn){
+    $('.moreSee1').css('height','auto');  
+    $('.moreBtn1').css({'position':'unset'},{'box-shadow':'unset'});
+    isOn = true;
+  }else{
+    $('.moreSee1').css('height','130px'); 
+    $('.moreBtn1').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
+    isOn = false;
+  }
+  
+})
+
+$('.moreBtn2').click(function(){
+  if(!isOn){
+    $('.moreSee2').css('height','auto');  
+    $('.moreBtn2').css({'position':'unset'},{'box-shadow':'unset'});
+    isOn = true;
+  }else{
+    $('.moreSee2').css('height','130px'); 
+    $('.moreBtn2').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
+    isOn = false;
+  }
+  
+})
+
+</script>
+
 		
 <%@ include file="/views/common/footer.jsp" %>
