@@ -2,10 +2,12 @@ package host.model.service;
 
 import host.model.dao.RoomsDao;
 import host.model.vo.Files;
+import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
 import static common.JDBCTemplate.*;
 
-import java.sql.Connection; 
+import java.sql.Connection;
+import java.util.List; 
 
 public class RoomsService {
 	private RoomsDao roomDao = new RoomsDao();
@@ -45,6 +47,59 @@ public class RoomsService {
 		
 		return result;
 	}
-	
+
+	public List<Rooms> selectRooms(String userId) {
+		Connection conn = getConnection();
+		
+		List<Rooms> roomList = roomDao.selectRooms(conn, userId);
+		
+		close(conn);
+		
+		return roomList;
+	}
+
+	public Rooms selectRoomBasic(int roomNo) {
+		Connection conn = getConnection();
+		
+		Rooms room = roomDao.selectRoomBasic(conn, roomNo);
+		
+		close(conn);
+		
+		return room;
+	}
+
+	public int updateRoomBasic(Rooms rooms) {
+		Connection conn = getConnection();
+		
+		int result = roomDao.updateRoomBasic(conn, rooms);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Rooms selectRoomPrice(int roomNo) {
+		Connection conn = getConnection();
+		
+		Rooms room = roomDao.selectRoomPrice(conn, roomNo);
+		
+		PeakSeason peak = roomDao.selectRoomPeak(conn, roomNo);
+		
+		if(peak != null) {
+			room.setPeak(peak);
+		}
+		
+		close(conn);
+		
+		return room;
+	}
+
+
 
 }

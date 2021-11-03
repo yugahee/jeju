@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/views/common/header.jsp" %>    
 <div class="side_layout">
 			<div class="container">
 				<!-- 목록 화면 -->
 				<div class="roomlist">
-					<form method="" action="">
 						<div class="roomenroll_title_main">
 							<h2>숙소목록</h2><span>RoomList</span>
 						</div>
 						<div class="roomlist_statuslist">
 							<ul class="roomlist_ul">
-								<!-- <li>미완성</li> -->
 								<li>승인대기</li>
 								<li>승인반려</li>
 								<li>등록완료</li>
@@ -60,20 +59,43 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td class="al_l"><a href="#"><img src="../resources/images/host/house.png" class="roomlist_img"></a></td>
-											<td><span class="roomlist_status">등록완료</span></td>
-											<td>바다내음 제주집</td>
-											<td>2021.10.20 15:30</td>
-											<td>
-												<div class="roomlist_btn">
-												<div class="btn_wrap"><a href="#" class="btn btnType1 btnSizeS"><span>달력관리</span></a></div>
-												<div class="btn_wrap"><a href="#" class="btn btnType2 btnSizeS"><span>수정</span></a></div>
-												<div class="btn_wrap"><a href="#" class="btn btnType3 btnSizeS"><span>삭제</span></a></div>
-												</div>
-											</td>
-										</tr>
+									<c:choose>
+										<c:when test="${ !empty roomList }">
+											<c:set var="no" value="0" />
+											<c:forEach var="room" items="${ roomList }">					
+												<tr>
+													<td>${ no = no + 1 }</td>    <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
+													<td class="al_l"><a href="#">  
+													<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}" class="roomlist_img">
+													</a></td>
+													<td><span class="roomlist_status" 
+													<c:if test="${ room.enrollStatus eq '승인대기' }">style="color:#ff8b33"</c:if> 
+													<c:if test="${ room.enrollStatus eq '승인반려' }">style="color:#d10000"</c:if>
+													<c:if test="${ room.enrollStatus eq '등록완료' }">style="color:#0e7539"</c:if>>
+													${ room.enrollStatus }</span></td>
+													<td>${ room.roomName }</td>  
+													<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+													<td>
+														<div class="roomlist_btn">
+														<div class="btn_wrap"><a href="#" class="btn btnType1 btnSizeS"><span>달력관리</span></a></div>
+														<div class="btn_wrap"><button class="btn btnType2 btnSizeS" onclick="updateRoomView(${ room.roomNo });"><span>수정</span></button></div>
+														<div class="btn_wrap"><button class="btn btnType3 btnSizeS" onclick="deleteRoom(${ room.roomNo });"><span>삭제</span></button></div>
+														</div>
+													</td>
+												</tr>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td colspan="6">
+													<div class="noData">
+														<p>등록된 숙소가 없습니다.</p>
+													</div>
+	
+												</td>
+											</tr>	
+										</c:otherwise>
+									</c:choose>	
 									</tbody>
 								</table>
 							</div>
@@ -90,11 +112,24 @@
 							<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 							<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
 						</div>
-                    </form>
+                    
                     <div class="roomlist_btn addroombtn">
-						<div class="btn_wrap"><a href="#" class="btn btnType1 btnSizeS"><span>+ 새로운 숙소 등록</span></a></div>
+						<div class="btn_wrap"><a href="${ contextPath }/host/roomenrollbasic" class="btn btnType1 btnSizeS"><span>+ 새로운 숙소 등록</span></a></div>
 					</div>
                 </div>
 			</div>
 		</div>
+		
+		<script>
+			function updateRoomView(roomno){
+				location.href='${contextPath}/host/roomUpdateView?roomno=' + roomno;
+			}
+			
+			function deleteRoom(roomno){
+				if(confirm("해당 숙소를 삭제하시겠습니까?")){
+					location.href='${contextPath}/host/roomDelete?roomno=' + roomno;
+				}
+			}
+		
+		</script>
 <%@include file="/views/common/footer.jsp" %>
