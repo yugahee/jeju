@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="reservePayment">
+	SELECT
+	    ROOM_NAME
+	    , ADDRESS
+	    , RESERVE_NUM
+	    , START_DATE
+	    , END_DATE
+	    , PRICE   
+	    , GUEST
+	    , ROOM_NO
+	FROM RESERVATION
+	JOIN ROOMS USING(ROOM_NO)
+	WHERE ROOM_RESERVE = ?
+</entry>
+<entry key="roomPeakCheck">
+	SELECT
+		PEAK_START
+		, PEAK_END
+		, PEAK_PRICE
+	FROM PEAKSEASON
+	WHERE ROOM_NO = ?
+</entry>
+</properties>

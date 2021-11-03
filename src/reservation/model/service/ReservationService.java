@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import static common.JDBCTemplate.*;
 
+import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
 import reservation.model.dao.ReservationDao;
 import reservation.model.vo.Reservation;
@@ -35,7 +36,21 @@ public class ReservationService {
 	}
 
 
-	
+	public int reservationCancle(int reserv_no) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.reservationCancle(conn, reserv_no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+
 
 	
 }
