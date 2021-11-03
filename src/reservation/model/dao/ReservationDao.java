@@ -12,6 +12,7 @@ import java.util.Properties;
 import static common.JDBCTemplate.*;
 
 import host.model.vo.Files;
+import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
 import reservation.model.vo.Reservation;
 
@@ -122,6 +123,26 @@ public class ReservationDao {
 	}
 
 
+	public int reservationCancle(Connection conn, int reserv_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  roomQuery.getProperty("reservationCancle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserv_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}	
 
 	
 }

@@ -38,11 +38,12 @@
 	JOIN ROOMS USING(ROOM_NO)
 	JOIN FILES USING(ROOM_NO)
 	WHERE GUEST = ?
+	AND RESERVE_STATE != '예약취소'
 	AND FILE_LEVEL = 0
 </entry>
-
-
-
-
-
+<entry key="reservationCancle">
+	UPDATE RESERVATION
+	SET RESERVE_STATE = '예약취소'
+	WHERE ROOM_RESERVE = ?
+</entry>
 </properties>

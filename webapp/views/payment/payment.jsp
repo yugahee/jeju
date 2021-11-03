@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/views/common/header.jsp" %>
 <div class="payment">
 	<from method="post">   
@@ -8,18 +9,18 @@
 			<div class="sec sec01">                
 				<h4>숙박 정보</h4>
 				<div class="rooms_info">
-					<p class="room_name">숙소명</p>
-					<p>주소 : 서울특별시 강남구 테헤란로 10길 9 그랑프리 빌딩</p>
-					<p>숙박인원 : 4명</p>
+					<p class="room_name">${ reserve.room_info.roomName }</p>
+					<p>주소 : ${ reserve.room_info.address }</p>
+					<p>숙박인원 : ${ reserve.reserve_num }명</p>
 				</div>
 				<div class="check_date">
 					<div class="chkdate_box">
 						<p>체크인</p>
-						<p class="date">2021.01.01(월)</p>
+						<p class="date"><fmt:formatDate value="${reserve.start_date}" type="both" pattern="yyyy.MM.dd(E)"/></p>
 					</div>
 					<div class="chkdate_box">
 						<p>체크인</p>
-						<p class="date">2021.01.02(화)</p>
+						<p class="date"><fmt:formatDate value="${reserve.end_date}" type="both" pattern="yyyy.MM.dd(E)"/></p>
 					</div>
 				</div>
 			</div><!--sec01 END-->
@@ -65,7 +66,7 @@
 						<tbody>
 							<tr>
 								<th>예약금액</th>
-								<td>60,000원</td>
+								<td><fmt:formatNumber value="${ roomPrice }" groupingUsed="true" />원</td>
 							</tr>
 							<tr>
 								<th>포인트 사용</th>
@@ -94,6 +95,7 @@
 							<tr class="borderT total">
 								<th>총 결제금액</th>
 								<td>60,000원</td>
+								<input type="hidden" name="totalPrice" />
 							</tr>
 						</tbody>
 					</table>

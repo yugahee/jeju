@@ -1,29 +1,25 @@
 package reservation.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.vo.Member;
 import reservation.model.service.ReservationService;
-import reservation.model.vo.Reservation;
 
 /**
- * Servlet implementation class ReservationCheckServlet
+ * Servlet implementation class ReservationCancleServlet
  */
-@WebServlet("/reservation/checkView")
-public class ReservationCheckServlet extends HttpServlet {
+@WebServlet("/reservation/cancle")
+public class ReservationCancleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationCheckServlet() {
+    public ReservationCancleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +28,24 @@ public class ReservationCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
-				
 		
-		// 예약리스트 가져오기
-		List<Reservation> reservationList = new ReservationService().userReservation(userId);
-		
-		//System.out.println(reservationList);
-				
-		request.setAttribute("reservationList", reservationList);
-		request.getRequestDispatcher("/views/reservation/reservationCheckView.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int reserv_no = Integer.parseInt(request.getParameter("reserve_no"));
+		
+		int result = new ReservationService().reservationCancle(reserv_no);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("message", "예약취소가 완료되었습니다😢");
+			response.sendRedirect(request.getContextPath() + "/reservation/checkView");
+		}else {
+			request.setAttribute("message", "예약취소가 실패되었습니다.");
+			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+		}
 	}
 
 }
