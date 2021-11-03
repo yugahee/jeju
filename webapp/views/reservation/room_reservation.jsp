@@ -12,7 +12,7 @@
 						<div class="searchArea">
 							<div class="flex">
 								<div class="search_box">
-									<img src="../resources/images/location.png" width="25px" height="25px">
+									<img src="${contextPath}/resources/images/location.png" width="25px" height="25px">
 									<label id="jejudo">제주도</label>
 								</div>
 								<div class="search_box">
@@ -29,11 +29,11 @@
 								</div>
 								<div class="inp_qty">
 									<button type="button" onclick="qtyDown(this)" title="인원감소">
-										<img src="../resources/images/common/qty_down.gif" alt="인원감소">
+										<img src="${contextPath}/resources/images/common/qty_down.gif" alt="인원감소">
 									</button>
 									<input type="text" title="인원수" value="1">
 									<button type="button" onclick="qtyUp(this)" title="인원증가">
-										<img src="../resources/images/common/qty_up.gif" alt="인원증가">
+										<img src="${contextPath}/resources/images/common/qty_up.gif" alt="인원증가">
 									</button>
 								</div>
 						   </div>
@@ -45,9 +45,8 @@
 						</div>
 					</form>
 						<!--여기 아래부터 숙소 사진과 옆에 숙소명+숙소제목...-->
-						<!-- <div class="lodfing_title"> -->
 					<c:forEach var="room" items="${ roomList }">
-					<div class="lodging_lineup">
+					<div class="lodging_lineup" onclick="detailReservation()">
 						<div class="child1">
 							<img src="${contextPath}${room.fileList.get(0).filePath}
 							${room.fileList.get(0).changeName}" class="lodging1">
@@ -57,7 +56,7 @@
 							<span class="text1" >[${ room.location }] ${ room.roomName }</span> 
 							<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
 							<div class="roomReview">
-								<img src="../resources/images/star.png" width="20px" height="20px">
+								<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
 								<span class="text3" id="reviewStar">${ room.star }</span>
 								<span class="text3" id="reviewCount">(후기 12개)</span>
 							</div>
@@ -186,6 +185,18 @@
             </div>
 		</div>  
 	</div>
+	
+  	<form name="reservationForm" method="post" action="${contextPath}/room/reserve/detail">
+		<input type="hidden" name="roomNo" value="${roomList.get(0).roomNo}">
+	</form>
+	
+	<script>
+	function detailReservation() {
+		document.forms.reservationForm.submit();
+	}
+	</script>  
+	
+
 	<!--슬라이드 바-->
 	<script>
 		/* 숙소 가격 */
@@ -197,4 +208,6 @@
 			output.innerHTML = this.value;
 		}
 	</script>
+
+	
 <%@ include file="/views/common/footer.jsp" %>

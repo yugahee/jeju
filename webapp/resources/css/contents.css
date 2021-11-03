@@ -594,6 +594,7 @@
      align-items: flex-start;
      border-bottom: 1px solid lightgray;
      padding-bottom: 13px;
+     cursor: pointer;
      } 
 
 
@@ -628,7 +629,7 @@
      font-weight: bold;
      }
 
-    .child2 .roomReview{
+    .roomReview{
    	 display: flex;
 	}
 

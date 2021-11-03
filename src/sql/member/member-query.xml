@@ -45,6 +45,31 @@
 		 , DEFAULT
 	)
 </entry>
+<entry key="updateMember">
+	UPDATE
+		   MEMBER
+	   SET USER_NAME = ?
+	     , PHONE = ?
+	     , MODIFY_DATE = SYSDATE
+	 WHERE USER_ID = ?
+</entry>
+<entry key="selectMember">
+	SELECT
+	  	   USER_ID
+		 , USER_PWD
+		 , USER_NAME
+		 , PHONE
+		 , EMAIL
+		 , USER_TYPE
+		 , POINT
+		 , ENROLL_DATE
+		 , MODIFY_DATE
+		 , STATUS
+		 , REPORT_COUNT
+	  FROM MEMBER
+	 WHERE USER_ID = ?
+	   AND STATUS = 'Y'
+</entry>
 
 <entry key="updateMember">
 	UPDATE

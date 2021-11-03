@@ -5,9 +5,9 @@
 			<div class="container">
 				<nav class="sub_menu">
                     <ul>
-                        <li><a href="../html/mypage.html">내 정보</a></li>
-                        <li><a href="#">포인트</a></li>
-                        <li><a href="../html/delete.html" class="active">회원 탈퇴</a></li>
+                        <li><a href="${ contextPath }/mypage/modify">내 정보</a></li>
+                        <li><a href="${ contextPath }/mypage/point">포인트</a></li>
+                        <li><a href="${ contextPath }/mypage/delete" class="active">회원 탈퇴</a></li>
                     </ul>
                 </nav>
                 <div class="sub mypage">
@@ -43,8 +43,8 @@
                     </ul>
                     <div class="delBtn">
                         <span class="inp_check">
-                            <input type="checkbox" name="chk1" id="chk1_1">
-                            <label for="chk1_1">상기 내용을 확인하였으며 동의합니다.</label>
+                            <input type="checkbox" name="chk1" id="deleteChk">
+                            <label for="chk1_1" id="del">상기 내용을 확인하였으며 동의합니다.</label>
                         </span>
                         <div class="btn_wrap">
                             <button class="btn btnType2 btnSizeM disabled" id="delBtn" disabled 

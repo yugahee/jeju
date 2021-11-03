@@ -98,6 +98,7 @@ public class MemberService{
 		// 수정된 멤버 정보 리턴
 		return updatedMember;
 	}
+<<<<<<< HEAD
 
 	public int modifyMember(Member member ,String idVal, String statusVal) {
 		Connection conn = getConnection();		
@@ -113,4 +114,6 @@ public class MemberService{
 		
 		return result;
 	}
+=======
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
 }

@@ -91,7 +91,7 @@ scope="application"/>
                 	<!-- 게스트일 때 -->
                 	<ul class="userCon" id="guestUserCon" style="display: none">
                         <li><a href="${ contextPath }/logout">로그아웃</a></li>
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="${ contextPath }/mypage/modify">마이페이지</a></li>
 						<li><a href="#">메신저</a></li>
 						<li><a href="#">신고게시판</a></li>
                     </ul>

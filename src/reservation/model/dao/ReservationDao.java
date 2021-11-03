@@ -47,6 +47,7 @@ public class ReservationDao {
 				rooms.setRoomTitle(rset.getString("room_title"));
 				rooms.setPrice(rset.getInt("price"));
 				rooms.setStar(rset.getDouble("star"));
+				rooms.setRoomNo(rset.getInt("room_no"));
 				
 				List<Files> fileList = new ArrayList<>();
 				Files files = new Files();
