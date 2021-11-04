@@ -87,33 +87,33 @@ scope="application"/>
 					<div class="listTit">회원관리</div>
 					<form method="get" action="${ contextPath }/admin/userMg01">
 						<div class="selectbox">
-							<button class="title" type="button">전체</button>
-							<input class="inputVal" type="hidden" name="searchCondition" value="전체">
+							<button class="title" type="button">${param.searchCondition}</button>
+							<input class="inputVal" type="hidden" name="searchCondition" value="${param.searchCondition}">
 							<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 								<li>
-									<input class="option" type="radio" id="sel_type1_1">
+									<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
 									<label for="sel_type1_1">전체</label>
 								</li>
 								<li>
-									<input class="option" type="radio" id="sel_type1_2">
+									<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '호스트' }">checked="checked"</c:if>>
 									<label for="sel_type1_2">호스트</label>
 								</li>
 								<li>
-									<input class="option" type="radio" id="sel_type1_3">
+									<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '게스트' }">checked="checked"</c:if>>
 									<label for="sel_type1_3">게스트</label>
 								</li>
 							</ul>
 						</div>
 						<div class="selectbox">
-							<button class="title" type="button">아이디</button>
-							<input class="inputVal" type="hidden" name="searchCondition2" value="아이디">
+							<button class="title" type="button">${param.searchCondition2 }</button>
+							<input class="inputVal" type="hidden" name="searchCondition2" value="${param.searchCondition2}">
 							<ul class="selList" id="searchCondition2" style="max-height: 0px; display: none;">
 								<li>
-									<input class="option" type="radio" id="sel_type2_1">
+									<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '아이디' }">checked="checked"</c:if>>
 									<label for="sel_type2_1">아이디</label>
 								</li>
 								<li>
-									<input class="option" type="radio" id="sel_type2_2">
+									<input class="option" type="radio" id="sel_type2_2" <c:if test="${ param.searchCondition2 == '이름' }">checked="checked"</c:if>>
 									<label for="sel_type2_2">이름</label>
 								</li>
 							</ul>
@@ -127,23 +127,24 @@ scope="application"/>
 				<div class="listTotal">
 					<div class="sortArea">
 						<p class="totalCnt">총 ${listCount} 개</p>
-						<div class="selectbox">
+						<%-- <div class="selectbox">
 							<button class="title" type="button" title="목록 선택">목록 10개</button>
+							<input class="inputVal" type="hidden" name="sel_type3_chk" value="아이디">
 							<ul class="selList" style="max-height: 0px; display: none;">
 								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
+									<input type="radio" value="10" class="option" id="sel_type3_1" name="sel_type3" checked="checked">
+									<label for="sel_type3_1">목록 10개</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
+									<input type="radio" value="20" class="option" id="sel_type3_2" name="sel_type3">
+									<label for="sel_type3_2">목록 20개</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
+									<input type="radio" value="${listCount}" class="option" id="sel_type3_3" name="sel_type3">
+									<label for="sel_type3_3">전체보기</label>
 								</li>
 							</ul>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 				<div class="tblType3 noBorT noBorB boardList">
@@ -179,7 +180,7 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<c:forEach var="Member" items="${ MemberList }" varStatus="status">
-							<tr onclick="showLayer('userAdPop'); userdate(this);">
+							<tr onclick="showLayer('userAdPop'); userdata(this);">
 								<td style="display:none;"><input type="hidden" value="${Member.user_id}"></td>
 								<td>${ status.count }</td>
 								<td>${ Member.user_id }</td>
@@ -286,7 +287,7 @@ scope="application"/>
 							<td>
 								<div class="btn_wrap">
 									<a href="#" class="btn btnType2 btnSizeS"><span>비밀번호 초기화</span></a>
-									<a href="#" class="btn btnType2 btnSizeS"><span>계정 삭제</span></a>
+									<a href="#none" class="btn btnType2 btnSizeS" onclick="deleteData();hideLayer('userAdPop');"><span>계정 삭제</span></a>
 								</div>
 							</td>
 						</tr>
@@ -301,7 +302,24 @@ scope="application"/>
 	</div>
 	
 	<script>
-	function userdate(elem){		
+	/* $("input[name='sel_type3']").click(function(){
+		let inputval = $(this).val();
+		let chkval = $("input[name='sel_type3_chk']").val(inputval);
+		listData(inputval);
+	});
+	function listData(dd){
+		console.log(dd);
+		let chkval = $("input[name='sel_type3_chk']").val();
+		$.ajax({
+			url : "${contextPath}/admin/pagelist",
+			data : {chkval : chkval},
+			type : "get",
+			success : function(e){
+				console.log(e);
+			}
+		})
+	} */
+	function userdata(elem){		
 		let userId = $(elem).find('input').val();	
 		$.ajax({
 			url : "${contextPath}/admin/userDetail",
@@ -348,6 +366,22 @@ scope="application"/>
 			},
 			error : function(e){
 				alert('정보 수정 실패');
+			}
+		});
+	}
+	function deleteData(){
+		let idVal = $('#mid').text();
+		console.log(idVal);
+		$.ajax({
+			url : "${contextPath}/admin/userDetailDelete",
+			data : {idVal : idVal},
+			//dataType : "json",
+			type : "post",
+			success : function(member){	
+				alert('정보 삭제 완료');
+			},
+			error : function(e){
+				alert('정보 삭제 실패');
 			}
 		});
 	}

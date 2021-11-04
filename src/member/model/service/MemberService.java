@@ -123,6 +123,25 @@ public class MemberService{
 		return returnMap;
 	}
 
+	public Map<String, Object> selectList(int page, int chkval, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = memberDao.getListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, chkval);
+		
+		List<Member> MemberList = memberDao.selectList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+
 	public Member selectMemberDetail(String userId) {
 		Connection conn = getConnection();
 		
@@ -135,6 +154,21 @@ public class MemberService{
 		Connection conn = getConnection();		
 		int result = memberDao.modifyMember(conn, member, idVal, statusVal);
 		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteMember(String idVal) {
+		Connection conn = getConnection();		
+		int result = memberDao.deleteMember(conn, idVal);
+		System.out.println("service" + result);
 		if(result > 0) {
 			commit(conn);
 		} else {
