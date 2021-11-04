@@ -59,8 +59,7 @@ public class ReservationDao {
 				rooms.setFileList(fileList);
 
 				roomList.add(rooms);
-			}
-						
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -112,8 +111,6 @@ public class ReservationDao {
 				fileList.add(files);
 				room.setFileList(fileList);
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
