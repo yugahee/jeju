@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import member.model.vo.Member;
 import point.model.vo.Point;
 import static common.JDBCTemplate.*;
 
@@ -57,6 +59,30 @@ public class PointDao {
 		}
 		
 		return pointList;
+	}
+
+	public Member userPoint(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;	
+		Member userPoint = new Member();
+		String sql = pointQuery.getProperty("userPoint");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userPoint.setPoint(rset.getInt("point"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return userPoint;
 	}
 
 }

@@ -87,19 +87,13 @@ $(function(){
 					$(this).closest('.inp_check.allChk').removeClass('checked');;
 					$(this).closest('.inp_check.allChk input').prop("checked",false);
 				});
-				$(this).parent().removeClass('checked');
-				if($(this).attr('for') == 'pointChk'){
-					$('.point_using').hide();
-				}
+				$(this).parent().removeClass('checked');				
 				if($(this).attr('for') == 'remember'){
 					deleteCookie("rememberId");// 쿠키 삭제
 				}
 				tar.prop("checked",false);
 			} else {
-				$(this).parent().addClass('checked');
-				if($(this).attr('for') == 'pointChk'){
-					$('.point_using').show();
-				}
+				$(this).parent().addClass('checked');				
 				if($(this).attr('for') == 'remember'){
 					setCookie("rememberId", userId.value, 7);// 쿠키 생성
 				}

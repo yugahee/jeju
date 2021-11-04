@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import host.model.vo.PeakSeason;
+import member.model.vo.Member;
 import payment.model.service.PaymentService;
+import point.model.service.PointService;
 import reservation.model.vo.Reservation;
 
 /**
@@ -43,8 +45,8 @@ public class paymentViewServlet extends HttpServlet {
 		// 성수기가 있는 방인지 체크
 		PeakSeason peak = new PaymentService().peakChk(roomNo);
 		
-		System.out.println(reservationInfo);
-		System.out.println(peak);
+		//System.out.println(reservationInfo);
+		//System.out.println(peak);
 		
 		int price = 0;
 		if(peak != null) {
@@ -68,7 +70,16 @@ public class paymentViewServlet extends HttpServlet {
 		}else {
 			price = reservationInfo.getRoom_info().getPrice();			
 		}
-				
+		
+		// 사용자 포인트 값 가져오기
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+		System.out.println(userId);
+		
+		Member userPoint = new PointService().userPoint(userId);
+		//System.out.println(userPoint);
+		int useabledPoint = userPoint.getPoint(); 
+		
+		request.setAttribute("useabledPoint", useabledPoint);		
 		request.setAttribute("roomPrice", price);
 		request.setAttribute("reserve", reservationInfo);
 		request.getRequestDispatcher("/views/payment/payment.jsp").forward(request, response);
