@@ -82,4 +82,13 @@ public class MemberService{
 		
 		return updatedMember;
 	}
+
+	public String findId(String userName, String userMail) {
+		Connection conn = getConnection();
+		String userId= memberDao.findId(conn, userName, userMail);
+		
+		close(conn);
+		
+		return userId;
+	}
 }

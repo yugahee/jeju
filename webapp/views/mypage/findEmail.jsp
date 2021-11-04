@@ -86,8 +86,7 @@
 		}	
 	});
 	
-	
-	
+		
 	// 인증 코드 확인 버튼 ajax
 	$("#numberChk").click(function(){
 		var numChk = $("[name=numberConfirm]");
