@@ -23,7 +23,17 @@ public class ReservationService {
 		
 		return roomList;
 	}
-
+	
+	public Rooms detailSelectRoom(int roomNo) {
+		Connection conn = getConnection();
+		
+		Rooms room = reservationDao.detailSelectRoom(conn, roomNo);
+		
+		close(conn);
+		
+		return room;
+	}
+	
 
 	public List<Reservation> userReservation(String userId) {
 		Connection conn = getConnection();
@@ -49,6 +59,9 @@ public class ReservationService {
 		
 		return result;
 	}
+
+
+	
 
 
 

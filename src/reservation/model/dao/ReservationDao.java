@@ -71,6 +71,20 @@ public class ReservationDao {
 		return roomList;
 	}
 
+	public Rooms detailSelectRoom(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Rooms room = null;
+		String sql = roomQuery.getProperty("detailSelectRoom");
+		
+		
+		
+		
+		return null;
+	}	
+	
+	
+	
 
 	public List<Reservation> userReservation(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
@@ -143,7 +157,10 @@ public class ReservationDao {
 		
 		
 		return result;
-	}	
+	}
+
+
+
 
 	
 }

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import host.model.vo.Rooms;
+import reservation.model.service.ReservationService;
+
 /**
  * Servlet implementation class Room_detail_reservationServlet
  */
@@ -33,6 +36,12 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+		
+		Rooms rooms = new ReservationService().detailSelectRoom(roomNo);
+		
+		
 		
 		request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
 	}

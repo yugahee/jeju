@@ -20,6 +20,39 @@
        AND F.STATUS = 'Y'
 	   AND FILE_LEVEL = 0
 </entry>
+
+<entry key="detailSelectRoom">
+	SELECT 
+	       ROOM_NAME <!-- 숙소명 -->
+	     , ROOM_DES  <!-- 숙소 소개 -->
+	     , MIN_PEOPLE  <!-- 기준 인원 -->
+	     , MAX_PEOPLE  <!-- 최대 인원 -->
+	     , MIN_STAY     <!-- 최소 숙박 일수  -->
+	     , MAX_STAY     <!-- 최대 숙박 일수 -->
+	     , PRICE	 <!-- 1박 기준 가격 -->
+	     , EXTRA_COST <!-- 추가인원 금액 -->
+	     , START_TIME  <!-- 입실 시간  -->
+	     , END_TIME    <!--퇴실 시간  -->
+	     , ROOM_TYPE <!-- 숙소 종류  -->
+	     , BUILDING_TYPE  <!-- 건물 유형 -->
+	     , ROOM_SIZE	 <!-- 건물 평수 -->
+	     , ROOM        <!-- 방 수  -->
+	     , BED         <!-- 침대 수  -->
+	     , BATH 	   <!-- 욕실 수 -->
+	     , ROOM_FAC  <!-- 숙소 시설 : 기본, 추가, 특별, 안전 합침  -->
+	     , ROOM_LINK <!-- 유튜브 주소 -->
+	     <!-- 파일  -->
+	     , CHANGE_NAME
+		 , ROOM_NO
+		 , FILE_PATH
+		 , FILE_LEVEL
+	  FROM ROOMS R	
+	  JOIN FILES F USING(ROOM_NO)
+	 WHERE R.STATUS = 'Y'
+       AND F.STATUS = 'Y'  
+</entry>
+
+
 <entry key="userReservation">
 	SELECT
 	    ROOM_RESERVE
@@ -42,9 +75,14 @@
 	AND RESERVE_STATE != '예약취소'
 	AND FILE_LEVEL = 0
 </entry>
+
 <entry key="reservationCancle">
 	UPDATE RESERVATION
 	SET RESERVE_STATE = '예약취소'
 	WHERE ROOM_RESERVE = ?
 </entry>
+
+
+
+
 </properties>

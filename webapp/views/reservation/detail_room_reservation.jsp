@@ -14,6 +14,9 @@
 		<div class="lodging_detail">
 			<div class="container">
 				<!-- Slider main container -->
+					<div class="room_title">
+						숙소명
+					</div>
 					<div class="swiper">
 						<!-- Additional required wrapper -->
 						<div class="swiper-wrapper">
