@@ -660,14 +660,14 @@
      margin-bottom: 10px;
      }
 
-     .lodging_detail .minititle_text{
+     .minititle_text{
      font-size: 18px;
      font-weight: bold; 
-     position: relative;
-     left: 13px;
-     margin-top: 50px;
+     margin-top: 20px;
+     display: block;
      }
-
+     
+       
      /*동영상*/
      .videoWrap{ width:600px; margin: 2% 0% 2% 15%; } 
      .videoWrap .content{ position:relative; padding-top:56%; width:100%; }
@@ -703,6 +703,12 @@
      .lodging_detail .text_group{
      margin: 11px;   
      }
+     
+     ul.text_group:after {
+	    clear: both;
+	    content: '';
+	    display: block;
+	}
 
 	.moreSee1{
   position: relative;
@@ -753,6 +759,7 @@
      .lodging_detail .text_group li{
      float: left;
      width: 50%;
+     margin: 2px 0;
      }
 
      /*오른쪽 체크인 체크아웃 박스부분*/

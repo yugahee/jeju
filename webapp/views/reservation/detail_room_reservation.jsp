@@ -66,16 +66,30 @@
 					<!-- 숙소소개 설명 -->
 					
 					<div class="moreSee1">					
-					<ul class="text_group">
-					<p class="room_content content_substr">
-						안녕하세요, 한라산을 넘어오는 숲길의 아름다운 모습들을 눈에 담고 있으면 금방 저희 숙소를 만나실 수 있어요.
-						서귀포의 아름다운 자연 속 조용하고 한적한 분위기를 느끼실 수 있어요, 프라이빗 한 감성은 덤이랍니다!
-						답답하지 않은 층고로 탁 트인 내부와 침실, 복층 테라스까지 매일 아침 한라산의 맑은 공기와 밝은 햇살을 맞이할 수 있는 매력포인트까지
-						느낄 수 있습니다. 맑은 공기와 푸르른 잎들 사이를 거니며 자연에서의 행복을 느껴보세요 
-						마당에서 바비큐 파티를 즐기실 수 있도록 필요한 장비들을 구비해놓았습니다. 
-						
-					</p>
-					</ul>
+					<pre class="room_content">
+	안녕하세요, 한라산을 넘어오는 숲길의 아름다운 모습들을 눈에 담고 있으면 금방 저희 숙소를 만나실 수 있어요.
+	서귀포의 아름다운 자연 속 조용하고 한적한 분위기를 느끼실 수 있어요, 프라이빗 한 감성은 덤이랍니다!
+	답답하지 않은 층고로 탁 트인 내부와 침실, 복층 테라스까지 매일 아침 한라산의 맑은 공기와 밝은 햇살을 맞이할 수 있는 매력포인트까지
+	느낄 수 있습니다. 맑은 공기와 푸르른 잎들 사이를 거니며 자연에서의 행복을 느껴보세요 
+	마당에서 바비큐 파티를 즐기실 수 있도록 필요한 장비들을 구비해놓았습니다. 
+	
+	▶ 이용인원 안내 ◀
+	- 기본인원 : <span>2인</span>
+	- 최대인원 : <span>6인</span>
+	
+	▶ 숙박 일수 안내 ◀
+	- 최소 숙박 일수 : <span>1</span> 박 
+	- 최대 숙박 일수 : <span>7</span> 박
+	
+	▶ 숙박 요금 안내 ◀
+	- 숙박 금액(1박 기준) :  <span>10000</span>원
+	- 추가 인원 금액 :  <span>33333</span>원
+	
+	★ [입/퇴실 시간 준수 안내]★
+	- 입실 PM <span>11 : 00</span> / 퇴실 AM <span>11 : 00</span>
+	★ 해당 숙소는 주기적인 방역을 실시하고 있으나 제주 지역적 특성 상 벌레가 나올 수 있는 점 양해 부탁드리겠습니다.
+	★ 문의사항은 제주라도 넘어갈까  메시지 통해 남겨주시길 부탁드립니다.
+					</pre>
 					<button type="button" class="moreBtn1">숙소 소개 더 보기</button>
 					</div>
 					
@@ -83,32 +97,42 @@
 					<div class="title_text">
 						<span>숙소 시설</span>
 					</div>
-					<div class="minititle_text">
-						<span>기본</span>
-					</div>
 
-					<div class="moreSee2">					
-					<ul class="text_group">
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-						<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-						<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li> 
-					</ul>
-					<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
-					</div>
+					<div class="moreSee2">
+						<span class="minititle_text">기본</span>
+						<ul class="text_group">
+							<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
+							<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li>
+						</ul>
+						<span class="minititle_text">기본 시설</span>
+						<ul class="text_group">
+							<li>TV </li> <li>에어컨</li> <li>와이파이</li> 
+							<li>전기포트</li> <li>전기포트</li>  <li>전자렌지</li>
+							<li>밥솥 </li> <li>수건</li> <li>식기</li> 
+							<li>다리미</li> <li>헤어드라이기</li>  <li>냉장고</li>
+						</ul>	
+						<span class="minititle_text">추가 시설</span>
+						<ul class="text_group">
+							<li>욕조 </li> <li>세탁기</li> <li>건조기</li> 
+							<li>무료주차</li> <li>위생용품</li>  <li>바비큐</li>
+							<li>테라스 </li> 
+						</ul>	
+						<span class="minititle_text">특별 시설</span>
+						<ul class="text_group">
+							<li>가족/어린이 환영 </li> <li>반려동물 입실가능</li> <li>반려동물 입실금지</li> 
+							<li>휠체어 사용가능</li>  
+						</ul>
+						<span class="minititle_text">안전 시설</span>
+						<ul class="text_group">
+							<li>화재감지기 </li> <li>구급상자</li> <li>실내흡연 불가능</li> 
+							<li>소화기</li>
+						</ul>
+						<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
+				   </div>
 					
-					
-					<div class="title_text">
-						<span>환불 정책</span>
-					</div>
+				   <div class="title_text">
+				 	<span>환불 정책</span>
+				   </div>
 
 					<pre>
 
