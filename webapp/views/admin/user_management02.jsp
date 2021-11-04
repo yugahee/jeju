@@ -320,7 +320,7 @@ scope="application"/>
 							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">N</label></li></ul>';
 					}
 					
-					report = '<tr><th>신고자</th><td>'+user.user_id+'</td></tr>';
+					report+= '<tr><th>신고자</th><td>'+user.user_id+'</td></tr>';
 					report+= '<tr><th>제목</th><td>시간을 안지켜요</td></tr>';
 					report+= '<tr><th>내용</th><td>시간을 안지켜요</td></tr>';
 					$("#mstatus").html(html);
