@@ -1,6 +1,7 @@
 package admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import member.model.service.MemberService;
+import admin.model.service.AdminService;
 import member.model.vo.Member;
 
 /**
@@ -33,7 +34,7 @@ public class userDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("input");
 		
-		Member member = new MemberService().selectMemberDetail(userId);
+		Member member = new AdminService().selectMemberDetail(userId);
 		
 		response.setContentType("application/json;charset=utf-8");
 		new Gson().toJson(member, response.getWriter());		

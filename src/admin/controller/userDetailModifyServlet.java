@@ -1,13 +1,14 @@
 package admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
+import admin.model.service.AdminService;
 import member.model.vo.Member;
 
 /**
@@ -41,7 +42,7 @@ public class userDetailModifyServlet extends HttpServlet {
 		
 		Member member = new Member();
 		
-		int result = new MemberService().modifyMember(member, idVal, statusVal);
+		int result = new AdminService().modifyMember(member, idVal, statusVal);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("message", "정보가 수정 되었습니다.");

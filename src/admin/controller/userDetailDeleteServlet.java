@@ -1,14 +1,14 @@
 package admin.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
-import member.model.vo.Member;
+import admin.model.service.AdminService;
 
 /**
  * Servlet implementation class userDetailModifyServlet
@@ -37,10 +37,8 @@ public class userDetailDeleteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idVal = request.getParameter("idVal");		
-		System.out.println(idVal);
 		
-		int result = new MemberService().deleteMember(idVal);
-		System.out.println(result);
+		int result = new AdminService().deleteMember(idVal);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("message", "정보가 삭제 되었습니다.");

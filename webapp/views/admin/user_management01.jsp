@@ -293,7 +293,7 @@ scope="application"/>
 							<td>
 								<div class="btn_wrap">
 									<a href="#" class="btn btnType2 btnSizeS"><span>비밀번호 초기화</span></a>
-									<a href="#none" class="btn btnType2 btnSizeS" onclick="deleteData();hideLayer('userAdPop');"><span>계정 삭제</span></a>
+									<a href="#none" class="btn btnType2 btnSizeS" onclick="deleteData();"><span>계정 삭제</span></a>
 								</div>
 							</td>
 						</tr>
@@ -378,18 +378,23 @@ scope="application"/>
 	function deleteData(){
 		let idVal = $('#mid').text();
 		console.log(idVal);
-		$.ajax({
-			url : "${contextPath}/admin/userDetailDelete",
-			data : {idVal : idVal},
-			//dataType : "json",
-			type : "post",
-			success : function(member){	
-				alert('정보 삭제 완료');
-			},
-			error : function(e){
-				alert('정보 삭제 실패');
-			}
-		});
+		if(confirm("정말 삭제하시겠습니까?")){
+			$.ajax({
+				url : "${contextPath}/admin/userDetailDelete",
+				data : {idVal : idVal},
+				//dataType : "json",
+				type : "post",
+				success : function(member){	
+					alert('정보 삭제 완료');
+					location.reload();
+				},
+				error : function(e){
+					alert('정보 삭제 실패');
+				}
+			});
+		}else{
+			return false;
+		}
 	}
 	</script>
 </body>
