@@ -71,6 +71,61 @@ public class ReservationDao {
 		return roomList;
 	}
 
+	public Rooms detailSelectRoom(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Rooms room = null;
+		String sql = roomQuery.getProperty("detailSelectRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+		
+			rset = pstmt.executeQuery();
+		
+			while(rset.next()) {
+				room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				room.setRoomDes(rset.getString("room_des"));
+				room.setMinPeople(rset.getInt("min_people"));
+				room.setMaxPeople(rset.getInt("max_people"));
+				room.setMinStay(rset.getInt("min_stay"));
+				room.setMaxStay(rset.getInt("max_stay"));
+				room.setPrice(rset.getInt("price"));
+				room.setExtraCost(rset.getInt("extra_cost"));
+				room.setStartTime(rset.getString("start_time"));
+				room.setEndTime(rset.getString("end_time"));
+				room.setRoomType(rset.getString("room_type"));
+				room.setBuildingType(rset.getString("building_type"));
+				room.setRoomSize(rset.getString("room_size"));
+				room.setRoom(rset.getInt("room"));
+				room.setBed(rset.getInt("bed"));
+				room.setBath(rset.getInt("bath"));
+				room.setRoomFac(rset.getString("room_fac"));
+				room.setRoomLink(rset.getString("room_link"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files files = new Files();
+				files.setFilePath(rset.getString("file_path"));
+				files.setChangeName(rset.getString("change_name"));
+				
+				fileList.add(files);
+				room.setFileList(fileList);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return room;
+	}	
+	
+	
+	
 
 	public List<Reservation> userReservation(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
@@ -143,7 +198,10 @@ public class ReservationDao {
 		
 		
 		return result;
-	}	
+	}
+
+
+
 
 	
 }

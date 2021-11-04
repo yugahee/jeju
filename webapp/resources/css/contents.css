@@ -656,18 +656,27 @@
      border-bottom: 1px solid #282A35;
      }
 
+	 .room_title{
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+     }
+
+
      .lodging_detail .title_text span {
      margin-bottom: 10px;
      }
 
-     .lodging_detail .minititle_text{
+     .minititle_text{
      font-size: 18px;
      font-weight: bold; 
-     position: relative;
-     left: 13px;
-     margin-top: 50px;
+     margin-top: 20px;
+     display: block;
      }
-
+     
+       
      /*동영상*/
      .videoWrap{ width:600px; margin: 2% 0% 2% 15%; } 
      .videoWrap .content{ position:relative; padding-top:56%; width:100%; }
@@ -703,6 +712,12 @@
      .lodging_detail .text_group{
      margin: 11px;   
      }
+     
+     ul.text_group:after {
+	    clear: both;
+	    content: '';
+	    display: block;
+	}
 
 	.moreSee1{
   position: relative;
@@ -753,6 +768,7 @@
      .lodging_detail .text_group li{
      float: left;
      width: 50%;
+     margin: 2px 0;
      }
 
      /*오른쪽 체크인 체크아웃 박스부분*/
@@ -1056,6 +1072,7 @@
      .side_layout .roommenu img { width: 20px; height: 20px;}
      .side_layout .roommenu .menu-left { display: inline-block; width: 200px;  height: 60px; line-height: 60px;}
      .side_layout .roommenu .menu-right { display: inline;  height: 60px; line-height: 60px;}
+     .sub_menu_roomenroll .left2:hover { color: #ff8b33; }
      .menu-right-cal:hover { color: #ff8b33;}
 
      .container_roomenroll p:first-of-type { font-size: 1.3em; font-weight: 700;}
@@ -1097,8 +1114,6 @@
      .roomenroll_photo > p:nth-of-type(3) { position: absolute; left: 520px; padding: 10px 10px; color: #999999;}
      .roomenroll_photo .roomenroll_photobtn { padding: 10px 10px; position: absolute; left: 100px;}
      .roomenroll_photo .roomenroll_photobtn:hover { cursor: pointer;}
-/*      .roomphotobtn_prev { position: absolute; left: 400px; padding: 10px 10px; }
-     .roomphotobtn_next { position: absolute; left: 450px; padding: 10px 10px; } */
      .arrmovebtn:hover { cursor: pointer; }
      .roomphoto_upload { display: none;}
      .roomenroll_photo_wrap { margin-top: 50px;}
@@ -1138,9 +1153,8 @@
      .roomlist_statuslist { margin: 50px 0; }
      .roomlist_ul { display: flex; justify-content: right; }
      .roomlist_ul, .roomlist_ul > li {  list-style-type: disc; margin-right: 50px; font-size: 1.2em;}
-     .roomlist_ul > li:first-of-type { color: #555555;}
-     .roomlist_ul > li:nth-of-type(2) { color: #ff8b33;}
-     .roomlist_ul > li:nth-of-type(3){ color: #d10000;}
+     .roomlist_ul > li:first-of-type { color: #ff8b33;}
+     .roomlist_ul > li:nth-of-type(2){ color: #d10000;}
      .roomlist_ul > li:last-of-type { color: #0e7539;}
      .roomlist_sub { margin: 50px 0; display: flex; justify-content: right;}
      .roomlist_sel { width: 150px;}
