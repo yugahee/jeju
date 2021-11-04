@@ -97,6 +97,14 @@
 	   AND STATUS = 'Y'
 </entry>
 
+
+
+
+
+
+
+
+
 <!-- 전체 조회 -->
 <entry key="searchMember">
 	SELECT *
@@ -218,4 +226,10 @@ WHERE RNUM BETWEEN ? AND ?
 	SET STATUS = ?
    WHERE USER_ID = ?
 </entry>
+<!-- 어드민 회원 삭제 -->
+<entry key="deleteMemberStatus">
+	DELETE MEMBER
+   WHERE USER_ID = ?
+</entry>
+
 </properties>

@@ -369,5 +369,26 @@ public class MemberDao {
 		return result;
 	}
 
+	public int deleteMember(Connection conn, String idVal) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("deleteMemberStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, idVal);
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("dao" + result);
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 }
