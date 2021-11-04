@@ -24,7 +24,7 @@
 							<!-- Slides -->
 							<c:forEach items="${ room.fileList }" var="file">
 								<div class="swiper-slide">
-									<img src=${ contextPath }${ file.filePath }${ file.changeName }" class="lodging1">
+									<img src="${ contextPath }${ file.filePath }${ file.changeName }" class="lodging1">
 								</div>
 							</c:forEach>
 						</div>

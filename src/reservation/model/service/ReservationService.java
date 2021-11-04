@@ -17,7 +17,7 @@ public class ReservationService {
 	public List<Rooms> selectRoom() {
 		Connection conn = getConnection();
 		
-		List<Rooms> roomList = reservationDao.selectRoom(conn); 
+		List<Rooms> roomList = reservationDao.selectRoom(conn);	
 				
 		close(conn);
 		

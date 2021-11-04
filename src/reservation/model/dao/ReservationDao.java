@@ -60,7 +60,7 @@ public class ReservationDao {
 
 				roomList.add(rooms);
 			}
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
