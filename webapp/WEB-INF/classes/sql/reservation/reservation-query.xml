@@ -25,7 +25,7 @@
 	SELECT 
 	       ROOM_NAME <!-- 숙소명 -->
 	     , ROOM_DES  <!-- 숙소 소개 -->
-	     , MIN_PEOPLE  <!-- 기준 인원 -->
+	     , MIN_PEOPLE  <!-- 최소 인원 -->
 	     , MAX_PEOPLE  <!-- 최대 인원 -->
 	     , MIN_STAY     <!-- 최소 숙박 일수  -->
 	     , MAX_STAY     <!-- 최대 숙박 일수 -->
@@ -51,7 +51,6 @@
 	 WHERE R.STATUS = 'Y'
        AND F.STATUS = 'Y'
        AND ROOM_NO = ? 
-     ORDER BY FILE_NO
 </entry>
 
 

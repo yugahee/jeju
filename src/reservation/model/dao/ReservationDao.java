@@ -103,7 +103,7 @@ public class ReservationDao {
 				room.setBath(rset.getInt("bath"));
 				room.setRoomFac(rset.getString("room_fac"));
 				room.setRoomLink(rset.getString("room_link"));
-				
+				room.setRoomNo(rset.getInt("room_no"));
 				List<Files> fileList = new ArrayList<>();
 				Files files = new Files();
 				files.setFilePath(rset.getString("file_path"));

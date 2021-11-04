@@ -8,6 +8,7 @@
 <!-- swiper  -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<%-- <% Room room = (Room)request.getAttribute("room"); %> --%>
 
 <%@ include file="/views/common/header.jsp" %>		
 		
@@ -15,30 +16,17 @@
 			<div class="container">
 				<!-- Slider main container -->
 					<div class="room_title">
-						숙소명
+						${room.roomName}
 					</div>
 					<div class="swiper">
 						<!-- Additional required wrapper -->
 						<div class="swiper-wrapper">
 							<!-- Slides -->
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소.png">
-							</div>
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소2.png">
-							</div>
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소3.png">
-							</div>
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소4.png">
-							</div>	
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소4.png">
-							</div>				
-							<div class="swiper-slide">
-								<img src="${contextPath}/resources/images/숙소5.png">
-							</div>					
+							<c:forEach items="${ room.fileList }" var="file">
+								<div class="swiper-slide">
+									<img src=${ contextPath }${ file.filePath }${ file.changeName }" class="lodging1">
+								</div>
+							</c:forEach>
 						</div>
 						
 						<!-- If we need navigation buttons -->
@@ -70,31 +58,37 @@
 					
 					<div class="moreSee1">					
 					<pre class="room_content">
-	안녕하세요, 한라산을 넘어오는 숲길의 아름다운 모습들을 눈에 담고 있으면 금방 저희 숙소를 만나실 수 있어요.
-	서귀포의 아름다운 자연 속 조용하고 한적한 분위기를 느끼실 수 있어요, 프라이빗 한 감성은 덤이랍니다!
-	답답하지 않은 층고로 탁 트인 내부와 침실, 복층 테라스까지 매일 아침 한라산의 맑은 공기와 밝은 햇살을 맞이할 수 있는 매력포인트까지
-	느낄 수 있습니다. 맑은 공기와 푸르른 잎들 사이를 거니며 자연에서의 행복을 느껴보세요 
-	마당에서 바비큐 파티를 즐기실 수 있도록 필요한 장비들을 구비해놓았습니다. 
-	
+	${room.roomDes}	
 	▶ 이용인원 안내 ◀
-	- 기본인원 : <span>2인</span>
-	- 최대인원 : <span>6인</span>
+	- 기본인원 : <span>${room.minPeople}인</span>
+	- 최대인원 : <span>${room.maxPeople}인</span>
 	
 	▶ 숙박 일수 안내 ◀
-	- 최소 숙박 일수 : <span>1</span> 박 
-	- 최대 숙박 일수 : <span>7</span> 박
+	- 최소 숙박 일수 : <span>${room.minStay}</span>박 
+	- 최대 숙박 일수 : <span>${room.maxStay}</span>박
 	
 	▶ 숙박 요금 안내 ◀
-	- 숙박 금액(1박 기준) :  <span>10000</span>원
-	- 추가 인원 금액 :  <span>33333</span>원
+	- 숙박 금액(1박 기준) :  <span>${room.price}</span>원
+	- 추가 인원 금액 :  <span>${room.extraCost}</span>원
 	
 	★ [입/퇴실 시간 준수 안내]★
-	- 입실 PM <span>11 : 00</span> / 퇴실 AM <span>11 : 00</span>
+	- 입실 PM <span>${room.startTime}</span> / 퇴실 AM <span>${room.endTime}</span>
 	★ 해당 숙소는 주기적인 방역을 실시하고 있으나 제주 지역적 특성 상 벌레가 나올 수 있는 점 양해 부탁드리겠습니다.
 	★ 문의사항은 제주라도 넘어갈까  메시지 통해 남겨주시길 부탁드립니다.
 					</pre>
 					<button type="button" class="moreBtn1">숙소 소개 더 보기</button>
 					</div>
+					
+					
+			<%-- 	<%
+					String[] address;
+					if( room.getRoomFac() != null) {
+						address = room.getRoomFac().split("\\|"); // 3개짜리 배열로 잘라짐
+					} else {
+						address = new String[] {"", "", ""};
+					}
+				%> --%>
+					
 					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
@@ -104,8 +98,8 @@
 					<div class="moreSee2">
 						<span class="minititle_text">기본</span>
 						<ul class="text_group">
-							<li>숙소종류 : 쓰리룸이상 </li> <li>건물유형 : 원룸 </li> <li>건물평수 : 0 </li> 
-							<li>방수 : 3 </li> <li>침대수 : 0 </li>  <li>욕실수 : 0 </li>
+							<li>숙소종류 : ${room.roomType} </li> <li>건물유형 : ${room.buildingType} </li> <li>건물평수 :${room.roomSize}</li> 
+							<li>방수 : ${room.room} </li> <li>침대수 : ${room.bed} </li>  <li>욕실수 : ${room.bath} </li>
 						</ul>
 						<span class="minititle_text">기본 시설</span>
 						<ul class="text_group">
