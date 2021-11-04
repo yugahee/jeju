@@ -1,0 +1,118 @@
+package member.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MypageMailChangeServlet
+ */
+@WebServlet("/mypage/mailChange")
+public class MypageSendMailServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MypageSendMailServlet() {
+
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 내 정보에서 이메일 재설정 눌렀을 때 해당 창으로 연결하는 서블릿 */
+		request.getRequestDispatcher("/views/mypage/findEmail.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 입력받은 메일 주소로 인증번호 보내는 서블릿 */
+		
+		// mail server 설정
+		String host = "smtp.naver.com";			// 메일에서 설정 한 smtp 서버명
+		String user = "jejeju00@naver.com";		// 네이버 아이디
+		String password = "jejurado@@";			// 비밀번호
+		
+		String to_email = request.getParameter("newMail"); 	// 메일 받을 주소 = 페이지에서 입력받은 새로운 메일 주소
+		
+		// SMTP 서버 정보 설정
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.ssl.protocols", "TLSv1.2");	//TLS 버전 정보 맞추기
+
+		
+		// 메일로 보낼 인증 코드 생성(랜덤 영문+난수 8자)
+		StringBuffer temp = new StringBuffer();
+		Random ran = new Random();
+		for(int i = 0; i < 8; i++) {
+			int rIndex = ran.nextInt(3);
+			switch (rIndex) {	//case 0= a~z, 1= A~Z, 2= 0~9
+				case 0 : temp.append((char)((int)(ran.nextInt(26)) + 97)); break;
+				case 1 : temp.append((char)((int)(ran.nextInt(26)) + 65)); break;
+				case 2 : temp.append((ran.nextInt(10))); break;
+			}
+		}
+		
+		 Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
+			 // java.net이 아니라 javax.mail로 임포트! 
+			 protected PasswordAuthentication getPasswordAuthentication() {		
+				 return new PasswordAuthentication(user, password);  
+				 } 
+			 });
+		 
+		 // ajax 결과로 보내줄 출력문 작성을 위해 out 정의해둠
+		 PrintWriter out = response.getWriter();
+		 
+		 // 인증 메일 전송
+		 try {
+			MimeMessage msg = new MimeMessage(session);
+			// 메일 발신자 이름
+			msg.setFrom(new InternetAddress(user, "제주라도 넘어갈까"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+			// 메일 제목
+			msg.setSubject("'제주라도 넘어갈까' 인증 메일입니다.");
+			// 메일 내용
+			msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 인증 코드는 [ " + temp + " ] 입니다. \n 해당 코드를 인증 코드 확인 란에 정확히 기입해주세요.");
+			
+			Transport.send(msg);
+			
+			// 메일 전송이 완료되면 success 전달
+			out.print("success");
+			
+		} catch (Exception e) {
+            e.printStackTrace();
+            // 메일 전송에 실패하면 fail 전달
+            out.print("fail");
+		}
+		 
+		 // 인증 코드 문자열로 저장하고
+		 String checkKey = temp.toString();
+		 
+		// 인증 번호 확인을 위해서 세션에 인증 번호 저장해두기
+		request.getSession().setAttribute("checkKey", checkKey);
+		
+	}
+
+}
+
+

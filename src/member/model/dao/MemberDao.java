@@ -65,28 +65,6 @@ public class MemberDao {
 		return loginUser;
 	}
 	
-	public int updateMember(Connection conn, Member member) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String sql = memberQuery.getProperty("updateMember");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, member.getUser_name());
-			pstmt.setString(2, member.getPhone());
-			pstmt.setString(3, member.getUser_id());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 	public Member selectMember(Connection conn, String user_id) {
 		PreparedStatement pstmt = null;
@@ -124,6 +102,50 @@ public class MemberDao {
 		return updatedMember;
 	}
 	
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUser_name());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getUser_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateMail(Connection conn, String user_id, String user_mail, String newMail) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updateMail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newMail);
+			pstmt.setString(2, user_id);
+			pstmt.setString(3, user_mail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	public int checkId(Connection conn, String userId) {
 		PreparedStatement pstmt = null;

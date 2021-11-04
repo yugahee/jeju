@@ -13,6 +13,7 @@
                 </nav>
                 <div class="sub mypage">
                     <div class="outer">
+                     <form action="${ contextPath }/mypage/mail/modify" method="post">
                         <tbody class="inforForm">
                             <tr>
                                 <th>현재 이메일</th>
@@ -34,12 +35,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>인증 번호</th>
+                                <th>인증 코드</th>
                                 <td>
                                     <div class="inp_text inp_cell" id="mailConfirm">
                                         <input type="text" name="numberConfirm" id="numberConfirm" required/>
                                         <div class="btnNumber">
-                                            <button type="button" class="btn btnType1 btnSizeS" id="numberChk"><span>인증 번호 확인</span></button>
+                                            <button type="button" class="btn btnType1 btnSizeS" id="numberChk"><span>인증 코드 확인</span></button>
                                         </div>
                                     </div>
                                 </td>
@@ -48,6 +49,7 @@
                         <div class="saveBtn">
                             <button class="btn btnType1 btnSizeL disabled" disabled id="save"><span>저장하기</span></button>
                         </div>
+                        </form>
                     </div>
                 </div>
 			</div>
@@ -72,7 +74,7 @@
 				data : { newMail : newMail.val() },
 				success : function(result){
 						if(result == "success"){
-						alert("인증 메일을 발송하였습니다. 인증 번호를 입력해주세요.");						
+						alert("인증 메일을 발송하였습니다. 인증 코드를 입력해주세요.");						
 					} else {
 						alert("인증 메일 발송에 실패했습니다. 다시 한 번 시도해주세요.");
 					}
@@ -86,7 +88,7 @@
 	
 	
 	
-	// 인증 번호 확인 버튼 ajax
+	// 인증 코드 확인 버튼 ajax
 	$("#numberChk").click(function(){
 		var numChk = $("[name=numberConfirm]");
 		
@@ -99,10 +101,10 @@
 				data : { numChk : numChk.val() },
 				success : function(result){
 					if(result != "fail"){
-						alert("인증번호 확인에 성공했습니다.");
+						alert("인증 코드 확인에 성공했습니다.");
 						mailConfirm = true;
 					} else {
-						alert("인증번호 확인에 실패했습니다.");
+						alert("인증 코드 확인에 실패했습니다.");
 						mailConfirm = false;
 						numChk.focus();
 					}
