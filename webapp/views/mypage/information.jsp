@@ -34,7 +34,7 @@
                                     <div class="inp_text" id="usermail">
                                         <input type="email" name="userMail"  id="userMail" value="${ loginUser.email }" readonly/>
                                         <div class="btnEmail">
-                                            <a href="${ contextPath }/mailChange" class="btn btnType1 btnSizeS"><span>이메일 재설정</span></a>
+                                            <a href="${ contextPath }/mypage/mailChange" class="btn btnType1 btnSizeS"><span>이메일 재설정</span></a>
                                         </div>
                                     </div>
                                 </td>

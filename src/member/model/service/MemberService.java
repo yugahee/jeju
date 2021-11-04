@@ -64,4 +64,22 @@ public class MemberService{
 		// 수정된 멤버 정보 리턴
 		return updatedMember;
 	}
+
+	public Member updateMail(String user_id, String user_mail, String newMail) {
+		Connection conn = getConnection();
+		Member updatedMember = null;
+		
+		int result = memberDao.updateMail(conn, user_id, user_mail, newMail);
+		
+		if(result > 0) {
+			updatedMember = memberDao.selectMember(conn, user_id);
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updatedMember;
+	}
 }
