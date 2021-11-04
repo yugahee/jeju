@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="host.model.vo.Rooms" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
 <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">    
@@ -8,8 +8,8 @@
 <!-- swiper  -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<%-- <% Room room = (Room)request.getAttribute("room"); %> --%>
-
+<%--  <% Room room = (Room)request.getAttribute("room"); %> 
+ --%>
 <%@ include file="/views/common/header.jsp" %>		
 		
 		<div class="lodging_detail">
@@ -80,14 +80,14 @@
 					</div>
 					
 					
-			<%-- 	<%
+		<%-- 	 	<%
 					String[] address;
 					if( room.getRoomFac() != null) {
 						address = room.getRoomFac().split("\\|"); // 3개짜리 배열로 잘라짐
 					} else {
 						address = new String[] {"", "", ""};
 					}
-				%> --%>
+				%>  --%>
 					
 					
 					<!--숙소 시설 글씨-->
