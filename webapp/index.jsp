@@ -77,7 +77,7 @@
 			success : function(rooms){				
 				var html = '';
 				$.each(rooms, function(i){
-					html = '<li><a href="#">'
+					html = '<li><a href="${contextPath}/room/reserve/detail?roomNo='+ rooms[i].roomNo +'">'
 						 + '<div class="item_img" style="background-image : url(${contextPath}'+ rooms[i].fileList[0].filePath + rooms[i].fileList[0].changeName +')"></div>'
 						 + '<div class="item_info">'
 						 + '<p class="item_name"><span class="item_location">'+ rooms[i].location +'</span> '+ rooms[i].roomName +'</p>'
