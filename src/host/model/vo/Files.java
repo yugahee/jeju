@@ -6,6 +6,7 @@ public class Files {
 	private int roomNo;
 	private String filePath;
 	private int fileLevel;       // 0:메인, 1:서브
+	private String deletedName;  // 추가함 (수정될 파일명)
 	private String status;
 	
 	/*FILE_NO	NUMBER
@@ -17,13 +18,15 @@ STATUS	VARCHAR2(1 BYTE)*/
 	
 	public Files() {}
 
-	public Files(int fileNo, String changeName, int roomNo, String filePath, int fileLevel, String status) {
+	public Files(int fileNo, String changeName, int roomNo, String filePath, int fileLevel, String deletedName,
+			String status) {
 		super();
 		this.fileNo = fileNo;
 		this.changeName = changeName;
 		this.roomNo = roomNo;
 		this.filePath = filePath;
 		this.fileLevel = fileLevel;
+		this.deletedName = deletedName;
 		this.status = status;
 	}
 
@@ -75,12 +78,20 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.status = status;
 	}
 
+	public String getDeletedName() {
+		return deletedName;
+	}
+
+	public void setDeletedName(String deletedName) {
+		this.deletedName = deletedName;
+	}
+
 	@Override
 	public String toString() {
 		return "Files [fileNo=" + fileNo + ", changeName=" + changeName + ", roomNo=" + roomNo + ", filePath="
-				+ filePath + ", fileLevel=" + fileLevel + ", status=" + status + "]";
+				+ filePath + ", fileLevel=" + fileLevel + ", deletedName=" + deletedName + ", status=" + status + "]";
 	}
-	
+
 	
 
 }

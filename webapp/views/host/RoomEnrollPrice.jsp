@@ -10,23 +10,18 @@
 			<nav class="sub_menu_roomenroll">
 				<a class="roommenu">
 					<span class="menu-left">기본설정</span>
-					<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 				</a>
 				<a class="roommenu">
 					<span class="menu-left" style="color:#ff8b33">예약/요금 설정</span>
-					<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 				</a>					
 				<a class="roommenu">
 					<span class="menu-left">위치/사진/동영상</span>
-					<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 				</a>
 	        </nav>
 			<br>
-	<!--         <a href="#" class="roommenu_cal">
-				<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
-				<span class="menu-right-cal">달력관리</span>
-			</a>
-			<br> -->
 
 	        </div>
 	

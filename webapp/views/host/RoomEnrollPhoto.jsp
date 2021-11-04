@@ -10,26 +10,19 @@
 				<nav class="sub_menu_roomenroll">
 					<a class="roommenu">
 						<span class="menu-left">기본설정</span>
-						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+						<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 					</a>
 					<a class="roommenu">
 						<span class="menu-left">예약/요금 설정</span>
-						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+						<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 					</a>					
 					<a class="roommenu">
 						<span class="menu-left" style="color:#ff8b33">위치/사진/동영상</span>
-						<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+						<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 					</a>
                 </nav>
 				<br>
-<!--                 <a href="#" class="roommenu_cal">
-					<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
-					<span class="menu-right-cal">달력관리</span>
-				</a>
-				<br> -->
-<!-- 				<div class="btn_wrap">
-					<a href="#" class="btn btnType1 btnSizeS roomregistbtn"><span>숙소등록</span></a>   
-				</div>	 -->
+
                 </div>
 
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
@@ -54,11 +47,9 @@
 					<input type="hidden" name="maxpeople" value="${ rooms.maxPeople }">
 					<input type="hidden" name="price" value="${ rooms.price }">
 					<input type="hidden" name="extracost" value="${ rooms.extraCost }">
-					<c:if test="${ rooms.peak != null }">
-						<input type="hidden" name="peakstart" value="${ rooms.peak.peakStart }">
-						<input type="hidden" name="peakend" value="${ rooms.peak.peakEnd }">
-						<input type="hidden" name="peakprice" value="${ rooms.peak.peakPrice }">
-					</c:if>
+					<input type="hidden" name="peakstart" value="${ rooms.peak.peakStart }">
+					<input type="hidden" name="peakend" value="${ rooms.peak.peakEnd }">
+					<input type="hidden" name="peakprice" value="${ rooms.peak.peakPrice }">
 					
 						<div class="roomenroll_title_main">
 							<h2>위치</h2><span>숙소의 위치를 설정하세요.</span>
@@ -117,7 +108,7 @@
 							<div class="roomenroll_photo">
 								<p>사진선택 &nbsp;|</p>
 								<div class="roomenroll_photobtn">
-                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <img src="${ contextPath }/resources/images/common/ico_addFile_on.png">
                                     <span>메인사진 올리기</span>	
                                 </div>
                                 <p>* 첫번째 사진은 숙소의 메인사진으로 사용됩니다.</p>
@@ -129,7 +120,7 @@
                             <div class="roomenroll_photo">
                                 <p>사진선택 &nbsp;|</p>
                                 <div class="roomenroll_photobtn">
-                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <img src="${ contextPath }/resources/images/common/ico_addFile_on.png">
                                     <span>서브사진1 올리기</span>	
                                 </div>
                             </div>
@@ -140,7 +131,7 @@
                             <div class="roomenroll_photo">
                                 <p>사진선택 &nbsp;|</p>
                                 <div class="roomenroll_photobtn">
-                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <img src="${ contextPath }/resources/images/common/ico_addFile_on.png">
                                     <span>서브사진2 올리기</span>	
                                 </div>
                             </div>
@@ -151,7 +142,7 @@
                             <div class="roomenroll_photo">
                                 <p>사진선택 &nbsp;|</p>
                                 <div class="roomenroll_photobtn">
-                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <img src="${ contextPath }/resources/images/common/ico_addFile_on.png">
                                     <span>서브사진3 올리기</span>	
                                 </div>
                             </div>
@@ -162,7 +153,7 @@
                             <div class="roomenroll_photo">
                                 <p>사진선택 &nbsp;|</p>
                                 <div class="roomenroll_photobtn">
-                                    <img src="../resources/images/common/ico_addFile_on.png">
+                                    <img src="${ contextPath }/resources/images/common/ico_addFile_on.png">
                                     <span>서브사진4 올리기</span>	
                                 </div>
                             </div>

@@ -12,7 +12,7 @@
                 </nav>
                 <div class="host_mypage">
                     <div class="hostprofile_wrap">
-                        <img src="../resources/images/usericon.png">
+                        <img src="${ contextPath }/resources/images/usericon.png">
                         <h3> 호스트 아이디 </h3>
                         <span>호스트</span>
                     </div>

@@ -107,9 +107,9 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		rooms.setPrice(price);
 		rooms.setExtraCost(extraCost);
 		
-		// 성수기 입력사항 있는 경우
-		if(multiRequest.getParameter("peakstart") != null && multiRequest.getParameter("peakend") != null 
-				&& multiRequest.getParameter("peakprice") != null) {
+		// 성수기 입력사항 있는 경우 => null 조건은 오류나서 변경함
+		if(!multiRequest.getParameter("peakstart").equals("") && !multiRequest.getParameter("peakend").equals("") 
+				&& !multiRequest.getParameter("peakprice").equals("")) {
 					
 			PeakSeason peak = new PeakSeason();
 
@@ -131,7 +131,7 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		rooms.setLocation(location);
 		rooms.setAddress(address);
 		
-		if(multiRequest.getParameter("roomlink") != null) {
+		if(!multiRequest.getParameter("roomlink").equals("")) {
 			rooms.setRoomLink(multiRequest.getParameter("roomlink"));
 		}
 		
