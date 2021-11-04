@@ -87,8 +87,11 @@ scope="application"/>
 					<div class="listTit">회원관리</div>
 					<form method="get" action="${ contextPath }/admin/userMg01">
 						<div class="selectbox">
-							<button class="title" type="button">${param.searchCondition}</button>
-							<input class="inputVal" type="hidden" name="searchCondition" value="${param.searchCondition}">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition == null }">전체</c:if>
+								<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
 							<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 								<li>
 									<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
@@ -105,8 +108,11 @@ scope="application"/>
 							</ul>
 						</div>
 						<div class="selectbox">
-							<button class="title" type="button">${param.searchCondition2 }</button>
-							<input class="inputVal" type="hidden" name="searchCondition2" value="${param.searchCondition2}">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition2 == null }">아이디</c:if>
+								<c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition2" value="<c:if test="${ param.searchCondition2 == null }">아이디</c:if><c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>">
 							<ul class="selList" id="searchCondition2" style="max-height: 0px; display: none;">
 								<li>
 									<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '아이디' }">checked="checked"</c:if>>
