@@ -130,11 +130,11 @@ public class AdminDao {
 		return member;
 	}
 
-	public int getListCount(Connection conn, Search search) {
+	public int getUserListCount(Connection conn, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int listCount = 0;
-		String sql = adminQuery.getProperty("getListCount");
+		String sql = adminQuery.getProperty("getUserListCount");
 
 		if(search.getSearchValue() != null) {
 			if(search.getSearchCondition().equals("전체")) {
@@ -218,6 +218,119 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+
+	public List<Member> selectBlackList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("searchBlack");
+		List<Member> MemberList = new ArrayList<>();
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = adminQuery.getProperty("searchBlackAllId");
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = adminQuery.getProperty("searchBlackAllName");
+				}
+			}else if((search.getSearchCondition().equals("호스트") || search.getSearchCondition().equals("게스트")) && search.getSearchValue() != null) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = adminQuery.getProperty("searchBlackId");					
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = adminQuery.getProperty("searchBlackName");					
+				}
+			}
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			 
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+			if((sql == adminQuery.getProperty("searchBlackAllId")) || (sql == adminQuery.getProperty("searchBlackAllName"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchBlackId")) || (sql == adminQuery.getProperty("searchBlackName"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUser_id(rset.getString("user_id"));
+				member.setUser_name(rset.getString("user_name"));
+				member.setEmail(rset.getString("email"));
+				member.setPhone(rset.getString("phone"));
+				member.setPoint(rset.getInt("point"));
+				member.setUser_type(rset.getString("user_type"));
+				member.setEnroll_date(rset.getDate("enroll_date"));
+				member.setModify_date(rset.getDate("modify_date"));
+				member.setReport_count(rset.getInt("report_count"));
+				member.setStatus(rset.getString("status"));
+				MemberList.add(member);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return MemberList;
+	}
+
+	public int getBlackListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = adminQuery.getProperty("getBlackListCount");
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = adminQuery.getProperty("getBlackListCountAllId");
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = adminQuery.getProperty("getBlackListCountAllName");
+				}
+			}else if((search.getSearchCondition().equals("호스트") || search.getSearchCondition().equals("게스트")) && search.getSearchValue() != null) {
+				if(search.getSearchCondition2().equals("아이디")) {
+					sql = adminQuery.getProperty("getBlackListCountMemberId");					
+				}else if(search.getSearchCondition2().equals("이름")) {
+					sql = adminQuery.getProperty("getBlackListCountMemberName");					
+				}
+			}
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;
+			if((sql == adminQuery.getProperty("getBlackListCountAllId")) || (sql == adminQuery.getProperty("getBlackListCountAllName"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("getBlackListCountMemberId")) || (sql == adminQuery.getProperty("getBlackListCountMemberName"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 

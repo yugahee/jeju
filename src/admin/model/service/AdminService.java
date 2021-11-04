@@ -16,10 +16,10 @@ public class AdminService{
 	
 	private AdminDao adminDao = new AdminDao();
 	
-	public Map<String, Object> selectList(int page, Search search) {
+	public Map<String, Object> selectUserList(int page, Search search) {
 		Connection conn = getConnection();
 		
-		int listCount = adminDao.getListCount(conn, search);
+		int listCount = adminDao.getUserListCount(conn, search);
 		PageInfo pi = new PageInfo(page, listCount, 5, 10);
 		
 		List<Member> MemberList = adminDao.selectList(conn, pi, search);
@@ -34,8 +34,8 @@ public class AdminService{
 		
 		return returnMap;
 	}
-
-	public Map<String, Object> selectList(int page, int chkval, Search search) {
+/*
+	public Map<String, Object> selectUserList(int page, int chkval, Search search) {
 		Connection conn = getConnection();
 		
 		int listCount = adminDao.getListCount(conn, search);
@@ -53,7 +53,7 @@ public class AdminService{
 		
 		return returnMap;
 	}
-
+*/
 	public Member selectMemberDetail(String userId) {
 		Connection conn = getConnection();
 		
@@ -90,5 +90,24 @@ public class AdminService{
 		close(conn);
 		
 		return result;
+	}
+
+	public Map<String, Object> selectBlackList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getBlackListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Member> MemberList = adminDao.selectBlackList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
 	}
 }

@@ -74,7 +74,7 @@ WHERE RNUM BETWEEN ? AND ?
 	 ORDER BY ENROLL_DATE DESC
 </entry>
 
-<entry key="getListCount">	
+<entry key="getUserListCount">	
      SELECT
             COUNT(*)
        FROM MEMBER
@@ -127,6 +127,128 @@ WHERE RNUM BETWEEN ? AND ?
 <entry key="deleteMemberStatus">
 	DELETE MEMBER
    WHERE USER_ID = ?
+</entry>
+
+
+
+<!-- 블랙리스트 -->
+<entry key="searchBlack">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND REPORT_COUNT >= 5
+   ORDER BY REPORT_COUNT DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchBlackAllId">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_ID LIKE '%'|| ? ||'%'
+     AND REPORT_COUNT >= 5
+   ORDER BY REPORT_COUNT DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchBlackAllName">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_NAME LIKE '%'|| ? ||'%'
+     AND REPORT_COUNT >= 5
+   ORDER BY REPORT_COUNT DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchBlackId">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = ?
+     AND USER_ID LIKE '%'|| ? ||'%'
+     AND REPORT_COUNT >= 5
+   ORDER BY REPORT_COUNT DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchBlackName">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_TYPE = ?
+     AND USER_NAME LIKE '%'|| ? ||'%'
+     AND REPORT_COUNT >= 5
+   ORDER BY REPORT_COUNT DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+<entry key="getBlackListCount">
+	SELECT
+		   *
+	  FROM MEMBER
+	 WHERE USER_TYPE != '관리자'
+	   AND USER_ID = ?
+       AND REPORT_COUNT >= 5
+	 ORDER BY ENROLL_DATE DESC
+</entry>
+
+<entry key="getBlackListCount">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+        AND REPORT_COUNT >= 5
+	 ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getBlackListCountAllId">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+        AND USER_ID LIKE '%'|| ? ||'%'
+        AND REPORT_COUNT >= 5
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getBlackListCountAllName">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+        AND USER_NAME LIKE '%'|| ? ||'%'
+        AND REPORT_COUNT >= 5
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getBlackListCountMemberId">	
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+    	AND USER_TYPE = ?
+        AND USER_ID LIKE '%'|| ? ||'%'
+        AND REPORT_COUNT >= 5
+	  ORDER BY ENROLL_DATE DESC
+</entry>
+<entry key="getBlackListCountMemberName">
+     SELECT
+            COUNT(*)
+       FROM MEMBER
+      WHERE USER_TYPE != '관리자'
+    	AND USER_TYPE = ?
+        AND USER_NAME LIKE '%'|| ? ||'%'
+        AND REPORT_COUNT >= 5
+	  ORDER BY ENROLL_DATE DESC
 </entry>
 
 </properties>

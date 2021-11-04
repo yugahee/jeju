@@ -308,23 +308,6 @@ scope="application"/>
 	</div>
 	
 	<script>
-	/* $("input[name='sel_type3']").click(function(){
-		let inputval = $(this).val();
-		let chkval = $("input[name='sel_type3_chk']").val(inputval);
-		listData(inputval);
-	});
-	function listData(dd){
-		console.log(dd);
-		let chkval = $("input[name='sel_type3_chk']").val();
-		$.ajax({
-			url : "${contextPath}/admin/pagelist",
-			data : {chkval : chkval},
-			type : "get",
-			success : function(e){
-				console.log(e);
-			}
-		})
-	} */
 	function userdata(elem){		
 		let userId = $(elem).find('input').val();	
 		$.ajax({

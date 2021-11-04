@@ -44,7 +44,7 @@ public class pageListServlet extends HttpServlet {
 		String searchCondition2 = request.getParameter("searchCondition2");
 		String searchValue = request.getParameter("searchValue");
 		
-		Map<String, Object> map = new AdminService().selectList(page, chkval, new Search(searchCondition, searchCondition2, searchValue));
+		Map<String, Object> map = new AdminService().selectUserList(page, chkval, new Search(searchCondition, searchCondition2, searchValue));
 
 		request.setAttribute("listCount", map.get("listCount"));
 		request.setAttribute("pi", map.get("pi"));

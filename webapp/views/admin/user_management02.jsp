@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -71,69 +82,54 @@ scope="application"/>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">블랙리스트 관리</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="회원분류">전체</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_user0" name="select_user">
-								<label for="select_user0">전체</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_user1" name="select_user">
-								<label for="select_user1">호스트</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_user2" name="select_user">
-								<label for="select_user2">게스트</label>
-							</li>
-						</ul>
-					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">아이디</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">아이디</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op1">이름</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">이메일</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
-								<label for="select_search_op4">전화번호</label>
-							</li>
-						</ul>
-					</div>					
-					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
-					</div>
-				</div>
-				<div class="listTotal">
-					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
+					<form method="get" action="${ contextPath }/admin/userMg02">
 						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition == null }">전체</c:if>
+								<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
+							<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
+									<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+									<label for="sel_type1_1">전체</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
+									<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '호스트' }">checked="checked"</c:if>>
+									<label for="sel_type1_2">호스트</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
+									<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '게스트' }">checked="checked"</c:if>>
+									<label for="sel_type1_3">게스트</label>
 								</li>
 							</ul>
 						</div>
+						<div class="selectbox">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition2 == null }">아이디</c:if>
+								<c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition2" value="<c:if test="${ param.searchCondition2 == null }">아이디</c:if><c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>">
+							<ul class="selList" id="searchCondition2" style="max-height: 0px; display: none;">
+								<li>
+									<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '아이디' }">checked="checked"</c:if>>
+									<label for="sel_type2_1">아이디</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type2_2" <c:if test="${ param.searchCondition2 == '이름' }">checked="checked"</c:if>>
+									<label for="sel_type2_2">이름</label>
+								</li>
+							</ul>
+						</div>
+						<div class="inp_text search">
+							<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="검색어를 입력하세요">
+							<button type="submit" class="btn_sch">검색</button>
+						</div>
+					</form>
+				</div>
+				<div class="listTotal">
+					<div class="sortArea">
+						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
 				<div class="tblType3 noBorT noBorB boardList">
@@ -168,110 +164,72 @@ scope="application"/>
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>1</td>
-								<td>user1</td>
-								<td>안나현</td>
-								<td>email1@gmail.com</td>
-								<td>010-4123-6554</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.10.15</td>
-								<td>2021.10.15</td>
-								<td>5</td>
-								<td>정상</td>
+							<c:forEach var="Member" items="${ MemberList }" varStatus="status">
+							<tr onclick="showLayer('blackUserPop'); userdata(this);">
+								<td style="display:none;"><input type="hidden" value="${Member.user_id}"></td>
+								<td>${ status.count }</td>
+								<td>${ Member.user_id }</td>
+								<td>${ Member.user_name }</td>
+								<td>${ Member.email }</td>
+								<td>${ Member.phone }</td>
+								<td>${ Member.point }</td>
+								<td>${ Member.user_type }</td>
+								<td><fmt:formatDate value="${ Member.enroll_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td><fmt:formatDate value="${ Member.modify_date }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td style="color:red;">${ Member.report_count }</td>
+								<td>${ Member.status }</td>
 							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>2</td>
-								<td>user2</td>
-								<td>류상훈</td>
-								<td>email2@gmail.com</td>
-								<td>010-4143-2554</td>
-								<td>1000</td>
-								<td>게스트</td>
-								<td>2021.10.13</td>
-								<td>2021.10.16</td>
-								<td>5</td>
-								<td>블랙</td>
-							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>3</td>
-								<td>user3</td>
-								<td>유가희</td>
-								<td>email3@gmail.com</td>
-								<td>010-5543-1554</td>
-								<td>5000</td>
-								<td>게스트</td>
-								<td>2020.10.13</td>
-								<td>2020.10.20</td>
-								<td>5</td>
-								<td>휴면</td>
-							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>4</td>
-								<td>user4</td>
-								<td>이지희</td>
-								<td>email4@gmail.com</td>
-								<td>010-9243-2854</td>
-								<td>0</td>
-								<td>호스트</td>
-								<td>2021.09.12</td>
-								<td>2021.10.28</td>
-								<td>5</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>5</td>
-								<td>user5</td>
-								<td>이효은</td>
-								<td>email5@gmail.com</td>
-								<td>010-3581-1513</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.22</td>
-								<td>2021.10.30</td>
-								<td>5</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>6</td>
-								<td>user6</td>
-								<td>정온화</td>
-								<td>email6@gmail.com</td>
-								<td>010-8151-5148</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>5</td>
-								<td>정상</td>
-							</tr>
-							<tr onclick="showLayer('blackUserPop')">
-								<td>7</td>
-								<td>helloeveryone</td>
-								<td>네글자인</td>
-								<td>emailaddress7@gmail.com</td>
-								<td>010-9999-8888</td>
-								<td>0</td>
-								<td>게스트</td>
-								<td>2021.08.31</td>
-								<td>2021.10.18</td>
-								<td>5</td>
-								<td>탈퇴</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/userMg02?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/userMg02?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/userMg02?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/userMg02?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/userMg02?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
 			</div>
 			<!-- //contet -->
@@ -285,68 +243,14 @@ scope="application"/>
 			<button class="btn_closeLayer" onclick="hideLayer('blackUserPop');"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
-			<div class="total">신고횟수 <span>5</span>회</div>
+			<div class="total">신고횟수 <span class="reportCount">5</span>회</div>
 			<div class="tblType2 noBorder">
 				<table>
 					<colgroup>
 						<col style="width:20%;">
 						<col style="width:*;">
 					</colgroup>
-					<tbody>
-						<tr>
-							<th>신고자</th>
-							<td>us*****</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>시간을 안지켜요</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td>잠을 하루종일 자는지 체크아웃 시간을 지키지 않고 방을 너무 더럽게 썼어요. 애완동물 불가 숙소인데 사방에 온통 개털이 날리고 심각하네요.</td>
-						</tr>
-					</tbody>
-					<tbody>
-						<tr>
-							<th>신고자</th>
-							<td>us*****</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>시간을 안지켜요</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td>잠을 하루종일 자는지 체크아웃 시간을 지키지 않고 방을 너무 더럽게 썼어요. 애완동물 불가 숙소인데 사방에 온통 개털이 날리고 심각하네요.</td>
-						</tr>
-					</tbody>
-					<tbody>
-						<tr>
-							<th>신고자</th>
-							<td>us*****</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>시간을 안지켜요</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td>잠을 하루종일 자는지 체크아웃 시간을 지키지 않고 방을 너무 더럽게 썼어요. 애완동물 불가 숙소인데 사방에 온통 개털이 날리고 심각하네요.</td>
-						</tr>
-					</tbody>
-					<tbody>
-						<tr>
-							<th>신고자</th>
-							<td>us*****</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>시간을 안지켜요</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td>잠을 하루종일 자는지 체크아웃 시간을 지키지 않고 방을 너무 더럽게 썼어요. 애완동물 불가 숙소인데 사방에 온통 개털이 날리고 심각하네요.</td>
-						</tr>
+					<tbody class="reportList">						
 					</tbody>
 				</table>
 			</div>
@@ -363,11 +267,11 @@ scope="application"/>
 							<td>
 								<div class="inp_qty">
 									<button type="button" onclick="qtyDown(this)" title="수량감소">
-										<img src="../resources/images/common/qty_down.gif" alt="수량감소">
+										<img src="${contextPath}/resources/images/common/qty_down.gif" alt="수량감소">
 									</button>
-									<input type="text" title="선택품목갯수" value="5">
+									<input type="text" name="reportCount" value="5">
 									<button type="button" onclick="qtyUp(this)" title="수량추가">
-										<img src="../resources/images/common/qty_up.gif" alt="수량추가">
+										<img src="${contextPath}/resources/images/common/qty_up.gif" alt="수량추가">
 									</button>
 								</div>
 							</td>
@@ -375,27 +279,7 @@ scope="application"/>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">정상</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">휴면</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">탈퇴</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_4" name="select1" />
-											<label for="sel1_4">블랙</label>
-										</li>
-									</ul>
+								<div id="mstatus" class="selectbox">
 								</div>
 							</td>
 						</tr>
@@ -408,5 +292,48 @@ scope="application"/>
             </div>
 		</div> 
 	</div>
+	
+	<script>
+	function userdata(elem){		
+		let userId = $(elem).find('input').val();	
+		console.log(userId);
+		$.ajax({
+			url : "${contextPath}/admin/userDetail",
+			data : {input : userId},
+			dataType : "json",
+			type : "get",
+			success : function(user){			
+				var html = '';		
+				var report = '';
+				if(user){
+					$(".reportCount").text(user.report_count);
+					$("input[name='reportCount']").val(user.report_count);
+					if(user.status == 'Y'){										
+						html = '<button class="title" type="button" title="상태">Y</button>'
+							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="Y">'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">Y</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1"/><label for="sel1_2">N</label></li></ul>';
+					}else{
+						html = '<button class="title" type="button" title="상태">N</button>'
+							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="N">'
+							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">Y</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">N</label></li></ul>';
+					}
+					
+					report = '<tr><th>신고자</th><td>'+user.user_id+'</td></tr>';
+					report+= '<tr><th>제목</th><td>시간을 안지켜요</td></tr>';
+					report+= '<tr><th>내용</th><td>시간을 안지켜요</td></tr>';
+					$("#mstatus").html(html);
+					$(".reportList").append(report);
+				}else{
+					alert('존재하지 않는 회원번호입니다!');
+				}			
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	</script>
 </body>
 </html>
