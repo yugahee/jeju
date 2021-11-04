@@ -29,16 +29,11 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		Rooms room = new ReservationService().detailSelectRoom(roomNo);
+	
+		System.out.println(room);
 		
 		if(room != null) {
 	         request.setAttribute("room", room);
@@ -48,6 +43,13 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	         request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
 	      }
 			
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 	}
 

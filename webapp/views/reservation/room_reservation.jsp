@@ -46,7 +46,7 @@
 					</form>
 						<!--여기 아래부터 숙소 사진과 옆에 숙소명+숙소제목...-->
 					<c:forEach var="room" items="${ roomList }">
-					<div class="lodging_lineup" onclick="detailReservation()">
+					<div class="lodging_lineup" onclick="detailReservation(${room.roomNo})">
 						<div class="child1">
 							<img src="${contextPath}${room.fileList.get(0).filePath}
 							${room.fileList.get(0).changeName}" class="lodging1">
@@ -186,15 +186,16 @@
 		</div>  
 	</div>
 	
-  	<form name="reservationForm" method="post" action="${contextPath}/room/reserve/detail">
+<%--   	<form name="reservationForm" method="post" action="${contextPath}/room/reserve/detail">
 		<c:forEach var="room" items="${roomList}">
 		<input type="hidden" name="roomNo" value="${room.roomNo}">
 		</c:forEach>
-	</form>
+	</form> --%>
 	
 	<script>
-	function detailReservation() {
-		document.forms.reservationForm.submit();
+	function detailReservation(roomNo) {
+		location.href='${contextPath}/room/reserve/detail?roomNo=' + roomNo;
+		/* document.forms.reservationForm.submit(); */
 	}
 	</script>  
 	

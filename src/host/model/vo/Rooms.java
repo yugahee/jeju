@@ -13,7 +13,7 @@ public class Rooms {
 	private String roomName;      // 숙소이름
 	private String roomTitle;     // 숙소제목
 	private String roomDes;       // 숙소소개
-	private String roomType;      // 숙소유형(원룸, 투룸, 쓰리룸이상, 복층)
+	private String roomType;      // 숙소종류(원룸, 투룸, 쓰리룸이상, 복층)
 	private String roomFac;       // 숙소시설
 	private int price;            // 가격
 	private int extraCost;        // 추가인원가격
