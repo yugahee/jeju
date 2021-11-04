@@ -45,11 +45,13 @@
 	     , CHANGE_NAME
 		 , ROOM_NO
 		 , FILE_PATH
-		 , FILE_LEVEL
+		 , FILE_NO
 	  FROM ROOMS R	
 	  JOIN FILES F USING(ROOM_NO)
 	 WHERE R.STATUS = 'Y'
-       AND F.STATUS = 'Y'  
+       AND F.STATUS = 'Y'
+       AND ROOM_NO = ? 
+     ORDER BY FILE_NO
 </entry>
 
 

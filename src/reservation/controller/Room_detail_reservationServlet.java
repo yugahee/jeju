@@ -38,12 +38,17 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+		Rooms room = new ReservationService().detailSelectRoom(roomNo);
 		
-		Rooms rooms = new ReservationService().detailSelectRoom(roomNo);
+		if(room != null) {
+	         request.setAttribute("room", room);
+	 		 request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
+	      } else {
+	         request.setAttribute("message", "숙소 예약 페이지 상세보기에 실패하였습니다.");
+	         request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+	      }
+			
 		
-		
-		
-		request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
 	}
 
 }
