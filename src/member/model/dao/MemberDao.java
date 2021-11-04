@@ -198,4 +198,34 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public String findId(Connection conn, String userName, String userMail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userId = "";
+		String sql = memberQuery.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userMail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString("user_id");
+			} else { 
+				// 쿼리문 조회 실패 시 null값 넣어줘서 오류 잡기
+				userId = null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userId;
+	}
 }
