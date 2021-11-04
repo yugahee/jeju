@@ -23,53 +23,76 @@
 						</ul>
 					</div>
 					<div class="hostpagetab roomtab">
+					<c:choose>
+						<c:when test="${ !empty roomList }">
 						<!-- 숙소 리스트 있는 경우 -->
-						<!-- <ul>
-							<li class="main_roomlist">
-								<a href="#"><img src="../resources/images/host/house.png"></a><br>
-								<h3>푸른바다 제주펜션</h3>
-							</li>
-							<li class="main_roomlist">
-								<a href="#"><img src="../resources/images/host/house.png"></a><br>
-								<h3>협재바다 늘푸른가옥</h3>
-							</li>	
-						</ul> -->
-						
+						<ul>
+						<c:forEach var="room" items="${ roomList }">
+						<li class="main_roomlist">     <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
+							<a href="#"><img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
+							<h3>${ room.roomName }</h3>
+						</li>
+						</c:forEach>
+						</ul> 
+						</c:when>
+						<c:otherwise>
 						<!-- 숙소 리스트 없는 경우 -->
 						<div class="noData">
 							<p>등록된 숙소가 없습니다.</p>
 							<a href="${ contextPath }/host/roomenrollbasic" class="subtxt"><u>숙소를 간편하게 바로 등록해보세요!</u></a>
 						</div> 
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<!-- 게스트 후기 탭 클릭 시 -->
 					<div class="hostpagetab reviewtab">
 						<div class="tblType1 reviewtab_wrap">
 							<table class="reviewtbl">
 								<colgroup>
-									<col style="width:50px">
-									<col style="width:500px">
-									<col style="width:100px">
+									<col style="width:8%">
+									<col style="width:12%">
+									<col style="width:50%">
+									<col style="width:12%">
+									<col style="width:18%">
 								</colgroup>
+								<thead>
+									<tr>
+										<th style="font-size: 1.2em;">No</th>
+										<th style="font-size: 1.2em;">숙소이름</th>
+										<th style="font-size: 1.2em;">후기내용</th>
+										<th style="font-size: 1.2em;">후기작성일</th>
+										<th style="font-size: 1.2em;">작성자</th>
+									</tr>
+								</thead>
 								<tbody>
+								<c:choose>
+									<c:when test="${ !empty reviewList }">
+									<c:set var="no" value="0" />
+									<c:forEach var="review" items="${ reviewList }">	
 									<tr>
-										<td><div class="review_no">1</div></td>
+										<td><div class="review_no">${ no = no + 1 }</div></td>
+										<td><div class="review_roomname">${ review.roomName }</div></td>
 										<!-- 리뷰 내용은 글자 50개 까지 노출 -->
-										<td><a href="#"><div class="review_content">사장님이 너무 친절하시고 숙소도 깔끔해요</div></a></td>
-										<td><div class="review_writer">jejulove</div></td>
+										<td><a href="#"><div class="review_content">${ review.review }</div></a></td>
+										<td><div class="review_date">${ review.reviewDate }</div></td>
+										<td><div class="review_writer">${ review.userId }</div></td>
 									</tr>
+									</c:forEach>
+									</c:when>
+									<c:otherwise>
+									<!-- 등록 된 후기 없을 경우 -->
 									<tr>
-										<td><div class="review_no">2</div></td>
-										<td><a href="#"><div class="review_content">제주바다가 창문으로 바로 보여요. 노을이 너무 예뻐요. 인생샷 건졌습니다.
-										</div></a></td>
-										<td><div class="review_writer">jejugood</div></td>
-									</tr>
+										<td colspan="5">
+											<div class="noData">
+												<p>등록된 후기가 없습니다.</p>
+											</div> 				
+										</td>
+									</tr>					
+									</c:otherwise>
+								</c:choose>	
 								</tbody>
 							</table>
 						</div>
-						<!-- 등록 된 후기 없을 경우 -->
-						<!-- <div class="noData">
-							<p>등록된 후기가 없습니다.</p>
-						</div> -->
 						
 						<!-- 페이징 -->
 						<div class="paging">

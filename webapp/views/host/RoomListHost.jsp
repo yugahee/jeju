@@ -50,12 +50,12 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th>NO</th>
-											<th>방사진</th>
-											<th>상태</th>
-											<th>숙소이름</th>
-											<th>숙소생성일</th>
-											<th>관리</th>
+											<th style="font-size: 1.2em;">No</th>
+											<th style="font-size: 1.2em;">방사진</th>
+											<th style="font-size: 1.2em;">상태</th>
+											<th style="font-size: 1.2em;">숙소이름</th>
+											<th style="font-size: 1.2em;">숙소생성일</th>
+											<th style="font-size: 1.2em;">관리</th>
 										</tr>
 									</thead>
 									<tbody>

@@ -1042,14 +1042,14 @@
      .hostmainTab { display: block; }
      /* 숙소 탭 */
      .roomtab img {
-     width: 100px;
-     height: 100px;
+     width: 200px;
+     height: 200px;
      margin: 30px 30px;
      }
      .main_roomlist{ display: inline-block; }
      .hostmainsub {
      /* border: 1px solid #cccccc; */
-     margin-top: 50px;
+     margin: 50px 0;
      font-size: 1.5em;
      }
      .hostmainsub li { width: 400px; }
@@ -1060,6 +1060,9 @@
 
      .reviewtbl { width : 850px; }
      .review_no { text-align: center; }
+     .review_roomname { text-align: center;}
+	 .review_date { text-align: center;}
+	 .review_writer { text-align: center;}
      .reviewtab_wrap { margin-bottom: 30px;}
 
      /* 숙소 등록 페이지 --------------------------------------------------------------------*/

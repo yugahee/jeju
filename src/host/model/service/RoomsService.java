@@ -9,6 +9,8 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.List;
 
+import common.model.vo.RoomReview;
+
 
 public class RoomsService {
 	private RoomsDao roomDao = new RoomsDao();
@@ -141,6 +143,8 @@ public class RoomsService {
 		
 		room.setFileList(fileList);
 		
+		close(conn);
+		
 		return room;
 	}
 
@@ -182,6 +186,7 @@ public class RoomsService {
 			rollback(conn);
 		}
 		
+		close(conn);
 		
 		return result;
 	}
@@ -197,7 +202,19 @@ public class RoomsService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
+	}
+
+	public List<RoomReview> selectRoomReview(String userId) {
+		Connection conn = getConnection();
+		
+		List<RoomReview> reviewList = roomDao.selectRoomReview(conn, userId);
+		
+		close(conn);
+		
+		return reviewList;
 	}
 
 
