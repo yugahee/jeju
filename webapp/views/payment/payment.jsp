@@ -94,8 +94,7 @@
 							</tr>	
 							<tr class="borderT total">
 								<th>총 결제금액</th>
-								<td>60,000원</td>
-								<input type="hidden" name="totalPrice" />
+								<td><span id="total_price">60,000</span>원</td>								
 							</tr>
 						</tbody>
 					</table>
@@ -130,8 +129,9 @@
 					</li>
 				</ul>
 			</div><!-- sec04 ENDs-->
-			<button type="button" class="btn btnType1 btnSizeL payment_submit" onclick="location.href='payment_result.html'"><span>결제하기</span></button>
+			<button type="button" class="btn btnType1 btnSizeL payment_submit" onclick=""><span>결제하기</span></button>
 		</div>
+		<input type="hidden" name="totalPrice" />
 	</from>
 </div>
 <%@include file="/views/common/footer.jsp" %>
