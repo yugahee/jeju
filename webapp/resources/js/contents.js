@@ -136,13 +136,6 @@ function newPwd(){
 
 
 $(document).ready(function(){
-    /* 가희님 */
-    /* 결제 포인트 */
-    $('#pointChk').click(function(){
-        if($(this).prop("checked",true)){
-            alert('dd');
-        }
-    });
     /* 지희님 */
     /* 하트 체크 */
     $(function(){
