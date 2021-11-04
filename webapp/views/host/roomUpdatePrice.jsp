@@ -9,21 +9,21 @@
 			<br>
 			<nav class="sub_menu_roomenroll">
 				<a href="${ contextPath }/host/roomUpdateView" class="roommenu">
-					<span class="menu-left">기본설정</span>
-					<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					<span class="menu-left left2">기본설정</span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 				</a>
 				<a href="${ contextPath }/host/roomUpdate1?roomno=${ room.roomNo }" class="roommenu">
-					<span class="menu-left" style="color:#ff8b33">예약/요금 설정</span>
-					<span class="menu-right"><img src="../resources/images/host/complete_check.png"></span>
+					<span class="menu-left left2">예약/요금 설정</span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 				</a>					
 				<a href="${ contextPath }/host/roomUpdate2?roomno=${ room.roomNo }" class="roommenu">
-					<span class="menu-left">위치/사진/동영상</span>
-					<span class="menu-right"><img src="../resources/images/host/incomplete_check.png"></span>
+					<span class="menu-left left2">위치/사진/동영상</span>
+					<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 				</a>
 	        </nav>
 			<br>
 	        <a href="#" class="roommenu_cal">
-				<span class="menu-left-cal"><img src="../resources/images/common/ico_cal.png"></span>
+				<span class="menu-left-cal"><img src="${ contextPath }/resources/images/common/ico_cal.png"></span>
 				<span class="menu-right-cal">달력관리</span>
 			</a>
 			<br> 
@@ -296,13 +296,15 @@
 	                        		<div class="roomenroll_peakopt">
 	                            		<p>시작일</p>
 	                        		</div>
-	                        		<input type="date" id="peakstart" name="peakstart" class="peakdate">
+	                        		<input type="date" id="peakstart" name="peakstart" class="peakdate" 
+	                        		<c:if test="${ !empty room.peak.peakStart }">value="${ room.peak.peakStart }"</c:if>>
 	                    		</div>
 	                    		<div class="roomenroll_content_list">
 	                        		<div class="roomenroll_peakopt">
 	                          	  		<p>종료일</p>
 	                        		</div>
-	                        		<input type="date" id="peakend" name="peakend"  class="peakdate">
+	                        		<input type="date" id="peakend" name="peakend"  class="peakdate"
+	                        		<c:if test="${ !empty room.peak.peakEnd }">value="${ room.peak.peakEnd }"</c:if>>
 	                    		</div>
 	                		</div>
 	  						<div class="roomenroll_content_opt2">
@@ -311,7 +313,8 @@
 	                            		<p>숙박 금액(1박 기준)</p>
 	                       			 </div>
 	                       			 <div class="inp_text roomenroll_inp2 roomenroll_opt">
-	                            		<input type="text" name="peakprice" id="peakprice">
+	                            		<input type="text" name="peakprice" id="peakprice"
+	                            		<c:if test="${ !empty room.peak.peakPrice }">value="${ room.peak.peakPrice }"</c:if>>
 	                       			 </div>
 	                      		 	  원
 	                   			 </div>
@@ -331,23 +334,6 @@
 		</div>
 	</div>
 
-        
-	<!-- 숙소등록 버튼 클릭시 레이아웃 : 완료되지 않은 경우 -->
-	<div id="roomenrollbtn" class="layerPop">
-		<div class="layerTit roomenroll_msg">
-			<img src="../resources/images/host/error_icon.png" width="120px" height="120px">
-		</div>
-	    <div class="layerBody">
-	        <div class="roomenroll_msg">
-	        	<p>설정이 완료되지 않았습니다.</p>
-	            <p>설정을 모두 완료해 주세요.</p>
-	            <div class="btn_wrap roomenroll_content_opt ">
-	            	<a href="#" class="btn btnType1 btnSizeS" onclick="hideLayer('roomenrollbtn');"><span>확인</span></a>   
-	            </div>	
-	        </div>
-	    </div>
-	</div>
-        
     <script>
     
 	    const peaktb = document.querySelector(".peaktb_add");  // 성수기 테이블 div

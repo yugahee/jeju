@@ -287,4 +287,202 @@ public class RoomsDao {
 		return peak;
 	}
 
+	public int updateRoomPrice(Connection conn, Rooms room) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("updateRoomPrice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, room.getMinStay());
+			pstmt.setInt(2, room.getMaxStay());
+			pstmt.setInt(3, room.getMinPeople());
+			pstmt.setInt(4, room.getMaxPeople());
+			pstmt.setInt(5, room.getPrice());
+			pstmt.setInt(6, room.getExtraCost());
+			pstmt.setInt(7, room.getRoomNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePeakSeason(Connection conn, PeakSeason peak) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("updatePeakSeason");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setDate(1, peak.getPeakStart());
+			pstmt.setDate(2, peak.getPeakEnd());
+			pstmt.setInt(3, peak.getPeakPrice());
+			pstmt.setInt(4, peak.getRoomNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Rooms selectRoomPhoto(Connection conn, int roomNo) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		Rooms room = null;
+		String sql = roomsQuery.getProperty("selectRoomPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				room = new Rooms();
+				room.setRoomNo(rset.getInt("room_no"));
+				room.setLocation(rset.getString("location"));
+				room.setAddress(rset.getString("address"));
+				room.setRoomLink(rset.getString("room_link"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return room;
+	}
+
+	public List<Files> selectFiles(Connection conn, int roomNo) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		List<Files> fileList = new ArrayList<>();
+		String sql = roomsQuery.getProperty("selectFiles");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Files file = new Files();
+				file.setRoomNo(rset.getInt("room_no"));
+				file.setChangeName(rset.getString("change_name"));
+				file.setFilePath(rset.getString("file_path"));
+				file.setFileLevel(rset.getInt("file_level"));
+				
+				fileList.add(file);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return fileList;
+	}
+
+	public int updateRoomPhoto(Connection conn, Rooms rooms) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("updateRoomPhoto");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rooms.getLocation());
+			pstmt.setString(2, rooms.getAddress());
+			pstmt.setString(3, rooms.getRoomLink());
+			pstmt.setInt(4, rooms.getRoomNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateFile(Connection conn, Files file) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("updateFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getChangeName());
+			pstmt.setString(2, file.getDeletedName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAddedFile(Connection conn, int roomNo, Files file) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("insertAddedFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, file.getChangeName());
+			pstmt.setInt(2, roomNo);
+			pstmt.setString(3, file.getFilePath());
+			pstmt.setInt(4, file.getFileLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	
+		return result;
+	}
+
+	public int deleteRoom(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("deleteRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+			
+		return result;
+	}
+
 }

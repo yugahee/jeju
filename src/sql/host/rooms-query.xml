@@ -60,7 +60,7 @@
 			 , ?
 			 , ?
 			 , ?
-			 , 'Y'
+			 , DEFAULT
 			 , ?
 			 , ?	 	
 		)
@@ -84,7 +84,7 @@
 			 , SEQ_ROOMNO.CURRVAL   <!-- 현재 전달된 서비스 메소드에서 ROOMS 인서트할때의 ROOMNO값 불러오기 (같은 conn 사용하니까)-->
 			 , ?
 			 , ?
-			 , 'Y'
+			 , DEFAULT
 		)
 	</entry>
 	
@@ -183,5 +183,97 @@
 		  FROM PEAKSEASON
 		 WHERE ROOM_NO = ?	
 	</entry>
+	
+	<entry key="updateRoomPrice">
+		UPDATE
+		 	   ROOMS
+		   SET MIN_STAY = ?
+		     , MAX_STAY = ?
+		     , MIN_PEOPLE = ?
+		     , MAX_PEOPLE = ?
+		     , PRICE = ?
+		     , EXTRA_COST = ?
+		     , MODIFY_DATE = SYSDATE
+	     WHERE ROOM_NO = ?       	
+	</entry>
+	
+	<entry key="updatePeakSeason">
+		UPDATE
+			   PEAKSEASON
+		   SET PEAK_START = ?
+		     , PEAK_END = ?
+		     , PEAK_PRICE = ?
+		 WHERE ROOM_NO = ?    	
+	</entry>
+	
+	<entry key="selectRoomPhoto">
+		SELECT
+			   ROOM_NO
+		     , LOCATION
+		     , ADDRESS
+		     , ROOM_LINK
+		  FROM ROOMS
+		 WHERE ROOM_NO = ?	
+	</entry>
 
+	<entry key="selectFiles">
+		SELECT
+			   ROOM_NO
+		     , CHANGE_NAME
+		     , FILE_PATH
+		     , FILE_LEVEL
+		  FROM FILES
+		 WHERE ROOM_NO = ?	
+	</entry>
+	
+	<entry key="updateRoomPhoto">
+		UPDATE
+		       ROOMS
+		   SET LOCATION = ?
+		     , ADDRESS = ?
+		     , ROOM_LINK = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE ROOM_NO = ?	
+	</entry>
+	
+	<entry key="updateFile">
+		UPDATE
+			   FILES
+		   SET CHANGE_NAME = ?
+		 WHERE CHANGE_NAME = ?	     
+	</entry>
+	
+	<entry key="insertAddedFile">
+		INSERT
+		  INTO FILES
+		(    
+			   FILE_NO
+			 , CHANGE_NAME
+			 , ROOM_NO
+			 , FILE_PATH
+			 , FILE_LEVEL
+			 , STATUS   
+		)
+		VALUES
+		(
+			   SEQ_FILENO.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , ?
+			 , DEFAULT
+		)
+	</entry>
+	
+	<entry key="deleteRoom">
+		UPDATE
+			   ROOMS
+		   SET STATUS = 'N'
+		 WHERE ROOM_NO = ?
+	</entry>
+	
 </properties>
+
+
+
+

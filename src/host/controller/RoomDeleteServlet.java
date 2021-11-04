@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import host.model.service.RoomsService;
+
 /**
  * Servlet implementation class RoomDeleteServlet
  */
@@ -26,7 +28,18 @@ public class RoomDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int roomNo = Integer.parseInt(request.getParameter("roomno"));
 		
+		int result = new RoomsService().deleteRoom(roomNo);
+		// System.out.println(result);
+		
+		if(result > 0) {			
+			response.sendRedirect(request.getContextPath() + "/host/roomlist");
+			
+		} else {
+			request.setAttribute("message", "해당 숙소 삭제에 실패하였습니다.");
+			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+		}
 	}
 
 	/**
