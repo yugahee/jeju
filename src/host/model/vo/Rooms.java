@@ -3,6 +3,8 @@ package host.model.vo;
 import java.util.Date;
 import java.util.List;
 
+import common.model.vo.RoomReview;
+
 public class Rooms {
 	private int roomNo;
 	private String userId;        // 호스트아이디
@@ -37,6 +39,8 @@ public class Rooms {
 	private List<Files> fileList;    // 파일 리스트
 	private double star; //숙소리뷰테이블의 별점 
 	
+	private List<RoomReview> reviewList;   // 숙소리뷰 리스트
+	
 	/*ROOM_NO	NUMBER
 USER_ID	VARCHAR2(20 BYTE)
 ADDRESS	VARCHAR2(100 BYTE)
@@ -70,7 +74,8 @@ STATUS	VARCHAR2(1 BYTE)*/
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status, PeakSeason peak, List<Files> fileList, int star) {
+			String roomLink, String status, PeakSeason peak, List<Files> fileList, double star,
+			List<RoomReview> reviewList) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -103,11 +108,8 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.peak = peak;
 		this.fileList = fileList;
 		this.star = star;
+		this.reviewList = reviewList;
 	}
-
-
-
-
 
 
 	public int getRoomNo() {
@@ -363,7 +365,15 @@ STATUS	VARCHAR2(1 BYTE)*/
 	public void setStar(double star) {
 		this.star = star;
 	}
+	
 
+	public List<RoomReview> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(List<RoomReview> reviewList) {
+		this.reviewList = reviewList;
+	}
 
 	@Override
 	public String toString() {
@@ -375,12 +385,8 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
 				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
-				+ fileList + ", star=" + star + "]";
+				+ fileList + ", star=" + star + ", reviewList=" + reviewList + "]";
 	}
-
-
-	
-
 
 	
 
