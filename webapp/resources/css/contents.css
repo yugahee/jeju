@@ -539,6 +539,11 @@
 
  /* 온화님 : S */
      /* 숙소 예약 */
+     .nextButton{
+     color: orange;
+     }
+     
+     
      .lodging_reserve .container{
      width: 1000px;
      }

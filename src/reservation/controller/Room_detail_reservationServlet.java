@@ -38,7 +38,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 		
 		List<RoomReview> roomReviewList = new ReservationService().selectRoomReview(roomNo);
 		
-		System.out.println(roomReviewList);
+		//System.out.println(roomReviewList);
 		
 		if(room != null && roomReviewList != null) {
 	         request.setAttribute("room", room);

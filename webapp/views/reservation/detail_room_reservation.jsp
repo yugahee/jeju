@@ -30,8 +30,8 @@
 						</div>
 						
 						<!-- If we need navigation buttons -->
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-button-next"></div>					
+						<div class="swiper-button-prev nextButton"></div>
+						<div class="swiper-button-next nextButton"></div>					
 					</div>
 					<script>
 						const swiper = new Swiper('.swiper', {
