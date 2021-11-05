@@ -118,7 +118,10 @@ public class RoomUpdate3Servlet extends HttpServlet {
 				}
 			}
 			// System.out.println("성공");
-			response.sendRedirect(request.getContextPath() + "/host/roomlist");
+			//response.sendRedirect(request.getContextPath() + "/host/roomlist");
+			request.setAttribute("rooms", rooms);
+			request.getSession().setAttribute("message", "변경된 내용이 저장되었습니다.");
+			request.getRequestDispatcher("/views/host/roomUpdatePhoto.jsp").forward(request, response);
 			
 		} else {
 			// 수정 실패 시 수정을 위해 새로 첨부 된 사진 삭제하기

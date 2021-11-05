@@ -18,31 +18,67 @@
                     </div>
 					<div class="tabType1 al_c hostmainsub">
 						<ul>
-							<li class="on roomli"><a>숙소</a></li>
-							<li class="reviewli"><a>게스트 후기</a></li>
+							<li class="on reviewli"><a>게스트 후기</a></li>
+							<li class="roomli"><a>숙소</a></li>
 						</ul>
 					</div>
 					<div class="hostpagetab roomtab">
-					<c:choose>
-						<c:when test="${ !empty roomList }">
-						<!-- 숙소 리스트 있는 경우 -->
-						<ul>
-						<c:forEach var="room" items="${ roomList }">
-						<li class="main_roomlist">     <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
-							<a href="#"><img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
-							<h3>${ room.roomName }</h3>
-						</li>
-						</c:forEach>
-						</ul> 
-						</c:when>
-						<c:otherwise>
-						<!-- 숙소 리스트 없는 경우 -->
-						<div class="noData">
-							<p>등록된 숙소가 없습니다.</p>
-							<a href="${ contextPath }/host/roomenrollbasic" class="subtxt"><u>숙소를 간편하게 바로 등록해보세요!</u></a>
-						</div> 
-						</c:otherwise>
-					</c:choose>
+						<c:choose>
+							<c:when test="${ !empty roomList }">
+							<!-- 숙소 리스트 있는 경우 -->
+							<ul class="roomli_box">
+							<c:forEach var="room" items="${ roomList }">
+							<li class="main_roomlist">     <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
+								<a href="#"><img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
+								<h3>${ room.roomName }</h3>
+							</li>
+							</c:forEach>
+							</ul> 
+							</c:when>
+							<c:otherwise>
+							<!-- 숙소 리스트 없는 경우 -->
+							<div class="noData">
+								<p>등록된 숙소가 없습니다.</p>
+								<a href="${ contextPath }/host/roomenrollbasic" class="subtxt"><u>숙소를 간편하게 바로 등록해보세요!</u></a>
+							</div> 
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 페이징 -->
+<%-- 						<div class="paging">   
+							<span class="first"><a href="${ contextPath }/host/mypage?page=1"><span class="blind">첫페이지</span></a></span>
+							<c:choose>
+								<c:when test="${ pi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/host/mypage?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:choose>
+								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ p }</span>	
+								</c:when>
+								<c:otherwise>
+								<a href="${ contextPath }/host/mypage?page=${ p }">${ p }</a>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${ pi.page < pi.maxPage }">
+								<span class="next"><a href="${ contextPath }/host/mypage?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="last"><a href="${ contextPath }/host/mypage?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							
+						</div>  --%>
 					</div>
 					<!-- 게스트 후기 탭 클릭 시 -->
 					<div class="hostpagetab reviewtab">
@@ -67,7 +103,7 @@
 								<tbody>
 								<c:choose>
 									<c:when test="${ !empty reviewList }">
-									<c:set var="no" value="0" />
+									<c:set var="no" value="${ (reviewPi.page - 1) * reviewPi.boardLimit }" />
 									<c:forEach var="review" items="${ reviewList }">	
 									<tr>
 										<td><div class="review_no">${ no = no + 1 }</div></td>
@@ -96,15 +132,37 @@
 						
 						<!-- 페이징 -->
 						<div class="paging">
-							<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-							<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-							<span class="current">1</span>
-							<a href="#">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
-							<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-							<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+							<span class="first"><a href="${ contextPath }/host/mypage?page=1"><span class="blind">첫페이지</span></a></span>
+							<c:choose>
+								<c:when test="${ reviewPi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/host/mypage?page=${ reviewPi.page - 1 }"><span class="blind">이전페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>	
+							
+							<c:forEach var="r" begin="${ reviewPi.startPage }" end="${ reviewPi.endPage }">
+							<c:choose>
+								<c:when test="${ r eq reviewPi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ r }</span>
+								</c:when>
+								<c:otherwise>
+								<a href="${ contextPath }/host/mypage?page=${ r }">${ r }</a>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${ reviewPi.page < reviewPi.maxPage }">
+								<span class="next"><a href="${ contextPath }/host/mypage?page=${ reviewPi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="last"><a href="${ contextPath }/host/mypage?page=${ reviewPi.maxPage }"><span class="blind">마지막페이지</span></a></span>
 						</div>
 
 					</div>
