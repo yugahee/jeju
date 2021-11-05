@@ -35,11 +35,11 @@ public class AdminService{
 		
 		return returnMap;
 	}
-/*
+
 	public Map<String, Object> selectUserList(int page, int chkval, Search search) {
 		Connection conn = getConnection();
 		
-		int listCount = adminDao.getListCount(conn, search);
+		int listCount = adminDao.getUserListCount(conn, search);
 		PageInfo pi = new PageInfo(page, listCount, 5, chkval);
 		
 		List<Member> MemberList = adminDao.selectList(conn, pi, search);
@@ -54,7 +54,7 @@ public class AdminService{
 		
 		return returnMap;
 	}
-*/
+	
 	public Member selectMemberDetail(String userId) {
 		Connection conn = getConnection();
 		
@@ -129,5 +129,18 @@ public class AdminService{
 		close(conn);
 		
 		return returnMap;
+	}
+
+	public Rooms selectRoomDetail(int roomNo) {
+		Connection conn = getConnection();
+		
+		Rooms room = adminDao.selectRoomDetail(conn, roomNo);		
+		close(conn);
+		
+		return room;
+	}
+
+	public int modifyRoom(Rooms room, String rVal, String statusVal) {
+		return 0;
 	}
 }

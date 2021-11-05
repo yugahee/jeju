@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import common.model.vo.RoomReview;
+
 import static common.JDBCTemplate.*;
 
 import host.model.vo.Files;
@@ -125,8 +128,6 @@ public class ReservationDao {
 		return room;
 	}	
 	
-	
-	
 
 	public List<Reservation> userReservation(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
@@ -199,6 +200,36 @@ public class ReservationDao {
 		
 		
 		return result;
+	}
+
+	public List<RoomReview> selectRoomReview(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<RoomReview> roomReviewList = new ArrayList<>();
+		String sql =  roomQuery.getProperty("selectRoomReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				RoomReview roomReview = new RoomReview();
+				roomReview.setStar(rset.getInt("star"));
+				roomReview.setReview(rset.getString("review"));
+				roomReview.setReviewDate(rset.getDate("review_date"));
+				roomReview.setUserName(rset.getString("user_name"));
+				
+				roomReviewList.add(roomReview);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return roomReviewList;
 	}
 
 

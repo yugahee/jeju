@@ -70,27 +70,66 @@ public class RoomUpdate2Servelt extends HttpServlet {
 		room.setPrice(price);
 		room.setExtraCost(extraCost);
 		
-		// 성수기 입력사항 있는 경우
-		if(!request.getParameter("peakstart").equals("") && !request.getParameter("peakend").equals("") 
-				&& !request.getParameter("peakprice").equals("")) {
-					
-			PeakSeason peak = new PeakSeason();
-
-			// String으로 넘어온 값을 Date 타입으로 변환
-			Date peakStart = Date.valueOf(request.getParameter("peakstart")); 
-			Date peakEnd = Date.valueOf(request.getParameter("peakend"));
-				
-			peak.setPeakStart(peakStart);   
-			peak.setPeakEnd(peakEnd);
-	
-			peak.setPeakPrice(Integer.parseInt(request.getParameter("peakprice")));
-			peak.setRoomNo(roomNo);
+		// 성수기 - 기존데이터 있는경우 : 수정(update), 기존데이터 없었는데 넘어온 값 있다면 : 추가(insert)
+		if(!request.getParameter("originpeakstart").equals("") && !request.getParameter("originpeakend").equals("") 
+				&& !request.getParameter("originpeakprice").equals("")) {
 			
-			room.setPeak(peak);
-		}		
+			// 기존데이터 있으면서 변경할 값 있는 경우
+			if(!request.getParameter("peakstart").equals("") && !request.getParameter("peakend").equals("") 
+					&& !request.getParameter("peakprice").equals("")) {
+				
+				PeakSeason peak = new PeakSeason();
+				
+				// String으로 넘어온 값을 Date 타입으로 변환
+				Date peakStart = Date.valueOf(request.getParameter("peakstart")); 
+				Date peakEnd = Date.valueOf(request.getParameter("peakend"));
+				
+				peak.setPeakStart(peakStart);   
+				peak.setPeakEnd(peakEnd);
+				
+				peak.setPeakPrice(Integer.parseInt(request.getParameter("peakprice")));
+				peak.setRoomNo(roomNo);
+				
+				room.setPeak(peak);
+				
+			} else {
+				// 기존데이터 있으면서 변경할 값 비어있는 경우 : 삭제
+				int deletePeak = new RoomsService().deletePeak(roomNo);
+				
+				if(deletePeak == 0) {
+					request.setAttribute("message", "성수기 내용 삭제에 실패하였습니다.");
+					request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+				}
+			}
+			
+		} else {
+			// 기존데이터 없는데 추가하는 경우
+			if(!request.getParameter("peakstart").equals("") && !request.getParameter("peakend").equals("") 
+					&& !request.getParameter("peakprice").equals("")) {
+				
+				PeakSeason peak = new PeakSeason();
+				
+				// String으로 넘어온 값을 Date 타입으로 변환
+				Date peakStart = Date.valueOf(request.getParameter("peakstart")); 
+				Date peakEnd = Date.valueOf(request.getParameter("peakend"));
+				
+				peak.setPeakStart(peakStart);   
+				peak.setPeakEnd(peakEnd);
+				
+				peak.setPeakPrice(Integer.parseInt(request.getParameter("peakprice")));
+				peak.setRoomNo(roomNo);
+				
+				int result = new RoomsService().insertPeak(peak);
+				
+				if(result == 0) {
+					request.setAttribute("message", "성수기 내용 추가에 실패하였습니다.");
+					request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+				}
+			} 
+		}
+
 		
 		int result = new RoomsService().updateRoomPrice(room);
-		// System.out.println(result);
 		
 		if(result > 0) {
 			Rooms rooms = new RoomsService().selectRoomPhoto(roomNo);

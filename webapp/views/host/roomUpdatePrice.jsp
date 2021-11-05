@@ -8,7 +8,7 @@
 			<p>숙소설정</p>
 			<br>
 			<nav class="sub_menu_roomenroll">
-				<a href="${ contextPath }/host/roomUpdateView" class="roommenu">
+				<a href="${ contextPath }/host/roomUpdateView?roomno=${ room.roomNo }" class="roommenu">
 					<span class="menu-left left2">기본설정</span>
 					<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 				</a>
@@ -34,7 +34,12 @@
 			<div class="roomenroll_basic">
 				<!-- ** 요금설정 ** -->
 				<form method="post" action="${ contextPath }/host/roomUpdate2">
-				<input type="hidden" name="roomno" value="${ room.roomNo }"> 							
+				<input type="hidden" name="roomno" value="${ room.roomNo }"> 	
+				<!-- 수정 전의  성수기 값 넘기기 (비교하기 위해서) -->
+				<input type="hidden" name="originpeakstart" value="${ room.peak.peakStart }">
+				<input type="hidden" name="originpeakend" value="${ room.peak.peakEnd }">
+				<input type="hidden" name="originpeakprice" value="${ room.peak.peakPrice }">
+										
 					<div class="roomenroll_title_main">
 						<h2>요금설정</h2><span>숙박요금을 설정하세요.</span>
 					</div>
@@ -280,7 +285,7 @@
 	                </div>    
 	                <br>
 					<div class="btn_wrap roomregistbtn2"> 
-						<button class="btn btnType1 btnSizeS" id="submitbtn"><span>등록</span></button>   
+						<button class="btn btnType1 btnSizeS" id="submitbtn"><span>저장</span></button>   
 					</div>	
 					
 	      			<!-- 레이어 팝업 roomenrollbtn.	  showLayer('레이어 아이디명') / hideLayer('레이어 아이디명')

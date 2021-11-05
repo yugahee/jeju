@@ -150,13 +150,23 @@ scope="application"/>
 						<tbody>
 							<c:forEach var="room" items="${ RoomList }">
 							<tr onclick="showLayer('roomsPop'); userdata(this);">
-								<td style="display:none;"><input type="hidden" value="${room.user_id}"></td>
+								<td style="display:none;"><input type="hidden" value="${room.roomNo}"></td>
 								<td>${ room.roomNo }</td>
-								<td>${ room.user_id }</td>
+								<td>${ room.userId }</td>
 								<td>${ room.roomName }</td>
 								<td>${ room.star }</td>
 								<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy.MM.dd" /></td>
-								<td><fmt:formatDate value="${ room.enrollDate }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td>
+									<!-- enrollDate 값이 없을 경우 - 표기 -->
+									<c:choose>
+										<c:when test="${null ne room.enrollDate}">
+											<fmt:formatDate value="${ room.enrollDate }" type="both" pattern="yyyy.MM.dd" />
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td>${ room.enrollStatus }</td>
 								<td>${ room.status }</td>
 							</tr>
@@ -233,57 +243,34 @@ scope="application"/>
 					</colgroup>
 					<tbody>
 						<tr>
+							<th>숙소번호</th>
+							<td id="rno"></td>
+						</tr>
+						<tr>
 							<th>숙소명</th>
-							<td>어서와요 제주의 방 어서와요 제주의 방</td>
+							<td id="rname"></td>
 						</tr>
 						<tr>
 							<th>호스트 ID</th>
-							<td>hosthost</td>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<td>호스트맨</td>
+							<td id="rid"></td>
 						</tr>
 						<tr>
 							<th>숙소 정보</th>
-							<td>숙소종류 숙소시설 가격 기준인원 최대인원 입실시간 퇴실시간 승인날짜 상태 호스트 방 개수 침대 수 욕실 수 건물유형 건물평수 최소숙박일수 최대숙박일수</td>
-						</tr>
-						<tr>
-							<th>입금 정보</th>
-							<td>입금자명 은행명 계좌번호</td>
+							<td id="rinfo"></td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">미완성</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">대기</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">반려/중지</label>
-										</li>
-										<li>
-											<input type="radio" value="" class="option" id="sel1_4" name="select1" />
-											<label for="sel1_4">등록</label>
-										</li>
-									</ul>
+								<div id="mstatus" class="selectbox">									
 								</div>
 							</td>
 						</tr>
 						<!-- 반려/중지 선택 시 -->
-						<tr>
+						<tr class="chatTr">
 							<th>반려/중지<br>이유</th>
 							<td>
                                 <div class="textbox">
-                                    <textarea class="chatArea">안녕하세요. 해당 숙소는 반려되었습니다. 사유는 다음과 같습니다.</textarea>
+                                    <textarea class="chatArea" placeholder="반려이유를 써주세요."></textarea>
                                     <span class="charCnt"><em class="update">0</em>/200</span>
                                 </div>
                             </td>
@@ -298,13 +285,88 @@ scope="application"/>
 		</div> 
 	</div>
 	
-    <script>
+    <script>	
+		function userdata(elem){		
+			let roomNo = $(elem).find('input').val();	
+			console.log(roomNo);
+			$.ajax({
+				url : "${contextPath}/admin/roomDetail",
+				data : {roomNo : roomNo},
+				dataType : "json",
+				type : "get",
+				success : function(room){			
+					var html = '';						
+					var html2 = '';
+					if(room){
+						$(".chatTr").hide();
+						$("#rno").text(room.roomNo);
+						$("#rname").text(room.roomName);
+						$("#rid").text(room.userId);
+						$("#rinfo").text(html);
+						html2 = '주소 : ' + room.address + '</br>';
+						html2+= '타입 :' + room.buildingType + '</br>';
+						html2+= '평수 :' + room.roomSize + '</br>'; 
+						$("#rinfo").append(html2);
+						if(room.enrollStatus == '승인대기'){										
+							html = '<button class="title" type="button" title="상태">승인대기</button>'
+								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인대기">'
+								+ '<ul class="selList">'
+								+ '<li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1" checked="checked"/><label for="sel1_1">승인대기</label></li>'
+								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
+								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
+						}else if(room.enrollStatus == '승인반려'){
+							$(".chatTr").show();
+							html = '<button class="title" type="button" title="상태">승인반려</button>'
+								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인반려">'
+								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1"/><label for="sel1_1">승인대기</label></li>'
+								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">승인반려</label></li>'
+								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
+						}else if(room.enrollStatus == '등록완료'){
+							html = '<button class="title" type="button" title="상태">등록완료</button>'
+								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="등록완료">'
+								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">승인대기</label></li>'
+								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
+								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1" checked="checked"/><label for="sel1_3">등록완료</label></li></ul>';
+						}	
+						$("#mstatus").html(html);
+					}else{
+					}			
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		}
+		
+		function commitData(){
+			let statusVal = $('.statusVal').val();
+			let rVal = $('#rno').text();
+			$.ajax({
+				url : "${contextPath}/admin/roomDetailModify",
+				data : {statusVal : statusVal, rVal : rVal},
+				//dataType : "json",
+				type : "post",
+				success : function(member){	
+					alert('상태 수정 완료');
+					location.reload();
+				},
+				error : function(e){
+					alert('상태 수정 실패');
+				}
+			});
+		}
+    
+		// textarea 글자 수
     	let content = document.querySelector(".chatArea");
         content.onkeyup = function(){
             let area1 = document.querySelector(".update ");
             let val = content.value.length;
-            console.log(val);
             area1.innerHTML = val;
+           	if(val > 200){
+           		area1.style.color = 'red';
+           	}else{
+           		area1.style.color = '#222';
+           	}
         };
     </script>
 </body>

@@ -2,6 +2,9 @@ package reservation.model.service;
 
 import java.sql.Connection;
 import java.util.List;
+
+import common.model.vo.RoomReview;
+
 import static common.JDBCTemplate.*;
 
 import host.model.vo.PeakSeason;
@@ -72,6 +75,18 @@ public class ReservationService {
 		}
 		
 		return result;
+	}
+
+
+	// 숙소 예약 화면(디테일 뷰) 리뷰 조회 
+	public List<RoomReview> selectRoomReview(int roomNo) {
+		Connection conn = getConnection();
+		
+		List<RoomReview> roomReviewList = reservationDao.selectRoomReview(conn, roomNo);
+		
+		close(conn);
+		
+		return roomReviewList;
 	}
 
 

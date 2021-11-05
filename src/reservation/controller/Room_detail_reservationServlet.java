@@ -1,12 +1,15 @@
 package reservation.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import reservation.model.service.ReservationService;
 
@@ -32,14 +35,21 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		Rooms room = new ReservationService().detailSelectRoom(roomNo);
-
-		if(room != null) {
+		
+		List<RoomReview> roomReviewList = new ReservationService().selectRoomReview(roomNo);
+		
+		System.out.println(roomReviewList);
+		
+		if(room != null && roomReviewList != null) {
 	         request.setAttribute("room", room);
-	 		 request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
+	 		 request.setAttribute("roomReviewList", roomReviewList );
+	         request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
 	      } else {
 	         request.setAttribute("message", "숙소 예약 페이지 상세보기에 실패하였습니다.");
 	         request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
 	      }
+		
+		
 			
 	}
 

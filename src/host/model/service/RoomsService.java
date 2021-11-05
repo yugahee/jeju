@@ -7,8 +7,11 @@ import host.model.vo.Rooms;
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import admin.model.vo.PageInfo;
 import common.model.vo.RoomReview;
 
 
@@ -60,6 +63,7 @@ public class RoomsService {
 		
 		return roomList;
 	}
+	
 
 	public Rooms selectRoomBasic(int roomNo) {
 		Connection conn = getConnection();
@@ -108,11 +112,13 @@ public class RoomsService {
 		
 		/* Rooms 테이블에 업데이트 */
 		int roomResult = roomDao.updateRoomPrice(conn, room);
+		// System.out.println("roomResult : " + roomResult);
 		
 		/* PeakSeason 테이블에 업데이트 : 성수기 설정되어 있는 경우 */
 		int psResult = 1;
 		if(room.getPeak() != null) {
 			int peakResult = roomDao.updatePeakSeason(conn, room.getPeak());
+			System.out.println("peakResult : " + peakResult);
 			
 			if(peakResult > 0) {    // 쿼리문 제대로 작동했을 경우
 				psResult = 2;
@@ -215,6 +221,63 @@ public class RoomsService {
 		close(conn);
 		
 		return reviewList;
+	}
+
+	// 숙소목록 페이징처리
+	public Map<String, Object> selectRoomList(int page, String userId) {
+		Connection conn = getConnection();
+		
+		/* 호스트의 숙소 전체 갯수 조회 */
+		int listCount = roomDao.getListCount(conn, userId);
+		// System.out.println(listCount);
+		
+		/* pageInfo 객체 생성 => 3 : 하단에 보여질 페이지 목록 수, 5 : 한 페이지에 보여질 게시글 최대  */
+		PageInfo pi = new PageInfo(page, listCount, 3, 5);   
+		
+		/* 페이징 처리 된 게시글 목록 조회 */
+		List<Rooms> roomList = roomDao.selectList(conn, pi, userId);
+		// System.out.println(pi);
+		// System.out.println(roomList);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("pi", pi);
+		map.put("roomList", roomList);
+		
+		close(conn);
+		
+		return map;
+	}
+
+	public int deletePeak(int roomNo) {
+		Connection conn = getConnection();
+		
+		int result = roomDao.deletePeak(conn, roomNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertPeak(PeakSeason peak) {
+		Connection conn = getConnection();
+		
+		int result = roomDao.insertAddPeak(conn, peak);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 

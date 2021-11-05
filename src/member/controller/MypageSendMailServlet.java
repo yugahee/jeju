@@ -43,14 +43,14 @@ public class MypageSendMailServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* 입력받은 메일 주소로 인증번호 보내는 서블릿 */
+		/* 입력받은 메일 주소로 인증코드 보내는 서블릿 */
 		
 		// mail server 설정
 		String host = "smtp.gmail.com";			// 메일에서 설정 한 smtp 서버명
 		String user = "jejukim00@gmail.com";	// gmail 아이디
 		String password = "jejurado@@";			// 비밀번호
 		
-		String to_email = request.getParameter("newMail"); 	// 메일 받을 주소 = 페이지에서 입력받은 새로운 메일 주소
+		String to_email = request.getParameter("newMail"); 	// 메일 받을 주소 = 페이지에서 입력받은 메일 주소
 	
 		// SMTP 서버 정보 설정
 		Properties props = new Properties();
@@ -83,32 +83,34 @@ public class MypageSendMailServlet extends HttpServlet {
 		 // ajax 결과로 보내줄 출력문 작성을 위해 out 정의해둠
 		 PrintWriter out = response.getWriter();
 		 
-		 // 인증 메일 전송
-		 try {
-			MimeMessage msg = new MimeMessage(session);
-			// 메일 발신자 이름
-			msg.setFrom(new InternetAddress(user, "제주라도 넘어갈까"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
-			// 메일 제목
-			msg.setSubject("'제주라도 넘어갈까' 인증 메일입니다.");
-			// 메일 내용
-			msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 인증 코드는 [ " + temp + " ] 입니다. \n 해당 코드를 인증 코드 확인 란에 정확히 기입해주세요.");
+		 // 입력한 메일 주소가 String user와 일치하면 메일 보내기
+		 if(to_email.equals(user)) {
+			 // 인증 메일 전송
+			 try {
+				 MimeMessage msg = new MimeMessage(session);
+				 // 메일 발신자 이름
+				 msg.setFrom(new InternetAddress(user, "제주라도 넘어갈까"));
+				 msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+				 // 메일 제목
+				 msg.setSubject("'제주라도 넘어갈까' 인증 메일입니다.");
+				 // 메일 내용
+				 msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 인증 코드는 [ " + temp + " ] 입니다. \n 해당 코드를 인증 코드 확인 란에 정확히 기입해주세요.");
 			
-			Transport.send(msg);
+				 Transport.send(msg);
 		
-		if(to_email.equals(user)) {
-			// 메일 전송이 완료되면 + 수신, 발신자 이메일이 같으면 success 전달
-			out.print("success");			
-		} else {
-			// 메일 전송에 실패하면 + 수신 발신자 이름이 다르면 fail 전달
-            out.print("fail");
-		}
-			
-		} catch (Exception e) {
-            e.printStackTrace();
-            // 메일 전송에 실패하면 fail 전달
-            out.print("fail");
-		}
+				 // 메일 전송이 완료되면 success 전달
+				 out.print("success");
+				 
+			 } catch (Exception e) {
+		            e.printStackTrace();
+		            // 메일 전송에 실패하면 fail 전달
+		            out.print("fail");
+				}
+				 
+		 } else {
+			// 입력한 메일 주소가 user와 달라도 fail전달
+            out.print("fail");			
+		 }
 		 
 		 // 인증 코드 문자열로 저장하고
 		 String checkKey = temp.toString();
