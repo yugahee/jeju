@@ -233,6 +233,28 @@ public class ReservationDao {
 	}
 
 
+	public int reserveEndUpdate(Connection conn, int room_reserve) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  roomQuery.getProperty("reserveEndUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, room_reserve);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
 
 
 	

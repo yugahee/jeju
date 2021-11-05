@@ -63,6 +63,20 @@ public class ReservationService {
 		return result;
 	}
 
+	public int reserveEndUpdate(int room_reserve) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.reserveEndUpdate(conn, room_reserve);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 
 	// 숙소 예약 화면(디테일 뷰) 리뷰 조회 
 	public List<RoomReview> selectRoomReview(int roomNo) {

@@ -83,6 +83,12 @@
 	WHERE ROOM_RESERVE = ?
 </entry>
 
+<entry key="reserveEndUpdate">
+	UPDATE RESERVATION
+	SET RESERVE_STATE = '숙박완료'
+	WHERE ROOM_RESERVE = ?
+</entry>
+
 <entry key="selectRoomReview">
     SELECT
            STAR
