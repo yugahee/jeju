@@ -32,7 +32,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		Rooms room = new ReservationService().detailSelectRoom(roomNo);
-	
+
 		System.out.println(room);
 		
 		if(room != null) {
