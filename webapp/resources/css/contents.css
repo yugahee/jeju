@@ -1062,10 +1062,12 @@
      }
      .hostmainTab { display: block; }
      /* 숙소 탭 */
+     .roomtab {  display: none; }
+     
      .roomtab img {
      width: 200px;
      height: 200px;
-     margin: 30px 30px;
+     margin: 50px 50px;
      }
      .main_roomlist{ display: inline-block; }
      .hostmainsub {
@@ -1075,9 +1077,23 @@
      }
      .hostmainsub li { width: 400px; }
      .roomtab h3 { text-align: center; }
+     
+     /* 디스플레이 수정 */
+     .roomli_box {	
+	 margin:50px 15px;
+	 display : grid;
+	 grid-template-columns: 230px 230px 230px;
+	 gap : 30px;
+     justify-items: center;
+	 }
+
+	 .main_roomlist:hover {
+	 transform: scale(110%);
+	 color: #ff8b33;
+	 }
 
      /* 게스트 후기 탭 */
-     .reviewtab { display: none; margin-top: 20px; }
+     .reviewtab { margin-top: 20px; }
 
      .reviewtbl { width : 850px; }
      .review_no { text-align: center; }

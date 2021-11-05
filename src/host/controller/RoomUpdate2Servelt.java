@@ -135,6 +135,7 @@ public class RoomUpdate2Servelt extends HttpServlet {
 			Rooms rooms = new RoomsService().selectRoomPhoto(roomNo);
 			
 			request.setAttribute("rooms", rooms);
+			request.getSession().setAttribute("message", "변경된 내용이 저장되었습니다.");
 			request.getRequestDispatcher("/views/host/roomUpdatePhoto.jsp").forward(request, response);
 			
 		} else {

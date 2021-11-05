@@ -338,6 +338,32 @@
 		  )
 	</entry>
 	
+	<entry key="getReviewCount">
+		SELECT
+		       COUNT(*)
+		  FROM ROOMS R
+		  JOIN ROOMS_REVIEW RV ON(R.ROOM_NO = RV.ROOM_NO)
+		 WHERE R.USER_ID = ?
+		   AND R.STATUS = 'Y'	
+	</entry>
+	
+	<entry key="selectReviewList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (SELECT
+						       R.ROOM_NO
+						     , ROOM_NAME
+						     , REVIEW
+						     , REVIEW_DATE
+						     , RV.USER_ID
+						  FROM ROOMS R
+						  JOIN ROOMS_REVIEW RV ON(R.ROOM_NO = RV.ROOM_NO)
+						 WHERE R.USER_ID = ?
+						   AND R.STATUS = 'Y'
+						 ORDER BY REVIEW_NO DESC) A)
+		 WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
 </properties>
 
 

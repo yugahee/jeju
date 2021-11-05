@@ -52,7 +52,7 @@ public class HostRoomListServlet extends HttpServlet {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 				
-		// 페이징과 관련 된 데이터, 조회 된 boardList를 Map에 담아 리턴
+		// 페이징과 관련 된 데이터, 조회 된 RoomList를 Map에 담아 리턴
 		Map<String, Object> map = new RoomsService().selectRoomList(page, userId);
 		
 		request.setAttribute("pi", map.get("pi"));

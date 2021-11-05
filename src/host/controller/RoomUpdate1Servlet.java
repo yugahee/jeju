@@ -97,6 +97,7 @@ public class RoomUpdate1Servlet extends HttpServlet {
 			Rooms roomSel = new RoomsService().selectRoomPrice(roomNo);
 			
 			request.setAttribute("room", roomSel);
+			request.getSession().setAttribute("message", "변경된 내용이 저장되었습니다.");
 			request.getRequestDispatcher("/views/host/roomUpdatePrice.jsp").forward(request, response);
 		} else {
 			request.setAttribute("message", "숙소 내용 수정에 실패하였습니다.");
