@@ -257,10 +257,48 @@
 				<div class="boxChild3">
 					<div id="won1">예상결제금액:</div>
 					<div id="won2">20000</div>
-				</div>
-				<a href="#" class="btn btnType1 btnSizeL reserve_request"><span>예약 신청</span></a>
+				</div>  
+				<a href="#" id="xx" class="btn btnType1 btnSizeL reserve_request" onclick="showLayer('reserveApply');" ><span>예약 신청</span></a>
 			</div>
 		</div>
+		
+		<!-- 레이어 부분 -->
+   		   <div id="reserveApply" class="layerPop">
+                <div class="layerTit">
+                    <button class="btn_closeLayer" onclick="hideLayer('reserveApply');"><span class="blind">레이어팝업 닫기</span></button>
+                </div>
+                <div class="checkCss">
+                <img src="${contextPath}/resources/images/host/check_icon.png" width="100px" height="100px">
+                </div>
+                <div class="layerBody reserveApply">
+                   	 예약 신청 하시겠습니까?
+                </div>  
+                <div class="okAndNo">
+              		<a href="#" class="btn btnType1 btnSizeS" type="button" 
+           			 onclick="reserveOk();"><span>확인</span></a>
+           			 <a href="#" class="btn btnType2 btnSizeS" type="button" 
+           			 onclick="reserveCancell();"><span>취소</span></a>
+                </div>
+            </div>
+            
+           	<div class="hiddenlayerpop">
+                	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
+          	</div>
+            
+  <script>
+    
+
+    function reserveCancell(){
+        const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+        ch.click();    // 레이아웃 닫기
+       
+
+    }   
+      
+ </script>            
+            
+            
+            
 
 <script>
 var isOn = false;

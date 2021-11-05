@@ -74,6 +74,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Rooms room = null;
+		List<Files> fileList = null;
 		String sql = roomQuery.getProperty("detailSelectRoom");
 		
 		try {
@@ -81,8 +82,8 @@ public class ReservationDao {
 			pstmt.setInt(1, roomNo);
 		
 			rset = pstmt.executeQuery();
-		
 			while(rset.next()) {
+			if( room == null) {
 				room = new Rooms();
 				room.setRoomName(rset.getString("room_name"));
 				room.setRoomDes(rset.getString("room_des"));
@@ -103,14 +104,17 @@ public class ReservationDao {
 				room.setRoomFac(rset.getString("room_fac"));
 				room.setRoomLink(rset.getString("room_link"));
 				room.setRoomNo(rset.getInt("room_no"));
-				List<Files> fileList = new ArrayList<>();
+				fileList = new ArrayList<>();
+			}
 				Files files = new Files();
 				files.setFilePath(rset.getString("file_path"));
 				files.setChangeName(rset.getString("change_name"));
 				
 				fileList.add(files);
-				room.setFileList(fileList);
 			}
+
+			room.setFileList(fileList);
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

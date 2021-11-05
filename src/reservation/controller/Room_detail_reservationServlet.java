@@ -32,8 +32,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 	
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		Rooms room = new ReservationService().detailSelectRoom(roomNo);
-	
-		
+
 		if(room != null) {
 	         request.setAttribute("room", room);
 	 		 request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
