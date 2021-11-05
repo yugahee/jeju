@@ -46,6 +46,7 @@
 					</form>
 						<!--여기 아래부터 숙소 사진과 옆에 숙소명+숙소제목...-->
 					<c:forEach var="room" items="${ roomList }">
+					<%-- <c:if test=></c:if> --%>
 					<div class="lodging_lineup" onclick="detailReservation(${room.roomNo})">
 						<div class="child1">
 							<img src="${contextPath}${room.fileList.get(0).filePath}
