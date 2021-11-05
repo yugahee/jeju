@@ -285,6 +285,59 @@
 		   AND R.STATUS = 'Y'
 	</entry>
 	
+	<entry key="getListCount">
+		SELECT
+		       COUNT(*)
+		  FROM ROOMS
+		 WHERE STATUS = 'Y'
+		   AND USER_ID = ?	
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (SELECT
+						       ROOM_NO
+						     , ROOM_NAME
+						     , ENROLL_STATUS
+						     , CREATE_DATE
+						     , FILE_PATH
+						     , CHANGE_NAME
+						  FROM ROOMS R
+						  JOIN FILES F USING(ROOM_NO)
+						 WHERE R.STATUS = 'Y'
+						   AND F.STATUS = 'Y'
+						   AND FILE_LEVEL = 0
+						   AND USER_ID = ?
+						 ORDER BY ROOM_NO DESC) A)      
+		 WHERE RNUM BETWEEN ? AND ?	
+	</entry>
+	
+	<entry key="deletePeak">
+		DELETE
+		  FROM PEAKSEASON
+		 WHERE ROOM_NO = ?
+	</entry>
+	
+	
+	<entry key="insertAddPeak">
+		INSERT
+		  INTO PEAKSEASON
+		  (
+		  	   ROOM_NO
+		  	 , PEAK_START
+		  	 , PEAK_END
+		  	 , PEAK_PRICE
+		  )
+		  VALUES
+		  (
+		  	   ?   <!-- 기존에 있던 방에 추가하는 거라서 -->
+		  	 , ?
+		  	 , ?
+		  	 , ?
+		  )
+	</entry>
+	
 </properties>
 
 
