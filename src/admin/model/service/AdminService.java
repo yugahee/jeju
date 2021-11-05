@@ -11,6 +11,7 @@ import java.util.Map;
 import admin.model.dao.AdminDao;
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import host.model.vo.Rooms;
 
 public class AdminService{
 	
@@ -105,6 +106,25 @@ public class AdminService{
 		returnMap.put("listCount", listCount);
 		returnMap.put("pi", pi);
 		returnMap.put("MemberList", MemberList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+	
+	public Map<String, Object> selectRoomList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getRoomListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Rooms> RoomList = adminDao.selectRoomList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+	
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("RoomList", RoomList);
 		
 		close(conn);
 		

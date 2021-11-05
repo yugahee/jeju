@@ -8,6 +8,12 @@ public class Search {
 	
 	public Search() {}
 
+	public Search(String searchCondition, String searchValue) {
+		super();
+		this.searchCondition = searchCondition;
+		this.searchValue = searchValue;
+	}
+	
 	public Search(String searchCondition, String searchCondition2, String searchValue) {
 		super();
 		this.searchCondition = searchCondition;
