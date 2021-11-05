@@ -358,7 +358,7 @@
      .mainLogin .findId .listType1, .mainLogin .findPwd .listType1 {margin-top:18px;}
      .mainLogin .findId .btn , .mainLogin .findPwd .btn {width:240px;}
 
-     #mail_btn {
+     #mail_btn, #chk_btn {
           width: 100px;
           margin-top : 10px;
           float: right;

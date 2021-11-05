@@ -63,6 +63,15 @@
 	 WHERE USER_ID = ?
 </entry>
 
+<entry key="updatePwd">
+	UPDATE
+		   MEMBER
+	   SET USER_PWD = ?
+	     , MODIFY_DATE = SYSDATE
+	 WHERE USER_ID = ?
+	   AND EMAIL = ?
+</entry>
+
 <entry key="selectMember">
 	SELECT
 	  	   USER_ID

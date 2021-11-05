@@ -46,12 +46,12 @@ public class MypageSendMailServlet extends HttpServlet {
 		/* 입력받은 메일 주소로 인증번호 보내는 서블릿 */
 		
 		// mail server 설정
-		String host = "smtp.naver.com";			// 메일에서 설정 한 smtp 서버명
-		String user = "jejeju00@naver.com";		// 네이버 아이디
+		String host = "smtp.gmail.com";			// 메일에서 설정 한 smtp 서버명
+		String user = "jejukim00@gmail.com";	// gmail 아이디
 		String password = "jejurado@@";			// 비밀번호
 		
 		String to_email = request.getParameter("newMail"); 	// 메일 받을 주소 = 페이지에서 입력받은 새로운 메일 주소
-		
+	
 		// SMTP 서버 정보 설정
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
@@ -95,9 +95,14 @@ public class MypageSendMailServlet extends HttpServlet {
 			msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 인증 코드는 [ " + temp + " ] 입니다. \n 해당 코드를 인증 코드 확인 란에 정확히 기입해주세요.");
 			
 			Transport.send(msg);
-			
-			// 메일 전송이 완료되면 success 전달
-			out.print("success");
+		
+		if(to_email.equals(user)) {
+			// 메일 전송이 완료되면 + 수신, 발신자 이메일이 같으면 success 전달
+			out.print("success");			
+		} else {
+			// 메일 전송에 실패하면 + 수신 발신자 이름이 다르면 fail 전달
+            out.print("fail");
+		}
 			
 		} catch (Exception e) {
             e.printStackTrace();
