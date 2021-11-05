@@ -91,4 +91,23 @@ public class MemberService{
 		
 		return userId;
 	}
+
+	public Member updatePwd(String userId, String userMail, String newPwd) {
+		Connection conn = getConnection();
+		Member updatedMember = null;		
+
+		int result = memberDao.updatePwd(conn, userId, userMail, newPwd);
+		
+		if(result > 0) {
+			updatedMember = memberDao.selectMember(conn, userId);
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		// 수정된 멤버 정보 리턴
+		return updatedMember;
+	}
 }

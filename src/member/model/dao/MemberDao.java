@@ -228,4 +228,26 @@ public class MemberDao {
 		
 		return userId;
 	}
+
+	public int updatePwd(Connection conn, String userId, String userMail, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userMail);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
