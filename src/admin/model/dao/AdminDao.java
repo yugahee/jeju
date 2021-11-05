@@ -344,6 +344,8 @@ public class AdminDao {
 		if(search.getSearchValue() != null) {
 			if(!search.getSearchCondition().equals("전체")) {
 				sql = adminQuery.getProperty("getRoomListCountStatus");
+			}else {
+				sql = adminQuery.getProperty("getRoomListCountStatusAll");
 			}
 		}
 		try {
@@ -352,6 +354,8 @@ public class AdminDao {
 			int index = 1;
 			if(sql == adminQuery.getProperty("getRoomListCountStatus")) {
 				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}else if(sql == adminQuery.getProperty("getRoomListCountStatusAll")) {
 				pstmt.setString(index++, search.getSearchValue());
 			}
 			
@@ -380,9 +384,10 @@ public class AdminDao {
 		if(search.getSearchValue() != null) {
 			if(!search.getSearchCondition().equals("전체")) {
 				sql = adminQuery.getProperty("searchRoomStatus");
+			}else {
+				sql = adminQuery.getProperty("searchRoomStatusAll");
 			}
 		}
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -393,6 +398,8 @@ public class AdminDao {
 			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
 				pstmt.setString(index++, search.getSearchCondition());
 				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchRoomStatusAll"))) {
+				pstmt.setString(index++, search.getSearchValue());				
 			}
 			pstmt.setInt(index++, startRow);
 			pstmt.setInt(index, endRow);
@@ -405,9 +412,9 @@ public class AdminDao {
 				room.setUserId(rset.getString("user_id"));				// 호스트아이디
 				room.setRoomName(rset.getString("room_name"));			// 숙소이름
 				room.setStar(rset.getDouble("star"));					// 평점
-				room.setCreateDate(rset.getDate("createDate"));			// 생성날짜
-				room.setEnrollDate(rset.getDate("enrollDate"));			// 승인날짜
-				room.setEnrollStatus(rset.getString("enrollStatus"));	// 승인상태
+				room.setCreateDate(rset.getDate("create_date"));		// 생성날짜
+				room.setEnrollDate(rset.getDate("enroll_date"));		// 승인날짜
+				room.setEnrollStatus(rset.getString("enroll_status"));	// 승인상태
 				room.setStatus(rset.getString("status"));				// 상태
 				RoomList.add(room);
 			}
@@ -418,6 +425,43 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return RoomList;
+	}
+
+	public Rooms selectRoomDetail(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Rooms room = new Rooms();
+		String sql = adminQuery.getProperty("searchRoomDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				room.setRoomNo(rset.getInt("room_no"));					// 숙소번호
+				room.setUserId(rset.getString("user_id"));				// 호스트아이디
+				room.setRoomName(rset.getString("room_name"));			// 숙소이름
+				room.setEnrollStatus(rset.getString("enroll_status"));	// 승인상태
+				room.setStatus(rset.getString("status"));				// 상태
+				room.setRoomSize(rset.getString("room_size"));			// 평수
+				room.setBuildingType(rset.getString("building_type"));	// 건물유형
+				room.setRoom(rset.getInt("room"));						// 방 수		
+				room.setAddress(rset.getString("address"));				// 주소
+			}
+
+			System.out.println(room);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return room;
 	}
 
 

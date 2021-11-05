@@ -252,13 +252,61 @@ WHERE RNUM BETWEEN ? AND ?
 </entry>
 
 <entry key="searchRoom">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-	  FROM(SELECT
-                 *
-    FROM ROOMS
-   ORDER BY ROOM_NO) A)
-WHERE RNUM BETWEEN ? AND ?
+	SELECT * FROM
+	(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT
+		    ROOM_NO,
+	        S.USER_ID,
+	        ROOM_NAME,
+		    ROUND(AVG(STAR),1) STAR,
+	        CREATE_DATE,
+	        ENROLL_DATE,
+	        ENROLL_STATUS,
+	        STATUS
+		FROM ROOMS_REVIEW R
+	    RIGHT OUTER JOIN ROOMS S USING(ROOM_NO)
+		GROUP BY ROOM_NO, S.USER_ID, ROOM_NAME, CREATE_DATE, ENROLL_DATE, ENROLL_STATUS, STATUS
+		ORDER BY ROOM_NO DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchRoomStatusAll">
+	SELECT * FROM
+	(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT
+		    ROOM_NO,
+	        S.USER_ID,
+	        ROOM_NAME,
+		    ROUND(AVG(STAR),1) STAR,
+	        CREATE_DATE,
+	        ENROLL_DATE,
+	        ENROLL_STATUS,
+	        STATUS
+		FROM ROOMS_REVIEW R
+	    RIGHT OUTER JOIN ROOMS S USING(ROOM_NO)
+	    WHERE S.USER_ID LIKE '%'|| ? ||'%'
+		GROUP BY ROOM_NO, S.USER_ID, ROOM_NAME, CREATE_DATE, ENROLL_DATE, ENROLL_STATUS, STATUS
+		ORDER BY ROOM_NO DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchRoomStatus">
+	SELECT * FROM
+	(SELECT ROWNUM RNUM, A.*
+	 FROM(SELECT
+		    ROOM_NO,
+	        S.USER_ID,
+	        ROOM_NAME,
+		    ROUND(AVG(STAR),1) STAR,
+	        CREATE_DATE,
+	        ENROLL_DATE,
+	        ENROLL_STATUS,
+	        STATUS
+		FROM ROOMS_REVIEW R
+	    RIGHT OUTER JOIN ROOMS S USING(ROOM_NO)
+	    WHERE ENROLL_STATUS = ?
+	      AND S.USER_ID LIKE '%'|| ? ||'%'
+		GROUP BY ROOM_NO, S.USER_ID, ROOM_NAME, CREATE_DATE, ENROLL_DATE, ENROLL_STATUS, STATUS
+		ORDER BY ROOM_NO DESC) A)
+	WHERE RNUM BETWEEN ? AND ?
 </entry>
 <entry key="getRoomListCount">
      SELECT
@@ -266,12 +314,26 @@ WHERE RNUM BETWEEN ? AND ?
        FROM ROOMS
    ORDER BY ROOM_NO
 </entry>
-<entry key="getRoomListCount2">
+<entry key="getRoomListCountStatusAll">
+     SELECT
+            COUNT(*)
+       FROM ROOMS
+	  WHERE USER_ID LIKE '%'|| ? ||'%'
+   ORDER BY ROOM_NO
+</entry>
+<entry key="getRoomListCountStatus">
+     SELECT
+            COUNT(*)
+       FROM ROOMS
+	  WHERE ENROLL_STATUS = ?
+	    AND USER_ID LIKE '%'|| ? ||'%'
+   ORDER BY ROOM_NO
+</entry>
+<entry key="searchRoomDetail">
 	SELECT
-	    ROOM_NO,   
-	    ROUND(AVG(STAR),1)
-	FROM ROOMS_REVIEW
-	GROUP BY ROOM_NO
+		   *
+	  FROM ROOMS
+	 WHERE ROOM_NO = ?
 </entry>
 
 </properties>
