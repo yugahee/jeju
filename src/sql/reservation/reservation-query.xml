@@ -15,7 +15,7 @@
 	     , ROOM_NO
 	  FROM ROOMS R
 	  JOIN FILES F USING(ROOM_NO)
-	  JOIN ROOMS_REVIEW USING(ROOM_NO)
+	 RIGHT JOIN ROOMS_REVIEW USING(ROOM_NO)
 	 WHERE R.STATUS = 'Y'
        AND F.STATUS = 'Y'
 	   AND FILE_LEVEL = 0
@@ -83,7 +83,16 @@
 	WHERE ROOM_RESERVE = ?
 </entry>
 
-
+<entry key="selectRoomReview">
+    SELECT
+           STAR
+         , REVIEW
+         , REVIEW_DATE
+         , USER_NAME
+      FROM ROOMS_REVIEW
+      JOIN MEMBER USING(USER_ID)
+     WHERE ROOM_NO = ?
+</entry>
 
 
 </properties>

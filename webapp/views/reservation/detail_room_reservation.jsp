@@ -164,10 +164,10 @@
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
 						<span class="text3">후기 91개</span>
 					</div>
-
+				<c:forEach var="roomReview" items="${ roomReviewList }">
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">4.47 후기 30개</span>
+						<span class="text3">${ roomReview.star } 후기 30개</span>
 					</div>
 					<div class="reviewBox">
 						<ul class="reviewSort">
@@ -175,44 +175,20 @@
 								<div class="userBox">
 									<img src="${contextPath}/resources/images/user.png">
 									<p>
-										<span class="userSize">이상*</span>
-										<span class="reviewDate">2021-01-01</span>
+										<span class="userSize">${ roomReview.userName }</span>
+										<span class="reviewDate">${ roomReview.reviewDate }</span>
 									</p>
 									<div>
 										<img src="${contextPath}/resources/images/별.png">
 									</div>
 								</div>
 								<p class="reviewContent" id="Greview1">
-									운치있는 단지에 있는 숙소라 그런지 
-									분위기도 좋고 프라이빗했어요~  
-									복층이라 2층이 좀 더울 것 같았는데  
-									에어컨이 다 구비되어 있어서 시원했어요 
-									침대도 푹신해서 잘 때 너무 편안했어요 
-									만족합니다 ㅎㅎ
-								</p>
-							</li>
-							<li>
-								<div class="userBox">
-									<img src="${contextPath}/resources/images/user.png">
-									<p>
-										<span class="userSize">이상*</span>
-										<span class="reviewDate">2021-01-01</span>
-									</p>
-									<div>
-										<img src="${contextPath}/resources/images/별.png">
-									</div>
-								</div>
-								<p class="reviewContent" id="Greview2">
-									운치있는 단지에 있는 숙소라 그런지 
-									분위기도 좋고 프라이빗했어요~  
-									복층이라 2층이 좀 더울 것 같았는데  
-									에어컨이 다 구비되어 있어서 시원했어요 
-									침대도 푹신해서 잘 때 너무 편안했어요 
-									만족합니다 ㅎㅎ
+									${ roomReview.review }
 								</p>
 							</li>
 						</ul>												
 					</div>
+				</c:forEach>
 					<!--페이징-->
 					<div class="paging">
 						<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
@@ -262,13 +238,13 @@
 			</div>
 		</div>
 		
-		<!-- 레이어 부분 -->
+		<!-- 예약 신청 레이어 부분 -->
    		   <div id="reserveApply" class="layerPop">
                 <div class="layerTit">
                     <button class="btn_closeLayer" onclick="hideLayer('reserveApply');"><span class="blind">레이어팝업 닫기</span></button>
                 </div>
                 <div class="checkCss">
-                <img src="${contextPath}/resources/images/host/check_icon.png" width="100px" height="100px">
+                <img src="${contextPath}/resources/images/host/error_icon.png" width="100px" height="100px">
                 </div>
                 <div class="layerBody reserveApply">
                    	 예약 신청 하시겠습니까?
@@ -284,17 +260,27 @@
            	<div class="hiddenlayerpop">
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
+          
             
   <script>
     
-
+	// 예약 신청 취소 시 동작 
     function reserveCancell(){
         const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
         ch.click();    // 레이아웃 닫기
-       
+        
+        const reserveCheck = document.querySelector('#reserveCheck');
+        reserveCheck.click(); 
 
-    }   
-      
+    }  
+	
+	// 예약 신청 확인 시 동작
+     function reserveOk(){
+   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+     ch.click();    // 레이아웃 닫기
+         
+     alert("예약 신청 완료. 마이페이지에서 예약내역을 확인해주세요."); 
+    }  
  </script>            
             
             
