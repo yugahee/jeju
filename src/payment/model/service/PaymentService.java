@@ -1,7 +1,6 @@
 package payment.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -35,8 +34,31 @@ public class PaymentService {
 
 
 	public int paymentInsert(int reserveNo, int totalPrice) {
+		Connection conn = getConnection();
 		
+		int result = paymentDao.paymentInsert(conn, reserveNo, totalPrice);
 		
-		return 0;
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+
+	public int reserveStateUpdate(int reserveNo, String reserveName, String phone) {
+		Connection conn = getConnection();
+		
+		int result = paymentDao.reserveStateUpdate(conn, reserveNo, reserveName, phone);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
 	}
 }

@@ -93,4 +93,48 @@ public class PaymentDao {
 		
 		return peak;
 	}
+
+	public int paymentInsert(Connection conn, int reserveNo, int totalPrice) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  paymentQuery.getProperty("paymentInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserveNo);
+			pstmt.setInt(2, totalPrice);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int reserveStateUpdate(Connection conn, int reserveNo, String reserveName, String phone) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  paymentQuery.getProperty("reserveUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reserveName);
+			pstmt.setString(2, phone);
+			pstmt.setInt(3, reserveNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 }

@@ -23,4 +23,24 @@
 	FROM PEAKSEASON
 	WHERE ROOM_NO = ?
 </entry>
+<entry key="paymentInsert">
+	INSERT INTO PAYMENT(
+		RECEP_NO
+		, PAY_DIVI
+		, PRICE
+		, PAY_DATE	
+	)VALUES(
+	    ?
+	    , '결제'
+	    , ?
+	    , SYSDATE
+	)
+</entry>
+<entry key="reserveUpdate">
+	UPDATE RESERVATION
+	SET RESERVE_STATE = '예약완료',
+		PERSON_RESERVE = ?,
+		PONE = ?		
+	WHERE ROOM_RESERVE = ?
+</entry>
 </properties>

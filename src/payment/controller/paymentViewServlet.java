@@ -46,11 +46,10 @@ public class paymentViewServlet extends HttpServlet {
 		PeakSeason peak = new PaymentService().peakChk(roomNo);
 		
 		System.out.println(reservationInfo);
-		//System.out.println(peak);
+		System.out.println(peak);
 		
 		int price = 0;
-		if(peak != null) {
-			//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if(peak.getPeakStart() != null && peak.getPeakEnd() != null) {
 			Date reserveStart = reservationInfo.getStart_date();
 			Date reserveEnd = reservationInfo.getEnd_date();			
 			Date peakStart = peak.getPeakStart();
@@ -73,7 +72,7 @@ public class paymentViewServlet extends HttpServlet {
 		
 		// 사용자 포인트 값 가져오기
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
-		System.out.println(userId);
+		//System.out.println(userId);
 		
 		Member userPoint = new PointService().userPoint(userId);
 		//System.out.println(userPoint);

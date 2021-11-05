@@ -85,4 +85,53 @@ public class PointDao {
 		return userPoint;
 	}
 
+	public int pointInsert(Connection conn, String userId, Point point, int reserveNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = pointQuery.getProperty("pointInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, point.getPointDivi());
+			pstmt.setInt(2, point.getPoint());
+			pstmt.setString(3, userId);
+			pstmt.setInt(4, reserveNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int userPointUpdate(Connection conn, String userId, Point point) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = "";		
+		
+		if(point.getPointDivi().equals("사용")) {
+			sql = pointQuery.getProperty("userUsingPoint");			
+		}else {
+			sql = pointQuery.getProperty("userAddPoint");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, point.getPoint());
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+
 }

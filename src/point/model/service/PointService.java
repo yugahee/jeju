@@ -33,6 +33,38 @@ public class PointService {
 		return userPoint;
 	}
 
+	public int insertPoint(String userId, Point point, int reserveNo) {
+		Connection conn = getConnection();
+		
+		int result = pointDao.pointInsert(conn, userId, point, reserveNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int userPointUpdate(String userId, Point point) {
+		Connection conn = getConnection();
+		
+		int result = pointDao.userPointUpdate(conn, userId, point);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 	
 }

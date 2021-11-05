@@ -92,7 +92,7 @@
 							</tr>	
 							<tr class="borderT total">
 								<th>총 결제금액</th>
-								<td><span id="total_price">60000</span>원</td>								
+								<td><span id="total_price">${ roomPrice }</span>원</td>								
 							</tr>
 						</tbody>
 					</table>
@@ -221,13 +221,11 @@
 		 IMP.request_pay({
 		 	pg : 'kakaopay',
 		    pay_method : 'card', //생략 가능
-		    merchant_uid: "order_no_60", // 상점에서 관리하는 주문 번호
+		    merchant_uid: $("#reserveNo").val(), // 상점에서 관리하는 주문 번호
 		    name : '숙소 결제',
-		    amount : 100,			    
-		    buyer_name : '구매자이름',
-		    buyer_tel : '010-1234-5678',
-		    buyer_addr : '서울특별시 강남구 삼성동',
-		    buyer_postcode : '123-456'			    
+		    amount : $("#totalPrice").val(),			    
+		    buyer_name : $("#reserUserName").val(),
+		    buyer_tel : $("#reserphone").val()	    
 		}, function(rsp) {
 			if ( rsp.success ) {
 				$.ajax({
@@ -242,8 +240,11 @@
 					},
 					dataType : "json",
 					type : "post",
-					success : function(pay){				
-						alert("결제가 성공되었습니다.");
+					success : function(result){				
+						if(result == "success"){
+							alert("결제가 완료되었습니다!");
+						}
+						location.href="/jeju/reservation/checkView";
 					},
 					error : function(e){
 						console.log(e);
