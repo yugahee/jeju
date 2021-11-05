@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.model.vo.RoomReview;
 import host.model.service.RoomsService;
 import host.model.vo.Rooms;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class MypageHostServlet
@@ -35,8 +36,8 @@ public class MypageHostServlet extends HttpServlet {
 		
 		/* 호스트의 숙소목록 조회 */
 		// 유저 아이디  ********** 로그인 연결되면 주석 지우기 **************
-		// String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();					
-		String userId = "host1";  // 테스트용 유저아이디
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();					
+		// String userId = "host1";  // 테스트용 유저아이디
 		
 		List<Rooms> roomList = new RoomsService().selectRooms(userId);
 		

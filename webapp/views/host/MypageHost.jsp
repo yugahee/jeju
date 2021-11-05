@@ -13,7 +13,7 @@
                 <div class="host_mypage">
                     <div class="hostprofile_wrap">
                         <img src="${ contextPath }/resources/images/usericon.png">
-                        <h3> 호스트 아이디 </h3>
+                        <h3 style="font-size: 1.4em;">${ loginUser.user_id }</h3>
                         <span>호스트</span>
                     </div>
 					<div class="tabType1 al_c hostmainsub">

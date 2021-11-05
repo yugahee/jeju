@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import admin.model.vo.PageInfo;
 import common.model.vo.RoomReview;
 
 import static common.JDBCTemplate.close;
@@ -519,6 +520,118 @@ public class RoomsDao {
 		}	
 		
 		return reviewList;
+	}
+
+	public int getListCount(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = roomsQuery.getProperty("getListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);   // 결과로 나온 개수에 해당하는 숫자값 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return listCount;
+	}
+
+	public List<Rooms> selectList(Connection conn, PageInfo pi, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Rooms> roomList = new ArrayList<>();
+		String sql = roomsQuery.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms room = new Rooms();
+				room.setRoomNo(rset.getInt("room_no"));
+				room.setRoomName(rset.getString("room_name"));
+				room.setEnrollStatus(rset.getString("enroll_status"));
+				room.setCreateDate(rset.getTimestamp("create_date"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files file = new Files();
+				file.setFilePath(rset.getString("file_path"));
+				file.setChangeName(rset.getString("change_name"));
+				fileList.add(file);
+				room.setFileList(fileList);
+				
+				roomList.add(room);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return roomList;
+	}
+
+	public int deletePeak(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("deletePeak");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAddPeak(Connection conn, PeakSeason peak) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = roomsQuery.getProperty("insertAddPeak");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, peak.getRoomNo());
+			pstmt.setDate(2, peak.getPeakStart());
+			pstmt.setDate(3, peak.getPeakEnd());
+			pstmt.setInt(4, peak.getPeakPrice());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

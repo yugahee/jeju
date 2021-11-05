@@ -161,12 +161,12 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		rooms.setFileList(fileList);
 		// System.out.println(rooms);
 		
-		// userid는 로그인한 유저정보 불러와서 대입하기   ---- 통합되었을때 주석 풀기!!!!!!!!!!!!!!!!!!!!!
-//		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
-//		rooms.setUserId(userId);
+		// userid는 로그인한 유저정보 불러와서 대입하기   
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+		rooms.setUserId(userId);
 		
 		// 테스트용 임시 userid host1 이용
-		rooms.setUserId("host1");
+		// rooms.setUserId("host1");
 		
 		/* 비즈니스 로직 */
 		int result = new RoomsService().insertRooms(rooms);

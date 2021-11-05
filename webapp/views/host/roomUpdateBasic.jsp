@@ -9,7 +9,7 @@
 				<p>숙소설정</p>
 				<br>
 				<nav class="sub_menu_roomenroll">
-					<a href="${ contextPath }/host/roomUpdateView" class="roommenu">  
+					<a href="${ contextPath }/host/roomUpdateView?roomno=${ room.roomNo }" class="roommenu">  
 						<span class="menu-left left2">기본설정</span>
 						<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 					</a>

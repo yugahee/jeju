@@ -18,12 +18,17 @@
 						</div>
 						<br>
 						<div class="roomlist_sub">
+							<%-- <form method="get" action="${ contextPath }/host/roomlist">  --%>
 							<div class="selectbox roomlist_sel">
 								<button class="title" type="button" title="검색옵션 선택">검색옵션</button>
 								<ul class="selList">
 									<li>
-										<input type="radio" value="" class="option" id="sel1_1" name="select1" />
-										<label for="sel1_1">숙소이름</label>
+										<input type="radio" value="roomname" class="option" id="searchCondition1" name="searchCondition" />
+										<label for="searchCondition1">숙소이름</label>
+									</li>
+									<li>
+										<input type="radio" value="roomstatus" class="option" id="searchCondition2" name="searchCondition" />
+										<label for="searchCondition2">등록상태</label>
 									</li>
 								</ul>
 							</div>
@@ -31,11 +36,12 @@
 								<!-- <p class="totalCnt">총 1건</p> -->
 								<div class="sortArea">
 									<div class="inp_text search">
-										<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-										<a href="#" class="btn_sch">검색</a>
+										<input type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력하세요">
+										<button class="btn_sch">검색</button>
 									</div>
 								</div>
 							</div>
+							<!-- </form> -->
 						</div>
 						<div class="roomlist_content">
 							<div class="tblType3 noBorT noBorB boardList">
@@ -61,8 +67,8 @@
 									<tbody>
 									<c:choose>
 										<c:when test="${ !empty roomList }">
-											<c:set var="no" value="0" />
-											<c:forEach var="room" items="${ roomList }">					
+											<c:set var="no" value="${ (pi.page - 1) * pi.boardLimit }" />
+											<c:forEach var="room" items="${ roomList }">													
 												<tr>
 													<td>${ no = no + 1 }</td>    <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
 													<td class="al_l"><a href="#">  
@@ -83,6 +89,7 @@
 														</div>
 													</td>
 												</tr>
+												
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
@@ -101,16 +108,39 @@
 							</div>
 						</div>
 						<!-- 페이징 -->
-						<div class="paging">
-							<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-							<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-							<span class="current">1</span>
-							<a href="#">2</a>
-							<a href="#">3</a>
-							<a href="#">4</a>
-							<a href="#">5</a>
-							<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-							<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+						<div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
+							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
+							<c:choose>
+								<c:when test="${ pi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:choose>
+								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ p }</span>	
+								</c:when>
+								<c:otherwise>
+								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${ pi.page < pi.maxPage }">
+								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							
 						</div>
                     
                     <div class="roomlist_btn addroombtn">

@@ -8,15 +8,15 @@
 				<p>숙소설정</p>
 				<br>
 				<nav class="sub_menu_roomenroll">
-					<a href="${ contextPath }/host/roomUpdateView" class="roommenu">
+					<a href="${ contextPath }/host/roomUpdateView?roomno=${ rooms.roomNo }" class="roommenu">
 						<span class="menu-left left2">기본설정</span>
 						<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 					</a>
-					<a href="${ contextPath }/host/roomUpdate1?roomno=${ room.roomNo }" class="roommenu">
+					<a href="${ contextPath }/host/roomUpdate1?roomno=${ rooms.roomNo }" class="roommenu">
 						<span class="menu-left left2">예약/요금 설정</span>
 						<span class="menu-right"><img src="${ contextPath }/resources/images/host/incomplete_check.png"></span>
 					</a>					
-					<a href="${ contextPath }/host/roomUpdate2?roomno=${ room.roomNo }" class="roommenu">
+					<a href="${ contextPath }/host/roomUpdate2?roomno=${ rooms.roomNo }" class="roommenu">
 						<span class="menu-left left2">위치/사진/동영상</span>
 						<span class="menu-right"><img src="${ contextPath }/resources/images/host/complete_check.png"></span>
 					</a>
@@ -176,7 +176,7 @@
                             
                         </div>	
 						<div class="btn_wrap roomregistbtn2">
-							<button class="btn btnType1 btnSizeS"><span>수정하기</span></button>   
+							<button class="btn btnType1 btnSizeS"><span>저장</span></button>   
 						</div>	
 					</form>
                 </div>
