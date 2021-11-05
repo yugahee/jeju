@@ -149,7 +149,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="btn_wrap">
+			<div class="btn_wrap" id="pwdM_btn">
 				<button type="submit" class="btn btnType2 btnSizeM disabled" id="modify" disabled><span>완료</span></button>
 				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('findPwd');return false;"><span>닫기</span></button>
 			</div>
