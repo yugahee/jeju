@@ -60,6 +60,20 @@ public class ReservationService {
 		return result;
 	}
 
+	public int reserveEndUpdate(int room_reserve) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.reserveEndUpdate(conn, room_reserve);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 
 	
 

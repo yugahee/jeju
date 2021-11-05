@@ -29,10 +29,10 @@
 										</c:when>
 										<c:when test="${ reserve.reserve_state eq '예약완료' }">				
 											<p>예약이 완료 되었습니다.</p>
-											<a href="#" class="btn btnType2 btnSizeS"><span>예약취소</span></a>
+											<a href="#" class="btn btnType2 btnSizeS" onclick="reserveCancle(${ reserve.room_reserve })"><span>예약취소</span></a>
 										</c:when>
 										<c:otherwise>				
-											<a href="#" class="btn btnType1 btnSizeS"><span>리뷰쓰기</span></a>
+											<a href="${contextPath}/roomReview" class="btn btnType1 btnSizeS"><span>리뷰쓰기</span></a>
 											<a href="#" class="btn btnType2 btnSizeS"><span>신고하기</span></a>
 										</c:otherwise>
 									</c:choose>

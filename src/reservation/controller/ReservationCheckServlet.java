@@ -1,6 +1,7 @@
 package reservation.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,7 +39,19 @@ public class ReservationCheckServlet extends HttpServlet {
 		// 예약리스트 가져오기
 		List<Reservation> reservationList = new ReservationService().userReservation(userId);
 		
-		//System.out.println(reservationList);
+		Date current = new Date();
+		
+		for(Reservation reserv : reservationList) {
+			// 예약완료 중에서
+			if(reserv.getReserve_state().equals("예약완료")) {
+				Date endDate = reserv.getEnd_date();
+				// 예약날짜 지났는지 확인
+				if(current.compareTo(endDate) > 0) {
+					int reserveStateUpdate = new ReservationService().reserveEndUpdate(reserv.getRoom_reserve());
+				}
+			}			
+			
+		}
 				
 		request.setAttribute("reservationList", reservationList);
 		request.getRequestDispatcher("/views/reservation/reservationCheckView.jsp").forward(request, response);
