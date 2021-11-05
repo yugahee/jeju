@@ -139,4 +139,8 @@ public class AdminService{
 		
 		return room;
 	}
+
+	public int modifyRoom(Rooms room, String rVal, String statusVal) {
+		return 0;
+	}
 }
