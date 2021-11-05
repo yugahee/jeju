@@ -156,7 +156,17 @@ scope="application"/>
 								<td>${ room.roomName }</td>
 								<td>${ room.star }</td>
 								<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy.MM.dd" /></td>
-								<td><fmt:formatDate value="${ room.enrollDate }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td>
+									<!-- enrollDate 값이 없을 경우 - 표기 -->
+									<c:choose>
+										<c:when test="${null ne room.enrollDate}">
+											<fmt:formatDate value="${ room.enrollDate }" type="both" pattern="yyyy.MM.dd" />
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
 								<td>${ room.enrollStatus }</td>
 								<td>${ room.status }</td>
 							</tr>
@@ -233,6 +243,10 @@ scope="application"/>
 					</colgroup>
 					<tbody>
 						<tr>
+							<th>숙소번호</th>
+							<td id="rno"></td>
+						</tr>
+						<tr>
 							<th>숙소명</th>
 							<td id="rname"></td>
 						</tr>
@@ -256,7 +270,7 @@ scope="application"/>
 							<th>반려/중지<br>이유</th>
 							<td>
                                 <div class="textbox">
-                                    <textarea class="chatArea">안녕하세요. 해당 숙소는 반려되었습니다. 사유는 다음과 같습니다.</textarea>
+                                    <textarea class="chatArea" placeholder="반려이유를 써주세요."></textarea>
                                     <span class="charCnt"><em class="update">0</em>/200</span>
                                 </div>
                             </td>
@@ -284,6 +298,8 @@ scope="application"/>
 					var html = '';						
 					var html2 = '';
 					if(room){
+						$(".chatTr").hide();
+						$("#rno").text(room.roomNo);
 						$("#rname").text(room.roomName);
 						$("#rid").text(room.userId);
 						$("#rinfo").text(html);
@@ -299,6 +315,7 @@ scope="application"/>
 								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
 						}else if(room.enrollStatus == '승인반려'){
+							$(".chatTr").show();
 							html = '<button class="title" type="button" title="상태">승인반려</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인반려">'
 								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1"/><label for="sel1_1">승인대기</label></li>'
@@ -320,14 +337,36 @@ scope="application"/>
 				}
 			});
 		}
-    	
+		
+		function commitData(){
+			let statusVal = $('.statusVal').val();
+			let rVal = $('#rno').text();
+			$.ajax({
+				url : "${contextPath}/admin/roomDetailModify",
+				data : {statusVal : statusVal, rVal : rVal},
+				//dataType : "json",
+				type : "post",
+				success : function(member){	
+					alert('상태 수정 완료');
+					location.reload();
+				},
+				error : function(e){
+					alert('상태 수정 실패');
+				}
+			});
+		}
     
+		// textarea 글자 수
     	let content = document.querySelector(".chatArea");
         content.onkeyup = function(){
             let area1 = document.querySelector(".update ");
             let val = content.value.length;
-            console.log(val);
             area1.innerHTML = val;
+           	if(val > 200){
+           		area1.style.color = 'red';
+           	}else{
+           		area1.style.color = '#222';
+           	}
         };
     </script>
 </body>

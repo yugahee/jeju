@@ -216,6 +216,11 @@ $(function(){
 		target.find('input').removeAttr('checked');
 		$(this).prev('input').attr('checked','checked');
 		$(this).parents('.selList').stop(true, false).animate({'maxHeight' : 0+'px'}, 250, 'easeOutCubic');
+		if(txt_value == '승인반려'){	// 숙소등록 상태값 승인반려일 시
+			$('.chatTr').show();
+		}else if(txt_value == '승인대기' || txt_value == '등록완료'){
+			$('.chatTr').hide();			
+		}
 		setTimeout(function(){
 			target.removeClass('open');
 			target.find('.selList').hide();
