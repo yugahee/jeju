@@ -13,4 +13,31 @@
 		FROM MEMBER
 		WHERE USER_ID = ?
 	</entry>
+	<entry key="pointInsert">
+		INSERT INTO POINT(
+			POINT_NO
+			, POINT_DATE
+			, POINT_DIVI
+			, POINT
+			, USER_ID
+			, RECEP_NO		
+		)VALUES(
+		   SEQ_POINTNO.NEXTVAL
+		   , SYSDATE
+		   , ?
+		   , ?
+		   , ?
+		   , ?
+		)
+	</entry>
+	<entry key="userUsingPoint">
+		UPDATE MEMBER
+		SET POINT = POINT - ?
+		WHERE USER_ID = ?
+	</entry>
+	<entry key="userAddPoint">
+		UPDATE MEMBER
+		SET POINT = POINT + ?
+		WHERE USER_ID = ?
+	</entry>
 </properties>
