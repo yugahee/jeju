@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/> 
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,6 +30,13 @@ scope="application"/>
     
 </head>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -38,7 +49,7 @@ scope="application"/>
 				<li>
 					<a href="#none">회원 관리</a>
 					<ul class="subMenu">
-						<li><a href="<%= request.getContextPath() %>/admin/userMg01">회원 관리</a></li>
+						<li><a href="<%= request.getContextPath() %>/admin/roomsMg">회원 관리</a></li>
 						<li><a href="<%= request.getContextPath() %>/admin/userMg02">블랙리스트 관리</a></li>
 					</ul>
 				</li>
@@ -68,80 +79,47 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">숙소 관리</div>
+					<form method="get" action="${ contextPath }/admin/roomsMg">
 					<div class="selectbox">
-						<button class="title" type="button" title="상태">상태</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
+						<button class="title" type="button">
+							<c:if test="${ param.searchCondition == null }">전체</c:if>
+							<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+						</button>
+						<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
+						<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 							<li>
-								<input type="radio" value="" class="option" id="select_user0" name="select_user">
-								<label for="select_user0">전체</label>
+								<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+								<label for="sel_type1_1">전체</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user1" name="select_user">
-								<label for="select_user1">미완성</label>
+								<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '승인대기' }">checked="checked"</c:if>>
+								<label for="sel_type1_2">승인대기</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user2" name="select_user">
-								<label for="select_user2">대기</label>
+								<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '승인반려' }">checked="checked"</c:if>>
+								<label for="sel_type1_3">승인반려</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user3" name="select_user">
-								<label for="select_user3">반려</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_user4" name="select_user">
-								<label for="select_user4">등록</label>
+								<input class="option" type="radio" id="sel_type1_4" <c:if test="${ param.searchCondition == '등록완료' }">checked="checked"</c:if>>
+								<label for="sel_type1_4">등록완료</label>
 							</li>
 						</ul>
 					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">검색 조건</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">아이디</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op1">이름</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">숙소명</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
-								<label for="select_search_op4">키워드</label>
-							</li>
-						</ul>
-					</div>					
 					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
+						<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="아이디를 입력하세요">
+						<button type="submit" class="btn_sch">검색</button>
 					</div>
+				</form>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
-						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
-								</li>
-							</ul>
-						</div>
+						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
 				<div class="tblType3 noBorT noBorB boardList">
@@ -150,10 +128,10 @@ scope="application"/>
 						<colgroup>
 							<col width="8%">
 							<col width="10%">
-							<col width="8%">
 							<col width="*">
 							<col width="8%">
-							<col width="8%">
+							<col width="10%">
+							<col width="10%">
 							<col width="10%">
 							<col width="8%">
 						</colgroup>
@@ -161,98 +139,78 @@ scope="application"/>
 							<tr>
 								<th>NO</th>
 								<th>호스트 ID</th>
-								<th>이름</th>
 								<th>숙소명</th>
-								<th>상태</th>
 								<th>평점</th>
-								<th>승인완료</th>
-								<th>인증완료</th>
+								<th>생성날짜</th>
+								<th>승인날짜</th>
+								<th>승인상태</th>
+								<th>상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
+							<c:forEach var="room" items="${ RoomList }">
+							<tr onclick="showLayer('roomsPop'); userdata(this);">
+								<td style="display:none;"><input type="hidden" value="${room.user_id}"></td>
+								<td>${ room.roomNo }</td>
+								<td>${ room.user_id }</td>
+								<td>${ room.roomName }</td>
+								<td>${ room.star }</td>
+								<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td><fmt:formatDate value="${ room.enrollDate }" type="both" pattern="yyyy.MM.dd" /></td>
+								<td>${ room.enrollStatus }</td>
+								<td>${ room.status }</td>
 							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomsPop')">
-								<td>190</td>
-								<td>hosthost</td>
-								<td>호스트맨</td>
-								<td>어서와요 제주의 방 어서와요 제주의 방</td>
-								<td>등록</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/roomsMg?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/roomsMg?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/roomsMg?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/roomsMg?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/roomsMg?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
 			</div>
 			<!-- //contet -->

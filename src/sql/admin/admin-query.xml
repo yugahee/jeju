@@ -251,4 +251,27 @@ WHERE RNUM BETWEEN ? AND ?
 	  ORDER BY ENROLL_DATE DESC
 </entry>
 
+<entry key="searchRoom">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM ROOMS
+   ORDER BY ROOM_NO) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="getRoomListCount">
+     SELECT
+            COUNT(*)
+       FROM ROOMS
+   ORDER BY ROOM_NO
+</entry>
+<entry key="getRoomListCount2">
+	SELECT
+	    ROOM_NO,   
+	    ROUND(AVG(STAR),1)
+	FROM ROOMS_REVIEW
+	GROUP BY ROOM_NO
+</entry>
+
 </properties>

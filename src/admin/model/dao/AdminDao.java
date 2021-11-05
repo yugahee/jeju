@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import host.model.vo.Rooms;
 import member.model.vo.Member;
 
 public class AdminDao {
@@ -331,6 +332,92 @@ public class AdminDao {
 		}
 		
 		return listCount;
+	}
+
+	public int getRoomListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String sql = adminQuery.getProperty("getRoomListCount");
+
+		if(search.getSearchValue() != null) {
+			if(!search.getSearchCondition().equals("전체")) {
+				sql = adminQuery.getProperty("getRoomListCountStatus");
+			}
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;
+			if(sql == adminQuery.getProperty("getRoomListCountStatus")) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}			
+		
+		return listCount;
+	}
+
+	public List<Rooms> selectRoomList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("searchRoom");
+		List<Rooms> RoomList = new ArrayList<>();
+
+		if(search.getSearchValue() != null) {
+			if(!search.getSearchCondition().equals("전체")) {
+				sql = adminQuery.getProperty("searchRoomStatus");
+			}
+		}
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms room = new Rooms();
+				room.setRoomNo(rset.getInt("room_no"));					// 숙소번호
+				room.setUserId(rset.getString("user_id"));				// 호스트아이디
+				room.setRoomName(rset.getString("room_name"));			// 숙소이름
+				room.setStar(rset.getDouble("star"));					// 평점
+				room.setCreateDate(rset.getDate("createDate"));			// 생성날짜
+				room.setEnrollDate(rset.getDate("enrollDate"));			// 승인날짜
+				room.setEnrollStatus(rset.getString("enrollStatus"));	// 승인상태
+				room.setStatus(rset.getString("status"));				// 상태
+				RoomList.add(room);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return RoomList;
 	}
 
 
