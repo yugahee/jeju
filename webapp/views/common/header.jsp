@@ -48,6 +48,24 @@ scope="application"/>
 						<img src="${contextPath}/resources/images/logo.png" alt="" />
 					</a>
 				</div>
+				<c:choose>
+				<c:when test="${ loginUser.getUser_type() eq '호스트'}">
+				<!-- 호스트로 로그인 했을 때 -->
+				<div class="menuList">
+					<ul>
+						<li>
+							<a href="${ contextPath }/host/roomlist">숙소관리</a>
+						</li>
+						<li>
+							<a href="${ contextPath }/reco/mainView">추천장소</a>
+						</li>
+						<li>
+							<a href="#">예약관리</a>
+						</li>						
+					</ul>
+				</div>
+				</c:when>
+				<c:otherwise>
 				<div class="menuList">
 					<ul>
 						<li>
@@ -61,20 +79,8 @@ scope="application"/>
 						</li>					
 					</ul>
 				</div>
-				<!-- 호스트로 로그인 했을 때 -->
-				<div class="menuList" style="display: none">
-					<ul>
-						<li>
-							<a href="${ contextPath }/host/roomlist">숙소관리</a>
-						</li>
-						<li>
-							<a href="${ contextPath }/reco/mainView">추천장소</a>
-						</li>
-						<li>
-							<a href="#">예약관리</a>
-						</li>						
-					</ul>
-				</div>
+				</c:otherwise>
+				</c:choose>
 				<!-- 로그인 하기 전 -->
 				<c:if test="${ empty loginUser }">
 				<div class="userArea nologin">

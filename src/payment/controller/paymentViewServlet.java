@@ -45,7 +45,7 @@ public class paymentViewServlet extends HttpServlet {
 		// 성수기가 있는 방인지 체크
 		PeakSeason peak = new PaymentService().peakChk(roomNo);
 		
-		//System.out.println(reservationInfo);
+		System.out.println(reservationInfo);
 		//System.out.println(peak);
 		
 		int price = 0;
@@ -61,10 +61,10 @@ public class paymentViewServlet extends HttpServlet {
 			// 끝 날짜 비교
 			int Endcompare = reserveEnd.compareTo(peakEnd);
 			
-			if(Startcompare < 0 || Endcompare > 0) {
-				price = reservationInfo.getRoom_info().getPrice();
-			}else {
+			if(Startcompare > 0 && Endcompare < 0) {
 				price = peak.getPeakPrice();
+			}else {
+				price = reservationInfo.getRoom_info().getPrice();
 			}
 			
 		}else {

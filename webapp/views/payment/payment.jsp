@@ -221,7 +221,7 @@
 		 IMP.request_pay({
 		 	pg : 'kakaopay',
 		    pay_method : 'card', //생략 가능
-		    merchant_uid: "order_no_0037", // 상점에서 관리하는 주문 번호
+		    merchant_uid: "order_no_60", // 상점에서 관리하는 주문 번호
 		    name : '숙소 결제',
 		    amount : 100,			    
 		    buyer_name : '구매자이름',
@@ -234,7 +234,7 @@
 					url : "${contextPath}/payment/insert",
 					data : {
 						"reserveNo" : $("#reserveNo").val(),
-						"roomNo" : $("#roomNo").vai(),
+						"roomNo" : $("#roomNo").val(),
 						"totalPrice" : $("#totalPrice").val(),
 						"usingPoint" : $("#usingPoint").val(),						
 						"name" : $("#reserUserName").val(),

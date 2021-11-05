@@ -1,11 +1,16 @@
 package payment.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import payment.model.service.PaymentService;
 
 /**
  * Servlet implementation class PaymentInsertServlet
@@ -35,7 +40,16 @@ public class PaymentInsertServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
-		System.out.println(roomNo);
+		int reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		int usingPoint = Integer.parseInt(request.getParameter("usingPoint"));
+		String reserveName = request.getParameter("name");
+		String phone = request.getParameter("phone");
+		
+		int paymentResult = new PaymentService().paymentInsert(reserveNo, totalPrice);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(roomNo, response.getWriter());
 	}
 
 }

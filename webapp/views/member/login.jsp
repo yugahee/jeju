@@ -25,12 +25,13 @@
 <div id="findId" class="layerPop findId">
 		<div class="layerTit">
 			<h4>아이디 찾기</h4>
-			<button class="btn_closeLayer" onclick="hideLayer('findId');"><span class="blind">팝업 닫기</span></button>
+			<button type="button" class="btn_closeLayer" onclick="hideLayer('findId');"><span class="blind">팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
 			<div class="cardinfo">
 				<p>가입 시 등록한 이름과 이메일을 입력해주세요.</p>
 			</div>
+			
 			<div class="tblType2 noBorder">
 				<table>
 					<caption></caption>
@@ -55,19 +56,48 @@
 				</table>
 			</div>
 
-			<span id="result"></span>
+			<span id="result1"></span><span id="result"></span>
 			
 			<div class="btn_wrap">
-				<button class="btn btnType2 btnSizeM" onclick="findResult()"><span>아이디 찾기</span></button>
-				<button class="btn btnType2 btnSizeM" onclick="hideLayer('findId');return false;"><span>닫기</span></button>
+				<button id="findBtn" class="btn btnType2 btnSizeM"><span>아이디 찾기</span></button>
+				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('findId');return false;"><span>닫기</span></button>
 			</div>
+			
 		</div>
 	</div>
+
+<script>
+	$("#findBtn").on('click', function(){
+		var userName = $("[name=id_name]");
+		var userMail = $("[name=id_mail]");
+		
+		$.ajax({
+			url : "${ contextPath }/findId",
+			type : "post",
+			data : { userName : userName.val(), userMail : userMail.val() },
+			success : function(userId){
+				if(userId != "fail"){
+					// 아이디 찾아와 span에 넣기
+					$("#result1").text("회원님의 아이디: ");
+					$("#result").text(userId);
+					
+				} else {			
+					alert("존재하지 않는 회원입니다.");
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	});
+
+</script>
+
 
 	<div id="findPwd" class="layerPop findPwd">
 		<div class="layerTit">
 			<h4>비밀번호 재설정</h4>
-			<button class="btn_closeLayer" onclick="hideLayer('findPwd');"><span class="blind">팝업 닫기</span></button>
+			<button type="button" class="btn_closeLayer" onclick="hideLayer('findPwd');"><span class="blind">팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
 			<div class="cardinfo">
@@ -119,7 +149,7 @@
 			</div>
 			<div class="btn_wrap">
 				<button type="submit" class="btn btnType2 btnSizeM" onclick="newPwd()"><span>완료</span></button>
-				<button class="btn btnType2 btnSizeM" onclick="hideLayer('findPwd');return false;"><span>닫기</span></button>
+				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('findPwd');return false;"><span>닫기</span></button>
 			</div>
 		</div>
 	</div>

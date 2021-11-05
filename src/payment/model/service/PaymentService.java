@@ -32,4 +32,11 @@ public class PaymentService {
 		
 		return peak;
 	}
+
+
+	public int paymentInsert(int reserveNo, int totalPrice) {
+		
+		
+		return 0;
+	}
 }
