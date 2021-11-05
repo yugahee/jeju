@@ -367,6 +367,10 @@
      #result {
           color : #ff8b33;
      }
+     
+     #pwdM_btn {
+       	  text-align: center;
+     }
 
    /** join **/
    .memberJoin {
