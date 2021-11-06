@@ -34,7 +34,7 @@
 				<!-------------------- 등록 내용 화면 ------------------------------------------->
 				<div class="roomenroll_basic">
 					<!-- ** 기본설정 1 ** -->
-					<form method="post" action="${ contextPath }/host/roomUpdate1">
+					<form method="post" action="${ contextPath }/host/roomUpdate1" name="roomeenrollbasic" onsubmit="return formCheck();">
 					<input type="hidden" name="roomno" value="${ room.roomNo }"> 
 					
 						<div class="roomenroll_title_main">
@@ -744,25 +744,36 @@
 		</div>
 
 		<script>
-		// 숙소이름 input에 특수문자 입력하는 경우 error 메세지 띄우기
-		document.forms.roomeenrollbasic.oninput = function(){
-			let regExp = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
-			let roomname = document.getElementById("roomname").value;
-			let divinp = document.querySelector(".roomenroll_inp");
-			let nameresult = document.getElementById("nameresult");
-									
-			if(!regExp.test(roomname)){
-				divinp.classList.add('inp_error');
-				nameresult.classList.add('error');
-				nameresult.innerHTML = '숙소 이름에는 특수문자를 사용하실 수 없습니다'
+			// 숙소이름 input에 특수문자 입력하는 경우 error 메세지 띄우기
+			document.forms.roomeenrollbasic.oninput = function(){
+				const regExp = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
+				const roomname = document.getElementById("roomname").value;
+				const divinp = document.querySelector(".roomenroll_inp");
+				const nameresult = document.getElementById("nameresult");
+										
+				if(!regExp.test(roomname)){
+					divinp.classList.add('inp_error');
+					nameresult.classList.add('error');
+					nameresult.innerHTML = '숙소 이름에는 특수문자를 사용하실 수 없습니다'
+		
+				} else{
+					divinp.classList.remove('inp_error');
+					nameresult.classList.remove('error');
+					nameresult.innerHTML = '';
+				}
 	
-			} else{
-				divinp.classList.remove('inp_error');
-				nameresult.classList.remove('error');
-				nameresult.innerHTML = '';
+			};
+			
+			// form 태그 제출시 체크항목
+			function formCheck(){
+				
+				if(document.getElementById("nameresult").getAttribute('class') == 'error'){
+					alert('숙소 이름에는 특수문자를 사용하실 수 없습니다.');
+					return false;
+				}
+				
+				return true;
 			}
-
-		};
 	
 		</script>
 		

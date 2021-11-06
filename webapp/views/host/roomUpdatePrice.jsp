@@ -47,31 +47,33 @@
 						<div class="roomenroll_title_sub2">
 							<p>※ 게스트가 예약할 수 있는 숙박 일수를 등록해주세요</p>
 						</div>
-	                    <div class="roomenroll_content_opt">
-	                        <div class="roomenroll_content_list">
-	                            <div class="roomenroll_staydate">
+	                    <div class="room_wrap">
+	                        <div class="roomenrool_wrap">
+	                            <div class="roomenroll_title_sub">
 									<p>최소 숙박 일수</p>
 								</div>
-	            	            <div class="inp_text roomenroll_inp2 roomenroll_opt">
+	            	            <div class="inp_text roomenroll_inp2">
 	        	    	            <input type="text" name="minstay" id="minstay" value="${ room.minStay }" required>
-	                            </div>
-	                           	 박
+	                            </div>박
+	                           	<!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
+	                            <p class="" id="minstayresult">test</p> 
 	                        </div>
-	                        <div class="roomenroll_content_list">
-	                            <div class="roomenroll_staydate">
+	                        <div class="roomenrool_wrap">
+	                            <div class="roomenroll_title_sub">
 									<p>최대 숙박 일수</p>
 								</div>
-	                            <div class="inp_text roomenroll_inp2 roomenroll_opt">
+	                            <div class="inp_text roomenroll_inp2">
 	                                <input type="text" name="maxstay" id="maxstay" value="${ room.maxStay }" required>
-	                            </div>
-	                                                                박
+	                            </div>박
+	                            <!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
+	                            <p class="" id="maxstayresult">test</p>                            
 	                        </div>
 	                    </div>
 	                    <div class="roomenroll_title_sub2">
 							<p>※ 숙박 인원 수에 따른 요금 정보를 등록해주세요.</p>
 						</div>
-	                    <div class="roomenroll_content_opt">
-	                        <div class="roomenroll_content_list">
+	                    <div class="room_wrap">
+	                        <div class="roomenrool_wrap">
 	                            <div class="roomenroll_staydate">
 									<p>기본 숙박 인원</p>
 								</div>
@@ -131,7 +133,7 @@
 	                                </ul>
 	                            </div>
 	                        </div>
-	                        <div class="roomenroll_content_list">
+	                        <div class="roomenrool_wrap">
 	                            <div class="roomenroll_staydate">
 									<p>최대 숙박 인원</p>
 								</div>
@@ -242,24 +244,26 @@
 	                            </div>
 	                    	</div>
 	                    </div>
-	                    <div class="roomenroll_content_opt">
-	                    	<div class="roomenroll_content_list">
-	                        	<div class="roomenroll_staydate">
+	                    <div class="room_wrap">
+	                    	<div class="roomenrool_wrap">
+	                        	<div class="roomenroll_title_sub">
 									<p>숙박 금액(1박 기준)</p>
 								</div>
-	                            <div class="inp_text roomenroll_inp2 roomenroll_opt">
+	                            <div class="inp_text roomenroll_inp2">
 	                                <input type="text" name="price" id="price" value="${ room.price }" required>
-	                            </div>
-	                           	 원
+	                            </div>원 
+	                           	<!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
+	                            <p class="" id="priceresult">test</p>       
 	                        </div>
-	                        <div class="roomenroll_content_list">
-	                            <div class="roomenroll_staydate">
+	                        <div class="roomenrool_wrap">
+	                            <div class="roomenroll_title_sub">
 									<p>추가 인원 금액</p>
 								</div>
-	                            <div class="inp_text roomenroll_inp2 roomenroll_opt">
+	                            <div class="inp_text roomenroll_inp2">
 	                                <input type="text" name="extracost" id="extracost" value="${ room.extraCost }" required>
-	                            </div>
-	                                                               원
+	                            </div>원
+	                            <!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
+	                            <p class="" id="extracost">test</p>                                    
 	                        </div>
 	                    </div>
 	                    <!-- ** 성수기 버튼 추가 ** -->

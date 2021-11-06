@@ -1180,7 +1180,10 @@
 
      /* 숙소 등록 - 요금 등록페이지 내용화면 ---------------------------*/
      .roomenroll_inp2 { width: 230px; display: inline-block;}
-     .roomenroll_title_sub2 { margin: 20px 20px;}
+     .roomenroll_title_sub2 { display: flex; margin-top: 50px; }
+     .room_wrap { display: flex; justify-content: space-around; margin: 30px 0; }
+	 .roomenrool_wrap { display: block; }
+     
      /* 성수기 등록시 화면 */
      .peaktb_add {display: none;}
      .peaktb_btn { width: 20px; background-color: #d10000; color: #ffffff;}
