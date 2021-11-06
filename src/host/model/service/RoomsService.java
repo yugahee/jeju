@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import admin.model.vo.PageInfo;
+import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
 
@@ -215,18 +216,18 @@ public class RoomsService {
 
 
 	// 숙소목록 페이징처리
-	public Map<String, Object> selectRoomList(int page, String userId) {
+	public Map<String, Object> selectRoomList(int page, String userId, Search search) {
 		Connection conn = getConnection();
 		
 		/* 호스트의 숙소 전체 갯수 조회 */
-		int listCount = roomDao.getListCount(conn, userId);
+		int listCount = roomDao.getListCount(conn, userId, search);
 		// System.out.println(listCount);
 		
 		/* pageInfo 객체 생성 => 3 : 하단에 보여질 페이지 목록 수, 6 : 한 페이지에 보여질 게시글 최대  */
 		PageInfo pi = new PageInfo(page, listCount, 3, 6);   
 		
 		/* 페이징 처리 된 게시글 목록 조회 */
-		List<Rooms> roomList = roomDao.selectList(conn, pi, userId);
+		List<Rooms> roomList = roomDao.selectList(conn, pi, userId, search);
 		// System.out.println(pi);
 		// System.out.println(roomList);
 		

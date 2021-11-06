@@ -17,32 +17,37 @@
 							</ul>
 						</div>
 						<br>
+						<form method="get" action="${ contextPath }/host/roomlist">  
 						<div class="roomlist_sub">
-							<%-- <form method="get" action="${ contextPath }/host/roomlist">  --%>
 							<div class="selectbox roomlist_sel">
 								<button class="title" type="button" title="검색옵션 선택">검색옵션</button>
 								<ul class="selList">
 									<li>
-										<input type="radio" value="roomname" class="option" id="searchCondition1" name="searchCondition" />
+										<input type="radio" value="roomname" class="option" id="searchCondition1" name="searchCondition"
+										<c:if test="${param.searchCondition == 'roomname' }">selected="selected"</c:if> />
 										<label for="searchCondition1">숙소이름</label>
 									</li>
 									<li>
-										<input type="radio" value="roomstatus" class="option" id="searchCondition2" name="searchCondition" />
+										<input type="radio" value="roomstatus" class="option" id="searchCondition2" name="searchCondition"
+										<c:if test="${param.searchCondition == 'roomstatus' }">selected="selected"</c:if> />
 										<label for="searchCondition2">등록상태</label>
 									</li>
 								</ul>
 							</div>
 							<div class="listTotal roomlist_search">
-								<!-- <p class="totalCnt">총 1건</p> -->
 								<div class="sortArea">
 									<div class="inp_text search">
-										<input type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력하세요">
+										<input type="text" name="searchValue" id="searchValue" 
+										value="${ param.searchValue }" placeholder="검색어를 입력하세요">
 										<button class="btn_sch">검색</button>
 									</div>
 								</div>
+								<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
+								<p class="totalCnt">총 ${ pi.listCount }건</p> 
+								</c:if>
 							</div>
-							<!-- </form> -->
 						</div>
+						</form>
 						<div class="roomlist_content">
 							<div class="tblType3 noBorT noBorB boardList">
 								<table summary="숙소목록">
@@ -107,12 +112,16 @@
 								</table>
 							</div>
 						</div>
+						<!-- 검색한 경우  변수 선언 (url 문자열에는 공백없도록!!)-->
+						<c:if test="${ !empty param.searchCondition && !empty param.searchValue }">
+							<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
+						</c:if>
 						<!-- 페이징 -->
 						<div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
-							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
+							<span class="first"><a href="${ contextPath }/host/roomlist?page=1${ searchParam }"><span class="blind">첫페이지</span></a></span>
 							<c:choose>
 								<c:when test="${ pi.page > 1 }">
-								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}${ searchParam }"><span class="blind">이전페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
@@ -125,21 +134,21 @@
 								<span class="current">${ p }</span>	
 								</c:when>
 								<c:otherwise>
-								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
+								<a href="${ contextPath }/host/roomlist?page=${ p }${ searchParam }">${ p }</a>
 								</c:otherwise>
 							</c:choose>
 							</c:forEach>
 							
 							<c:choose>
 								<c:when test="${ pi.page < pi.maxPage }">
-								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }${ searchParam }"><span class="blind">다음페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 								</c:otherwise>
 							</c:choose>
 							
-							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }${ searchParam }"><span class="blind">마지막페이지</span></a></span>
 							
 						</div>
                     

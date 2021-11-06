@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.model.vo.Search;
 import host.model.service.RoomsService;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
@@ -37,11 +38,6 @@ public class HostRoomListServlet extends HttpServlet {
 		/* 호스트의 숙소목록 불러오기 */	
 		// 유저 아이디  
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
-			
-		// String userId = "host1";   // 테스트용 유저아이디
-		
-		// List<Rooms> roomList = new RoomsService().selectRooms(userId);
-		// System.out.println(roomList);
 		
 		// *** page : 현재 요청 페이지  (get방식이니까 uri에 page값 출력됨) ***
 		// 기본적으로 게시판은 1페이지부터 시작
@@ -51,9 +47,13 @@ public class HostRoomListServlet extends HttpServlet {
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
-				
+		
+		// 검색 관련
+		String searchCondition = request.getParameter("searchCondition");   // 검색조건
+		String searchValue = request.getParameter("searchValue");           // 입력값
+		
 		// 페이징과 관련 된 데이터, 조회 된 RoomList를 Map에 담아 리턴
-		Map<String, Object> map = new RoomsService().selectRoomList(page, userId);
+		Map<String, Object> map = new RoomsService().selectRoomList(page, userId, new Search(searchCondition, searchValue));
 		
 		request.setAttribute("pi", map.get("pi"));
 		request.setAttribute("roomList", map.get("roomList"));

@@ -364,6 +364,66 @@
 		 WHERE RNUM BETWEEN ? AND ?	
 	</entry>
 	
+	<entry key="getRnameListCount">
+		SELECT
+		       COUNT(*)
+		  FROM ROOMS
+		 WHERE USER_ID = ?
+		   AND STATUS = 'Y'
+		   AND ROOM_NAME LIKE '%' || ? || '%'
+	</entry>
+	
+	<entry key="getRstatusListCount">
+		SELECT
+		       COUNT(*)
+		  FROM ROOMS
+		 WHERE USER_ID = ?
+		   AND STATUS = 'Y'
+		   AND ENROLL_STATUS LIKE '%' || ? || '%'
+	</entry>	
+	
+	<entry key="selectRnameList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (SELECT
+						       ROOM_NO
+						     , ROOM_NAME
+						     , ENROLL_STATUS
+						     , CREATE_DATE
+						     , FILE_PATH
+						     , CHANGE_NAME
+						  FROM ROOMS R
+						  JOIN FILES F USING(ROOM_NO)
+						 WHERE R.STATUS = 'Y'
+						   AND F.STATUS = 'Y'
+						   AND FILE_LEVEL = 0
+						   AND USER_ID = ?
+						   AND ROOM_NAME LIKE '%' || ? || '%'
+						 ORDER BY ROOM_NO DESC) A)      
+		 WHERE RNUM BETWEEN ? AND ?	
+	</entry>	
+
+	<entry key="selectRstatusList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+				  FROM (SELECT
+						       ROOM_NO
+						     , ROOM_NAME
+						     , ENROLL_STATUS
+						     , CREATE_DATE
+						     , FILE_PATH
+						     , CHANGE_NAME
+						  FROM ROOMS R
+						  JOIN FILES F USING(ROOM_NO)
+						 WHERE R.STATUS = 'Y'
+						   AND F.STATUS = 'Y'
+						   AND FILE_LEVEL = 0
+						   AND USER_ID = ?
+						   AND ENROLL_STATUS LIKE '%' || ? || '%'
+						 ORDER BY ROOM_NO DESC) A)      
+		 WHERE RNUM BETWEEN ? AND ?	
+	</entry>		
+	
 </properties>
 
 
