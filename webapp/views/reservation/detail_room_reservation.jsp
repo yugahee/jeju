@@ -13,7 +13,7 @@
 <%@ include file="/views/common/header.jsp" %>		
 		
 		<div class="lodging_detail">
-			<div class="container">
+				<div class="RoomImageouter">
 				<!-- Slider main container -->
 					<div class="room_title">
 						${room.roomName}
@@ -33,6 +33,9 @@
 						<div class="swiper-button-prev nextButton"></div>
 						<div class="swiper-button-next nextButton"></div>					
 					</div>
+				
+				</div>
+			<div id="roomContainer" class="container">
 					<script>
 						const swiper = new Swiper('.swiper', {
 							navigation: {
@@ -260,6 +263,42 @@
            	<div class="hiddenlayerpop">
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
+  
+ 				<%-- 	 <div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
+							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
+							<c:choose>
+								<c:when test="${ pi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:choose>
+								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ p }</span>	
+								</c:when>
+								<c:otherwise>
+								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${ pi.page < pi.maxPage }">
+								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							
+						</div> --%>
+  
           
             
   <script>
