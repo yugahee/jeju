@@ -50,7 +50,7 @@
 					<div class="lodging_lineup" onclick="detailReservation(${room.roomNo})">
 						<div class="child1">
 							<img src="${contextPath}${room.fileList.get(0).filePath}
-							${room.fileList.get(0).changeName}" class="lodging1">
+							${room.fileList.get(0).changeName}">
 						</div>
 						<div class="child2">
 							<br>
