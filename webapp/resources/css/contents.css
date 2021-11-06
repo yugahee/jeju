@@ -1217,8 +1217,9 @@
      .roomlist_ul > li:last-of-type { color: #0e7539;}
      .roomlist_sub { margin: 50px 0; display: flex; justify-content: right;}
      .roomlist_sel { width: 150px;}
-     .roomlist_search { width: 300px; margin-left: 20px;}
-
+     .roomlist_search { width: 200px; margin-left: 20px;}
+	 .roomlist_search > p { margin: 10px 0; }
+	
      .roomlist_content { margin: 60px auto;}
      .roomlist_img { width: 200px; height: 200px; }
      .roomlist_content tbody{ justify-content: center;}

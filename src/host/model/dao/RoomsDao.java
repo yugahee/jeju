@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import admin.model.vo.PageInfo;
+import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
 import static common.JDBCTemplate.close;
@@ -522,15 +523,29 @@ public class RoomsDao {
 //		return reviewList;
 //	}
 
-	public int getListCount(Connection conn, String userId) {
+	public int getListCount(Connection conn, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int listCount = 0;
-		String sql = roomsQuery.getProperty("getListCount");
+		String sql = roomsQuery.getProperty("getListCount");    // 전체 목록 조회 
+		
+		// 검색 목록 조회 (검색 조건 있는 경우)
+		if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("roomname")) {
+				sql = roomsQuery.getProperty("getRnameListCount");
+			} else if(search.getSearchCondition().equals("roomstatus")) {
+				sql = roomsQuery.getProperty("getRstatusListCount");
+			}
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			
+			// 검색목록조회 sql문 실행시
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(2, search.getSearchValue());
+			}
 			
 			rset = pstmt.executeQuery();
 			
@@ -546,21 +561,36 @@ public class RoomsDao {
 		return listCount;
 	}
 
-	public List<Rooms> selectList(Connection conn, PageInfo pi, String userId) {
+	public List<Rooms> selectList(Connection conn, PageInfo pi, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
-		String sql = roomsQuery.getProperty("selectList");
+		String sql = roomsQuery.getProperty("selectList");  // 전체목록 조회
+		
+		// 검색 목록 조회
+		if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("roomname")) {
+				sql = roomsQuery.getProperty("selectRnameList");
+			} else if(search.getSearchCondition().equals("roomstatus")) {
+				sql = roomsQuery.getProperty("selectRstatusList");
+			}
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			int index = 1;
+			pstmt.setString(index++, userId);
 			
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			// 검색 목록 조회 sql 실행
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
 			
 			rset = pstmt.executeQuery();
 			
