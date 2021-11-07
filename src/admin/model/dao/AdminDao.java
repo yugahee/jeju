@@ -464,5 +464,26 @@ public class AdminDao {
 		return room;
 	}
 
+	public int modifyRoom(Connection conn, Rooms room, String rVal, String statusVal) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("updateRoomStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, statusVal);
+			pstmt.setString(2, rVal);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 }

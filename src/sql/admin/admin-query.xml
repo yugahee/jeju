@@ -336,4 +336,10 @@ WHERE RNUM BETWEEN ? AND ?
 	 WHERE ROOM_NO = ?
 </entry>
 
+<entry key="updateRoomStatus">
+	UPDATE ROOMS
+	SET ENROLL_STATUS = ?,
+		ENROLL_DATE = SYSDATE
+   WHERE ROOM_NO = ?
+</entry>
 </properties>

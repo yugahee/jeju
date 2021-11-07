@@ -141,6 +141,17 @@ public class AdminService{
 	}
 
 	public int modifyRoom(Rooms room, String rVal, String statusVal) {
-		return 0;
+		Connection conn = getConnection();		
+		int result = adminDao.modifyRoom(conn, room, rVal, statusVal);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 }

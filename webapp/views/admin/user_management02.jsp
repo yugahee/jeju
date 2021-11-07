@@ -132,6 +132,8 @@ scope="application"/>
 						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">
 				<div class="tblType3 noBorT noBorB boardList">
 					<table summary="회원 테이블">
 						<caption>회원 테이블</caption>
@@ -231,6 +233,14 @@ scope="application"/>
 						</a>
 					</span>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="noData">
+	                <p>해당 정보가 없습니다</p>
+	                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+	            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>
