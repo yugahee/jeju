@@ -207,38 +207,44 @@
 
 			</div>	
 			<div class="box">
-				<div class="boxChild1">
-					<div class="item">
-						<label id="labelCheck">체크인</label>
-						<div class="inp_text inp_margin1">
-							<input class="" type="date" name="checkIn" id="checkIn" />
+		    	<form name="reserveinfo" method="get">
+				    <input type="hidden" name="roomNo" value="${roomNo}">
+				    <%-- <input type="hidden" name="roomName" value="${room.roomName}"> --%>
+				    <input type="hidden" name="user_type" value="${loginUser.user_type}">
+					<div class="boxChild1">
+						<div class="item">
+							<label id="labelCheck">체크인</label>
+							<div class="inp_text inp_margin1">
+								<input class="" type="date" name="start_date" id="checkIn" />
+							</div>
 						</div>
+						<div class="item">
+							<label id="labelCheckOut">체크아웃</label>
+							<div class="inp_text inp_margin2">
+								<input type="date" name="end_date" id="checkOut" />
+							</div>
+						</div> 
 					</div>
 					<div class="item">
-						<label id="labelCheckOut">체크아웃</label>
-						<div class="inp_text inp_margin2">
-							<input type="date" name="checkOut" id="checkOut" />
+						<span>인원</span>
+						<div class="inp_qty inp_margin3 ">
+							<button type="button" onclick="qtyDown(this)" title="인원감소">
+								<img src="${contextPath}/resources/images/common/qty_down.gif" alt="인원감소">
+							</button>
+							<input type="text" title="인원수" name="reserve_num" value="1">
+							<button type="button" onclick="qtyUp(this)" title="인원증가">
+								<img src="${contextPath}/resources/images/common/qty_up.gif" alt="인워증가">
+							</button>
 						</div>
-					</div> 
-				</div>
-				<div class="item">
-					<span>인원</span>
-					<div class="inp_qty inp_margin3 ">
-						<button type="button" onclick="qtyDown(this)" title="인원감소">
-							<img src="${contextPath}/resources/images/common/qty_down.gif" alt="인원감소">
-						</button>
-						<input type="text" title="인원수" value="1">
-						<button type="button" onclick="qtyUp(this)" title="인원증가">
-							<img src="${contextPath}/resources/images/common/qty_up.gif" alt="인워증가">
-						</button>
 					</div>
-				</div>
+				</form>
 				<div class="boxChild3">
 					<div id="won1">예상결제금액:</div>
 					<div id="won2">20000</div>
 				</div>  
 				<a href="#" id="xx" class="btn btnType1 btnSizeL reserve_request" onclick="showLayer('reserveApply');" ><span>예약 신청</span></a>
 			</div>
+				
 		</div>
 		
 		<!-- 예약 신청 레이어 부분 -->
@@ -253,7 +259,7 @@
                    	 예약 신청 하시겠습니까?
                 </div>  
                 <div class="okAndNo">
-              		<a href="#" class="btn btnType1 btnSizeS" type="button" 
+              		<a class="btn btnType1 btnSizeS" type="button" 
            			 onclick="reserveOk();"><span>확인</span></a>
            			 <a href="#" class="btn btnType2 btnSizeS" type="button" 
            			 onclick="reserveCancell();"><span>취소</span></a>
@@ -300,60 +306,67 @@
 						</div> --%>
   
           
-            
-  <script>
-    
-	// 예약 신청 취소 시 동작 
+    <!-- 예약 신청 취소 시 동작 -->  
+    <script>
     function reserveCancell(){
         const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
         ch.click();    // 레이아웃 닫기
         
-        const reserveCheck = document.querySelector('#reserveCheck');
-        reserveCheck.click(); 
+        /* const reserveCheck = document.querySelector('#reserveCheck');
+        reserveCheck.click();  */
 
     }  
+ 	</script>
 	
-	// 예약 신청 확인 시 동작
-     function reserveOk(){
-   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
-     ch.click();    // 레이아웃 닫기
-         
-     alert("예약 신청 완료. 마이페이지에서 예약내역을 확인해주세요."); 
-    }  
- </script>            
-            
-            
-            
+	
+	<!--  예약 신청 확인 시 동작 -->
+	<script>
+	     function reserveOk(){
+	    	 if( '${loginUser.user_type}' == '게스트') {
+			   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+			     ch.click();    // 레이아웃 닫기
+		    
+		    	 alert("예약 신청이 완료되었습니다."); 
+			    
+			     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
+			     document.forms.reserveinfo.submit();
+	    	 } else{
+	    	 	alert("로그인 후 예약신청 바랍니다.")
+	    	 	location.href="${contextPath}/login";
+	    	 }
+	     }
+   	</script>
 
-<script>
-var isOn = false;
-$('.moreBtn1').click(function(){
-  if(!isOn){
-    $('.moreSee1').css('height','auto');  
-    $('.moreBtn1').css({'position':'unset'},{'box-shadow':'unset'});
-    isOn = true;
-  }else{
-    $('.moreSee1').css('height','130px'); 
-    $('.moreBtn1').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
-    isOn = false;
-  }
-  
-})
 
-$('.moreBtn2').click(function(){
-  if(!isOn){
-    $('.moreSee2').css('height','auto');  
-    $('.moreBtn2').css({'position':'unset'},{'box-shadow':'unset'});
-    isOn = true;
-  }else{
-    $('.moreSee2').css('height','130px'); 
-    $('.moreBtn2').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
-    isOn = false;
-  }
-  
-})
-
-</script>
+	<script>
+	var isOn = false;
+	$('.moreBtn1').click(function(){
+	  if(!isOn){
+	    $('.moreSee1').css('height','auto');  
+	    $('.moreBtn1').css({'position':'unset'},{'box-shadow':'unset'});
+	    isOn = true;
+	  }else{
+	    $('.moreSee1').css('height','130px'); 
+	    $('.moreBtn1').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
+	    isOn = false;
+	  }
+	  
+	})
+	
+	$('.moreBtn2').click(function(){
+	  if(!isOn){
+	    $('.moreSee2').css('height','auto');  
+	    $('.moreBtn2').css({'position':'unset'},{'box-shadow':'unset'});
+	    isOn = true;
+	  }else{
+	    $('.moreSee2').css('height','130px'); 
+	    $('.moreBtn2').css({'position':'absolute'},{'box-shadow':'0px -40px 40px white'});
+	    isOn = false;
+	  }
+	  
+	})
+	
+	</script>
 
 		
 <%@ include file="/views/common/footer.jsp" %>

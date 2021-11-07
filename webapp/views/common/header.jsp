@@ -60,7 +60,7 @@ scope="application"/>
 							<a href="${ contextPath }/reco/mainView">추천장소</a>
 						</li>
 						<li>
-							<a href="#">예약관리</a>
+							<a href="${ contextPath }/reserve/admin">예약관리</a>
 						</li>						
 					</ul>
 				</div>

@@ -9,6 +9,7 @@ import static common.JDBCTemplate.*;
 
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import member.model.vo.Member;
 import reservation.model.dao.ReservationDao;
 import reservation.model.vo.Reservation;
 
@@ -60,6 +61,8 @@ public class ReservationService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -73,6 +76,8 @@ public class ReservationService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}
@@ -88,6 +93,37 @@ public class ReservationService {
 		
 		return roomReviewList;
 	}
+
+	// 예약 신청 버튼 클릭 후 확인 버튼 클릭 시 예약자 정보 삽입 
+	public int insertReservation(Member loginUser, Reservation reserveInfo) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.insertReservation(conn, loginUser, reserveInfo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	// 예약테이블에서 예약자 정보 조회
+	public List<Reservation> selectReserveInfo() {
+		Connection conn = getConnection();
+		
+		List<Reservation> reserveInfo = reservationDao.selectReserveInfo(conn);
+		
+		close(conn);
+		
+		return reserveInfo;
+	}
+
+
+	
+
+
 
 
 	

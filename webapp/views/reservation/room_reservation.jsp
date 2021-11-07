@@ -181,8 +181,8 @@
 				</span>
 			</div>
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-                <a href="${contextPath}/room/reservation" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="${contextPath}/room/reservation" class="btn btnType1 btnSizeM"><span>적용</span></a>
+                <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
 		</div>  
 	</div>
