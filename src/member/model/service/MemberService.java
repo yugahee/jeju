@@ -110,4 +110,20 @@ public class MemberService{
 		// 수정된 멤버 정보 리턴
 		return updatedMember;
 	}
+
+	public int deleteAccount(String userId, String reason) {
+		Connection conn = getConnection();
+		
+		int result = memberDao.deleteAccount(conn, userId, reason);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }

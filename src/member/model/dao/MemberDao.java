@@ -8,12 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
-import admin.model.vo.PageInfo;
-import admin.model.vo.Search;
 import member.model.vo.Member;
 
 public class MemberDao {
@@ -248,6 +244,27 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int deleteAccount(Connection conn, String userId, String reason) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("deleteAcount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reason);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }
