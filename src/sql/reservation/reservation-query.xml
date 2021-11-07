@@ -101,4 +101,49 @@
 </entry>
 
 
+<!-- 예약 정보 insert -->
+<entry key="insertReservation">
+	INSERT
+	 INTO RESERVATION
+	 (
+	 	 ROOM_RESERVE
+		,START_DATE
+		,END_DATE
+		,PERSON_RESERVE <!-- 예약자명  -->
+		,PONE
+		,RESERVE_STATE
+		,RESERVE_NUM <!-- 예약인원  -->
+		,GUEST  <!-- 게스트ID  -->
+		,ROOM_NO
+	 )
+	 VALUES
+	 (   SEQ_ROOMRESERVE.NEXTVAL
+	   , ?
+	   , ?
+	   , ?
+	   , ?
+	   , '예약신청'
+	   , ?
+	   , ?
+	   , ?
+	 )  
+</entry>
+
+<entry key="selectReserveInfo">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+</entry>
+
+
 </properties>

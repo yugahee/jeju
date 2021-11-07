@@ -41,6 +41,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 		//System.out.println(roomReviewList);
 		
 		if(room != null && roomReviewList != null) {
+			 request.setAttribute("roomNo", roomNo);
 	         request.setAttribute("room", room);
 	 		 request.setAttribute("roomReviewList", roomReviewList );
 	         request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);

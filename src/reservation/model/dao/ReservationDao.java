@@ -17,6 +17,7 @@ import static common.JDBCTemplate.*;
 import host.model.vo.Files;
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import member.model.vo.Member;
 import reservation.model.vo.Reservation;
 
 public class ReservationDao {
@@ -226,6 +227,9 @@ public class ReservationDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
@@ -253,6 +257,79 @@ public class ReservationDao {
 		
 		return result;
 	}
+
+
+	public int insertReservation(Connection conn, Member loginUser, Reservation reserveInfo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  roomQuery.getProperty("insertReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setDate(1, reserveInfo.getStart_date());
+			pstmt.setDate(2, reserveInfo.getEnd_date());
+			pstmt.setString(3, loginUser.getUser_name());
+			pstmt.setString(4, loginUser.getPhone());
+			pstmt.setInt(5, reserveInfo.getReserve_num());
+			pstmt.setString(6, loginUser.getUser_id());
+			pstmt.setInt(7, reserveInfo.getRoom_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public List<Reservation> selectReserveInfo(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Reservation> reserveInfo = new ArrayList<>();
+		String sql =  roomQuery.getProperty("selectReserveInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reservation	reservation = new Reservation();
+				reservation.setRoom_reserve(rset.getInt("room_reserve"));
+				reservation.setStart_date(rset.getDate("start_date"));
+				reservation.setEnd_date(rset.getDate("end_date"));
+				reservation.setPerson_reserve(rset.getString("person_reserve"));
+				reservation.setPone(rset.getString("pone"));
+				reservation.setReserve_state(rset.getString("reserve_state"));
+				reservation.setReserve_num(rset.getInt("reserve_num"));
+				reservation.setRoom_no(rset.getInt("room_no"));
+				
+				Rooms room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				
+				reservation.setRoom_info(room);
+				
+				reserveInfo.add(reservation);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reserveInfo;
+	}
+
+
+	
 
 
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link type="text/css" rel="stylesheet" href="../resources/css/common.css">
+<link type="text/css" rel="stylesheet" href="../resources/css/contents.css">  
 <%@ include file="/views/common/header.jsp" %>
 <div class="host_reservation">
    <div class="container">
@@ -59,56 +61,43 @@
        </div>
        <div class="sec sec03">
            <div class="tblType3 noBorT noBorB boardList">
-               <table summary="이벤트 후기 목록">
-                   <caption>이벤트 후기 목록</caption>
-                   <colgroup>
-                       <col style="width:9.2%">
-                       <col style="width:*">
-                       <col style="width:13.8%">
-                       <col style="width:13.8%">
-                       <col style="width:9.2%">
-                   </colgroup>
-                   <thead>
-                       <tr>
-                           <th>NO</th>
-                           <th>상태</th>
-                           <th>예약번호</th>
-                           <th>날짜</th>
-                           <th>숙소이름</th>
-                           <th>게스트</th>
-                           <th>관리</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <tr>
-                           <td>1</td>
-                           <td>숙박완료</td>
-                           <td>12345679</td>
-                           <td>2021.01.01</td>
-                           <td>숙소명</td>
-                           <td>guest01</td>
-                           <td><button class="btn btnType1 btnSizeS"><span>관리</span></button></td>
-                       </tr>
-                       <tr>
-                           <td>1</td>
-                           <td>숙박완료</td>
-                           <td>12345679</td>
-                           <td>2021.01.01</td>
-                           <td>숙소명</td>
-                           <td>guest01</td>
-                           <td><button class="btn btnType1 btnSizeS"><span>관리</span></button></td>
-                       </tr>
-                       <tr>
-                           <td>1</td>
-                           <td>숙박완료</td>
-                           <td>12345679</td>
-                           <td>2021.01.01</td>
-                           <td>숙소명</td>
-                           <td>guest01</td>
-                           <td><button class="btn btnType1 btnSizeS"><span>관리</span></button></td>
-                       </tr>                                
-                   </tbody>
-               </table>
+           	  
+	               <table summary="이벤트 후기 목록">
+	                   <caption>이벤트 후기 목록</caption>
+	                   <colgroup>
+	                       <col style="width:9.2%">
+	                       <col style="width:*">
+	                       <col style="width:13.8%">
+	                       <col style="width:13.8%">
+	                       <col style="width:9.2%">
+	                   </colgroup>
+	                   <thead>
+	                       <tr>
+	                           <th>NO</th>
+	                           <th>상태</th>
+	                           <th>예약번호</th>
+	                           <th>날짜</th>
+	                           <th>숙소이름</th>
+	                           <th>게스트</th>
+	                           <th>인원</th>
+	                           <th>관리</th>
+	                       </tr>
+	                   </thead>
+	                   <tbody>
+	                   <c:forEach var="reserveInfo" items="${reserveInfo}">
+	                       <tr>
+	                           <td>1</td>
+	                           <td>${reserveInfo.reserve_state}</td>
+	                           <td>${reserveInfo.room_reserve}</td>
+	                           <td>${reserveInfo.start_date}<%-- /${reserviInfo.end_date} --%></td>
+	                           <td>${reserveInfo.room_info.roomName}</td>
+	                           <td>${reserveInfo.person_reserve}</td>
+	                           <td>${reserveInfo.reserve_num}</td>
+	                           <td><button class="btn btnType1 btnSizeS"><span>관리</span></button></td>
+	                       </tr>
+	                   </tbody>
+		              </c:forEach> 
+	              </table>
            </div>
        </div>
    </div>
