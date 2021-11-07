@@ -108,4 +108,12 @@
 	   AND EMAIL = ?
 </entry>
 
+<entry key="deleteAcount">
+	UPDATE
+		   MEMBER
+	   SET STATUS = 'N'
+	     , MODIFY_DATE = SYSDATE
+	     , DELETE_REASON = ?
+	 WHERE USER_ID = ?
+</entry>
 </properties>
