@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="selectAllList">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE PUBLIC_YN = 'Y'
+		 ORDER BY RECO_NO DESC
+	</entry>
+	
+	<entry key="selectList">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE PUBLIC_YN = 'Y'
+		   AND RECO_AREA = ?
+		   AND RECO_CATEGORY = ?
+		 ORDER BY RECO_NO DESC
+	</entry>
+	
+</properties>
