@@ -17,7 +17,7 @@ public class ReservationService {
 
 	private ReservationDao reservationDao = new ReservationDao();
 	
-	
+	// 숙소예약 화면 리스트 조회 
 	public List<Rooms> selectRoom() {
 		Connection conn = getConnection();
 		
@@ -28,6 +28,7 @@ public class ReservationService {
 		return roomList;
 	}
 	
+	// 숙소예약 화면에서 숙소 클릭 시 디테일 정보  조회 
 	public Rooms detailSelectRoom(int roomNo) {
 		Connection conn = getConnection();
 		
@@ -106,6 +107,8 @@ public class ReservationService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -119,6 +122,25 @@ public class ReservationService {
 		
 		return reserveInfo;
 	}
+
+	// 예약상태 : '결제대기' 업데이트
+	public int paymentWaitUpdate (int reserve_no) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.paymentWaitUpdate(conn, reserve_no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 
 	

@@ -146,4 +146,12 @@
 </entry>
 
 
+<entry key="paymentWait">
+	UPDATE RESERVATION
+	   SET RESERVE_STATE = '결제대기'
+	 WHERE ROOM_RESERVE = ?
+</entry>
+
+
+
 </properties>

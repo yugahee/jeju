@@ -68,8 +68,8 @@
 	                       <col style="width:9.2%">
 	                       <col style="width:*">
 	                       <col style="width:13.8%">
-	                       <col style="width:13.8%">
-	                       <col style="width:9.2%">
+	                       <col style="width:14.8%">
+	                       <col style="width:13.2%">
 	                   </colgroup>
 	                   <thead>
 	                       <tr>
@@ -89,11 +89,20 @@
 	                           <td>1</td>
 	                           <td>${reserveInfo.reserve_state}</td>
 	                           <td>${reserveInfo.room_reserve}</td>
-	                           <td>${reserveInfo.start_date}<%-- /${reserviInfo.end_date} --%></td>
+	                           <td> &nbsp; 체크인 : ${reserveInfo.start_date} 
+	                         	 <br>&nbsp;&nbsp;&nbsp;체크아웃 : ${reserveInfo.end_date}</td>
 	                           <td>${reserveInfo.room_info.roomName}</td>
 	                           <td>${reserveInfo.person_reserve}</td>
 	                           <td>${reserveInfo.reserve_num}</td>
-	                           <td><button class="btn btnType1 btnSizeS"><span>관리</span></button></td>
+	                           <c:choose>
+	                           	   <c:when test="${reserveInfo.reserve_state eq '예약신청'}">
+                          				 <td> &nbsp; <a href="#" id="btnAccept" class="btn btnType1 btnSizeS btn_size" onclick="btnAccept(${reserveInfo.room_reserve})">
+                          				 			 <span id="accept">수락</span></a> <br> 
+                          					 <a href="#" id="btnRomove" class="btn btnType2 btnSizeS" onclick=""><span>거절</span></a>
+                          				 </td> 
+	                       	   	   </c:when>
+	                       	  
+	                       	   </c:choose>
 	                       </tr>
 	                   </tbody>
 		              </c:forEach> 
@@ -102,4 +111,38 @@
        </div>
    </div>
 </div>
+ 
+ <!--   예약신청, 결제대기, 예약취소, 예약완료, 숙박완료 -->
+ 
+ <form name="paymentWaiting" method="post"> 
+ 	<input id="room_reserve" name="reserve_no" type="hidden">
+ </form>
+ 
+ 
+<script>
+	function btnAccept(room_reserve) {
+		// 수락 버튼 없애기
+		let acceiptBtn = document.getElementById("btnAccept");
+		acceiptBtn.remove();
+		
+		// 거절 버튼 없애기 
+		let btnRomove = document.getElementById("btnRomove");
+		btnRomove.remove();
+		
+		let roomReserve = room_reserve;
+		document.querySelector('#room_reserve').value = roomReserve;
+		
+		if(confirm('예약신청을 수락하시겠습니까?')) {
+			document.forms.paymentWaiting.action = "${contextPath}/payment/waiting"
+			document.forms.paymentWaiting.submit();
+		}
+		
+	}
+
+
+</script>
+
+
+
+
 <%@ include file="/views/common/footer.jsp" %>
