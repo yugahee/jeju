@@ -19,6 +19,7 @@ import static common.JDBCTemplate.close;
 import host.model.vo.Files;
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import reservation.model.vo.Reservation;
 
 public class RoomsDao {
 	private Properties roomsQuery = new Properties();
@@ -728,6 +729,39 @@ public class RoomsDao {
 		}
 			
 		return reviewList;
+	}
+
+	public List<Reservation> selectReserveList(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Reservation> reserveList = new ArrayList<>();
+		String sql = roomsQuery.getProperty("selectReserveList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reservation re = new Reservation();
+				re.setStart_date(rset.getDate("start_date"));
+				re.setEnd_date(rset.getDate("end_date"));
+				re.setPerson_reserve(rset.getString("person_reserve"));
+				re.setReserve_num(rset.getInt("reserve_num"));
+				
+				Rooms room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				re.setRoom_info(room);
+				
+				reserveList.add(re);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return reserveList;
 	}
 
 }

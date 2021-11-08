@@ -88,7 +88,7 @@
 													<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 													<td>
 														<div class="roomlist_btn">
-														<div class="btn_wrap"><a href="#" class="btn btnType1 btnSizeS"><span>달력관리</span></a></div>
+														<!-- <div class="btn_wrap"><button class="btn btnType1 btnSizeS" onclick="calendarView()"><span>달력관리</span></button></div> -->
 														<div class="btn_wrap"><button class="btn btnType2 btnSizeS" onclick="updateRoomView(${ room.roomNo });"><span>수정</span></button></div>
 														<div class="btn_wrap"><button class="btn btnType3 btnSizeS" onclick="deleteRoom(${ room.roomNo });"><span>삭제</span></button></div>
 														</div>
@@ -154,6 +154,9 @@
                     
                     <div class="roomlist_btn addroombtn">
 						<div class="btn_wrap"><a href="${ contextPath }/host/roomenrollbasic" class="btn btnType1 btnSizeS"><span>+ 새로운 숙소 등록</span></a></div>
+						<div class="btn_wrap"><a href="${ contextPath }/host/calendar" class="btn btnType1 btnSizeS"><span>달력관리</span></a></div>
+					</div>
+					 <div class="roomlist_btn addroombtn">
 					</div>
                 </div>
 			</div>

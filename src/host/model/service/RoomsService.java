@@ -4,6 +4,8 @@ import host.model.dao.RoomsDao;
 import host.model.vo.Files;
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import reservation.model.vo.Reservation;
+
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -299,7 +301,19 @@ public class RoomsService {
 		map.put("reviewPi", reviewPi);
 		map.put("reviewList", reviewList);
 		
+		close(conn);
+		
 		return map;
+	}
+
+	public List<Reservation> selectReserveList(String userId) {
+		Connection conn = getConnection();
+		
+		List<Reservation> reserveList = roomDao.selectReserveList(conn, userId);
+		
+		close(conn);
+		
+		return reserveList;
 	}
 
 

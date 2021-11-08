@@ -27,6 +27,10 @@ scope="application"/>
     <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/main.css">
     <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/contents.css">
     <script type="text/javascript" src="${contextPath}/resources/js/contents.js"></script>
+    <!-- fullcalender -->
+	<link href='${contextPath}/resources/fullcalendar-5.10.1/lib/main.css' rel='stylesheet' />
+	<script src='${contextPath}/resources/fullcalendar-5.10.1/lib/main.js'></script>
+
     
 <%-- session에 담긴 message 있을 경우 alert 하는 script --%>
 <% if(session.getAttribute("message") != null) {%>
