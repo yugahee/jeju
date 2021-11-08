@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/views/common/header.jsp" %>
 		<div class="side_layout">
 			<div class="container">
 				<nav class="sub_menu">
                     <ul>
-                        <li><a href="${ contextPath }/received/messenger">받은 메시지</a></li>
-                        <li><a href="${ contextPath }/sent/messenger" class="active">보낸 메시지</a></li>
+                        <li><a href="${ contextPath }/received/messenger" class="active">받은 메시지</a></li>
+                        <li><a href="${ contextPath }/sent/messenger">보낸 메시지</a></li>
                     </ul>
                 </nav>
                 <div class="sub messengerList">
@@ -23,8 +22,6 @@
                                 <col style="width:13.8%">
                                 <col style="width:9.2%">
                             </colgroup>
-                            <button onclick="showLayer('writingMessage');" class="btn btnType1 btnSizeM" id="write">
-                            <span>관리자에게 보내기</span></button>
                             <thead>
                                 <tr>
                                     <th>NO</th>
@@ -36,28 +33,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="msg" items="${ messengerList }">
                                 <tr>
-                                    <td>${ msg.msg_no }</td>
-                                    <td class="al_l"><button class="message" onclick="showLayer('callMessage');"><span class="opt_cate">${ msg.msg_cate }</span>${ msg.msg_content }</button></td>
-                                    <td>${ msg.to_user }</td>
-                                    <td><fmt:formatDate value="${ msg.msg_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
-                                    <td>${ msg.chk_status }</td>
-                                    <c:choose>
-                                    <c:when test="${ msg.chk_status() eq 'N'}">
+                                    <td>2</td>
+                                    <td class="al_l"><button class="message" onclick="showLayer('callMessage');"><span class="opt_cate">[문의]</span>그린하우스 201호 반려동물..</button></td>
+                                    <td>host01</td>
+                                    <td>2021.10.15</td>
+                                    <td>N</td>
                                     <td>
                                         <button class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage');"><span>수정</span></button>
                                         <button class="btn btnType2 btnSizeS" id="delete"><span>삭제</span></button>
                                     </td>
-                                    </c:when>
-                                    <c:otherwise>
-                                    	<button class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
-                                        <button class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
-                                    </c:otherwise>
-                                    </c:choose>
                                 </tr>
-                                </c:forEach>
-                               <!--  <tr>
+                                <tr>
                                     <td>1</td>
                                     <td class="al_l"><a href="#"><span class="opt_cate">[신고]</span>잠수타는 호스트 신고합니다.</a></td>
                                     <td>관리자</td>
@@ -67,7 +54,7 @@
                                         <button class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
                                         <button class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
                                     </td>
-                                </tr> -->
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -101,7 +88,6 @@
                         <!-- <col style="width:*;"> -->
                     </colgroup>
                     <tbody>
-                    <c:forEach var="msg" items="${ messengerList }">
                         <tr>
                             <th>보낸 사람</th>
                             <td>
@@ -115,40 +101,25 @@
                                 <div class="selectbox disabled">
                                     <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
                                     <ul class="selList">
-                                    <c:choose>
-                                    	<c:when test="${ msg.msg_cate() eq '문의'}">
                                         <li>
-                                            <input type="radio" value="문의" class="option" id="sel2_1" name="select1" checked="checked"/>
+                                            <input type="radio" value="" class="option" id="sel2_1" name="select1" checked="checked"/>
                                             <label for="sel2_1">1. 문의</label>
                                         </li>
-                                        </c:when>
-                                    	<c:otherwise>
                                         <li>
-                                            <input type="radio" value="신고" class="option" id="sel2_2" name="select1" checked="checked"/>
+                                            <input type="radio" value="" class="option" id="sel2_2" name="select1" />
                                             <label for="sel2_2">2. 신고</label>
                                         </li>
-                                        </c:otherwise>
-                                    </c:choose>
                                     </ul>
                                 </div>
                             </td>
-                        </tr>                     
+                        </tr>
                         
                         <tr id="report_id">
                             <th>피신고인</th>
                             <td>
-                            <c:choose>
-                            <c:when test="${ msg.msg_cate() eq '문의'}">
                                 <div class="inp_text inp_cell">
                                     <input type="text" name="userId" id="userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
                                 </div>
-                            </c:when>
-                            <c:otherwise>
-                            	<div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="userId" class="readOnly" value="${ msg.to_user }" readonly />
-                                </div>
-                            </c:otherwise>
-                            </c:choose>
                             </td>
                         </tr>
                         <tr>
@@ -156,12 +127,11 @@
                             <td>
                                 <div class="textbox">
                                     <textarea class="readOnly" readonly>
-                                        ${ msg.msg_content }
+                                        그린하우스 201호 반려동물 동반 가능한가요? 마당이 넓어서 같이 뛰어다니며 놀고싶어서요
                                     </textarea>
                                 </div>
                             </td>
                         </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -211,8 +181,8 @@
                                     </ul>
                                 </div>
                             </td>
-                        </tr>                     
-                        
+                        </tr>
+                      
                          <!-- 문의로 보냈었던 내용이라 disabled가 default-->
                         <tr id="report_id">
                             <th>피신고인</th>
@@ -283,7 +253,7 @@
                                 </div>
                             </td>
                         </tr>
-                      
+                     
                         <!-- 카테고리에서 2.신고를 선택한 경우에만 보이게 -->
                         <tr id="report_id">
                             <th>피신고인</th>
