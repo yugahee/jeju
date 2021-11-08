@@ -267,4 +267,27 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int checkEmail(Connection conn, String to_email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql = memberQuery.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, to_email);			
+			rset = pstmt.executeQuery();			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

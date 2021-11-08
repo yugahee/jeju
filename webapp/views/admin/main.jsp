@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -38,7 +49,7 @@ scope="application"/>
 				<li>
 					<a href="#none">회원 관리</a>
 					<ul class="subMenu">
-						<li><a href="<%= request.getContextPath() %>/admin/userMg01">회원 관리</a></li>
+						<li><a href="<%= request.getContextPath() %>/admin/roomsMg">회원 관리</a></li>
 						<li><a href="<%= request.getContextPath() %>/admin/userMg02">블랙리스트 관리</a></li>
 					</ul>
 				</li>
@@ -51,7 +62,7 @@ scope="application"/>
 					</ul>
 				</li>
 				<li><a href="<%= request.getContextPath() %>/admin/inquireMg">문의 관리</a></li>
-				<li><a href="<%= request.getContextPath() %>/admin/roomsMg">숙소 관리</a></li>
+				<li><a class="active" href="<%= request.getContextPath() %>/admin/roomsMg">숙소 관리</a></li>
 				<li><a href="<%= request.getContextPath() %>/admin/recPlaceMg">추천장소 관리</a></li>
 			</ul>
 		</div>
@@ -63,7 +74,6 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>

@@ -66,9 +66,11 @@
 .tblType3.noBorB.recPlace tbody tr{cursor:auto;}
 .tblType3.recPlace td a.active{color:#FF8B33;text-decoration:underline;}
 
+.modifyArea{display:none;}
 .adinfoForm{margin:0 auto;width:400px;padding-bottom: 50px;}
 .adinfoForm dt{margin-top:10px;}
 .adinfoForm dd{margin-top:5px;}
 .adinfoForm dd:after{content:'';clear:right;display: block;}
-.adinfoForm .inp_text + .btn {margin-top:10px;float: right;}
+.adinfoForm .inp_text + .btn,
+.adinfoForm .inp_text + .btn{margin-top:10px;float: right;}
 .adinfoForm .btn_wrap{margin-top:30px;}

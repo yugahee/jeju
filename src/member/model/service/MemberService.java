@@ -126,4 +126,14 @@ public class MemberService{
 		
 		return result;
 	}
+
+	public int checkEmail(String to_email) {
+		Connection conn = getConnection();
+		
+		int result = memberDao.checkEmail(conn, to_email);
+		
+		close(conn);
+		
+		return result;
+	}
 }

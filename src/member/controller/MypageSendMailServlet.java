@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.service.MemberService;
+
 /**
  * Servlet implementation class MypageMailChangeServlet
  */
@@ -83,9 +85,15 @@ public class MypageSendMailServlet extends HttpServlet {
 		 // ajax 결과로 보내줄 출력문 작성을 위해 out 정의해둠
 		 PrintWriter out = response.getWriter();
 		 
+		 int result = new MemberService().checkEmail(to_email);
+		 
 		 // 입력한 메일 주소가 String user와 일치하면 메일 보내기
-		 if(to_email.equals(user)) {
-			 // 인증 메일 전송
+
+		 if(result > 0) {
+			// 입력한 메일 주소가 user와 달라도 fail전달
+            out.print("fail");				
+		 } else {
+			// 인증 메일 전송
 			 try {
 				 MimeMessage msg = new MimeMessage(session);
 				 // 메일 발신자 이름
@@ -105,11 +113,7 @@ public class MypageSendMailServlet extends HttpServlet {
 		            e.printStackTrace();
 		            // 메일 전송에 실패하면 fail 전달
 		            out.print("fail");
-				}
-				 
-		 } else {
-			// 입력한 메일 주소가 user와 달라도 fail전달
-            out.print("fail");			
+			}
 		 }
 		 
 		 // 인증 코드 문자열로 저장하고

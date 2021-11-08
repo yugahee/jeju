@@ -86,9 +86,25 @@ scope="application"/>
                         <dt>이메일</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="text" name="" id="" class="readOnly" readonly value="<%= loginUser.getEmail() %>" />
+                                <input type="text" name="userEmail" id="" class="readOnly" readonly value="<%= loginUser.getEmail() %>" />
                             </div>
-                            <a href="#" class="btn btnType1 btnSizeS"><span>재설정</span></a>
+                            <a href="#none" onclick="showEmail();" class="btn btnType1 btnSizeS"><span>재설정</span></a>
+                        </dd>
+                    </dl>
+                    <dl class="modifyArea">
+                        <dt>변경 할 이메일</dt>
+                        <dd>
+                            <div class="inp_text inp_cell" id="userNMail">
+                                <input type="email" name="newUmail" id="userNmail" required/>
+                            </div>
+							<button type="button" class="btnEmail btn btnType1 btnSizeS" id="sendEmail"><span>인증 메일 전송</span></button>
+                        </dd>
+                        <dt>인증 코드</dt>
+                        <dd>
+                            <div class="inp_text inp_cell" id="mailConfirm">
+                                <input type="text" name="numberConfirm" id="numberConfirm" required/>
+                            </div>
+							<button type="button" class="btn btnType1 btnSizeS btnNumber" id="numberChk"><span>인증 코드 확인</span></button>
                         </dd>
                     </dl>
                     <dl>
@@ -125,5 +141,72 @@ scope="application"/>
 			<!-- //contet -->
 		</div>
 	</div>
+	<script>
+	function showEmail(){
+		$('.modifyArea').toggle();
+	}
+	// 인증 메일 전송 버튼 ajax
+	$("#sendEmail").on('click',function(){
+		var newMail = $("[name=newUmail]");		
+		// 새로 등록할 이메일도 기존 가입 시 적은 이메일 정규식과 같게 적용
+		var regExp = (/^[a-zA-Z0-9]([-_\.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-_\.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,3}$/i);				
+		
+		if(!newMail || newMail.val().match(regExp) == null){
+			alert("올바른 이메일 형식이 아닙니다.");
+			newMail.focus();
+		} else {
+			$.ajax({
+				url : "${contextPath}/mypage/mailChange",
+				type : "post",
+				data : { newMail : newMail.val() },
+				success : function(result){
+						if(result == "success"){
+						alert("인증 메일을 발송하였습니다. 인증 코드를 입력해주세요.");						
+					} else {
+						alert("인증 메일 발송에 실패했습니다. 다시 한 번 시도해주세요.");
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});		
+		}	
+	});	
+		
+	// 인증 코드 확인 버튼 ajax
+	$("#numberChk").click(function(){
+		var numChk = $("[name=numberConfirm]");		
+		// 최종 저장 submit버튼이 가능하게 하기 위한 확인용 변수
+		var mailConfirm = false;	
+		$.ajax({
+			url : "${contextPath}/mypage/checkNumber",
+			type : "post",
+			data : { numChk : numChk.val() },			
+			success : function(result){
+				if(result != "fail"){
+					alert("인증 코드 확인에 성공했습니다.");
+					mailConfirm = true;
+				} else {
+					alert("인증 코드 확인에 실패했습니다.");
+					mailConfirm = false;
+					numChk.focus();
+				}				
+				// 메일 인증 확인이 완료된 경우  저장하기 disabled 속성을 없애고
+				if(mailConfirm){
+					$("#save").removeAttr("disabled");
+					// 클래스명에서 disabled도 지워짐
+					document.getElementById("save").className = "btn btnType1 btnSizeL";
+				} else {
+					$("#save").attr("disabled", true);
+					document.getElementById("save").className = "btn btnType1 btnSizeL disabled";
+				}	
+			},
+			error : function (e){
+				console.log(e);
+			
+			}
+		});
+	});
+	</script>
 </body>
 </html>

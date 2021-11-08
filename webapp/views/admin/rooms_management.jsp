@@ -74,7 +74,6 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
@@ -296,6 +295,7 @@ scope="application"/>
 	</div>
 	
     <script>	
+		let firstVal = '';
 		function userdata(elem){		
 			let roomNo = $(elem).find('input').val();	
 			console.log(roomNo);
@@ -318,7 +318,7 @@ scope="application"/>
 						html2+= '평수 :' + room.roomSize + '</br>'; 
 						$("#rinfo").append(html2);
 						if(room.enrollStatus == '승인대기'){										
-							html = '<button class="title" type="button" title="상태">승인대기</button>'
+							html = '<button class="title" type="button" title="승인대기">승인대기</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인대기">'
 								+ '<ul class="selList">'
 								+ '<li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1" checked="checked"/><label for="sel1_1">승인대기</label></li>'
@@ -326,19 +326,21 @@ scope="application"/>
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
 						}else if(room.enrollStatus == '승인반려'){
 							$(".chatTr").show();
-							html = '<button class="title" type="button" title="상태">승인반려</button>'
+							html = '<button class="title" type="button" title="승인반려">승인반려</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인반려">'
 								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1"/><label for="sel1_1">승인대기</label></li>'
 								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">승인반려</label></li>'
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
 						}else if(room.enrollStatus == '등록완료'){
-							html = '<button class="title" type="button" title="상태">등록완료</button>'
+							html = '<button class="title" type="button" title="등록완료">등록완료</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="등록완료">'
 								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">승인대기</label></li>'
 								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1" checked="checked"/><label for="sel1_3">등록완료</label></li></ul>';
 						}	
 						$("#mstatus").html(html);
+						firstVal = $('#mstatus button.title').text();
+						console.log(firstVal);
 					}else{
 					}			
 				},
@@ -347,18 +349,23 @@ scope="application"/>
 				}
 			});
 		}
-		
+
 		function commitData(){
 			let statusVal = $('.statusVal').val();
 			let rVal = $('#rno').text();
+			console.log(firstVal);
 			//let cVal = $('.chatArea ').val();
 			$.ajax({
 				url : "${contextPath}/admin/roomDetailModify",
-				data : {statusVal : statusVal, rVal : rVal},
+				data : {firstVal : firstVal, statusVal : statusVal, rVal : rVal},
 				//dataType : "json",
 				type : "post",
 				success : function(member){	
-					alert('상태 수정 완료');
+					if(firstVal == statusVal){
+						alert('수정 사항이 없습니다.');
+					}else{
+						alert('상태 수정 완료');
+					}
 					location.reload();
 				},
 				error : function(e){

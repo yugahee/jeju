@@ -342,4 +342,10 @@ WHERE RNUM BETWEEN ? AND ?
 		ENROLL_DATE = SYSDATE
    WHERE ROOM_NO = ?
 </entry>
+<entry key="updateRoomDefault">
+	UPDATE ROOMS
+	SET ENROLL_STATUS = ?,
+		ENROLL_DATE = NULL
+   WHERE ROOM_NO = ?
+</entry>
 </properties>

@@ -116,4 +116,11 @@
 	     , DELETE_REASON = ?
 	 WHERE USER_ID = ?
 </entry>
+
+<entry key="checkEmail">
+	SELECT
+		   COUNT(*)
+	  FROM MEMBER
+	 WHERE EMAIL = ?	
+</entry>
 </properties>

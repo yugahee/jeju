@@ -38,19 +38,21 @@ public class roomDetailModifyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String firstVal = request.getParameter("firstVal");
 		String statusVal = request.getParameter("statusVal");
 		String rVal = request.getParameter("rVal");
 		
-		Rooms room = new Rooms();
-		
-		int result = new AdminService().modifyRoom(room, rVal, statusVal);
-		
-		if(result > 0) {
-			request.getSession().setAttribute("message", "정보가 수정 되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/admin/userMg01");
+		if(!firstVal.equals(statusVal)) {
+			Rooms room = new Rooms();
+			int result = new AdminService().modifyRoom(room, rVal, statusVal);
+			
+			if(result > 0) {
+				response.sendRedirect(request.getContextPath() + "/admin/userMg01");
+			}else {
+				request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+			}
 		}else {
-			request.setAttribute("message", "정보 수정 실패");
-			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/admin/userMg01");
 		}
 		
 	}

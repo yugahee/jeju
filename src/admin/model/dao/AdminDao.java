@@ -451,8 +451,6 @@ public class AdminDao {
 				room.setRoom(rset.getInt("room"));						// 방 수		
 				room.setAddress(rset.getString("address"));				// 주소
 			}
-
-			System.out.println(room);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -469,6 +467,10 @@ public class AdminDao {
 		int result = 0;
 		String sql = adminQuery.getProperty("updateRoomStatus");
 		
+		if(!statusVal.equals("등록완료")) {
+			sql = adminQuery.getProperty("updateRoomDefault");
+		}
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
