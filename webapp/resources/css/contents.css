@@ -547,6 +547,10 @@
      color: orange;
      }
      
+     a.btn_size{
+     margin-bottom: 8px;
+     }
+     
      
      .RoomImageouter{
      	width: 600px;

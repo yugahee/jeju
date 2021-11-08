@@ -16,14 +16,14 @@ import reservation.model.vo.Reservation;
 /**
  * Servlet implementation class ReservationForwardAdeminServlet
  */
-@WebServlet("/reserve/admin")
-public class ReservationAdeminServlet extends HttpServlet {
+@WebServlet("/reserve/select/admin")
+public class ReservationSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationAdeminServlet() {
+    public ReservationSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,7 @@ public class ReservationAdeminServlet extends HttpServlet {
 		// 예약테이블에서 예약자 정보 조회하여 예약관리 페이지에 표현하기위한 로직 
 		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfo();
 		
-		System.out.println(reserveInfo);
+		//System.out.println(reserveInfo);
 		
 		request.setAttribute("reserveInfo", reserveInfo);
 		
