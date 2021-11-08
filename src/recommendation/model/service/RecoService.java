@@ -14,13 +14,17 @@ public class RecoService {
 		Connection conn = getConnection();
 		List<Recommendation> recoList = recoDao.selectList(conn);
 		
-//		// 카테고리와 지역 선택이 완료된 경우 목록 조회
-//		if(recoArea != 0 && recoCategory != 0) {
-//			recoList = recoDao.selectList(conn, recoArea, recoCategory);
-//		} else {	// 전달되지 않았다면 모든 목록 조회
-//			recoList = recoDao.selectList(conn);
-//		}
+		close(conn);
 		
+		return recoList;
+	}
+
+	public List<Recommendation> selectList(int recoArea, int recoCategory) {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectList(conn, recoArea, recoCategory);
+		
+		recoList = recoDao.selectList(conn, recoArea, recoCategory);
+	
 		close(conn);
 		
 		return recoList;
