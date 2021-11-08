@@ -123,7 +123,7 @@ public class ReservationService {
 		return reserveInfo;
 	}
 
-	// 예약상태 : '결제대기' 업데이트
+	// 예약상태 '결제대기'로 업데이트
 	public int paymentWaitUpdate (int reserve_no) {
 		Connection conn = getConnection();
 		

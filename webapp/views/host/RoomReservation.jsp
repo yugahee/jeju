@@ -97,11 +97,11 @@
 	                           <c:choose>
 	                           	   <c:when test="${reserveInfo.reserve_state eq '예약신청'}">
                           				 <td> &nbsp; <a href="#" id="btnAccept" class="btn btnType1 btnSizeS btn_size" onclick="btnAccept(${reserveInfo.room_reserve})">
-                          				 			 <span id="accept">수락</span></a> <br> 
-                          					 <a href="#" id="btnRomove" class="btn btnType2 btnSizeS" onclick=""><span>거절</span></a>
+                          				 			 <span>수락</span></a> <br> 
+		                          					 <a href="#" id="btnRefuse" class="btn btnType2 btnSizeS" onclick="btnRefuse(${reserveInfo.room_reserve})">
+		                          					 <span>거절</span></a>
                           				 </td> 
 	                       	   	   </c:when>
-	                       	  
 	                       	   </c:choose>
 	                       </tr>
 	                   </tbody>
@@ -114,35 +114,56 @@
  
  <!--   예약신청, 결제대기, 예약취소, 예약완료, 숙박완료 -->
  
- <form name="paymentWaiting" method="post"> 
- 	<input id="room_reserve" name="reserve_no" type="hidden">
+ <form name="paymentWaitingOrReserveCancleForm" method="post"> 
+ 	<input type="hidden" id="room_reserve" name="reserve_no" >
+ 	<input type="hidden" name="user_type" value="${loginUser.user_type}">
  </form>
  
  
+ <!-- 예약 신청 수락 버튼 클릭 시  -->
 <script>
 	function btnAccept(room_reserve) {
 		// 수락 버튼 없애기
-		let acceiptBtn = document.getElementById("btnAccept");
-		acceiptBtn.remove();
+		let btnAccept = document.getElementById("btnAccept");
+		btnAccept.remove();
 		
 		// 거절 버튼 없애기 
-		let btnRomove = document.getElementById("btnRomove");
-		btnRomove.remove();
+		let btnRefuse = document.getElementById("btnRefuse");
+		btnRefuse.remove();
 		
 		let roomReserve = room_reserve;
 		document.querySelector('#room_reserve').value = roomReserve;
 		
 		if(confirm('예약신청을 수락하시겠습니까?')) {
-			document.forms.paymentWaiting.action = "${contextPath}/payment/waiting"
-			document.forms.paymentWaiting.submit();
+			document.forms.paymentWaitingOrReserveCancleForm.action = "${contextPath}/payment/waiting"
+			document.forms.paymentWaitingOrReserveCancleForm.submit();
 		}
 		
 	}
 
-
 </script>
 
+ <!-- 예약 신청 거절 버튼 클릭 시  -->
+<script>
+	function btnRefuse(room_reserve) {
+		// 수락 버튼 없애기
+		let btnAccept = document.getElementById("btnAccept");
+		btnAccept.remove();
+		
+		// 거절 버튼 없애기 
+		let btnRefuse = document.getElementById("btnRefuse");
+		btnRefuse.remove();
+		
+		let roomReserve = room_reserve;
+		document.querySelector('#room_reserve').value = roomReserve;
+		
+		if(confirm('예약신청을 거절하시겠습니까?')) {
+			document.forms.paymentWaitingOrReserveCancleForm.action = "${contextPath}/reservation/cancle";
+			document.forms.paymentWaitingOrReserveCancleForm.submit();
+		}
+		
+	}
 
-
+</script>
 
 <%@ include file="/views/common/footer.jsp" %>
