@@ -44,6 +44,8 @@ public class PaymentService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -58,6 +60,8 @@ public class PaymentService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}
