@@ -113,10 +113,10 @@ public class ReservationService {
 	}
 
 	// 예약테이블에서 예약자 정보 조회
-	public List<Reservation> selectReserveInfo() {
+	public List<Reservation> selectReserveInfo(String userId) {
 		Connection conn = getConnection();
 		
-		List<Reservation> reserveInfo = reservationDao.selectReserveInfo(conn);
+		List<Reservation> reserveInfo = reservationDao.selectReserveInfo(conn, userId);
 		
 		close(conn);
 		
@@ -139,6 +139,7 @@ public class ReservationService {
 		
 		return result;
 	}
+
 
 
 

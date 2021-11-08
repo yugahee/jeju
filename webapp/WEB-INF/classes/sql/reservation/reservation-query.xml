@@ -145,7 +145,7 @@
 		 , USER_ID  
 	  FROM RESERVATION
 	  JOIN ROOMS USING(ROOM_NO)
-	 <!-- WHERE ROOM_NO = ? -->
+	 WHERE USER_ID = ? 
 </entry>
 
 

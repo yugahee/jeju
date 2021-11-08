@@ -32,15 +32,17 @@ public class ReservationSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		String userId = ((Member)(request.getSession().getAttribute("loginUser"))).getUser_id();
+		
+		
 		// 예약테이블에서 예약자 정보 조회하여 예약관리 페이지에 표현하기위한 로직 
-		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfo();
+		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfo(userId);
 		
 		//System.out.println(reserveInfo);
 		
-		request.setAttribute("reserveInfo", reserveInfo);
+		request.setAttribute("reserveInfo",  reserveInfo);
 		
-		request.getRequestDispatcher("/views/host/RoomReservation.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/host/RoomReservationAdmin.jsp").forward(request, response);
 		
 
 	}
