@@ -287,7 +287,7 @@ public class ReservationDao {
 	}
 
 
-	public List<Reservation> selectReserveInfo(Connection conn) {
+	public List<Reservation> selectReserveInfo(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Reservation> reserveInfo = new ArrayList<>();
@@ -295,6 +295,8 @@ public class ReservationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
