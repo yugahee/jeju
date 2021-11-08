@@ -53,20 +53,18 @@
 									<p>최소 숙박 일수</p>
 								</div>
 	            	            <div class="inp_text roomenroll_inp2">
-	        	    	            <input type="text" name="minstay" id="minstay" value="${ room.minStay }" required>
+	        	    	            <input type="text" name="minstay" id="minstay" value="${ room.minStay }"
+	        	    	            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
 	                            </div>박
-	                           	<!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
-	                            <p class="" id="minstayresult">test</p> 
 	                        </div>
 	                        <div class="roomenrool_wrap">
 	                            <div class="roomenroll_title_sub">
 									<p>최대 숙박 일수</p>
 								</div>
 	                            <div class="inp_text roomenroll_inp2">
-	                                <input type="text" name="maxstay" id="maxstay" value="${ room.maxStay }" required>
-	                            </div>박
-	                            <!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
-	                            <p class="" id="maxstayresult">test</p>                            
+	                                <input type="text" name="maxstay" id="maxstay" value="${ room.maxStay }"
+	                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+	                            </div>박                          
 	                        </div>
 	                    </div>
 	                    <div class="roomenroll_title_sub2">
@@ -250,20 +248,18 @@
 									<p>숙박 금액(1박 기준)</p>
 								</div>
 	                            <div class="inp_text roomenroll_inp2">
-	                                <input type="text" name="price" id="price" value="${ room.price }" required>
-	                            </div>원 
-	                           	<!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
-	                            <p class="" id="priceresult">test</p>       
+	                                <input type="text" name="price" id="price" value="${ room.price }"
+	                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+	                            </div>원       
 	                        </div>
 	                        <div class="roomenrool_wrap">
 	                            <div class="roomenroll_title_sub">
 									<p>추가 인원 금액</p>
 								</div>
 	                            <div class="inp_text roomenroll_inp2">
-	                                <input type="text" name="extracost" id="extracost" value="${ room.extraCost }" required>
-	                            </div>원
-	                            <!-- 유효성 검사 후 에러 발생 시 input태그 밑에 나타남 -->
-	                            <p class="" id="extracost">test</p>                                    
+	                                <input type="text" name="extracost" id="extracost" value="${ room.extraCost }"
+	                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+	                            </div>원                                   
 	                        </div>
 	                    </div>
 	                    <!-- ** 성수기 버튼 추가 ** -->
@@ -323,7 +319,8 @@
 	                       			 </div>
 	                       			 <div class="inp_text roomenroll_inp2 roomenroll_opt">
 	                            		<input type="text" name="peakprice" id="peakprice"
-	                            		<c:if test="${ !empty room.peak.peakPrice }">value="${ room.peak.peakPrice }"</c:if>>
+	                            		<c:if test="${ !empty room.peak.peakPrice }">value="${ room.peak.peakPrice }"</c:if>
+	                            		oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 	                       			 </div>
 	                      		 	  원
 	                   			 </div>
