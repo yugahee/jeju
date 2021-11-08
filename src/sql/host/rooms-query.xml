@@ -424,6 +424,19 @@
 		 WHERE RNUM BETWEEN ? AND ?	
 	</entry>		
 	
+	<entry key="selectReserveList">
+		SELECT
+		       RE.START_DATE
+		     , RE.END_DATE
+		     , PERSON_RESERVE
+		     , RESERVE_NUM
+		     , ROOM_NAME
+		  FROM RESERVATION RE
+		  JOIN ROOMS R USING(ROOM_NO)
+		 WHERE USER_ID = ?
+		   AND RESERVE_STATE = '예약완료'
+	</entry>
+	
 </properties>
 
 

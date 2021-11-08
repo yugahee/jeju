@@ -1210,10 +1210,12 @@
      .roomenroll_msg p:last-of-type { color: #999999; margin: 20px 20px;  font-size: 1.2em;}
 
      /* 달력 관리 페이지 ----------------------------------------*/
-     .roomenroll_cal tr{ text-align: center;}
-     .cal_status { background-color: rgb(98, 168, 234); }
-     .cal_status > td {color: #ffffff;}
+     .room_calendar { width: 1100px; margin: 0 auto; }
+     .room_calendar_info { display: flex; margin-bottom: 50px; font-size: 1.4em;}
+     .fc-day-sat .fc-daygrid-day-number, .fc-day-sat .fc-col-header-cell-cushion { color:#0000FF; }     /* 토요일 & 해당일 */
+     .fc-day-sun .fc-daygrid-day-number, .fc-day-sun .fc-col-header-cell-cushion { color:#FF0000; }    /* 일요일 & 해당일  */
 
+		
      /* 숙소관리페이지 - 숙소목록 조회 */
      .roomlist { width: 1100px; margin: 0 auto;}
      .roomlist_statuslist { margin: 50px 0; }
@@ -1242,6 +1244,7 @@
      
      /* 추가버튼에 관한 css 속성 */
 	 .addroombtn { display: flex; justify-content: right;}
+	 .addroombtn > .btn_wrap { margin-left : 20px; }
 /* 나현님 : E */
 
 /* 지희님 : S */
