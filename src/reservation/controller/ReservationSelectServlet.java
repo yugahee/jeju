@@ -40,7 +40,7 @@ public class ReservationSelectServlet extends HttpServlet {
 		
 		//System.out.println(reserveInfo);
 		
-		request.setAttribute("reserveInfo", reserveInfo);
+		request.setAttribute("reserveInfo",  reserveInfo);
 		
 		request.getRequestDispatcher("/views/host/RoomReservationAdmin.jsp").forward(request, response);
 		
