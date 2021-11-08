@@ -44,13 +44,14 @@ public class ReservationCancleServlet extends HttpServlet {
 		int result = new ReservationService().reservationCancle(reserv_no);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("message", "예약취소가 완료되었습니다😢");
 			
 			// 호스트가 예약신청 응답으로 거절버튼을 눌렀을 경우 
 			if(user_type.equals("호스트")) {
+				  request.getSession().setAttribute("message", "예약신청이 거절되었습니다.");
 				  response.sendRedirect( request.getContextPath() + "/reserve/select/admin");
 			} else {
 				// 게스트가 예약 취소 버튼 눌렀을 경우 
+				request.getSession().setAttribute("message", "예약취소가 완료되었습니다😢");
 				response.sendRedirect(request.getContextPath() + "/reservation/checkView");
 			}
 		} else {

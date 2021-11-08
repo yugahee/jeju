@@ -102,6 +102,9 @@
 		                          					 <span>거절</span></a>
                           				 </td> 
 	                       	   	   </c:when>
+	                       	   	   <c:when test="${reserveInfo.reserve_state eq '숙박완료'}">
+                          				 <td> <a href="#" class="btn btnType2 btnSizeS"><span>게스트 신고하기</span></a> </td> 
+	                       	   	   </c:when>
 	                       	   </c:choose>
 	                       </tr>
 	                   </tbody>
@@ -114,7 +117,7 @@
  
  <!--   예약신청, 결제대기, 예약취소, 예약완료, 숙박완료 -->
  
- <form name="paymentWaitingOrReserveCancleForm" method="post"> 
+ <form name="payWaitUpdateOrReserveCancleForm" method="post"> 
  	<input type="hidden" id="room_reserve" name="reserve_no" >
  	<input type="hidden" name="user_type" value="${loginUser.user_type}">
  </form>
@@ -135,8 +138,8 @@
 		document.querySelector('#room_reserve').value = roomReserve;
 		
 		if(confirm('예약신청을 수락하시겠습니까?')) {
-			document.forms.paymentWaitingOrReserveCancleForm.action = "${contextPath}/payment/waiting"
-			document.forms.paymentWaitingOrReserveCancleForm.submit();
+			document.forms.payWaitUpdateOrReserveCancleForm.action = "${contextPath}/payment/waiting"
+			document.forms.payWaitUpdateOrReserveCancleForm.submit();
 		}
 		
 	}
@@ -158,8 +161,8 @@
 		document.querySelector('#room_reserve').value = roomReserve;
 		
 		if(confirm('예약신청을 거절하시겠습니까?')) {
-			document.forms.paymentWaitingOrReserveCancleForm.action = "${contextPath}/reservation/cancle";
-			document.forms.paymentWaitingOrReserveCancleForm.submit();
+			document.forms.payWaitUpdateOrReserveCancleForm.action = "${contextPath}/reservation/cancle";
+			document.forms.payWaitUpdateOrReserveCancleForm.submit();
 		}
 		
 	}

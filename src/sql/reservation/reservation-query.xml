@@ -129,6 +129,7 @@
 	 )  
 </entry>
 
+<!-- 예약정보조회  -->
 <entry key="selectReserveInfo">
 
 	SELECT 
@@ -140,9 +141,11 @@
 		 , RESERVE_STATE
 		 , RESERVE_NUM
 		 , ROOM_NO
-		 , ROOM_NAME  
+		 , ROOM_NAME
+		 , USER_ID  
 	  FROM RESERVATION
 	  JOIN ROOMS USING(ROOM_NO)
+	 <!-- WHERE ROOM_NO = ? -->
 </entry>
 
 
