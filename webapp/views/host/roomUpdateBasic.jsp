@@ -34,7 +34,7 @@
 				<!-------------------- 등록 내용 화면 ------------------------------------------->
 				<div class="roomenroll_basic">
 					<!-- ** 기본설정 1 ** -->
-					<form method="post" action="${ contextPath }/host/roomUpdate1" name="roomeenrollbasic" onsubmit="return formCheck();">
+					<form method="post" action="${ contextPath }/host/roomUpdate1" name="roomenrollbasic" onsubmit="return formCheck();">
 					<input type="hidden" name="roomno" value="${ room.roomNo }"> 
 					
 						<div class="roomenroll_title_main">
@@ -49,7 +49,7 @@
 								<p>숙소 이름</p><span>※ 숙소 이름에는 특수문자를 사용하실 수 없습니다.</span>
 							</div>
 
-							<div class="inp_text roomenroll_inp">
+							<div class="inp_text roomenroll_inp" id="roomnameinp">
 								<input type="text" name="roomname" id="roomname" value="${ room.roomName }" required>
 							</div>
 							<!-- 유효성 검사 후 에러 발생시 input태그 밑에 나타남-->
@@ -745,10 +745,10 @@
 
 		<script>
 			// 숙소이름 input에 특수문자 입력하는 경우 error 메세지 띄우기
-			document.forms.roomeenrollbasic.oninput = function(){
+			document.forms.roomenrollbasic.oninput = function(){
 				const regExp = /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
 				const roomname = document.getElementById("roomname").value;
-				const divinp = document.querySelector(".roomenroll_inp");
+				const divinp = document.querySelector("#roomnameinp");
 				const nameresult = document.getElementById("nameresult");
 										
 				if(!regExp.test(roomname)){
