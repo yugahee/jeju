@@ -35,7 +35,7 @@ public class ReservationSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)(request.getSession().getAttribute("loginUser"))).getUser_id();
 		
-		// 검색 조건 및 입력값 추출
+		// 검색 조건 및 입력 값 추출
 		String searchCondition = request.getParameter("searchCondition");   
 		String searchValue = request.getParameter("searchValue");          
 		

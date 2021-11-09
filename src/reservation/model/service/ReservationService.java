@@ -119,7 +119,7 @@ public class ReservationService {
 		
 		List<Reservation> reserveInfo = reservationDao.selectReserveInfoList(conn, userId, search);
 		
-		close(conn);
+		 close(conn);
 		
 		return reserveInfo;
 	}
