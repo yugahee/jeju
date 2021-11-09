@@ -352,6 +352,26 @@ public class ReservationDao {
 	}
 
 
+	public int reviewComplete(Connection conn, int reserveNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  roomQuery.getProperty("reviewComplete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserveNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
 	
 
 

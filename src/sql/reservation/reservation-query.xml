@@ -155,6 +155,11 @@
 	 WHERE ROOM_RESERVE = ?
 </entry>
 
+<entry key="reviewComplete">
+	UPDATE RESERVATION
+	   SET RESERVE_STATE = '리뷰완료'
+	 WHERE ROOM_RESERVE = ?
+</entry>
 
 
 </properties>
