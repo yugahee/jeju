@@ -1167,7 +1167,7 @@
 
      /* 숙소 등록 - 위치/사진/동영상 페이지 내용화면 ----------------*/
      .roomenroll_opt { margin-bottom: 50px;}
-     .roomenroll_map { margin: 100px auto;}
+     .roomenroll_map { margin: 100px auto; width: 500px; height: 400px; }
 
      /* 사진 등록 부분 */
      .roomenroll_photo { position: relative;}
@@ -1210,7 +1210,7 @@
 
      /* 달력 관리 페이지 ----------------------------------------*/
      .room_calendar { width: 1100px; margin: 0 auto; }
-     .room_calendar_info { display: flex; margin-bottom: 50px; font-size: 1.4em;}
+     .room_calendar_info { margin-bottom: 50px; font-size: 1.4em;}
      .fc-day-sat .fc-daygrid-day-number, .fc-day-sat .fc-col-header-cell-cushion { color:#0000FF; }     /* 토요일 & 해당일 */
      .fc-day-sun .fc-daygrid-day-number, .fc-day-sun .fc-col-header-cell-cushion { color:#FF0000; }    /* 일요일 & 해당일  */
 

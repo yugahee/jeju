@@ -23,7 +23,7 @@
 					</a>
                 </nav>
 				<br>
-                <a href="#" class="roommenu_cal">
+                <a href="${ contextPath }/host/calendar" class="roommenu_cal">
 					<span class="menu-left-cal"><img src="${ contextPath }/resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
