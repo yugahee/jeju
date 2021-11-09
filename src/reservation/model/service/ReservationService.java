@@ -141,6 +141,22 @@ public class ReservationService {
 		return result;
 	}
 
+	public int reviewComplete(int reserveNo) {
+		Connection conn = getConnection();
+		
+		int result = reservationDao.reviewComplete(conn, reserveNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 
 

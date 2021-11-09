@@ -26,7 +26,11 @@ public class RoomReviewView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+		int reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
 		
+		request.setAttribute("roomNo", roomNo);
+		request.setAttribute("reserveNo", reserveNo);
 		request.getRequestDispatcher("/views/reservation/roomReviewInsert.jsp").forward(request, response);
 	}
 
