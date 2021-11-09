@@ -39,22 +39,25 @@
                        <button class="title" type="button" title="검색옵션 선택">검색옵션 선택</button>
                        <ul class="selList">
                            <li>
-                               <input type="radio" value="" class="option" id="sel1_1" name="select1" />
+                               <input type="radio" value="guestName" class="option" id="sel1_1" name="searchCondition" 
+                               <c:if test="${param.searchCondition == 'guestName' }">selected="selected"</c:if> />
                                <label for="sel1_1">게스트명</label>
                            </li>
                            <li>
-                               <input type="radio" value="" class="option" id="sel1_2" name="select1" />
+                               <input type="radio" value="roomName" class="option" id="sel1_2" name="searchCondition" 
+                               <c:if test="${param.searchCondition == 'roomName' }">selected="selected"</c:if> />
                                <label for="sel1_2">숙소명</label>
                            </li>
                            <li>
-                               <input type="radio" value="" class="option" id="sel1_3" name="select1" />
+                               <input type="radio" value="reserveNum" class="option" id="sel1_3" name="searchCondition" 
+                               <c:if test="${param.searchCondition == 'reserveNum' }">selected="selected"</c:if> />
                                <label for="sel1_3">예약번호</label>
                            </li>                            
                        </ul>                                
                    </div>
                    <div class="inp_text search">
-                       <input type="text" name="" id="" placeholder="검색어를 입력하세요">
-                       <a href="#" class="btn_sch">검색</a>
+                       <input type="text" name="searchValue" id="" placeholder="검색어를 입력하세요" value="${ param.searchValue }">
+                       <button class="btn_sch">검색</button> <!-- <a href="#" class="btn_sch">검색</a> -->
                    </div>
                </form>
            </div>
@@ -83,8 +86,8 @@
 	                           <th>관리</th>
 	                       </tr>
 	                   </thead>
-	                   <tbody>
 	                   <c:forEach var="reserveInfo" items="${reserveInfo}">
+	                   <tbody>
 	                       <tr>
 	                           <td>1</td>
 	                           <td>${reserveInfo.reserve_state}</td>

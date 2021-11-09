@@ -3,6 +3,7 @@ package reservation.model.service;
 import java.sql.Connection;
 import java.util.List;
 
+import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
 import static common.JDBCTemplate.*;
@@ -113,10 +114,10 @@ public class ReservationService {
 	}
 
 	// 예약테이블에서 예약자 정보 조회
-	public List<Reservation> selectReserveInfo(String userId) {
+	public List<Reservation> selectReserveInfoList(String userId, Search search) {
 		Connection conn = getConnection();
 		
-		List<Reservation> reserveInfo = reservationDao.selectReserveInfo(conn, userId);
+		List<Reservation> reserveInfo = reservationDao.selectReserveInfoList(conn, userId, search);
 		
 		close(conn);
 		

@@ -129,8 +129,8 @@
 	 )  
 </entry>
 
-<!-- 예약정보조회  -->
-<entry key="selectReserveInfo">
+<!-- 예약정보조회(where : 호스트 아이디 기준)  -->
+<entry key="selectReserveInfoList">
 
 	SELECT 
 	       ROOM_RESERVE <!-- 예약번호  -->
@@ -148,6 +148,65 @@
 	 WHERE USER_ID = ? 
 </entry>
 
+<!-- 게스트 이름 검색  -->
+<entry key="selectGuestNameList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND GUEST LIKE '%' || ? || '%'
+</entry>
+
+<!-- 숙소명  검색  -->
+<entry key="selectRoomNameList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND ROOM_NAME LIKE '%' || ? || '%'
+</entry>
+
+<!-- 예약번호  검색  -->
+<entry key="selectReserveNumList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND ROOM_RESERVE LIKE '%' || ? || '%'
+</entry>
 
 <entry key="paymentWait">
 	UPDATE RESERVATION

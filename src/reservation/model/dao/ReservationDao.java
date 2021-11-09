@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
 import static common.JDBCTemplate.*;
@@ -287,16 +288,32 @@ public class ReservationDao {
 	}
 
 
-	public List<Reservation> selectReserveInfo(Connection conn, String userId) {
+	public List<Reservation> selectReserveInfoList(Connection conn, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Reservation> reserveInfo = new ArrayList<>();
-		String sql =  roomQuery.getProperty("selectReserveInfo");
+		String sql =  roomQuery.getProperty("selectReserveInfoList");
+		
+		// 검색 목록 조회
+		if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("guestName")) {
+				sql = roomQuery.getProperty("selectGuestNameList");
+			} else if(search.getSearchCondition().equals("roomName")) {
+				sql = roomQuery.getProperty("selectRoomNameList");
+			} else if(search.getSearchCondition().equals("reserveNum")){
+				sql = roomQuery.getProperty("selectReserveNumList");
+			}
+		}
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int index = 1;
+			pstmt.setString(index++, userId);
 			
-			pstmt.setString(1, userId);
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(index, search.getSearchValue());
+			}
 			
 			rset = pstmt.executeQuery();
 			

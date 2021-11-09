@@ -574,7 +574,7 @@ public class RoomsDao {
 				sql = roomsQuery.getProperty("selectRnameList");
 			} else if(search.getSearchCondition().equals("roomstatus")) {
 				sql = roomsQuery.getProperty("selectRstatusList");
-			}
+			} 
 		}
 		
 		try {
