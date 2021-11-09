@@ -8,8 +8,8 @@
 <!-- swiper  -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-<%--  <% Room room = (Room)request.getAttribute("room"); %> 
- --%>
+  <% Rooms room = (Rooms)request.getAttribute("room"); %> 
+ 
 <%@ include file="/views/common/header.jsp" %>		
 		
 		<div class="lodging_detail">
@@ -171,29 +171,66 @@
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
 						<span class="text3">후기 30개</span>
 					</div>
-				<c:forEach var="roomReview" items="${ roomReviewList }">
+				<!-- <div class="reviewFlexBox"> -->
 					<div class="reviewBox">
 						<ul class="reviewSort">
-							<li>
-								<div class="userBox">
-									<img src="${contextPath}/resources/images/user.png">
-									<p>
-										<span class="userSize">${ roomReview.userName }</span>
-										<span class="reviewDate">${ roomReview.reviewDate }</span>
-									</p>
-									<div>
-										<img src="${contextPath}/resources/images/별.png">
+							<c:forEach var="roomReview" items="${ roomReviewList }">
+								<li>
+									<div class="userBox">
+										<img src="${contextPath}/resources/images/user.png">
+										<p>
+											<span class="userSize">${ roomReview.userName }</span>
+											<span class="reviewDate">${ roomReview.reviewDate }</span>
+										</p>
+										<div>
+											<img src="${contextPath}/resources/images/별.png">
+										</div>
 									</div>
-								</div>
-								<p class="reviewContent" id="Greview1">
-									${ roomReview.review }
-								</p>
-							</li>
+									<p class="reviewContent" id="Greview1">
+										${ roomReview.review }
+									</p>
+								</li>
+							</c:forEach>
 						</ul>												
 					</div>
-				</c:forEach>
+				<!-- </div> -->
 					<!--페이징-->
-					<div class="paging">
+						 <div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
+							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
+							<c:choose>
+								<c:when test="${ pi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:choose>
+								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ p }</span>	
+								</c:when>
+								<c:otherwise>
+								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${ pi.page < pi.maxPage }">
+								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								</c:when>
+								<c:otherwise>
+								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
+								</c:otherwise>
+							</c:choose>
+							
+							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							
+						</div> 
+					
+					<!-- <div class="paging">
 						<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
 						<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
 						<a href="#">1</a>
@@ -203,7 +240,7 @@
 						<a href="#">5</a>
 						<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 						<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
-					</div>
+					</div> -->
 
 			</div>	
 			<div class="box">
@@ -269,41 +306,6 @@
            	<div class="hiddenlayerpop">
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
-  
- 				<%-- 	 <div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
-							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
-							<c:choose>
-								<c:when test="${ pi.page > 1 }">
-								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
-								</c:when>
-								<c:otherwise>
-								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-								</c:otherwise>
-							</c:choose>
-							
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-							<c:choose>
-								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
-								<span class="current">${ p }</span>	
-								</c:when>
-								<c:otherwise>
-								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
-								</c:otherwise>
-							</c:choose>
-							</c:forEach>
-							
-							<c:choose>
-								<c:when test="${ pi.page < pi.maxPage }">
-								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
-								</c:when>
-								<c:otherwise>
-								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-								</c:otherwise>
-							</c:choose>
-							
-							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
-							
-						</div> --%>
   
           
     <!-- 예약 신청 취소 시 동작 -->  
