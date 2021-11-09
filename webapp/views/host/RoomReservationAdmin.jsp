@@ -10,23 +10,23 @@
            <div class="total_box">
                <ul>
                    <li>
-                       <p style="color:#024137">1</p>
+                       <p style="color:#024137">${reserveRequestCount}</p>
                        <p>예약신청</p>
                    </li>
                    <li>
-                       <p style="color:#ff8b33">1</p>
-                       <p>수락/결제대기</p>
+                       <p style="color:#ff8b33">${paymentWaitCount}</p>
+                       <p>결제대기</p>
                    </li>
                    <li>
-                       <p style="color:#999">1</p>
-                       <p>취소/만료/거절</p>
+                       <p style="color:#999">${reserveCancleCount}</p>
+                       <p>예약취소</p>
                    </li>
                    <li>
-                       <p style="color:red">1</p>
+                       <p style="color:red">${reserveCompletion}</p>
                        <p>예약완료</p>
                    </li>
                    <li>
-                       <p style="color:pink">1</p>
+                       <p style="color:pink">${lodgeCompletion}</p>
                        <p>숙박완료</p>
                    </li>
                </ul>
