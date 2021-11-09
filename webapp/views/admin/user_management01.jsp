@@ -47,9 +47,9 @@ scope="application"/>
 			</h1>
 			<ul class="menuList">
 				<li>
-					<a href="#none">회원 관리</a>
+					<a class="active" href="#none">회원 관리</a>
 					<ul class="subMenu">
-						<li><a href="<%= request.getContextPath() %>/admin/roomsMg">회원 관리</a></li>
+						<li><a class="active" href="<%= request.getContextPath() %>/admin/userMg01">회원 관리</a></li>
 						<li><a href="<%= request.getContextPath() %>/admin/userMg02">블랙리스트 관리</a></li>
 					</ul>
 				</li>
@@ -62,7 +62,7 @@ scope="application"/>
 					</ul>
 				</li>
 				<li><a href="<%= request.getContextPath() %>/admin/inquireMg">문의 관리</a></li>
-				<li><a class="active" href="<%= request.getContextPath() %>/admin/roomsMg">숙소 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/roomsMg">숙소 관리</a></li>
 				<li><a href="<%= request.getContextPath() %>/admin/recPlaceMg">추천장소 관리</a></li>
 			</ul>
 		</div>

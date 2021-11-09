@@ -450,6 +450,7 @@ public class AdminDao {
 				room.setBuildingType(rset.getString("building_type"));	// 건물유형
 				room.setRoom(rset.getInt("room"));						// 방 수		
 				room.setAddress(rset.getString("address"));				// 주소
+				room.setReturnReason(rset.getString("return_reason"));	// 반려이유
 			}
 			
 		} catch (SQLException e) {
@@ -462,20 +463,25 @@ public class AdminDao {
 		return room;
 	}
 
-	public int modifyRoom(Connection conn, Rooms room, String rVal, String statusVal) {
+	public int modifyRoom(Connection conn, Rooms room, String rVal, String statusVal, String firstcVal, String cVal) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = adminQuery.getProperty("updateRoomStatus");
 		
-		if(!statusVal.equals("등록완료")) {
+		if(statusVal.equals("승인대기")) {
 			sql = adminQuery.getProperty("updateRoomDefault");
+		}else if(statusVal.equals("승인반려")) {
+			sql = adminQuery.getProperty("updateRoomDefaultMsg");
 		}
-		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, statusVal);
-			pstmt.setString(2, rVal);
+			int count = 1;
+			pstmt.setString(count++, statusVal);
+			if(sql == adminQuery.getProperty("updateRoomDefaultMsg")){
+				pstmt.setString(count++, cVal);
+			}
+			pstmt.setString(count, rVal);
 			
 			result = pstmt.executeUpdate();
 			
@@ -487,5 +493,43 @@ public class AdminDao {
 		return result;
 	}
 
+	public int modifyAdmin(Connection conn, String adminName, String newUmail, String adminPhone, String newPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("updateAdminNP");
 
+		if(!newUmail.equals("")) {
+			sql = adminQuery.getProperty("updateAdminMail");
+		}else if(!newPwd.equals("")) {
+			sql = adminQuery.getProperty("updateAdminPwd");
+		}else if(!(newUmail.equals("") && newPwd.equals(""))) {
+			sql = adminQuery.getProperty("updateAdminAll");
+		}
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int count = 1;
+			pstmt.setString(count++, adminName);
+			pstmt.setString(count++, adminPhone);
+			if(sql == adminQuery.getProperty("updateAdminMail")) {
+				pstmt.setString(count++, newUmail);				
+			}
+			if(sql == adminQuery.getProperty("updateAdminPwd")) {
+				pstmt.setString(count++, newPwd);
+			}
+			if(sql == adminQuery.getProperty("updateAdminAll")) {
+				pstmt.setString(count++, newUmail);				
+				pstmt.setString(count++, newPwd);
+			}
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

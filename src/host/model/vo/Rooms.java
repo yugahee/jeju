@@ -34,6 +34,7 @@ public class Rooms {
 	private int maxStay;          // 최대숙박일수
 	private String roomLink;      // 유튜브링크주소
 	private String status;        // 상태 (삭제 : N)
+	private String returnReason;  // 승인 반려 이유
 	
 	private PeakSeason peak;      // 성수기 객체
 	private List<Files> fileList;    // 파일 리스트
@@ -74,7 +75,7 @@ STATUS	VARCHAR2(1 BYTE)*/
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status, PeakSeason peak, List<Files> fileList, double star,
+			String roomLink, String status, String returnReason, PeakSeason peak, List<Files> fileList, double star,
 			List<RoomReview> reviewList) {
 		super();
 		this.roomNo = roomNo;
@@ -105,6 +106,7 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.maxStay = maxStay;
 		this.roomLink = roomLink;
 		this.status = status;
+		this.returnReason = returnReason;
 		this.peak = peak;
 		this.fileList = fileList;
 		this.star = star;
@@ -365,7 +367,14 @@ STATUS	VARCHAR2(1 BYTE)*/
 	public void setStar(double star) {
 		this.star = star;
 	}
-	
+
+	public String getReturnReason() {
+		return returnReason;
+	}
+
+	public void setReturnReason(String returnReason) {
+		this.returnReason = returnReason;
+	}	
 
 	public List<RoomReview> getReviewList() {
 		return reviewList;
@@ -385,9 +394,7 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
 				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
-				+ fileList + ", star=" + star + ", reviewList=" + reviewList + "]";
-	}
-
-	
+				+ fileList + ", star=" + star + ", returnReason=" + returnReason + ", reviewList=" + reviewList + "]";
+	}	
 
 }
