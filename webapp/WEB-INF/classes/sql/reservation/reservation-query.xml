@@ -220,5 +220,51 @@
 	 WHERE ROOM_RESERVE = ?
 </entry>
 
+<entry key="reserveRequestCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약신청'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="paymentWaitCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '결제대기'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="reserveCancleCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약취소'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="reserveCompletion">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약완료'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="lodgeCompletion">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '숙박완료'
+	   AND USER_ID = ?
+</entry>
+
+
 
 </properties>

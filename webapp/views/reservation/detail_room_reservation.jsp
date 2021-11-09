@@ -164,14 +164,14 @@
 					</div>
 
 					<div class="roomReview">
-						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">후기 91개</span>
+						<%-- <img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
+						<span class="text3">후기 91개</span> --%>
 					</div>
-				<c:forEach var="roomReview" items="${ roomReviewList }">
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">${ roomReview.star } 후기 30개</span>
+						<span class="text3">후기 30개</span>
 					</div>
+				<c:forEach var="roomReview" items="${ roomReviewList }">
 					<div class="reviewBox">
 						<ul class="reviewSort">
 							<li>

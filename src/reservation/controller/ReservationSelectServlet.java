@@ -35,16 +35,27 @@ public class ReservationSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)(request.getSession().getAttribute("loginUser"))).getUser_id();
 		
+		
 		// 검색 조건 및 입력 값 추출
 		String searchCondition = request.getParameter("searchCondition");   
 		String searchValue = request.getParameter("searchValue");          
 		
 		// 예약테이블에서 예약자 정보 조회하여 예약관리 페이지에 표현하기위한 로직 
 		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfoList(userId, new Search (searchCondition, searchValue));
-		
 		//System.out.println(reserveInfo);
 		
+		int reserveRequestCount = new ReservationService().reserveRequestCount(userId);
+		int paymentWaitCount = new ReservationService().paymentWaitCount(userId);
+		int reserveCancleCount = new ReservationService().reserveCancleCount(userId);
+		int reserveCompletion = new ReservationService().reserveCompletion(userId);
+		int lodgeCompletion = new ReservationService().lodgeCompletion(userId);
+				
 		request.setAttribute("reserveInfo", reserveInfo);
+		request.setAttribute("reserveRequestCount", reserveRequestCount);
+		request.setAttribute("paymentWaitCount", paymentWaitCount);
+		request.setAttribute("reserveCancleCount", reserveCancleCount);
+		request.setAttribute("reserveCompletion", reserveCompletion);
+		request.setAttribute("lodgeCompletion", lodgeCompletion);
 		
 		request.getRequestDispatcher("/views/host/RoomReservationAdmin.jsp").forward(request, response);
 		

@@ -157,6 +157,58 @@ public class ReservationService {
 		return result;
 	}
 
+	public int reserveRequestCount(String userId) {
+		Connection conn = getConnection();
+		
+		int reserveRequestCount = reservationDao.reserveRequestCount(conn, userId);
+		
+		close(conn);
+		
+		return reserveRequestCount;
+	}
+	
+	public int paymentWaitCount(String userId) {
+		Connection conn = getConnection();
+		
+		int paymentWaitCount = reservationDao.paymentWaitCount(conn, userId);
+		
+		close(conn);
+		
+		return paymentWaitCount;
+	}
+
+	public int reserveCancleCount(String userId) {
+		Connection conn = getConnection();
+		
+		int reserveCancleCount = reservationDao.reserveCancleCount(conn, userId);
+		
+		close(conn);
+		
+		return reserveCancleCount;
+	}
+
+	public int reserveCompletion(String userId) {
+		Connection conn = getConnection();
+		
+		int reserveCompletion = reservationDao.reserveCompletion(conn, userId);
+		
+		close(conn);
+		
+		return reserveCompletion;
+	}
+
+	public int lodgeCompletion(String userId) {
+		Connection conn = getConnection();
+		
+		int lodgeCompletion = reservationDao.lodgeCompletion(conn, userId);
+		
+		close(conn);
+		
+		return lodgeCompletion;
+	}
+
+
+
 
 
 
