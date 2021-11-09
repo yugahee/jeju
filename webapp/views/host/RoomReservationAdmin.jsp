@@ -74,44 +74,53 @@
 	                       <col style="width:14.8%">
 	                       <col style="width:13.2%">
 	                   </colgroup>
-	                   <thead>
-	                       <tr>
-	                           <th>NO</th>
-	                           <th>상태</th>
-	                           <th>예약번호</th>
-	                           <th>날짜</th>
-	                           <th>숙소이름</th>
-	                           <th>게스트</th>
-	                           <th>인원</th>
-	                           <th>관리</th>
-	                       </tr>
-	                   </thead>
-	                   <c:forEach var="reserveInfo" items="${reserveInfo}">
-	                   <tbody>
-	                       <tr>
-	                           <td>1</td>
-	                           <td>${reserveInfo.reserve_state}</td>
-	                           <td>${reserveInfo.room_reserve}</td>
-	                           <td> &nbsp; 체크인 : ${reserveInfo.start_date} 
-	                         	 <br>&nbsp;&nbsp;&nbsp;체크아웃 : ${reserveInfo.end_date}</td>
-	                           <td>${reserveInfo.room_info.roomName}</td>
-	                           <td>${reserveInfo.person_reserve}</td>
-	                           <td>${reserveInfo.reserve_num}</td>
-	                           <c:choose>
-	                           	   <c:when test="${reserveInfo.reserve_state eq '예약신청'}">
-                          				 <td> &nbsp; <a href="#" id="btnAccept" class="btn btnType1 btnSizeS btn_size" onclick="btnAccept(${reserveInfo.room_reserve})">
-                          				 			 <span>수락</span></a> <br> 
-		                          					 <a href="#" id="btnRefuse" class="btn btnType2 btnSizeS" onclick="btnRefuse(${reserveInfo.room_reserve})">
-		                          					 <span>거절</span></a>
-                          				 </td> 
-	                       	   	   </c:when>
-	                       	   	   <c:when test="${reserveInfo.reserve_state eq '숙박완료'}">
-                          				 <td> <a href="#" class="btn btnType2 btnSizeS"><span>게스트 신고하기</span></a> </td> 
-	                       	   	   </c:when>
-	                       	   </c:choose>
-	                       </tr>
-	                   </tbody>
-		              </c:forEach> 
+	                  <c:choose>
+	                  <c:when test="${!empty reserveInfo }">
+		                   <thead>
+		                       <tr>
+		                           <th>NO</th>
+		                           <th>상태</th>
+		                           <th>예약번호</th>
+		                           <th>날짜</th>
+		                           <th>숙소이름</th>
+		                           <th>게스트</th>
+		                           <th>인원</th>
+		                           <th>관리</th>
+		                       </tr>
+		                   </thead>
+		                   <c:forEach var="reserveInfo" items="${reserveInfo}">
+		                   <tbody>
+		                       <tr>
+		                           <td>1</td>
+		                           <td>${reserveInfo.reserve_state}</td>
+		                           <td>${reserveInfo.room_reserve}</td>
+		                           <td> &nbsp; 체크인 : ${reserveInfo.start_date} 
+		                         	 <br>&nbsp;&nbsp;&nbsp;체크아웃 : ${reserveInfo.end_date}</td>
+		                           <td>${reserveInfo.room_info.roomName}</td>
+		                           <td>${reserveInfo.person_reserve}</td>
+		                           <td>${reserveInfo.reserve_num}</td>
+		                           <c:choose>
+		                           	   <c:when test="${reserveInfo.reserve_state eq '예약신청'}">
+	                          				 <td> &nbsp; <a href="#" id="btnAccept" class="btn btnType1 btnSizeS btn_size" onclick="btnAccept(${reserveInfo.room_reserve})">
+	                          				 			 <span>수락</span></a> <br> 
+			                          					 <a href="#" id="btnRefuse" class="btn btnType2 btnSizeS" onclick="btnRefuse(${reserveInfo.room_reserve})">
+			                          					 <span>거절</span></a>
+	                          				 </td> 
+		                       	   	   </c:when>
+		                       	   	   <c:when test="${reserveInfo.reserve_state eq '숙박완료'}">
+	                          				 <td> <a href="#" class="btn btnType2 btnSizeS"><span>게스트 신고하기</span></a> </td> 
+		                       	   	   </c:when>
+		                       	   </c:choose>
+		                       </tr>
+		                   </tbody>
+			               </c:forEach> 
+			            </c:when>
+			            <c:otherwise>
+							  <div class="noData">
+				                <p>조회된 예약이 없습니다.</p>
+				              </div>
+			            </c:otherwise>
+		              </c:choose>
 	              </table>
            </div>
        </div>
