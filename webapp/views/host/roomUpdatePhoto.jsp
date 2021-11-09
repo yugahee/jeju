@@ -22,7 +22,7 @@
 					</a>
                 </nav>
 				<br>
-                <a href="#" class="roommenu_cal">
+                <a href="${ contextPath }/host/calendar" class="roommenu_cal">
 					<span class="menu-left-cal"><img src="${ contextPath }/resources/images/common/ico_cal.png"></span>
 					<span class="menu-right-cal">달력관리</span>
 				</a>
@@ -81,10 +81,7 @@
 								<input type="text" name="address" placeholder="상세주소를 입력하세요."
 								value="${ rooms.address }" required>
 							</div>
-                            <!-- 지도 api !!! -->
-							<div class="roomenroll_map">
-                                <h1>지도 API자리</h1>
-                            </div>
+
 						</div>	
                         <div class="roomenroll_title_main main2">
                             <h2>사진&동영상</h2><span>숙소의 사진과 동영상을 등록하세요.</span>
