@@ -5,7 +5,7 @@
 	<div class="sec01">
 	    <div class="container">
 	        <div class="simple_search">
-	            <form>
+	            <form name="simpleRoomSearch">
 	                <div class="inp_text">
 	                    <label>체크인</label>
 	                    <input type="date" name="checkin" id="checkin" placeholder="체크인"/>
@@ -54,7 +54,7 @@
 	                        </button>
 	                    </div>
 	                </div>
-	                <a href="#" class="btn btnType1 btnSizeL"><span>검색</span></a>
+	                <button type="button" class="btn btnType1 btnSizeL" onclick="simpleSearch()"><span>검색</span></button>
 	            </form>
 	        </div>
 	    </div>
@@ -95,4 +95,8 @@
 		
 	});
 	
+	
+	function simpleSearch(){
+		
+	}
 </script>
