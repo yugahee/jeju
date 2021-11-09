@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import reservation.model.service.ReservationService;
 
 /**
@@ -37,7 +38,7 @@ public class ReservationCancleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// user_type 처리를 위한 인코딩 
 		request.setCharacterEncoding("UTF-8");
-		String user_type = request.getParameter("user_type"); 
+		String user_type = ((Member)request.getSession().getAttribute("loginUser")).getUser_type(); 
 			
 		int reserv_no = Integer.parseInt(request.getParameter("reserve_no"));
 		

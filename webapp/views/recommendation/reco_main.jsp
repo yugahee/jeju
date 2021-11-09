@@ -53,19 +53,19 @@
 				</form>
 	
 					<div class='input_box'>
-							<div class="inp_text inp_text2">
+							<!-- <div class="inp_text inp_text2">
 								<input type="text" name="recoKeyword" id="reco_keyword" placeholder="키워드를 입력하세요" />
 							</div>
 							<div class="inp_text">
 								<input class="submit" type="submit" value="확인" />
-							</div>
+							</div> -->
 
-							<%-- <div class="sortArea">
+							<div class="sortArea">
 								<div class="inp_text search inp_text2">
 									<input type="text" name="recoKeyword" id="" placeholder="키워드를 입력하세요">
 									<a href="${ contextPath }/reco/select/keyword" class="btn_sch">검색</a>
 								</div>
-							</div> --%>
+							</div>
 						</div>
 					</div><!-- sub_upper END -->
 
