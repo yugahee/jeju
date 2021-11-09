@@ -5,9 +5,8 @@
 			<div class="container">
 				<nav class="sub_menu">
                     <ul>
-                        <li><a href="#">내정보</a></li>
-                        <li><a href="#">1:1 문의</a></li>
-                        <li><a href="#">회원탈퇴</a></li>
+                        <li><a href="${ contextPath }/mypage/modify">내정보</a></li>
+                        <li><a href="${ contextPath }/delete">회원탈퇴</a></li>
                     </ul>
                 </nav>
                 <div class="host_mypage">
