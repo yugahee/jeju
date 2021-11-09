@@ -16,12 +16,13 @@ public class Messenger {
 	private String to_user;				// 받는 회원
 	private String msg_status;			// 메시지 상태(삭제 시 'N')
 	private Date modify_date;			// 수정 시간(받은 이가 읽기 전까지 수정 가능)
+	private String report_user;			// 피신고인
 
 	public Messenger() {}
-
+	
 	public Messenger(int msg_no, String msg_cate, String msg_content, String chk_status, String reply_status,
 			Date msg_date, Date reply_date, String reply_content, String from_user, String to_user, String msg_status,
-			Date modify_date) {
+			Date modify_date, String report_user) {
 		super();
 		this.msg_no = msg_no;
 		this.msg_cate = msg_cate;
@@ -35,6 +36,7 @@ public class Messenger {
 		this.to_user = to_user;
 		this.msg_status = msg_status;
 		this.modify_date = modify_date;
+		this.report_user = report_user;
 	}
 
 	public int getMsg_no() {
@@ -133,13 +135,21 @@ public class Messenger {
 		this.modify_date = modify_date;
 	}
 
+	public String getReport_user() {
+		return report_user;
+	}
+
+	public void setReport_user(String report_user) {
+		this.report_user = report_user;
+	}
+
 	@Override
 	public String toString() {
 		return "Messenger [msg_no=" + msg_no + ", msg_cate=" + msg_cate + ", msg_content=" + msg_content
 				+ ", chk_status=" + chk_status + ", reply_status=" + reply_status + ", msg_date=" + msg_date
 				+ ", reply_date=" + reply_date + ", reply_content=" + reply_content + ", from_user=" + from_user
-				+ ", to_user=" + to_user + ", msg_status=" + msg_status + ", modify_date=" + modify_date + "]";
+				+ ", to_user=" + to_user + ", msg_status=" + msg_status + ", modify_date=" + modify_date
+				+ ", report_user=" + report_user + "]";
 	}
-	
 	
 }

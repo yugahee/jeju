@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="getListCount">
+		SELECT
+			   COUNT(*)
+		  FROM MESSAGE
+		 WHERE MSG_STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectList">
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A. *
+		  		  FROM(SELECT *	  		  
+		  		  		 FROM MESSAGE
+					    WHERE MSG_STATUS = 'Y'
+	 					ORDER BY MSG_NO DESC) A) 		  
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+
+</properties>
