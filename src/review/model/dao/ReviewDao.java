@@ -36,6 +36,7 @@ public class ReviewDao {
 			pstmt.setString(2, roomReview.getReview());
 			pstmt.setInt(3, roomReview.getRoomNo());
 			pstmt.setString(4, roomReview.getUserId());
+			pstmt.setInt(5, roomReview.getReserveNo());
 			
 			result = pstmt.executeUpdate();
 			

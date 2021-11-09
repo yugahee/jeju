@@ -9,12 +9,14 @@
 		    , ROOM_NO
 		    , REVIEW_DATE
 		    , USER_ID
+		    , RECEP_NO
 		)VALUES(
 		    SEQ_RREVIEWNO.NEXTVAL
 		    , ?
 		    , ?
 		    , ?
 		    , SYSDATE
+		    , ?
 		    , ?
 		)
 	</entry>	
