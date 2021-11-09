@@ -83,6 +83,7 @@ public class LoginCheckFilter implements Filter {
 		permitList.add("/jeju/join");
 		permitList.add("/jeju/room/reservation");
 		permitList.add("/jeju/reco/mainView");
+		permitList.add("/jeju/admin/login");		
 		
 		resourceList = new ArrayList<String>();
 		resourceList.add("/resources/");
