@@ -88,9 +88,9 @@
 							<div class="inp_text roomenroll_inp roomenroll_opt">
 								<input type="text" name="address" placeholder="상세주소를 입력하세요." required>
 							</div>
-                            <!-- 지도 api !!! -->
-							<div class="roomenroll_map">
-                                <h1>지도 API자리</h1>
+                            <!-- ************* 지도 api !!! ******************************-->
+							<div class="roomenroll_map" id="map">
+                                
                             </div>
 						</div>	
                         <div class="roomenroll_title_main main2">
@@ -174,8 +174,18 @@
 					</form>
                 </div>
 			</div>
-		</div>
-	</div>	
+</div>
+		<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7289567elbdecd9a73b7laf5l976bb56"></script>
+		<script>
+			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+				center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+				level: 3 //지도의 레벨(확대, 축소 정도)
+			};
+			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		</script>
+	
 		<script>
 	        // 사진올리기 버튼클릭
 			document.querySelectorAll(".roomenroll_photobtn").forEach(item => item.addEventListener('click', fileUploadOpen));
@@ -199,6 +209,7 @@
 	        }
 	
 		</script>
+		
 		
 <%@include file="/views/common/footer.jsp" %>
 

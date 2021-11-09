@@ -7,8 +7,24 @@
        <p>숙소에서 편안한 하루 보내셨나요?</p>
        <p>숙소가 어떠셨는지 별점과 후기를 남겨주세요!</p>
        <div class="rating_star_large">
-       <div class="pointArea">
-               <span class="pointBg">이 제품은 <em>5</em>점입니다.</span>
+       <div class="pointArea">	
+       			<c:choose>
+       				<c:when test="${star == 1}">       				
+		       			<span class="pointBg" point="20" style="left: 20%;">이 제품은 <em>1</em>점입니다.</span>
+       				</c:when>
+       				<c:when test="${star == 2}">       				
+		       			<span class="pointBg" point="40" style="left: 40%;">이 제품은 <em>2</em>점입니다.</span>
+       				</c:when>
+       				<c:when test="${star == 3}">       				
+		       			<span class="pointBg" point="60" style="left: 60%;">이 제품은 <em>3</em>점입니다.</span>
+       				</c:when>
+       				<c:when test="${star == 4}">       				
+		       			<span class="pointBg" point="80" style="left: 80%;">이 제품은 <em>4</em>점입니다.</span>
+       				</c:when>
+       				<c:otherwise>
+       					<span class="pointBg" point="100" style="left: 100%;">이 제품은 <em>5</em>점입니다.</span>
+       				</c:otherwise>
+       			</c:choose>
                <span class="starPoint p2">
                    <button onclick="starBtn(1)">1점 선택</button>
                    <button onclick="starBtn(2)">2점 선택</button>
@@ -19,11 +35,10 @@
            </div>
        </div>
        <form method="post" name="reviewForm">        
-       	   <input type="hidden" name="reserveNo" id="reserveNo" value="${reserveNo}" />
-       	   <input type="hidden" name="roomNo" id="roomNo" value="${roomNo}" />            
-           <input type="hidden" name="starScore" id="starScore" value="5" />
+       	   <input type="hidden" name="reviewNo" id="reviewNo" value="${review.reviewNo}" />            
+           <input type="hidden" name="starScore" id="starScore" value="${star}" />
            <div class="textbox">
-               <textarea class="chatArea" name="room_review" id="room_review" placeholder="숙소 후기 내용을 입력해 주세요"></textarea>
+               <textarea class="chatArea" name="room_review" id="room_review" placeholder="숙소 후기 내용을 입력해 주세요">${review.review}</textarea>
                <span class="charCnt"><em class="update">0</em>/200</span>
            </div>
            <div class="btnWrap"><button type="button" class="btn btnType1 btnSizeL" onclick="formChk()"><span>작성완료</span></button></div>
@@ -35,7 +50,7 @@
 	  // textarea 글자 수
        let content = document.querySelector(".chatArea");
         content.onkeyup = function(){
-            let area1 = document.querySelector(".update ");
+            let area1 = document.querySelector(".update");
             let val = content.value.length;
             area1.innerHTML = val;
               if(val > 200){
@@ -64,7 +79,7 @@
 	}
 	
 	function formSubmit(){
-		document.forms.reviewForm.action = "${contextPath}/roomReviewInsert";
+		document.forms.reviewForm.action = "${contextPath}/roomReviewUpdate";
 		document.forms.reviewForm.submit();
 	}
 </script>

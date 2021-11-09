@@ -339,7 +339,8 @@ WHERE RNUM BETWEEN ? AND ?
 <entry key="updateRoomStatus">
 	UPDATE ROOMS
 	SET ENROLL_STATUS = ?,
-		ENROLL_DATE = SYSDATE
+		ENROLL_DATE = SYSDATE,
+		RETURN_REASON = NULL
    WHERE ROOM_NO = ?
 </entry>
 <entry key="updateRoomDefault">
@@ -347,5 +348,45 @@ WHERE RNUM BETWEEN ? AND ?
 	SET ENROLL_STATUS = ?,
 		ENROLL_DATE = NULL
    WHERE ROOM_NO = ?
+</entry>
+<entry key="updateRoomDefaultMsg">
+	UPDATE ROOMS
+	SET ENROLL_STATUS = ?,
+		ENROLL_DATE = NULL,
+		RETURN_REASON = ?
+   WHERE ROOM_NO = ?
+</entry>
+
+<entry key="updateAdminNP">
+	UPDATE MEMBER
+	SET
+		USER_NAME = ?,
+		PHONE = ?
+	WHERE USER_TYPE = '관리자'
+</entry>
+<entry key="updateAdminAll">
+	UPDATE MEMBER
+	SET
+		USER_NAME = ?,
+		PHONE = ?,
+		EMAIL = ?,
+		USER_PWD =?	
+	WHERE USER_TYPE = '관리자'
+</entry>
+<entry key="updateAdminMail">
+	UPDATE MEMBER
+	SET
+		USER_NAME = ?,
+		PHONE = ?,
+		EMAIL = ?		
+	WHERE USER_TYPE = '관리자'
+</entry>
+<entry key="updateAdminPwd">
+	UPDATE MEMBER
+	SET
+		USER_NAME = ?,
+		PHONE = ?,
+		USER_PWD =?	
+	WHERE USER_TYPE = '관리자'
 </entry>
 </properties>

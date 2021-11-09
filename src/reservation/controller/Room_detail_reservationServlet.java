@@ -36,6 +36,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
 		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		Rooms room = new ReservationService().detailSelectRoom(roomNo);
 		
+		// 디테일페이지 숙소리뷰 조회
 		List<RoomReview> roomReviewList = new ReservationService().selectRoomReview(roomNo);
 		
 		//System.out.println(roomReviewList);

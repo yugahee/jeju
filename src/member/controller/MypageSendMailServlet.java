@@ -110,9 +110,9 @@ public class MypageSendMailServlet extends HttpServlet {
 				 out.print("success");
 				 
 			 } catch (Exception e) {
-		            e.printStackTrace();
-		            // 메일 전송에 실패하면 fail 전달
-		            out.print("fail");
+	            e.printStackTrace();
+	            // 메일 전송에 실패하면 fail 전달
+	            out.print("fail");
 			}
 		 }
 		 

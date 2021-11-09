@@ -6,7 +6,8 @@
 				<div class="room_calendar">
 					<div class="room_calendar_info">
 						<p>※ 달력관리 페이지에서는 <b style="color: #0e7539; font-size: 1.2em;">'예약완료'</b> 상태인 숙소의 이름과 예약자명, 
-						예약인원수를 한 눈에 확인하실 수 있습니다.</p>
+						예약인원수를 한 눈에 확인하실 수 있습니다.</p><br>
+						<p>(예약 종료일 하루 이전날로 달력에 표시됩니다.)</p>
 					</div>
 					<br>
 					<!-- 달력 내용 화면 -->
@@ -24,6 +25,7 @@
 	       var calendarEl = document.getElementById('calendar');
 	       var calendar = new FullCalendar.Calendar(calendarEl, {
 	         initialView: 'dayGridMonth'
+	         
 	       });
 	       calendar.render();
 	     });
@@ -65,6 +67,7 @@
 				var calendarEl = document.getElementById('calendar');
 				var calendar = new FullCalendar.Calendar(calendarEl, {
 					events : events,   // 이벤트 : 일정등록
+					dayMaxEvents: true  // allow "more" link when too many events => 버전마다 함수다름..
 /* 					eventTimeFormat : {
 						hour: '2-digit',
 						minute: '2-digit',

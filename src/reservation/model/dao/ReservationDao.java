@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
 import static common.JDBCTemplate.*;
@@ -287,16 +288,32 @@ public class ReservationDao {
 	}
 
 
-	public List<Reservation> selectReserveInfo(Connection conn, String userId) {
+	public List<Reservation> selectReserveInfoList(Connection conn, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Reservation> reserveInfo = new ArrayList<>();
-		String sql =  roomQuery.getProperty("selectReserveInfo");
+		String sql =  roomQuery.getProperty("selectReserveInfoList");
+		
+		// 검색 목록 조회
+		if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("guestName")) {
+				sql = roomQuery.getProperty("selectGuestNameList");
+			} else if(search.getSearchCondition().equals("roomName"))  {
+				sql = roomQuery.getProperty("selectRoomNameList");
+			} else if(search.getSearchCondition().equals("reserveNum")){
+				sql = roomQuery.getProperty("selectReserveNumList");
+			}
+		}
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int index = 1;
+			pstmt.setString(index++, userId);
 			
-			pstmt.setString(1, userId);
+			if(search.getSearchCondition() != null && search.getSearchValue() != null) {
+				pstmt.setString(index, search.getSearchValue());
+			}
 			
 			rset = pstmt.executeQuery();
 			
@@ -349,6 +366,168 @@ public class ReservationDao {
 		}
 		
 		return result;
+	}
+
+
+	public int reviewComplete(Connection conn, int reserveNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  roomQuery.getProperty("reviewComplete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserveNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int reserveRequestCount(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reserveRequestCount = 0;
+		String sql =  roomQuery.getProperty("reserveRequestCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reserveRequestCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reserveRequestCount;
+	}
+
+
+	public int paymentWaitCount(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int paymentWaitCount = 0;
+		String sql =  roomQuery.getProperty("paymentWaitCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				paymentWaitCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return paymentWaitCount;
+	}
+
+
+	public int reserveCancleCount(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reserveCancleCount = 0;
+		String sql =  roomQuery.getProperty("reserveCancleCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reserveCancleCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reserveCancleCount;
+	}
+
+
+	public int reserveCompletion(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reserveCompletion = 0;
+		String sql =  roomQuery.getProperty("reserveCompletion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reserveCompletion = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reserveCompletion;
+	}
+
+
+	public int lodgeCompletion(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int lodgeCompletion = 0;
+		String sql =  roomQuery.getProperty("lodgeCompletion");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				lodgeCompletion = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return lodgeCompletion;
 	}
 
 

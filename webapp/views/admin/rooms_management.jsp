@@ -49,7 +49,7 @@ scope="application"/>
 				<li>
 					<a href="#none">회원 관리</a>
 					<ul class="subMenu">
-						<li><a href="<%= request.getContextPath() %>/admin/roomsMg">회원 관리</a></li>
+						<li><a href="<%= request.getContextPath() %>/admin/userMg01">회원 관리</a></li>
 						<li><a href="<%= request.getContextPath() %>/admin/userMg02">블랙리스트 관리</a></li>
 					</ul>
 				</li>
@@ -294,11 +294,24 @@ scope="application"/>
 		</div> 
 	</div>
 	
-    <script>	
+    <script>
+		// textarea 글자 수
+		let content = document.querySelector(".chatArea");
+	    content.onkeyup = function(){
+	        let area1 = document.querySelector(".update ");
+	        let val = content.value.length;
+	        area1.innerHTML = val;
+	       	if(val > 200){
+	       		area1.style.color = 'red';
+	       	}else{
+	       		area1.style.color = '#222';
+	       	}
+	    };
+	    
 		let firstVal = '';
+		let firstcVal = '';
 		function userdata(elem){		
 			let roomNo = $(elem).find('input').val();	
-			console.log(roomNo);
 			$.ajax({
 				url : "${contextPath}/admin/roomDetail",
 				data : {roomNo : roomNo},
@@ -306,13 +319,30 @@ scope="application"/>
 				type : "get",
 				success : function(room){			
 					var html = '';						
-					var html2 = '';
-					if(room){
+					var html2 = '';		
+					var html3 = '';		
+					if(room){	
 						$(".chatTr").hide();
 						$("#rno").text(room.roomNo);
 						$("#rname").text(room.roomName);
 						$("#rid").text(room.userId);
 						$("#rinfo").text(html);
+						$(".chatArea").val	('');
+						html3 = room.returnReason;
+						console.log(html3);
+						if(html3 != null){
+							$(".chatArea").val(html3);	
+							$(".chatArea").addClass('readOnly');
+							$('.chatArea').attr('readonly', true);
+						}else{
+							$(".chatArea").val('');	
+							$(".chatArea").removeClass('readOnly');
+							$('.chatArea').attr('readonly', false);
+						}									
+						let area1 = document.querySelector(".update");
+				        let val = content.value.length;
+				        area1.innerHTML = val;		
+				        
 						html2 = '주소 : ' + room.address + '</br>';
 						html2+= '타입 :' + room.buildingType + '</br>';
 						html2+= '평수 :' + room.roomSize + '</br>'; 
@@ -328,19 +358,17 @@ scope="application"/>
 							$(".chatTr").show();
 							html = '<button class="title" type="button" title="승인반려">승인반려</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="승인반려">'
-								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1"/><label for="sel1_1">승인대기</label></li>'
-								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">승인반려</label></li>'
+								+ '<ul class="selList"><li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">승인반려</label></li>'
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1"/><label for="sel1_3">등록완료</label></li></ul>';
 						}else if(room.enrollStatus == '등록완료'){
 							html = '<button class="title" type="button" title="등록완료">등록완료</button>'
 								+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="등록완료">'
-								+ '<ul class="selList"><li><input type="radio" value="승인대기" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">승인대기</label></li>'
-								+ '<li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
+								+ '<ul class="selList"><li><input type="radio" value="승인반려" class="option" id="sel1_2" name="select1"/><label for="sel1_2">승인반려</label></li>'
 								+ '<li><input type="radio" value="등록완료" class="option" id="sel1_3" name="select1" checked="checked"/><label for="sel1_3">등록완료</label></li></ul>';
 						}	
 						$("#mstatus").html(html);
 						firstVal = $('#mstatus button.title').text();
-						console.log(firstVal);
+						firstcVal = $('.chatArea').val();
 					}else{
 					}			
 				},
@@ -353,39 +381,32 @@ scope="application"/>
 		function commitData(){
 			let statusVal = $('.statusVal').val();
 			let rVal = $('#rno').text();
-			console.log(firstVal);
-			//let cVal = $('.chatArea ').val();
-			$.ajax({
-				url : "${contextPath}/admin/roomDetailModify",
-				data : {firstVal : firstVal, statusVal : statusVal, rVal : rVal},
-				//dataType : "json",
-				type : "post",
-				success : function(member){	
-					if(firstVal == statusVal){
-						alert('수정 사항이 없습니다.');
-					}else{
-						alert('상태 수정 완료');
+			let cVal = $('.chatArea ').val();
+			console.log(cVal.length);
+			console.log(firstcVal);
+			if(cVal.length <= 200){					
+				$.ajax({
+					url : "${contextPath}/admin/roomDetailModify",
+					data : {firstVal : firstVal, statusVal : statusVal, rVal : rVal, firstcVal : firstcVal, cVal : cVal},
+					//dataType : "json",
+					type : "post",
+					success : function(member){	
+						if(firstVal == statusVal && cVal == ''){
+							alert('수정 사항이 없습니다.');
+						}else{
+							alert('상태 수정 완료');
+						}
+						location.reload();
+					},
+					error : function(e){
+						alert('상태 수정 실패');
 					}
-					location.reload();
-				},
-				error : function(e){
-					alert('상태 수정 실패');
-				}
-			});
+				});
+			}else{
+				alert('글자 수 확인');
+				$('.chatArea ').focus();
+			}
 		}
-    
-		// textarea 글자 수
-    	let content = document.querySelector(".chatArea");
-        content.onkeyup = function(){
-            let area1 = document.querySelector(".update ");
-            let val = content.value.length;
-            area1.innerHTML = val;
-           	if(val > 200){
-           		area1.style.color = 'red';
-           	}else{
-           		area1.style.color = '#222';
-           	}
-        };
     </script>
 </body>
 </html>

@@ -205,7 +205,7 @@ textarea:focus {color:#555555;border-color:#101010;}
 textarea.readOnly {color:#101010;background:#eeeeee;border-color:#dcdcdc;}
 textarea.error {color:#d10000;border-color:#d10000;}
 .textbox {position:relative;}
-.textbox .charCnt {position:absolute; right:20px; bottom:18px; font-size:12px; color:#999; background:#fff}
+.textbox .charCnt {position:absolute; right:20px; bottom:18px; font-size:12px; color:#999; background:transparent}
 .textbox .charCnt em {color:#222;}
 
 .inp_qty {display:inline-block;overflow: hidden;height:38px;border:1px solid #dcdcdc;}

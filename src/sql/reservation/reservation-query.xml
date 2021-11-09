@@ -129,8 +129,8 @@
 	 )  
 </entry>
 
-<!-- 예약정보조회  -->
-<entry key="selectReserveInfo">
+<!-- 예약정보조회(where : 호스트 아이디 기준)  -->
+<entry key="selectReserveInfoList">
 
 	SELECT 
 	       ROOM_RESERVE <!-- 예약번호  -->
@@ -148,11 +148,121 @@
 	 WHERE USER_ID = ? 
 </entry>
 
+<!-- 게스트명 검색  -->
+<entry key="selectGuestNameList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND GUEST LIKE '%' || ? || '%'
+</entry>
+
+<!-- 숙소명  검색  -->
+<entry key="selectRoomNameList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND ROOM_NAME LIKE '%' || ? || '%'
+</entry>
+
+<!-- 예약번호  검색  -->
+<entry key="selectReserveNumList">
+
+	SELECT 
+	       ROOM_RESERVE <!-- 예약번호  -->
+		 , START_DATE
+		 , END_DATE
+		 , PERSON_RESERVE  <!-- 예약자명  -->
+		 , PONE
+		 , RESERVE_STATE
+		 , RESERVE_NUM
+		 , ROOM_NO
+		 , ROOM_NAME
+		 , USER_ID  
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE USER_ID = ? 
+	   AND ROOM_RESERVE LIKE '%' || ? || '%'
+</entry>
 
 <entry key="paymentWait">
 	UPDATE RESERVATION
 	   SET RESERVE_STATE = '결제대기'
 	 WHERE ROOM_RESERVE = ?
+</entry>
+
+<entry key="reviewComplete">
+	UPDATE RESERVATION
+	   SET RESERVE_STATE = '리뷰완료'
+	 WHERE ROOM_RESERVE = ?
+</entry>
+
+<entry key="reserveRequestCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약신청'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="paymentWaitCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '결제대기'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="reserveCancleCount">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약취소'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="reserveCompletion">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '예약완료'
+	   AND USER_ID = ?
+</entry>
+
+<entry key="lodgeCompletion">
+	SELECT 
+	       COUNT(*)
+	  FROM RESERVATION
+	  JOIN ROOMS USING(ROOM_NO)
+	 WHERE RESERVE_STATE = '숙박완료'
+	   AND USER_ID = ?
 </entry>
 
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="roomReviewInsert">
+		INSERT INTO ROOMS_REVIEW(
+		    REVIEW_NO
+		    , STAR
+		    , REVIEW
+		    , ROOM_NO
+		    , REVIEW_DATE
+		    , USER_ID
+		)VALUES(
+		    SEQ_RREVIEWNO.NEXTVAL
+		    , ?
+		    , ?
+		    , ?
+		    , SYSDATE
+		    , ?
+		)
+	</entry>	
+	<entry key="selectReview">
+		SELECT 
+			REVIEW_NO
+			, STAR
+			, REVIEW
+			, ROOM_NO			
+		FROM ROOMS_REVIEW
+		WHERE RECEP_NO = ?
+	</entry>
+	<entry key="roomReviewUpdate">
+		UPDATE ROOMS_REVIEW
+		SET STAR = ?
+    		, REVIEW = ?
+		WHERE REVIEW_NO = ?
+	</entry>
+</properties>

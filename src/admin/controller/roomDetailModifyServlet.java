@@ -39,12 +39,14 @@ public class roomDetailModifyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstVal = request.getParameter("firstVal");
-		String statusVal = request.getParameter("statusVal");
 		String rVal = request.getParameter("rVal");
+		String statusVal = request.getParameter("statusVal");
+		String cVal = request.getParameter("cVal");
+		String firstcVal = request.getParameter("firstcVal");
 		
 		if(!firstVal.equals(statusVal)) {
 			Rooms room = new Rooms();
-			int result = new AdminService().modifyRoom(room, rVal, statusVal);
+			int result = new AdminService().modifyRoom(room, rVal, statusVal, firstcVal, cVal);
 			
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath() + "/admin/userMg01");

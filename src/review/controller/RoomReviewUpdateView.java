@@ -1,23 +1,27 @@
 package review.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.model.vo.RoomReview;
+import review.model.service.ReviewService;
+
 /**
- * Servlet implementation class RoomReviewView
+ * Servlet implementation class RoomReviewUpdateView
  */
-@WebServlet("/roomReview")
-public class RoomReviewView extends HttpServlet {
+@WebServlet("/roomReview/update")
+public class RoomReviewUpdateView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RoomReviewView() {
+    public RoomReviewUpdateView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,12 +30,15 @@ public class RoomReviewView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		int reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
 		
-		request.setAttribute("roomNo", roomNo);
-		request.setAttribute("reserveNo", reserveNo);
-		request.getRequestDispatcher("/views/reservation/roomReviewInsert.jsp").forward(request, response);
+		RoomReview review = new ReviewService().selectReview(reserveNo);
+		
+		int star = (int)review.getStar();
+		
+		request.setAttribute("review", review);
+		request.setAttribute("star", star);
+		request.getRequestDispatcher("/views/reservation/roomReviewUpdate.jsp").forward(request, response);
 	}
 
 	/**

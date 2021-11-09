@@ -81,7 +81,6 @@ public class AdminService{
 	public int deleteMember(String idVal) {
 		Connection conn = getConnection();		
 		int result = adminDao.deleteMember(conn, idVal);
-		System.out.println("service" + result);
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -140,9 +139,24 @@ public class AdminService{
 		return room;
 	}
 
-	public int modifyRoom(Rooms room, String rVal, String statusVal) {
+	public int modifyRoom(Rooms room, String rVal, String statusVal, String firstcVal, String cVal) {
 		Connection conn = getConnection();		
-		int result = adminDao.modifyRoom(conn, room, rVal, statusVal);
+		int result = adminDao.modifyRoom(conn, room, rVal, statusVal, firstcVal, cVal);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int modifyAdmin(String adminName, String newUmail, String adminPhone, String newPwd) {
+		Connection conn = getConnection();		
+		int result = adminDao.modifyAdmin(conn, adminName, newUmail, adminPhone, newPwd);
 		
 		if(result > 0) {
 			commit(conn);
