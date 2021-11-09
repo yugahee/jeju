@@ -298,7 +298,7 @@ public class ReservationDao {
 		if(search.getSearchCondition() != null && search.getSearchValue() != null) {
 			if(search.getSearchCondition().equals("guestName")) {
 				sql = roomQuery.getProperty("selectGuestNameList");
-			} else if(search.getSearchCondition().equals("roomName")) {
+			} else if(search.getSearchCondition().equals("roomName"))  {
 				sql = roomQuery.getProperty("selectRoomNameList");
 			} else if(search.getSearchCondition().equals("reserveNum")){
 				sql = roomQuery.getProperty("selectReserveNumList");

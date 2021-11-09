@@ -148,7 +148,7 @@
 	 WHERE USER_ID = ? 
 </entry>
 
-<!-- 게스트 이름 검색  -->
+<!-- 게스트명 검색  -->
 <entry key="selectGuestNameList">
 
 	SELECT 
