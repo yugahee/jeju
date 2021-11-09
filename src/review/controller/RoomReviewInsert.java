@@ -52,6 +52,7 @@ public class RoomReviewInsert extends HttpServlet {
 		roomReview.setRoomNo(roomNo);
 		roomReview.setUserId(userId);
 		roomReview.setReview(reviewContent);
+		roomReview.setReserveNo(reserveNo);
 		
 		int ReviewResult = new ReviewService().reviewInsert(roomReview, starScore);
 		int reserveStateResult = new ReservationService().reviewComplete(reserveNo);
