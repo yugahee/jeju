@@ -27,10 +27,7 @@ public class adminLogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		// 로그인에서 세션 저장하고 로그아웃에서 세션 날려주기 
-		// session.removeAttribute("loginUser");
-		
+		request.getSession().removeAttribute("loginUser");
 		response.sendRedirect(request.getContextPath() + "/admin/login");
 	}
 

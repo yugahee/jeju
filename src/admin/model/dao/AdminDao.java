@@ -498,11 +498,11 @@ public class AdminDao {
 		int result = 0;
 		String sql = adminQuery.getProperty("updateAdminNP");
 
-		if(!newUmail.equals("")) {
+		if(!newUmail.equals("") && newPwd.equals("")) {
 			sql = adminQuery.getProperty("updateAdminMail");
-		}else if(!newPwd.equals("")) {
+		}else if(newUmail.equals("") && !newPwd.equals("")) {
 			sql = adminQuery.getProperty("updateAdminPwd");
-		}else if(!(newUmail.equals("") && newPwd.equals(""))) {
+		}else if(!newUmail.equals("") && !newPwd.equals("")) {
 			sql = adminQuery.getProperty("updateAdminAll");
 		}
 		System.out.println(sql);
