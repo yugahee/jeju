@@ -42,4 +42,82 @@
 		 ORDER BY RECO_NO DESC
 	</entry>
 	
+	<entry key="selectLikeList">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE PUBLIC_YN = 'Y'
+		 ORDER BY LIKE_COUNT DESC
+		 	 , RECO_NO DESC
+	</entry>
+	
+	<entry key="selectStarList">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE PUBLIC_YN = 'Y'
+		 ORDER BY LIKE_COUNT DESC
+		 	 , RECO_NO DESC
+	</entry>
+	
+	<entry key="selectKeywordList">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE RECO_KEYWORD LIKE '%' || ? || '%'
+		 ORDER BY RECO_NO DESC
+	</entry>
+	
+	<entry key="selectReco">
+		SELECT
+			   RECO_NO
+			 , PUBLIC_YN
+			 , RECO_AREA
+			 , RECO_ADDRESS
+			 , RECO_CATEGORY
+			 , RECO_EXPL
+			 , RECO_KEYWORD
+			 , RECO_NAME
+			 , NAVER_MAP
+			 , KAKAO_MAP
+			 , RECO_IMAGE
+			 , LIKE_COUNT
+		  FROM RECOMMENDATION
+		 WHERE PUBLIC_YN = 'Y'
+		   AND RECO_NO = ?
+	</entry>
+	
 </properties>

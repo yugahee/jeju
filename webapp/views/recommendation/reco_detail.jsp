@@ -26,21 +26,21 @@
 						<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);">
 						</div>
 						<div class="star_average">
-							<p>제목</p>
+							<p>${ reco.recoName }</p>
 							<div class="rating_star">
 								<span class="starPoint p5">5</span>
 							</div>
 							<p>(3.2/5)</p>
 						</div>
-						<div class="reco_address">주소</div>
-						<div class="exp">설명</div>
+						<div class="reco_address">${ reco.recoAddress }</div>
+						<div class="exp">${ reco.recoExpl }</div>
 					</div>
 
 					<div class="reco_map"><!-- 맵부분 시작 -->
 						<div class="map_api">지도 api</div>
 						<div class="map_url">
-							<button class="btn btnType1 btnSizeM"><span>네이버맵 연결</span></button>
-							<button class="btn btnType1 btnSizeM"><span>카카오맵 연결</span></button>
+							<button class="btn btnType1 btnSizeM" onclick='location.href="${ reco.naverMap }"'><span>네이버맵 연결</span></button>
+							<button class="btn btnType1 btnSizeM" onclick='location.href="${ reco.kakaoMap }"'><span>카카오맵 연결</span></button>
 						</div>
 					</div><!-- 맵부분 끝 -->
 
