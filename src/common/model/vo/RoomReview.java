@@ -11,6 +11,7 @@ public class RoomReview {
 	private Date reviewDate;     // 리뷰작성일
 	private String userId;       // 리뷰작성자
 	private String userName;     // member테이블 참조값 
+	private int reserveNo;		 // 예약번호
 	
 	
 /*REVIEW_NO	NUMBER
@@ -23,7 +24,7 @@ USER_ID	VARCHAR2(20 BYTE)*/
 	public RoomReview() {}
 
 	public RoomReview(int reviewNo, String roomName, double star, String review, int roomNo, Date reviewDate, String userId,
-		String userName) {
+		String userName, int reserveNo) {
 	super();
 	this.reviewNo = reviewNo;
 	this.roomName = roomName;
@@ -33,7 +34,10 @@ USER_ID	VARCHAR2(20 BYTE)*/
 	this.reviewDate = reviewDate;
 	this.userId = userId;
 	this.userName = userName;
+	this.reserveNo = reserveNo;
 }
+
+
 
 
 	public int getReviewNo() {
@@ -102,13 +106,24 @@ USER_ID	VARCHAR2(20 BYTE)*/
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	
+
+	public int getReserveNo() {
+		return reserveNo;
+	}
+
+	public void setReserveNo(int reserveNo) {
+		this.reserveNo = reserveNo;
+	}
 
 	@Override
 	public String toString() {
 		return "RoomReview [reviewNo=" + reviewNo + ", roomName=" + roomName + ", star=" + star + ", review=" + review
 				+ ", roomNo=" + roomNo + ", reviewDate=" + reviewDate + ", userId=" + userId + ", userName=" + userName
-				+ "]";
+				+ ", reserveNo=" + reserveNo + "]";
 	}
 
+	
 	
 }

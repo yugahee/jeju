@@ -18,4 +18,19 @@
 		    , ?
 		)
 	</entry>	
+	<entry key="selectReview">
+		SELECT 
+			REVIEW_NO
+			, STAR
+			, REVIEW
+			, ROOM_NO			
+		FROM ROOMS_REVIEW
+		WHERE RECEP_NO = ?
+	</entry>
+	<entry key="roomReviewUpdate">
+		UPDATE ROOMS_REVIEW
+		SET STAR = ?
+    		, REVIEW = ?
+		WHERE REVIEW_NO = ?
+	</entry>
 </properties>

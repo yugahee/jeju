@@ -37,7 +37,7 @@
 											<a href="#" class="btn btnType2 btnSizeS"><span>신고하기</span></a>
 										</c:when>
 										<c:otherwise>				
-											<a href="#" class="btn btnType1 btnSizeS"><span>리뷰수정</span></a>											
+											<a href="${contextPath}/roomReview/update?reserveNo=${reserve.room_reserve}" class="btn btnType1 btnSizeS"><span>리뷰수정</span></a>											
 										</c:otherwise>
 									</c:choose>
 								</div>

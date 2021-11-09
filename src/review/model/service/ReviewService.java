@@ -27,4 +27,30 @@ public class ReviewService {
 		return result;
 	}
 
+	public RoomReview selectReview(int reserveNo) {
+		Connection conn = getConnection();
+		
+		RoomReview review = reviewDao.selectReview(conn, reserveNo);
+		
+		close(conn);
+		
+		return review;
+	}
+
+	public int roomReviewUpdate(RoomReview roomReview, int star) {
+		Connection conn = getConnection();
+		
+		int result = reviewDao.reviewUpdate(conn, roomReview, star);
+		
+		if(result > 0) {
+			commit(conn);
+		}else{
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }
