@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/views/common/header.jsp" %>
 
 		<div class="side_layout">
@@ -7,7 +8,9 @@
 				<nav class="sub_menu">
                     <ul>
                         <li><a href="${ contextPath }/mypage/modify" class="active">내 정보</a></li>
+                        <c:if test="${ loginUser.user_type eq '게스트' }">
                         <li><a href="${ contextPath }/mypage/point">포인트</a></li>
+                        </c:if>
                         <li><a href="${ contextPath }/delete">회원 탈퇴</a></li>
                     </ul>
                 </nav>

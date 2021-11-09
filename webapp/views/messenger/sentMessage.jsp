@@ -8,7 +8,7 @@
 				<nav class="sub_menu">
                     <ul>
                         <li><a href="${ contextPath }/received/messenger">받은 메시지</a></li>
-                        <li><a href="${ contextPath }/sent/messenger" class="active">보낸 메시지</a></li>
+                        <li><a href="${ contextPath }/messenger/list" class="active">보낸 메시지</a></li>
                     </ul>
                 </nav>
                 <div class="sub messengerList">
@@ -23,8 +23,7 @@
                                 <col style="width:13.8%">
                                 <col style="width:9.2%">
                             </colgroup>
-                            <button onclick="showLayer('writingMessage');" class="btn btnType1 btnSizeM" id="write">
-                            <span>관리자에게 보내기</span></button>
+                            <button type="button" onclick="showLayer('writingMessage');" class="btn btnType1 btnSizeM" id="write"><span>관리자에게 보내기</span></button>
                             <thead>
                                 <tr>
                                     <th>NO</th>
@@ -37,26 +36,30 @@
                             </thead>
                             <tbody>
                             <c:forEach var="msg" items="${ messengerList }">
-                                <tr>
+                            <c:if test="${ msg.from_user eq loginUser.user_id }">
+                                <tr><!-- <tr onclick="detailView(${msg.msg_no})"> -->
                                     <td>${ msg.msg_no }</td>
-                                    <td class="al_l"><button class="message" onclick="showLayer('callMessage');"><span class="opt_cate">${ msg.msg_cate }</span>${ msg.msg_content }</button></td>
+                                    <td class="al_l"><button class="message" onclick="showLayer('callMessage');"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.to_user }</td>
                                     <td><fmt:formatDate value="${ msg.msg_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                     <td>${ msg.chk_status }</td>
                                     <c:choose>
-                                    <c:when test="${ msg.chk_status() eq 'N'}">
+                                    <c:when test="${ msg.chk_status eq 'N'}">
                                     <td>
-                                        <button class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage');"><span>수정</span></button>
-                                        <button class="btn btnType2 btnSizeS" id="delete"><span>삭제</span></button>
+                                        <button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage');"><span>수정</span></button>
+                                        <button type="button" class="btn btnType2 btnSizeS" id="delete"><span>삭제</span></button>
                                     </td>
                                     </c:when>
-                                    <c:otherwise>
-                                    	<button class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
-                                        <button class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
-                                    </c:otherwise>
+                                    <c:when test="${ msg.chk_status eq 'Y'}">
+                                    <td>
+                                    	<button type="button" class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
+                                        <button type="button" class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
+                                    </td>
+                                    </c:when>
                                     </c:choose>
                                 </tr>
-                                </c:forEach>
+                            </c:if>
+                            </c:forEach>
                                <!--  <tr>
                                     <td>1</td>
                                     <td class="al_l"><a href="#"><span class="opt_cate">[신고]</span>잠수타는 호스트 신고합니다.</a></td>
@@ -72,15 +75,54 @@
                         </table>
                     </div>
                     <div class="paging">
-                        <span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-                        <span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-                        <span class="current">1</span>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-                        <span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+                    <!-- 첫 번째 페이지로 -->
+                        <span class="first"><a href="${ contextPath }/messenger/list?page=1"></a></span>
+                        <span class="prev">
+                        	<c:choose>
+							<%-- 조건 : 현재 페이지가 1페이지가 아니라면--%>
+							<c:when test="${ pi.page > 1 }">
+							<%-- 현재 페이지 -1 페이지로 이동되게  --%>
+							<a href="${ contextPath }/messenger/list?page=${ pi.page - 1}"></a>
+							</c:when>
+							<%-- 현재 페이지가 1페이지인 경우 = 페이지 이동 안되게 --%>
+							<c:otherwise>
+							<a href="#"></a>
+							</c:otherwise>
+							</c:choose>                   
+                        </span>
+						
+						<!-- 최대 10개의 페이지 목록 -->
+							<%-- 1~10페이징바가 한 세트로 보이도록 --%>
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:choose>
+							<%-- 요청하는 페이지가 현재 페이징바 내부에 있다면 --%>
+							<c:when test="${ p eq pi.page }">
+							<%-- 페이징바 이동은 없고 선택된 페이지 눈에 띄게 하기 위해 디자인 들어간 클래스명 부여 --%>
+							<a href="#" class="current">${ p }</a>
+							</c:when>
+							<c:otherwise>
+							<%-- 요청하는 페이지가 현재 페이징 바와 다르다면 해당 페이지가 들어간 페이징바 보이게 --%>
+							<a href="${ contextPath }/messenger/list?page=${ p }">${ p }</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+                     
+                        <span class="next">
+						<!-- 다음 페이지로  -->
+							<c:choose>
+							<%-- 조건 : 현재 페이지가 마지막 페이지가 아니라면--%>
+							<c:when test="${ pi.page < pi.maxPage }">
+							<%-- 현재 페이지 +1 페이지로 이동되게  --%>
+							<a href="${ contextPath }/messenger/list?page=${ pi.page + 1}"></a>
+							</c:when>
+							<%-- 현재 페이지가 마지막 페이지인 경우 = 페이지 이동 안되게 --%>
+							<c:otherwise>
+							<a href="#"></a>
+							</c:otherwise>
+							</c:choose>  
+                        </span>
+                        <!-- 마지막 페이지로 -->
+                        <span class="last"><a href="${ contextPath }/messenger/list?page=${ pi.maxPage }"></a></span>
                     </div>
                 </div>
 			</div>
@@ -90,7 +132,7 @@
     <div id="callMessage" class="layerPop calldMessage">
         <div class="layerTit">
             <h4>messenger</h4>
-            <button class="btn_closeLayer" onclick="hideLayer('callMessage');"><span class="blind">팝업 닫기</span></button>
+            <button type="button" class="btn_closeLayer" onclick="hideLayer('callMessage');"><span class="blind">팝업 닫기</span></button>
         </div>
         <div class="layerBody">
             <br>
@@ -101,7 +143,6 @@
                         <!-- <col style="width:*;"> -->
                     </colgroup>
                     <tbody>
-                    <c:forEach var="msg" items="${ messengerList }">
                         <tr>
                             <th>보낸 사람</th>
                             <td>
@@ -116,15 +157,15 @@
                                     <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
                                     <ul class="selList">
                                     <c:choose>
-                                    	<c:when test="${ msg.msg_cate() eq '문의'}">
+                                    	<c:when test="${ message.msg_cate eq '문의'}">
                                         <li>
-                                            <input type="radio" value="문의" class="option" id="sel2_1" name="select1" checked="checked"/>
+                                            <input type="radio" value="문의" class="option" id="sel2_1" name="call_cate" checked="checked"/>
                                             <label for="sel2_1">1. 문의</label>
                                         </li>
                                         </c:when>
                                     	<c:otherwise>
                                         <li>
-                                            <input type="radio" value="신고" class="option" id="sel2_2" name="select1" checked="checked"/>
+                                            <input type="radio" value="신고" class="option" id="sel2_2" name="call_cate" checked="checked"/>
                                             <label for="sel2_2">2. 신고</label>
                                         </li>
                                         </c:otherwise>
@@ -138,14 +179,14 @@
                             <th>피신고인</th>
                             <td>
                             <c:choose>
-                            <c:when test="${ msg.msg_cate() eq '문의'}">
+                            <c:when test="${ message.msg_cate eq '문의'}">
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
+                                    <input type="text" name="userId" id="call_userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
                                 </div>
                             </c:when>
                             <c:otherwise>
                             	<div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="userId" class="readOnly" value="${ msg.to_user }" readonly />
+                                    <input type="text" name="userId" id="call_userId" class="readOnly" value="${ message.to_user }" readonly />
                                 </div>
                             </c:otherwise>
                             </c:choose>
@@ -155,18 +196,17 @@
                             <th>내용</th>
                             <td>
                                 <div class="textbox">
-                                    <textarea class="readOnly" readonly>
-                                        ${ msg.msg_content }
+                                    <textarea class="readOnly" name="call_context" readonly>
+                                        ${ message.msg_content }
                                     </textarea>
                                 </div>
                             </td>
                         </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
             </div>
             <div class="btn_wrap">
-                <button class="btn btnType2 btnSizeM" onclick="hideLayer('callMessage');return false;"><span>닫기</span></button>
+                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('callMessage');return false;"><span>닫기</span></button>
             </div>
         </div>
     </div>
@@ -176,9 +216,10 @@
     <div id="modifyMessage" class="layerPop modifyMessage">
         <div class="layerTit">
             <h4>messenger</h4>
-            <button class="btn_closeLayer" onclick="hideLayer('modifyMessage');"><span class="blind">팝업 닫기</span></button>
+            <button type="button" class="btn_closeLayer" onclick="hideLayer('modifyMessage');"><span class="blind">팝업 닫기</span></button>
         </div>
         <div class="layerBody">
+        <form action="${ contextPath }/message/modify" method="post">
             <br>
             <div class="tblType2 noBorder">
                 <table>
@@ -200,14 +241,20 @@
                                 <div class="selectbox">
                                     <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
                                     <ul class="selList">
+                                       <c:choose>
+                                    	<c:when test="${ message.msg_cate eq '문의'}">
                                         <li>
-                                            <input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked"/>
-                                            <label for="sel1_1">1. 문의</label>
+                                            <input type="radio" value="문의" class="option" id="sel2_1" name="modify_cate" checked="checked"/>
+                                            <label for="sel2_1">1. 문의</label>
                                         </li>
+                                        </c:when>
+                                    	<c:otherwise>
                                         <li>
-                                            <input type="radio" value="" class="option" id="sel2_2" name="select1" />
-                                            <label for="sel1_2">2. 신고</label>
+                                            <input type="radio" value="신고" class="option" id="sel2_2" name="modify_cate" checked="checked"/>
+                                            <label for="sel2_2">2. 신고</label>
                                         </li>
+                                        </c:otherwise>
+                                    	</c:choose>
                                     </ul>
                                 </div>
                             </td>
@@ -217,17 +264,26 @@
                         <tr id="report_id">
                             <th>피신고인</th>
                             <td>
+                            <c:choose>
+                            <c:when test="${ message.msg_cate eq '문의'}">
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
+                                    <input type="text" name="userId" id="modify_toUser" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
                                 </div>
+                            </c:when>
+                            <c:otherwise>
+                            	<div class="inp_text inp_cell">
+                                    <input type="text" name="userId" id="modify_toUser" class="readOnly" value="${ message.to_user }" />
+                                </div>
+                            </c:otherwise>
+                            </c:choose>
                             </td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td>
                                 <div class="textbox">
-                                    <textarea>
-                                        그린하우스 201호 반려동물 동반 가능한가요? 마당이 넓어서 같이 뛰어다니며 놀고싶어서요
+                                    <textarea id="modify_content">
+                                        ${ message.msg_content }
                                     </textarea>
                                     <span class="charCnt"><em>0</em>/200</span>
                                 </div>
@@ -238,8 +294,9 @@
             </div>
             <div class="btn_wrap">
                 <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>수정하기</span></button>
-                <button class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');return false;"><span>닫기</span></button>
+                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');return false;"><span>닫기</span></button>
             </div>
+            </form>
         </div>
     </div>
 
@@ -247,10 +304,10 @@
     <div id="writingMessage" class="layerPop writingMessage">
         <div class="layerTit">
             <h4>messenger</h4>
-            <button class="btn_closeLayer" onclick="hideLayer('writingMessage');"><span class="blind">팝업 닫기</span></button>
+            <button type="button" class="btn_closeLayer" onclick="hideLayer('writingMessage');"><span class="blind">팝업 닫기</span></button>
         </div>
         <div class="layerBody">
-        <form action="${ contextPath }/messenger" method="post">
+        <form action="${ contextPath }/messenger/write" method="post">
             <br>
             <div class="tblType2 noBorder">
                 <table>
@@ -262,7 +319,7 @@
                         <tr>
                             <th>보낸 사람</th>
                             <td>
-                                userId
+                                ${ loginUser.user_id }
                             </td>
                         </tr>
                         <tr>
@@ -289,7 +346,7 @@
                             <th>피신고인</th>
                             <td>
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." />
+                                    <input type="text" name="toUser" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." />
                                 </div>
                             </td>
                         </tr>
@@ -297,7 +354,7 @@
                             <th>내용</th>
                             <td>
                                 <div class="textbox">
-                                    <textarea placeholder="내용을 입력해 주세요"></textarea>
+                                    <textarea placeholder="내용을 입력해 주세요" name="msg_content"></textarea>
                                     <span class="charCnt"><em>0</em>/200</span>
                                 </div>
                             </td>
@@ -307,8 +364,19 @@
             </div>
             <div class="btn_wrap">
                 <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>보내기</span></button>
-                <button class="btn btnType2 btnSizeM" onclick="hideLayer('writingMessage');return false;"><span>닫기</span></button>
+                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('writingMessage');return false;"><span>닫기</span></button>
             </div>
             </form>
         </div>
     </div>
+    
+    
+    
+    
+    
+<script>
+	/* function detailView(msg_no){
+			ocation.href='${contextPath}/messenger/detail?msg_no=' + msg_no;
+	} */
+</script>
+		
