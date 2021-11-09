@@ -90,6 +90,10 @@ public class LoginCheckFilter implements Filter {
 		permitList.add("/jeju/admin/login");
 		permitList.add("/jeju/reco/mainView");
 		permitList.add("/jeju/reco/detailView");
+		permitList.add("/jeju/reco/select/category");
+		permitList.add("/jeju/reco/select/keyword");
+		permitList.add("/jeju/reco/select/like");
+		permitList.add("/jeju/reco/select/star");
 		permitList.add("/jeju/mbti/mainView");
 		permitList.add("/jeju/mbti/resultView");
 		permitList.add("/jeju/mbti/test1");
