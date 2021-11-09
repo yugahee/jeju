@@ -62,8 +62,10 @@
 
 							<div class="sortArea">
 								<div class="inp_text search inp_text2">
+								<form action="${ contextPath }/reco/select/keyword" method="get">
 									<input type="text" name="recoKeyword" id="" placeholder="키워드를 입력하세요">
-									<a href="${ contextPath }/reco/select/keyword" class="btn_sch">검색</a>
+									<button type="submit" class="btn_sch">검색</button>
+								</form>
 								</div>
 							</div>
 						</div>

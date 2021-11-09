@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="reco_map"><!-- 맵부분 시작 -->
-						<div class="map_api">지도 api</div>
+						<div class="map_api" id="recoMap">지도 api</div>
 						<div class="map_url">
 							<button class="btn btnType1 btnSizeM" onclick='location.href="${ reco.naverMap }"'><span>네이버맵 연결</span></button>
 							<button class="btn btnType1 btnSizeM" onclick='location.href="${ reco.kakaoMap }"'><span>카카오맵 연결</span></button>
@@ -116,3 +116,24 @@
 		</div><!-- 메인 끝 -->
 		
 <%@ include file="/views/common/footer.jsp" %>
+
+<!-- 지도 api 설정 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7289567e1bdecd9a73b71af51976bb56"></script>
+<script>
+	var mapContainer = document.getElementById('recoMap');		// 지도를 표시할 div
+	var mapOptions = {		// 지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.5000496081595, 126.46078090711264),	// 지도의 중심 좌표
+			level: 3		// 지도의 레벨(확대, 축소 정도)
+	};
+	var map = new kakao.maps.Map(mapContainer, mapOptions);	// 지도 생성 및 객체 리턴
+	
+	var markerPosition = new kakao.maps.LatLng(33.5000496081595, 126.46078090711264);	// 마커 표시 위치 지정
+	
+	var marker = new kakao.maps.Marker({
+		position: markerPosition
+	});		// 마커 생성
+	
+	marker.setMap(map);		// 마커가 지도 위에 표시되도록 설정
+	
+	// marker.setMap(null);		마커 제거 원할 시 실행
+</script>
