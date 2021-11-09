@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/views/common/header.jsp" %>
+<style>
+	.btn_wrap {
+		text-align: center;
+	}
+</style>
 		<div class="side_layout">
 			<div class="container">
 				<nav class="sub_menu">
@@ -37,17 +42,18 @@
                             <tbody>
                             <c:forEach var="msg" items="${ messengerList }">
                             <c:if test="${ msg.from_user eq loginUser.user_id }">
-                                <tr><!-- <tr onclick="detailView(${msg.msg_no})"> -->
+                                <tr onclick="showLayer('callMessage'); msgDetail(this);">
+                                	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
                                     <td>${ msg.msg_no }</td>
-                                    <td class="al_l"><button class="message" onclick="showLayer('callMessage');"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
+                                    <td class="al_l"><button class="message"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.to_user }</td>
                                     <td><fmt:formatDate value="${ msg.msg_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                     <td>${ msg.chk_status }</td>
                                     <c:choose>
                                     <c:when test="${ msg.chk_status eq 'N'}">
                                     <td>
-                                        <button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage');"><span>수정</span></button>
-                                        <button type="button" class="btn btnType2 btnSizeS" id="delete"><span>삭제</span></button>
+                                        <button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage'); msgModify();"><span>수정</span></button>
+                                        <button type="button" class="btn btnType2 btnSizeS" id="delete" onclick="showLayerAlert();"><span>삭제</span></button>
                                     </td>
                                     </c:when>
                                     <c:when test="${ msg.chk_status eq 'Y'}">
@@ -60,20 +66,21 @@
                                 </tr>
                             </c:if>
                             </c:forEach>
-                               <!--  <tr>
-                                    <td>1</td>
-                                    <td class="al_l"><a href="#"><span class="opt_cate">[신고]</span>잠수타는 호스트 신고합니다.</a></td>
-                                    <td>관리자</td>
-                                    <td>2021.10.08</td>
-                                    <td>Y</td>
-                                    <td>
-                                        <button class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
-                                        <button class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
-                                    </td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
+        
+        			<!-- <div id="layer_alert" class="layerPop layerConfirm">
+                            <div class="layerBody">
+                            <p class="txt">Messenger 삭제</p>
+                            <p class="subtxt">해당 메세지를 삭제하시겠습니까?</p>
+                                <div class="btn_wrap">
+                                    <button type="submit" class="btn btnType2 btnSizeM"><span>확인</span></button>
+                                    <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('layer_alert'); return false;"><span>취소</span></button>
+                                </div>
+                            </div>
+                    </div> -->
+        
                     <div class="paging">
                     <!-- 첫 번째 페이지로 -->
                         <span class="first"><a href="${ contextPath }/messenger/list?page=1"></a></span>
@@ -153,8 +160,8 @@
                         <tr>
                             <th>카테고리</th>
                             <td>
-                                <div class="selectbox disabled">
-                                    <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
+                                <div id="call_cate" class="selectbox disabled">
+                                    <%-- <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
                                     <ul class="selList">
                                     <c:choose>
                                     	<c:when test="${ message.msg_cate eq '문의'}">
@@ -170,15 +177,15 @@
                                         </li>
                                         </c:otherwise>
                                     </c:choose>
-                                    </ul>
+                                    </ul> --%>
                                 </div>
                             </td>
                         </tr>                     
                         
                         <tr id="report_id">
                             <th>피신고인</th>
-                            <td>
-                            <c:choose>
+                            <td id="call_reportId">
+                            <%-- <c:choose>
                             <c:when test="${ message.msg_cate eq '문의'}">
                                 <div class="inp_text inp_cell">
                                     <input type="text" name="userId" id="call_userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
@@ -189,17 +196,17 @@
                                     <input type="text" name="userId" id="call_userId" class="readOnly" value="${ message.to_user }" readonly />
                                 </div>
                             </c:otherwise>
-                            </c:choose>
+                            </c:choose> --%>
                             </td>
                         </tr>
                         <tr>
                             <th>내용</th>
-                            <td>
-                                <div class="textbox">
+                            <td id="call_content">
+                                <%-- <div class="textbox">
                                     <textarea class="readOnly" name="call_context" readonly>
                                         ${ message.msg_content }
                                     </textarea>
-                                </div>
+                                </div> --%>
                             </td>
                         </tr>
                     </tbody>
@@ -210,6 +217,58 @@
             </div>
         </div>
     </div>
+
+<!-- 해당 메시지 상세 보기 -->
+<script>
+	function msgDetail(elem){
+		let msgNo = $(elem).find('input').val();
+		
+		$.ajax({
+			url : "${contextPath}/messenger/detail",
+			data : { msgNo : msgNo },
+			dataType : "json",
+			type : "get",
+			success : function(msg){
+				var html1 = '';
+				var html2 = '';
+				var html3 = '';
+				
+				if(msg){
+					console.log(msg.msg_cate);
+					if(msg.msg_cate == '문의'){
+						html1 = '<button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>'
+                        	+ '<ul class="selList"><li><input type="radio" value="문의" class="option" id="sel2_1" name="call_cate" checked="checked"/>'
+                            + '<label for="sel2_1">1. 문의</label></li></ul>';
+					} else {
+						html1 = '<button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>'
+                    		+ '<ul class="selList"><li><input type="radio" value="신고" class="option" id="sel2_2" name="call_cate" checked="checked"/>'
+                            + '<label for="sel2_2">2. 신고</label></li></ul>';
+					}
+					$("#call_cate").html(html1);
+					
+					if(msg.msg_cate == '문의'){
+						html2 = '<div class="inp_text inp_cell">'
+							+ '<input type="text" name="userId" id="call_userId" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readonly /></div>';
+					} else {
+						html2 = '<div class="inp_text inp_cell">'
+                        	+ '<input type="text" name="userId" id="call_userId" class="readOnly" value="' + msg.report_user + '" readonly /></div>';
+					}
+					$("#call_reportId").html(html2);
+					
+					html3 = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + msg.msg_content + '</textarea></div>';
+					$("#call_content").html(html3);
+					
+				} else {
+					alert('메시지 상세보기에 실패했습니다.');
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
+</script>
+
 
 
     <!-- 보낸 메시지 수정 팝업 화면-->
@@ -292,7 +351,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="btn_wrap">
+            <div class="btn_wrap" id="msg_btnWrap">
                 <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>수정하기</span></button>
                 <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');return false;"><span>닫기</span></button>
             </div>
@@ -362,7 +421,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="btn_wrap">
+            <div class="btn_wrap" id="msg_btnWrap">
                 <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>보내기</span></button>
                 <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('writingMessage');return false;"><span>닫기</span></button>
             </div>
@@ -370,13 +429,3 @@
         </div>
     </div>
     
-    
-    
-    
-    
-<script>
-	/* function detailView(msg_no){
-			ocation.href='${contextPath}/messenger/detail?msg_no=' + msg_no;
-	} */
-</script>
-		

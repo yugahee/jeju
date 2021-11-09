@@ -79,13 +79,13 @@ private Properties messengerQuery = new Properties();
 				messenger.setMsg_content(rset.getString("msg_content"));
 				messenger.setChk_status(rset.getString("chk_status"));
 				messenger.setReply_status(rset.getString("reply_status"));
-				messenger.setMsg_date(rset.getDate("msg_date"));
-				messenger.setReply_date(rset.getDate("reply_date"));
+				messenger.setMsg_date(rset.getTimestamp("msg_date"));
+				messenger.setReply_date(rset.getTimestamp("reply_date"));
 				messenger.setReply_content(rset.getString("reply_content"));
 				messenger.setFrom_user(rset.getString("from_user"));
 				messenger.setTo_user(rset.getString("to_user"));
 				messenger.setMsg_status(rset.getString("msg_status"));
-				messenger.setModify_date(rset.getDate("modify_date"));
+				messenger.setModify_date(rset.getTimestamp("modify_date"));
 				messenger.setReport_user(rset.getString("report_user"));
 				
 				messengerList.add(messenger);			
@@ -98,6 +98,44 @@ private Properties messengerQuery = new Properties();
 		}
 		
 		return messengerList;
+	}
+
+	public Messenger selectMessage(Connection conn, int msgNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Messenger messenger = null;
+		String sql = messengerQuery.getProperty("selectMessage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, msgNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				messenger = new Messenger();
+				messenger.setMsg_no(rset.getInt("msg_no"));
+				messenger.setMsg_cate(rset.getString("msg_cate"));
+				messenger.setMsg_content(rset.getString("msg_content"));
+				messenger.setChk_status(rset.getString("chk_status"));
+				messenger.setReply_status(rset.getString("reply_status"));
+				messenger.setMsg_date(rset.getTimestamp("msg_date"));
+				messenger.setReply_date(rset.getTimestamp("reply_date"));
+				messenger.setReply_content(rset.getString("reply_content"));
+				messenger.setFrom_user(rset.getString("from_user"));
+				messenger.setTo_user(rset.getString("to_user"));
+				messenger.setMsg_status(rset.getString("msg_status"));
+				messenger.setModify_date(rset.getTimestamp("modify_date"));
+				messenger.setReport_user(rset.getString("report_user"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return messenger;
 	}
 
 }

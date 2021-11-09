@@ -1,4 +1,4 @@
-package messenger.controller;
+package messenger.model.service;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import admin.model.vo.PageInfo;
+import member.model.vo.Member;
 import messenger.model.dao.MessengerDao;
 import messenger.model.vo.Messenger;
 
@@ -35,6 +36,16 @@ public class MessengerService {
 		close(conn);
 			
 		return returnMap;
+	}
+
+	public Messenger selectMessage(int msgNo) {
+		Connection conn = getConnection();
+		
+		Messenger messenger = messengerDao.selectMessage(conn, msgNo);
+		
+		close(conn);
+
+		return messenger;
 	}
 
 }
