@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.model.vo.Search;
 import member.model.vo.Member;
 import reservation.model.service.ReservationService;
 import reservation.model.vo.Reservation;
@@ -34,13 +35,16 @@ public class ReservationSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)(request.getSession().getAttribute("loginUser"))).getUser_id();
 		
+		// 검색 조건 및 입력 값 추출
+		String searchCondition = request.getParameter("searchCondition");   
+		String searchValue = request.getParameter("searchValue");          
 		
 		// 예약테이블에서 예약자 정보 조회하여 예약관리 페이지에 표현하기위한 로직 
-		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfo(userId);
+		List<Reservation> reserveInfo =  new ReservationService().selectReserveInfoList(userId, new Search (searchCondition, searchValue));
 		
 		//System.out.println(reserveInfo);
 		
-		request.setAttribute("reserveInfo",  reserveInfo);
+		request.setAttribute("reserveInfo", reserveInfo);
 		
 		request.getRequestDispatcher("/views/host/RoomReservationAdmin.jsp").forward(request, response);
 		
