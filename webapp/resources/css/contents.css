@@ -1622,6 +1622,7 @@
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
+          margin: 0 auto;	/* 사진이 왼쪽으로 갈 때 가운데 정렬 될 수 있게 */
      }
      
      /* 제목, 별점 일렬 */

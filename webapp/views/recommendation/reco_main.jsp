@@ -6,6 +6,11 @@
 	<div class="banner"><!--배너-->
 		<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
+	
+	<!-- 검색할 경우 searchParam -->
+	<%-- <c:if test="${ !empty param.searchValue }">		<!-- 검색했을 때 url 뒤에 파라미터까지 붙인 값을 searchParam이라는 변수로 선언한다. -->
+		<c:set var="searchParam" value="&searchValue=${ param.searchValue }"/>	<!-- url 뒤에 같이 넘어가야 하는 파라미터들 -->
+	</c:if> --%>
 
 	<div class="main">
 		<div class="container">
@@ -48,19 +53,19 @@
 				</form>
 	
 					<div class='input_box'>
-							<!-- <div class="inp_text inp_text2">
-								<input type="text" name="reco_keyword" id="reco_keyword" placeholder="키워드를 입력하세요" />
+							<div class="inp_text inp_text2">
+								<input type="text" name="recoKeyword" id="reco_keyword" placeholder="키워드를 입력하세요" />
 							</div>
 							<div class="inp_text">
-								<input class="submit" type="submit" name="" id="" value="확인" />
-							</div> -->
-
-							<div class="sortArea">
-								<div class="inp_text search inp_text2">
-									<input type="text" name="" id="" placeholder="키워드를 입력하세요">
-									<a href="#" class="btn_sch">검색</a>
-								</div>
+								<input class="submit" type="submit" value="확인" />
 							</div>
+
+							<%-- <div class="sortArea">
+								<div class="inp_text search inp_text2">
+									<input type="text" name="recoKeyword" id="" placeholder="키워드를 입력하세요">
+									<a href="${ contextPath }/reco/select/keyword" class="btn_sch">검색</a>
+								</div>
+							</div> --%>
 						</div>
 					</div><!-- sub_upper END -->
 
@@ -70,9 +75,9 @@
 							name="radio1" id="radio1_1" checked="checked" onclick="location.href='${ contextPath }/reco/select/category'"> <label
 							for="radio1_1">최신순</label>
 						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_2"> <label for="radio1_2">선호도순</label>
+							id="radio1_2" onclick="location.href='${ contextPath }/reco/select/like'"> <label for="radio1_2">선호도순</label>
 						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_3"> <label for="radio1_3">별점순</label>
+							id="radio1_3" onclick="location.href='${ contextPath }/reco/select/star'"> <label for="radio1_3">별점순</label>
 						</span>
 					</div>
 	
@@ -217,13 +222,12 @@
 
 <script>
 /* 함수 정의 */
-function detailView(nno) {
-	location.href='${ reco.recoNo }/reco/detailView?nno=' + nno;
+function detailView(rno) {
+location.href='${ contextPath }/reco/detailView?rno=' + rno;
 }
-changeBtnName();
 
 /* 지역, 카테고리 버튼 내부 html 변경 */
- function changeBtnName() {
+function changeBtnName() {
 	const area = '${ param.recoArea }';
 	const category = '${ param.recoCategory }';
 	

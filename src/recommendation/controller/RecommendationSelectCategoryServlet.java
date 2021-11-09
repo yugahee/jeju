@@ -31,7 +31,7 @@ public class RecommendationSelectCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		List<Recommendation> recoList = null;
 		
 		if(request.getParameter("recoArea") != null && request.getParameter("recoCategory") != null) {		// 지역과 카테고리 모두 설정된 경우

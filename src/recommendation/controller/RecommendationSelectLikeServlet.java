@@ -13,24 +13,25 @@ import recommendation.model.service.RecoService;
 import recommendation.model.vo.Recommendation;
 
 /**
- * Servlet implementation class RecommendationViewServlet
+ * Servlet implementation class RecommendationSelectRadio
  */
-@WebServlet("/reco/mainView")
-public class RecommendationMainViewServlet extends HttpServlet {
+@WebServlet("/reco/select/like")
+public class RecommendationSelectLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public RecommendationMainViewServlet() {
+    public RecommendationSelectLikeServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		List<Recommendation> recoList = new RecoService().selectList();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Recommendation> recoList = new RecoService().selectLikeList();
 		
 		request.setAttribute("recoList", recoList);
 		

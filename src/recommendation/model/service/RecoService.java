@@ -9,7 +9,8 @@ import recommendation.model.vo.Recommendation;
 public class RecoService {
 	
 	private RecoDao recoDao = new RecoDao();
-
+	
+	// 전체 리스트 출력
 	public List<Recommendation> selectList() {
 		Connection conn = getConnection();
 		List<Recommendation> recoList = recoDao.selectList(conn);
@@ -18,7 +19,8 @@ public class RecoService {
 		
 		return recoList;
 	}
-
+	
+	// 카테고리 선택 시 리스트 출력
 	public List<Recommendation> selectList(int recoArea, int recoCategory) {
 		Connection conn = getConnection();
 		List<Recommendation> recoList = recoDao.selectList(conn, recoArea, recoCategory);
@@ -28,6 +30,46 @@ public class RecoService {
 		close(conn);
 		
 		return recoList;
+	}
+	
+	// 선호도순 리스트 출력
+	public List<Recommendation> selectLikeList() {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectLikeList(conn);
+		
+		close(conn);
+		
+		return recoList;
+	}
+	
+	// 별점순 리스트 출력
+	public List<Recommendation> selectStarList() {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectStarList(conn);
+		
+		close(conn);
+		
+		return recoList;
+	}
+	
+	// 키워드 리스트 출력
+	public List<Recommendation> selectList(String recoKeyword) {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectKeywordList(conn, recoKeyword);
+		
+		close(conn);
+		
+		return recoList;
+	}
+	
+	// 상세 페이지 조회
+	public Recommendation selectReco(int rno) {
+		Connection conn = getConnection();
+		Recommendation reco = recoDao.selectReco(conn, rno);
+		
+		close(conn);
+		
+		return reco;
 	}
 
 }

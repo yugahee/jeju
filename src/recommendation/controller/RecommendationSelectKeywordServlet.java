@@ -13,24 +13,35 @@ import recommendation.model.service.RecoService;
 import recommendation.model.vo.Recommendation;
 
 /**
- * Servlet implementation class RecommendationViewServlet
+ * Servlet implementation class RecommendationSelectKeywordServlet
  */
-@WebServlet("/reco/mainView")
-public class RecommendationMainViewServlet extends HttpServlet {
+@WebServlet("/reco/select/keyword")
+public class RecommendationSelectKeywordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public RecommendationMainViewServlet() {
+    public RecommendationSelectKeywordServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		List<Recommendation> recoList = new RecoService().selectList();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		List<Recommendation> recoList = null;
+		
+		if(request.getParameter("recoKeyword") != null) {		// 키워드가 빈칸이 아닌 경우
+			String recoKeyword = request.getParameter("recoKeyword");
+			recoList = new RecoService().selectList(recoKeyword);
+			
+			System.out.println(recoKeyword);
+		} else {		// 키워드가 빈칸인 경우
+			recoList = new RecoService().selectList();
+		}
 		
 		request.setAttribute("recoList", recoList);
 		
