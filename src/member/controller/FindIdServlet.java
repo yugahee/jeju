@@ -42,7 +42,6 @@ public class FindIdServlet extends HttpServlet {
 		
 		String userId = new MemberService().findId(userName, userMail);
 		
-		
 		PrintWriter out = response.getWriter();
 		
 		if(userId != null) {
