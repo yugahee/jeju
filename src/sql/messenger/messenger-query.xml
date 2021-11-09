@@ -19,4 +19,9 @@
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 
+	<entry key="selectMessage">
+		SELECT *
+ 		  FROM MESSAGE
+ 		 WHERE MSG_NO = ?
+	</entry>
 </properties>
