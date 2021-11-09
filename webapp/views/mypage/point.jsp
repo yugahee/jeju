@@ -6,8 +6,8 @@
 	<div class="container">
 		<nav class="sub_menu">
              <ul>
-                 <li><a href="${ contextPath }/mypage/modify" class="active">내 정보</a></li>
-                 <li><a href="${ contextPath }/mypage/point">포인트</a></li>
+                 <li><a href="${ contextPath }/mypage/modify">내 정보</a></li>
+                 <li><a href="${ contextPath }/mypage/point" class="active">포인트</a></li>
                  <li><a href="${ contextPath }/delete">회원 탈퇴</a></li>
              </ul>
          </nav>
