@@ -57,10 +57,6 @@
                             </div>
                     </ul>
                     <div class="delBtn">
-                      <!--   <span class="inp_check" id="deleteChk">
-                            <input type="checkbox" class="delChk" name="delChk">
-                            <label for="chk1_1" id="del">상기 내용을 확인하였으며 동의합니다.</label>
-                        </span> -->
                         <div class="btn_wrap">
                             <button type="button" class="btn btnType2 btnSizeM disabled" id="delBtn" 
                             onclick="showLayerAlert();" disabled><span>탈퇴하기</span></button>
@@ -87,7 +83,6 @@
 	document.querySelectorAll(".reason").forEach(item => item.addEventListener('change', chkReason));
 	function chkReason(){
 		let index = Array.from(document.querySelectorAll(".reason")).indexOf(this);
-		//let val = document.querySelectorAll(".reason")[index].value;
 		
 		// 라디오 버튼 선택하면 탈퇴하기 버튼 활성화
 		if(index != null){
