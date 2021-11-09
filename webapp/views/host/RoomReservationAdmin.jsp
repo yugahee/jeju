@@ -41,7 +41,7 @@
                            <li>
                                <input type="radio" value="guestName" class="option" id="sel1_1" name="searchCondition" 
                                <c:if test="${param.searchCondition == 'guestName' }">selected="selected"</c:if> />
-                               <label for="sel1_1">게스트명 </label>
+                               <label for="sel1_1">게스트명</label>
                            </li>
                            <li>
                                <input type="radio" value="roomName" class="option" id="sel1_2" name="searchCondition" 
