@@ -168,4 +168,23 @@ public class AdminService{
 		
 		return result;
 	}
+
+	public Map<String, Object> selectRecList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getRecListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Rooms> RecList = adminDao.selectRecList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+	
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("RecList", RecList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
 }

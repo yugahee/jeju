@@ -3,6 +3,7 @@ package admin.model.vo;
 public class Search {
 
 	private String searchCondition;
+	private int searchConditionI;
 	private String searchCondition2;
 	private String searchValue;
 	
@@ -19,6 +20,22 @@ public class Search {
 		this.searchCondition = searchCondition;
 		this.searchCondition2 = searchCondition2;
 		this.searchValue = searchValue;
+	}
+	
+
+	public Search(int searchConditionI, String searchCondition2, String searchValue) {
+		super();
+		this.searchConditionI = searchConditionI;
+		this.searchCondition2 = searchCondition2;
+		this.searchValue = searchValue;
+	}
+
+	public int getSearchConditionI() {
+		return searchConditionI;
+	}
+
+	public void setSearchConditionI(int searchConditionI) {
+		this.searchConditionI = searchConditionI;
 	}
 
 	public String getSearchCondition() {
@@ -47,8 +64,8 @@ public class Search {
 
 	@Override
 	public String toString() {
-		return "Search [searchCondition=" + searchCondition + ", searchCondition2=" + searchCondition2
-				+ ", searchValue=" + searchValue + "]";
+		return "Search [searchCondition=" + searchCondition + ", searchConditionI=" + searchConditionI
+				+ ", searchCondition2=" + searchCondition2 + ", searchValue=" + searchValue + "]";
 	}
 
 }

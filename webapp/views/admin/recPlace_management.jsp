@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -63,75 +74,72 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
 			</div>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">추천장소 관리</div>
+					<form method="get" action="${ contextPath }/admin/recPlaceMg">
 					<div class="selectbox">
-						<button class="title" type="button" title="분류">분류</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
+						<button class="title" type="button">
+							<c:if test="${ param.searchCondition == null }">전체</c:if>
+							<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+						</button>
+						<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
+						<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
 							<li>
-								<input type="radio" value="" class="option" id="select_user0" name="select_user">
-								<label for="select_user0">전체</label>
+								<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+								<label for="sel_type1_1">전체</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user1" name="select_user">
-								<label for="select_user1">식당</label>
+								<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '관광지' }">checked="checked"</c:if>>
+								<label for="sel_type1_2">관광지</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user2" name="select_user">
-								<label for="select_user2">카페</label>
+								<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '식당' }">checked="checked"</c:if>>
+								<label for="sel_type1_3">식당</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_user3" name="select_user">
-								<label for="select_user3">관광</label>
+								<input class="option" type="radio" id="sel_type1_4" <c:if test="${ param.searchCondition == '카페' }">checked="checked"</c:if>>
+								<label for="sel_type1_4">카페</label>
 							</li>
 						</ul>
 					</div>
 					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">검색 조건</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
+						<button class="title" type="button">
+							<c:if test="${ param.searchCondition2 == null }">장소명</c:if>
+							<c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>
+						</button>
+						<input class="inputVal" type="hidden" name="searchCondition2" value="<c:if test="${ param.searchCondition2 == null }">장소명</c:if><c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>">
+						<ul class="selList" id="searchCondition2" style="max-height: 0px; display: none;">
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">장소명</label>
+								<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '장소명' }">checked="checked"</c:if>>
+								<label for="sel_type2_1">장소명</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op1">키워드</label>
+								<input class="option" type="radio" id="sel_type2_2" <c:if test="${ param.searchCondition2 == '키워드' }">checked="checked"</c:if>>
+								<label for="sel_type2_2">키워드</label>
 							</li>
 						</ul>
-					</div>					
+					</div>
 					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
+						<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="값을 입력하세요">
+						<button type="submit" class="btn_sch">검색</button>
 					</div>
+				</form>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
-						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
-								</li>
-							</ul>
-						</div>
+						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">
 				<div class="tblType3 noBorT noBorB boardList recPlace">
 					<table summary="추천장소 테이블">
 						<caption>추천장소 테이블</caption>
@@ -343,6 +351,14 @@ scope="application"/>
 					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="noData">
+	                <p>해당 정보가 없습니다</p>
+	                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+	            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>

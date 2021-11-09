@@ -46,9 +46,8 @@ public class adminLoginServlet extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(adUserId, adUserPwd);
 		if(loginUser != null && loginUser.getUser_type().equals("관리자")) {
 			
-			HttpSession session = request.getSession();						
-			session.setMaxInactiveInterval(6000);			
-			session.setAttribute("loginUser", loginUser);
+			request.getSession().setMaxInactiveInterval(6000);			
+			request.getSession().setAttribute("loginUser", loginUser);
 			
 			response.sendRedirect(request.getContextPath() + "/admin");			
 		}else {

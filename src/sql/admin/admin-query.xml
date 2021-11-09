@@ -389,4 +389,28 @@ WHERE RNUM BETWEEN ? AND ?
 		USER_PWD =?	
 	WHERE USER_TYPE = '관리자'
 </entry>
+
+
+<entry key="getRecListCount">
+     SELECT
+            COUNT(*)
+       FROM RECOMMENDATION
+   ORDER BY RECO_NO
+</entry>
+<entry key="getRecListCountStatusName">
+     SELECT
+            COUNT(*)
+       FROM RECOMMENDATION
+	  WHERE RECO_CATEGORY = ?
+	    AND RECO_NAME LIKE '%'|| ? ||'%'
+   ORDER BY RECO_NO
+</entry>
+<entry key="getRecListCountStatusKW">
+     SELECT
+            COUNT(*)
+       FROM RECOMMENDATION
+	  WHERE RECO_CATEGORY = ?
+	    AND RECO_KEYWORD LIKE '%'|| ? ||'%'
+   ORDER BY RECO_NO
+</entry>
 </properties>

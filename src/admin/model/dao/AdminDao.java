@@ -532,4 +532,61 @@ public class AdminDao {
 		}
 		return result;
 	}
+
+	public int getRecListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		int cata_value = 0;
+		
+		String sql = adminQuery.getProperty("getRecListCount");
+		
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cata_value = 1;
+			}
+			if(search.getSearchCondition().equals("식당")) {
+				cata_value = 2;
+			}
+			if(search.getSearchCondition().equals("카페")) {
+				cata_value = 3;
+			}
+			if(!search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRecListCountStatusName");				
+				}else {
+					sql = adminQuery.getProperty("getRecListCountStatusKW");	
+				}
+			}
+		}
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			int index = 1;
+			if(sql == adminQuery.getProperty("getRecListCountStatusName") || sql == adminQuery.getProperty("getRecListCountStatusKW") ) {
+				pstmt.setInt(index++, cata_value);
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}			
+		
+		return listCount;
+	}
+
+	public List<Rooms> selectRecList(Connection conn, PageInfo pi, Search search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
