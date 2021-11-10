@@ -1626,8 +1626,37 @@
      }
      
      /* 제목, 별점 일렬 */
-     .detail_exp .star_average p, .detail_exp .star_average div {
+    /*  .detail_exp .star_average p, .detail_exp .star_average div {
           display: inline-block;
+     } */
+     
+     /* 제목, 별점 정렬 */
+     .star_average {
+     	display: flex;
+     	align-items: center;
+     	text-align: center;
+     	justify-content: center;
+     }
+     
+     /* 별점 간격 */
+     .rating_star {
+     	margin: 0 5px 0 15px;
+     }
+     
+     /* 제목 글씨 크기 */
+     .star_average > p:first-child {
+     	font-size: 2.5rem;
+     	line-height: 2;
+     }
+     
+     /* 글씨 간격 */
+     .reco_address {
+     	line-height: 1;
+     	font-size: 1.1rem;
+     }
+     
+     .exp {
+     	line-height: 5;
      }
      
      /* 맵 부분 위치 및 스타일 지정 */
