@@ -938,7 +938,7 @@
      .lodging_detail .reviewSort{
      display: flex;
      justify-content: space-between;
-     margin-bottom: 85px;
+     margin-bottom: 60px;
      }
 
      .lodging_detail .reviewSort li {
@@ -1047,6 +1047,12 @@
      .okAndNo{
      display: flex;
      justify-content: center;
+     }
+     
+     
+     .pagingMargin{
+     	margin-bottom: 75px;
+     
      }
      
 /* 온화님 : E */

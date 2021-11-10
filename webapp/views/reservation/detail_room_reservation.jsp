@@ -185,7 +185,7 @@
 					</div>
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">후기 30개</span>
+						<span class="text3">후기 ${reviewPi.listCount}</span>
 					</div>
 				<!-- <div class="reviewFlexBox"> -->
 					<div class="reviewBox">
@@ -211,7 +211,7 @@
 					</div>
 				<!-- </div> -->
 					<!-- 페이징 -->
-						<div class="paging">
+						<div class="paging pagingMargin">
 							<span class="first"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=1"><span class="blind">첫페이지</span></a></span>
 							<c:choose>
 								<c:when test="${ reviewPi.page > 1 }">
