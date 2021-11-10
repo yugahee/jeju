@@ -59,16 +59,12 @@ public class RoomUpdate1Servlet extends HttpServlet {
 		int bed = Integer.parseInt(request.getParameter("bed"));
 		int bath = Integer.parseInt(request.getParameter("bath"));
 		String roomType = request.getParameter("roomtype");
-		String buildingType = request.getParameter("buildingtype");
-		
-		String roomSize = "";
-		if(request.getParameter("roomsize") != null) {
-			roomSize = request.getParameter("roomsize");
-		} 
+		String buildingType = request.getParameter("buildingtype");	
+		String roomSize = request.getParameter("roomsize");
 		
 		String startTime = request.getParameter("starttime");
 		String endTime = request.getParameter("endtime");
-		String[] roomFacArr = request.getParameterValues("roomfac");
+		String[] roomFacArr = request.getParameterValues("roomfac");		
 		
 		String roomFac = "";
 		if(roomFacArr != null) {
@@ -99,6 +95,8 @@ public class RoomUpdate1Servlet extends HttpServlet {
 			request.setAttribute("room", roomSel);
 			request.getSession().setAttribute("message", "변경된 내용이 저장되었습니다.");
 			request.getRequestDispatcher("/views/host/roomUpdatePrice.jsp").forward(request, response);
+			
+			
 		} else {
 			request.setAttribute("message", "숙소 내용 수정에 실패하였습니다.");
 			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);

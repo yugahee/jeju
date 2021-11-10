@@ -46,20 +46,21 @@ public class RoomEnrollBasicServlet extends HttpServlet {
 		int bath = Integer.parseInt(request.getParameter("bath"));
 		String roomType = request.getParameter("roomtype");
 		String buildingType = request.getParameter("buildingtype");
+		String roomSize = request.getParameter("roomsize");
 		
-		String roomSize = "";
-		if(request.getParameter("roomsize") != null) {
-			roomSize = request.getParameter("roomsize");
-		} 
+//		String roomSize = "";
+//		if(request.getParameter("roomsize") != null) {
+//			roomSize = request.getParameter("roomsize");
+//		} 
 		
 		String startTime = request.getParameter("starttime");
 		String endTime = request.getParameter("endtime");
 		String[] roomFacArr = request.getParameterValues("roomfac");
-		
-		String roomFac = "";
-		if(roomFacArr != null) {
-			roomFac = String.join(",", roomFacArr);
-		}
+		String roomFac = String.join(",", roomFacArr);
+//		String roomFac = "";
+//		if(roomFacArr != null) {
+//			roomFac = String.join(",", roomFacArr);
+//		}
 		
 		Rooms rooms = new Rooms();
 		rooms.setRoomName(roomName);
