@@ -559,6 +559,12 @@ public class AdminDao {
 				}else {
 					sql = adminQuery.getProperty("getRecListCountStatusKW");	
 				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRecListCountStatusNameAll");				
+				}else {
+					sql = adminQuery.getProperty("getRecListCountStatusKWAll");	
+				}				
 			}
 		}
 		
@@ -568,6 +574,8 @@ public class AdminDao {
 			int index = 1;
 			if(sql == adminQuery.getProperty("getRecListCountStatusName") || sql == adminQuery.getProperty("getRecListCountStatusKW") ) {
 				pstmt.setInt(index++, cata_value);
+			}
+			if(sql != adminQuery.getProperty("getRecListCount")) {
 				pstmt.setString(index++, search.getSearchValue());
 			}
 			
@@ -611,8 +619,15 @@ public class AdminDao {
 				}else {
 					sql = adminQuery.getProperty("searchRecListKW");	
 				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListNameAll");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKWAll");	
+				}				
 			}
 		}
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -621,8 +636,10 @@ public class AdminDao {
 			
 			int index = 1;	
 			if(sql == adminQuery.getProperty("searchRecListName") || sql == adminQuery.getProperty("searchRecListKW")) {
-				pstmt.setInt(index++, cata_value);
-				pstmt.setString(index++, search.getSearchValue());				
+				pstmt.setInt(index++, cata_value);		
+			}
+			if(sql != adminQuery.getProperty("searchRecList")) {
+				pstmt.setString(index++, search.getSearchValue());		
 			}
 			pstmt.setInt(index++, startRow);
 			pstmt.setInt(index, endRow);
@@ -880,6 +897,31 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int deleteRec(Connection conn, String[] arr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("deleteReco");
+		
+
+		for (int i = 0; i < arr.length; i++) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, arr[i]);
+				
+				result = pstmt.executeUpdate();
+				
+				System.out.println("dao" + result);
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
 		return result;
 	}
 }
