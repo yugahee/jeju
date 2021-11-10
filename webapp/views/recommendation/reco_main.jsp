@@ -83,7 +83,7 @@
 					<%-- <c:forEach begin="1" end="4"> --%>
 					<c:forEach var="reco" items="${ recoList }">
 						<div class="reco_item">
-							<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"		
+							<div class="imageArea" style="background-image: url(${ reco.recoImage });"	
 									onclick="detailView(${ reco.recoNo })">
 							</div>
 							
