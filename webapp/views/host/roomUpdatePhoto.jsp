@@ -32,7 +32,7 @@
 				<!---------------------------- 등록 내용 화면 ------------------------------------------------>
 				<div class="roomenroll_basic">
 					<!-- ** 위치설정 ** -->
-					<form method="post" action="${ contextPath }/host/roomUpdate3" enctype="multipart/form-data">
+					<form method="post" action="${ contextPath }/host/roomUpdate3" name="photoupdate" enctype="multipart/form-data">
 					<input type="hidden" name="roomno" value="${ rooms.roomNo }">
 					<c:forEach items="${ rooms.fileList }" var="photo">   <!-- 변경되기 전의 파일들 넘기기(변경된건지 추가된건지 비교하기 위해서) -->
 					<input type="hidden" name="changeName" value="${ photo.changeName }">   <!-- 파일 개수만큼 input태그 생성 -->
@@ -165,7 +165,7 @@
 								</c:if>                                
                             </div>
                             
-                            <input type="file" class="roomphoto_upload" name="mainimg" accept="image/jpg,image/jpeg,image/png" required>
+                            <input type="file" class="roomphoto_upload" name="mainimg" accept="image/jpg,image/jpeg,image/png" >
                             <input type="file" class="roomphoto_upload" name="subimg1" accept="image/jpg,image/jpeg,image/png" >
                             <input type="file" class="roomphoto_upload" name="subimg2" accept="image/jpg,image/jpeg,image/png" >
                             <input type="file" class="roomphoto_upload" name="subimg3" accept="image/jpg,image/jpeg,image/png" >
@@ -178,8 +178,8 @@
 					</form>
                 </div>
 			</div>
-		</div>
-	</div>	
+		
+</div>	
 		<script>
 	        /* 사진올리기 버튼클릭 */
 			document.querySelectorAll(".roomenroll_photobtn").forEach(item => item.addEventListener('click', fileUploadOpen));
@@ -201,7 +201,12 @@
 	                }
 	            }
 	        }
-	
+			
+			
+			/* function photoupdate_submit(f){
+				return true;
+			} */
+			
 		</script>
 		
 <%@include file="/views/common/footer.jsp" %>
