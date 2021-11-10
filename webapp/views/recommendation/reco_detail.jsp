@@ -75,7 +75,9 @@
 								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
 							</div>
 						</div>
-					</div><!-- 한줄평 끝 -->
+					</div>
+					<!-- 한줄평 끝 -->
+					
 				</div><!-- detail_content end -->
 			</div>
 		</div><!-- 메인 끝 -->
