@@ -80,9 +80,9 @@ public class adminRecPlaceModServlet extends HttpServlet {
 		String recoExpl = multiRequest.getParameter("recoExpl");
 		String recoImage = multiRequest.getParameter("recoImage");
 		String imageName = multiRequest.getParameter("imageName");
-		String uploadName = multiRequest.getParameter("uploadName");
+		String uploadName = "uploadName";
 		
-		System.out.println(uploadName);
+		System.out.println(imageName);
 		
 		rec.setRecoNo(recoNo);
 		rec.setRecoName(recoName);
@@ -97,11 +97,15 @@ public class adminRecPlaceModServlet extends HttpServlet {
 		rec.setRecoImage(recoImage);
 		rec.setImageName(imageName);
 		
-		if(multiRequest.getFilesystemName(uploadName) != null) {
-			rec.setImageName(multiRequest.getFilesystemName(uploadName));			
-		}
-		System.out.println("값 확인 : " + rec);
+		System.out.println(multiRequest.getFilesystemName(uploadName));
 		
+		if(multiRequest.getFilesystemName(uploadName) != null) {
+			rec.setRecoImage("/resources/uploadFiles/");
+			rec.setImageName(multiRequest.getFilesystemName(uploadName));		
+		}
+		
+		System.out.println("값 확인 : " + rec);
+				
 		int result = new AdminService().updateRecoPhoto(rec);
 		if(result > 0) {
 			request.setAttribute("rec", rec);
