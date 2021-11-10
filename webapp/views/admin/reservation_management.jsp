@@ -111,11 +111,7 @@ scope="application"/>
 								<li>
 									<input type="radio" value="숙박완료" class="option" id="select_res4" name="searchCondition">
 									<label for="select_res4">숙박완료</label>
-								</li>
-								<li>
-									<input type="radio" value="리뷰완료" class="option" id="select_res5" name="searchCondition">
-									<label for="select_res5">리뷰완료</label>
-								</li>
+								</li>								
 							</ul>
 						</div>
 						<div class="selectbox">
@@ -137,7 +133,7 @@ scope="application"/>
 						</div>					
 						<div class="inp_text search">
 							<input type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력하세요">
-							<a href="#" class="btn_sch">검색</a>
+							<button type="submit" class="btn_sch">검색</button>
 						</div>
 					</form>
 				</div>
