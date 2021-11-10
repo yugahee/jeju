@@ -7,6 +7,7 @@
 	.btn_wrap {
 		text-align: center;
 	}
+	
 </style>
 		<div class="side_layout">
 			<div class="container">
@@ -36,7 +37,6 @@
                                     <th>받는 회원</th>
                                     <th>작성일</th>
                                     <th>읽음여부</th>
-                                    <th>수정/삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,14 +45,14 @@
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
                                     <td>${ msg.msg_no }</td>
-                                    <td class="al_l"><button class="message"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
+                                    <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.to_user }</td>
-                                    <td><fmt:formatDate value="${ msg.msg_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
+                                    <td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                     <td>${ msg.chk_status }</td>
-                                    <c:choose>
+                                   <%--  <c:choose>
                                     <c:when test="${ msg.chk_status eq 'N'}">
                                     <td>
-                                        <button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage'); msgModify();"><span>수정</span></button>
+                                        <button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage'); msgModify(this);"><span>수정</span></button>
                                         <button type="button" class="btn btnType2 btnSizeS" id="delete" onclick="showLayerAlert();"><span>삭제</span></button>
                                     </td>
                                     </c:when>
@@ -62,7 +62,7 @@
                                         <button type="button" class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
                                     </td>
                                     </c:when>
-                                    </c:choose>
+                                    </c:choose> --%>
                                 </tr>
                             </c:if>
                             </c:forEach>
@@ -70,16 +70,6 @@
                         </table>
                     </div>
         
-        			<!-- <div id="layer_alert" class="layerPop layerConfirm">
-                            <div class="layerBody">
-                            <p class="txt">Messenger 삭제</p>
-                            <p class="subtxt">해당 메세지를 삭제하시겠습니까?</p>
-                                <div class="btn_wrap">
-                                    <button type="submit" class="btn btnType2 btnSizeM"><span>확인</span></button>
-                                    <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('layer_alert'); return false;"><span>취소</span></button>
-                                </div>
-                            </div>
-                    </div> -->
         
                     <div class="paging">
                     <!-- 첫 번째 페이지로 -->
@@ -136,32 +126,34 @@
 		</div>
 <%@ include file="/views/common/footer.jsp" %>
 <!-- 보낸 메시지 팝업 화면: 기본적으로 내용 변경 불가하게 모두 disable,readonly 처리 -->
-    <div id="callMessage" class="layerPop calldMessage">
-        <div class="layerTit">
-            <h4>messenger</h4>
-            <button type="button" class="btn_closeLayer" onclick="hideLayer('callMessage');"><span class="blind">팝업 닫기</span></button>
-        </div>
-        <div class="layerBody">
-            <br>
-            <div class="tblType2 noBorder">
-                <table>
-                    <colgroup>
-                        <col style="width:20%;">
-                        <!-- <col style="width:*;"> -->
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>보낸 사람</th>
-                            <td>
-                                ${ loginUser.user_id }
-                            </td>
-                        </tr>
-                        <!-- 메시지 보낼 때 선택했던 값으로 checked -->
-                        <tr>
-                            <th>카테고리</th>
-                            <td>
-                                <div id="call_cate" class="selectbox disabled">
-                                    <%-- <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
+<div id="callMessage" class="layerPop calldMessage">
+	<div class="layerTit">
+		<h4>messenger</h4>
+		<button type="button" class="btn_closeLayer"
+			onclick="hideLayer('callMessage');">
+			<span class="blind">팝업 닫기</span>
+		</button>
+	</div>
+	<div class="layerBody">
+		<br>
+		<div class="tblType2 noBorder">
+			<table>
+				<colgroup>
+					<col style="width: 20%;">
+					<!-- <col style="width:*;"> -->
+				</colgroup>
+				<tbody>
+					<!-- <input type="hidden" id="mno" value=""> -->
+					<tr>
+						<th>보낸 사람</th>
+						<td>${ loginUser.user_id }</td>
+					</tr>
+					<!-- 메시지 보낼 때 선택했던 값으로 checked -->
+					<tr>
+						<th>카테고리</th>
+						<td id="call_cate">
+							<%-- <div class="selectbox disabled">
+								<button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
                                     <ul class="selList">
                                     <c:choose>
                                     	<c:when test="${ message.msg_cate eq '문의'}">
@@ -177,15 +169,15 @@
                                         </li>
                                         </c:otherwise>
                                     </c:choose>
-                                    </ul> --%>
-                                </div>
-                            </td>
-                        </tr>                     
-                        
-                        <tr id="report_id">
-                            <th>피신고인</th>
-                            <td id="call_reportId">
-                            <%-- <c:choose>
+                                    </ul>
+							</div> --%>
+						</td>
+					</tr>
+
+					<tr id="report_id">
+						<th>피신고인</th>
+						<td id="call_reportId">
+							<%-- <c:choose>
                             <c:when test="${ message.msg_cate eq '문의'}">
                                 <div class="inp_text inp_cell">
                                     <input type="text" name="userId" id="call_userId" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
@@ -197,28 +189,39 @@
                                 </div>
                             </c:otherwise>
                             </c:choose> --%>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>내용</th>
-                            <td id="call_content">
-                                <%-- <div class="textbox">
+						</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td id="call_content">
+							<%-- <div class="textbox">
                                     <textarea class="readOnly" name="call_context" readonly>
                                         ${ message.msg_content }
                                     </textarea>
                                 </div> --%>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="btn_wrap">
-                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('callMessage');return false;"><span>닫기</span></button>
-            </div>
-        </div>
-    </div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="btn_wrap" id="modifyBtn">
+			<!--  <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('callMessage');return false;"><span>닫기</span></button> -->
+			<%--  <c:choose>
+                 <c:when test="${ message.chk_status eq 'N'}">
+                 	<button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="showLayer('modifyMessage'); msgModify(this);"><span>수정</span></button>
+                    <button type="button" class="btn btnType2 btnSizeS" id="delete" onclick="showLayerAlert();"><span>삭제</span></button>
+    			 </c:when>
+                 <c:when test="${ message.chk_status eq 'Y'}">
+                    <button type="button" class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>
+                    <button type="button" class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>
+                 </c:when>
+                 </c:choose> --%>
+		</div>
+	</div>
+</div>
 
-<!-- 해당 메시지 상세 보기 -->
+
+<!-- 해당 메시지 상세 보기 & 상대방이 메시지를 읽지 않은 경우 수정 및 삭제 기능과 연결 -->
 <script>
 	function msgDetail(elem){
 		let msgNo = $(elem).find('input').val();
@@ -228,54 +231,130 @@
 			data : { msgNo : msgNo },
 			dataType : "json",
 			type : "get",
-			success : function(msg){
-				var html1 = '';
-				var html2 = '';
-				var html3 = '';
-				
-				if(msg){
-					console.log(msg.msg_cate);
-					if(msg.msg_cate == '문의'){
-						html1 = '<button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>'
-                        	+ '<ul class="selList"><li><input type="radio" value="문의" class="option" id="sel2_1" name="call_cate" checked="checked"/>'
-                            + '<label for="sel2_1">1. 문의</label></li></ul>';
-					} else {
-						html1 = '<button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>'
-                    		+ '<ul class="selList"><li><input type="radio" value="신고" class="option" id="sel2_2" name="call_cate" checked="checked"/>'
-                            + '<label for="sel2_2">2. 신고</label></li></ul>';
-					}
-					$("#call_cate").html(html1);
-					
-					if(msg.msg_cate == '문의'){
-						html2 = '<div class="inp_text inp_cell">'
-							+ '<input type="text" name="userId" id="call_userId" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readonly /></div>';
-					} else {
-						html2 = '<div class="inp_text inp_cell">'
-                        	+ '<input type="text" name="userId" id="call_userId" class="readOnly" value="' + msg.report_user + '" readonly /></div>';
-					}
-					$("#call_reportId").html(html2);
-					
-					html3 = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + msg.msg_content + '</textarea></div>';
-					$("#call_content").html(html3);
-					
-				} else {
-					alert('메시지 상세보기에 실패했습니다.');
-				}
-			},
+			success : function(msg) {
+						var category = '';
+						var report = '';
+						var content = '';
+						var btn = '';
+						var mno = '';
+
+						if (msg) {
+							mno = msg.msg_no;
+							if(msg.chk_status == 'N'){
+								
+								if (msg.msg_cate == '문의') {
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+								} else {
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+								}
+								$("#call_cate").html(category);
+								
+								if (msg.msg_cate == '문의') {
+									report = '<div class="inp_text inp_cell">'
+											+ '<input type="text" name="modify_Id" id="modify_Id" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readOnly /></div>';
+								} else {
+									report = '<div class="inp_text inp_cell">'
+											+ '<input type="text" name="modify_Id" id="modify_Id" value="' + msg.report_user + '" /></div>';
+								}
+								$("#call_reportId").html(report);
+
+								content = '<div class="textbox"><textarea name="modify_content" id="modify_content">' + msg.msg_content + '</textarea></div>';
+								$("#call_content").html(content);
+
+								
+								btn = '<button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="msgModify('+ mno +');hideLayer(\'callMessage\');"><span>수정</span></button>'
+										+ '<button type="button" class="btn btnType3 btnSizeS" id="delete" onclick="msgDelete('+ mno +');"><span>삭제</span></button>'
+										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+								$("#modifyBtn").html(btn);
+								
+							} else {
+								if (msg.msg_cate == '문의') {
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+								} else {
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+								}
+								$("#call_cate").html(category);
+
+								if (msg.msg_cate == '문의') {
+									report = '<div class="inp_text inp_cell">'
+											+ '<input type="text" name="userId" id="call_userId" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readonly /></div>';
+								} else {
+									report = '<div class="inp_text inp_cell">'
+											+ '<input type="text" name="userId" id="call_userId" class="readOnly" value="' + msg.report_user + '" readonly /></div>';
+								}
+								$("#call_reportId").html(report);
+
+								
+								content = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + msg.msg_content + '</textarea></div>';
+								$("#call_content").html(content);
+								
+								
+								btn = '<button type="button" class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>'
+										+ '<button type="button" class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>'
+										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+								$("#modifyBtn").html(btn);
+							}
+						} else {
+							alert('메시지 상세보기에 실패했습니다.');
+						}
+					},
 			error : function(e) {
-				console.log(e);
+						console.log(e);
+					}
+		});
+	}
+	
+	
+	// 메시지 수정
+	function msgModify(mno){
+		let msg_no = mno;
+		let NreportId = $("#modify_Id").val();
+		let Ncontent = $("#modify_content").val();
+		$.ajax({
+			url : "${contextPath}/messenger/modify",
+			data : { NreportId : NreportId, Ncontent : Ncontent, msg_no : msg_no },
+			type : "post",
+			success : function(msg){
+				alert('메시지 수정이 완료되었습니다.');
+				location.reload();
+			},
+			error : function(e){
+				alert('메시지 수정에 실패하였습니다.');
 			}
 		});
 	}
+	
+	
+	// 메시지 삭제
+	function msgDelete(mno){
+		let msg_no = mno;
+		if(confirm("해당 메시지를 삭제하시겠습니까?")){
+			$.ajax({
+				url : "${contextPath}/messenger/delete",
+				data : { msg_no : msg_no },
+				type : "post",
+				success : function(msg){
+					alert('메시지 삭제가 완료되었습니다.');
+					location.reload();
+				},
+				error : function(e){
+					alert('메세지 삭제에 실패하였습니다.');
+				}
+			});
+		} else {
+			return false;
+		}
+	}
+	
 </script>
 
-
+<%-- 
 
     <!-- 보낸 메시지 수정 팝업 화면-->
     <div id="modifyMessage" class="layerPop modifyMessage">
         <div class="layerTit">
             <h4>messenger</h4>
-            <button type="button" class="btn_closeLayer" onclick="hideLayer('modifyMessage');"><span class="blind">팝업 닫기</span></button>
+            <button type="button" class="btn_closeLayer" onclick="hideLayer('modifyMessage');hideLayer('callMessage');"><span class="blind">팝업 닫기</span></button>
         </div>
         <div class="layerBody">
         <form action="${ contextPath }/message/modify" method="post">
@@ -353,11 +432,12 @@
             </div>
             <div class="btn_wrap" id="msg_btnWrap">
                 <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>수정하기</span></button>
-                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');return false;"><span>닫기</span></button>
+                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');hideLayer('callMessage');return false;"><span>닫기</span></button>
             </div>
             </form>
         </div>
-    </div>
+    </div> --%>
+
 
     <!-- 메신저 글쓰기 팝업 화면 -->
     <div id="writingMessage" class="layerPop writingMessage">

@@ -539,6 +539,15 @@
      #write {float: right;margin-bottom: 30px;}
      .messengerList .btnSizeS {min-width:70px;padding:0 8px;height:30px;font-size:13px;line-height:28px;}
      .messengerList .paging {padding-top: 50px;}
+     
+          
+     #conMsg {
+		width: 70%;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    	text-align: left;
+	}
  /* 효은님 : E */
 
  /* 온화님 : S */

@@ -48,4 +48,20 @@ public class MessengerService {
 		return messenger;
 	}
 
+	public int modifyMessenger(Messenger messenger) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.modifyMessenger(conn, messenger);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }
