@@ -198,6 +198,14 @@ public class AdminService{
 		return reco;
 	}
 	
+
+  
+  
+  
+  
+  
+  
+
 	public Map<String, Object> selectReserveList(int page, Search search) {
 		Connection conn = getConnection();
 		
@@ -216,7 +224,5 @@ public class AdminService{
 		
 		return returnMap;
 	}
-	
-	
 
 }
