@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import admin.model.service.AdminService;
+import recommendation.model.vo.Recommendation;
+
 /**
  * Servlet implementation class adminMainServlet
  */
@@ -26,15 +29,27 @@ public class adminRecPlaceModServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/admin/recPlaceMod_management.jsp").forward(request, response);
+		int recoNo = Integer.parseInt(request.getParameter("recoNo"));
+		AdminService adminService = new AdminService();
+		
+		Recommendation rec = adminService.selectReco(recoNo);
+		
+		if(rec != null) {
+			request.setAttribute("rec", rec);
+			request.getRequestDispatcher("/views/admin/recPlaceMod_management.jsp").forward(request, response);
+			System.out.println(rec);
+		}else {
+			request.setAttribute("message", "조회 실패");
+		}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
 	}
 
 }

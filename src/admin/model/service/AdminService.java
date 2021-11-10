@@ -1,6 +1,8 @@
 package admin.model.service;
 
 import member.model.vo.Member;
+import recommendation.model.vo.Recommendation;
+
 import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -175,7 +177,7 @@ public class AdminService{
 		int listCount = adminDao.getRecListCount(conn, search);
 		PageInfo pi = new PageInfo(page, listCount, 5, 10);
 		
-		List<Rooms> RecList = adminDao.selectRecList(conn, pi, search);
+		List<Recommendation> RecList = adminDao.selectRecList(conn, pi, search);
 		
 		Map<String, Object> returnMap = new HashMap<>();
 	
@@ -187,4 +189,13 @@ public class AdminService{
 		
 		return returnMap;
 	}
+
+	public Recommendation selectReco(int recoNo) {
+		Connection conn = getConnection();		
+		Recommendation reco = adminDao.selectReco(conn, recoNo);
+		
+		close(conn);
+		return reco;
+	}
+	
 }

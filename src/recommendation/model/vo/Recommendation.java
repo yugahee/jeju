@@ -15,6 +15,8 @@ public class Recommendation {
 	private String recoImage;		// 이미지경로(1개)
 	private int likeCount;			// 좋아요 횟수
 	
+	private double score;			// 평점
+	
 	/*
 	 RECO_NO	NUMBER
 	 PUBLIC_YN	VARCHAR2(10 BYTE)
@@ -33,7 +35,6 @@ public class Recommendation {
 	public Recommendation() {
 		
 	}
-
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
 			int likeCount) {
@@ -52,6 +53,24 @@ public class Recommendation {
 		this.likeCount = likeCount;
 	}
 
+	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
+			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
+			int likeCount, double score) {
+		super();
+		this.recoNo = recoNo;
+		this.publicYn = publicYn;
+		this.recoArea = recoArea;
+		this.recoAddress = recoAddress;
+		this.recoCategory = recoCategory;
+		this.recoExpl = recoExpl;
+		this.recoKeyword = recoKeyword;
+		this.recoName = recoName;
+		this.naverMap = naverMap;
+		this.kakaoMap = kakaoMap;
+		this.recoImage = recoImage;
+		this.likeCount = likeCount;
+		this.score = score;
+	}
 	public int getRecoNo() {
 		return recoNo;
 	}
@@ -147,14 +166,25 @@ public class Recommendation {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
+	
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 
 	@Override
 	public String toString() {
 		return "Recommendation [recoNo=" + recoNo + ", publicYn=" + publicYn + ", recoArea=" + recoArea
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
-				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + "]";
+				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score + "]";
 	}
+
+	
 
 }
 

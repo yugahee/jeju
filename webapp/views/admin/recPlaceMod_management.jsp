@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -63,7 +74,6 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
@@ -84,18 +94,20 @@ scope="application"/>
 								<tbody>
 									<tr>
 										<th>번호</th>
-										<td>101</td>
+										<td>${rec.recoNo}</td>
 										<th>노출여부</th>
 										<td>
 											<div class="selectbox">
 												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
+														<input type="radio" value="Y" class="option" id="sel1_1" name="select1"
+														<c:if test="${ rec.publicYn == 'Y' }">checked="checked"</c:if>>
 														<label for="sel1_1">노출</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
+														<input type="radio" value="N" class="option" id="sel1_2" name="select1"
+														<c:if test="${ rec.publicYn == 'N' }">checked="checked"</c:if>>
 														<label for="sel1_2">비노출</label>
 													</li>
 												</ul>
@@ -106,27 +118,27 @@ scope="application"/>
 										<th>지역</th>
 										<td>
 											<div class="selectbox">
-												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<button class="title" type="button" title="선택">지역</button>
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1">
-														<label for="sel1_1">동부</label>
+														<input type="radio" value="1" class="option" id="sel2_1" name="select2"
+														<c:if test="${ rec.recoArea == '1' }">checked="checked"</c:if>>
+														<label for="sel2_1">동부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">서부</label>
+														<input type="radio" value="2" class="option" id="sel2_2" name="select2"
+														<c:if test="${ rec.recoArea == '2' }">checked="checked"</c:if>>
+														<label for="sel2_2">서부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_3" name="select1">
-														<label for="sel1_3">남부</label>
+														<input type="radio" value="3" class="option" id="sel2_3" name="select2"
+														<c:if test="${ rec.recoArea == '3' }">checked="checked"</c:if>>
+														<label for="sel2_3">남부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_4" name="select1">
-														<label for="sel1_4">북부</label>
-													</li>
-													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">중부</label>
+														<input type="radio" value="4" class="option" id="sel2_4" name="select2"
+														<c:if test="${ rec.recoArea == '4' }">checked="checked"</c:if>>
+														<label for="sel2_4">북부</label>
 													</li>
 												</ul>
 											</div>
@@ -135,18 +147,21 @@ scope="application"/>
 										<td>
 											<div class="selectbox">
 												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1">
-														<label for="sel1_1">식당</label>
+														<input type="radio" value="1" class="option" id="sel3_1" name="select3"
+														<c:if test="${ rec.recoCategory == '1' }">checked="checked"</c:if>>
+														<label for="sel3_1">관광지</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">카페</label>
+														<input type="radio" value="2" class="option" id="sel3_2" name="select3"
+														<c:if test="${ rec.recoCategory == '2' }">checked="checked"</c:if>>
+														<label for="sel3_2">식당</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">관광</label>
+														<input type="radio" value="3" class="option" id="sel3_3" name="select3"
+														<c:if test="${ rec.recoCategory == '3' }">checked="checked"</c:if>>
+														<label for="sel3_3">카페</label>
 													</li>
 												</ul>
 											</div>
@@ -156,13 +171,13 @@ scope="application"/>
 										<th>장소명</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input type="text" name="recoName" value="${rec.recoName}">
 											</div>
 										</td>
 										<th>위치</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input type="text" name="recoAddress" value="${rec.recoAddress}">
 											</div>
 										</td>
 									</tr>
@@ -174,17 +189,17 @@ scope="application"/>
 											</div>
 											<script>
 												var loadFile = function(event) {
-												  var reader = new FileReader();
-												  reader.onload = function(){
-													var output = document.getElementById('output');
-													output.src = reader.result;
-												  };
-												  reader.readAsDataURL(event.target.files[0]);
+													var reader = new FileReader();
+													reader.onload = function(){
+														var output = document.getElementById('output');
+														output.src = reader.result;
+													};
+													reader.readAsDataURL(event.target.files[0]);
 												};
-											  </script>
+											</script>
 										</td>
 										<td colspan="2">
-											<img id="output"/>
+											<img id="output" src="${contextPath}${rec.fileList.get(0).filePath}${ rooms.fileList.get(0).changeName }">
 										</td>
 									</tr>
 									<tr>

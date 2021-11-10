@@ -144,25 +144,25 @@ scope="application"/>
 					<table summary="추천장소 테이블">
 						<caption>추천장소 테이블</caption>
 						<colgroup>
-							<col width="8%">
-							<col width="8%">
-							<col width="15%">
+							<col width="6%">
+							<col width="6%">
+							<col width="6%">
 							<col width="*">
-							<col width="8%">
-							<col width="8%">
-							<col width="10%">
-							<col width="8%">
-							<col width="8%">
+							<col width="30%">
+							<col width="6%">
+							<col width="6%">
+							<col width="6%">
+							<col width="6%">
 						</colgroup>
 						<thead>
 							<tr>
 								<th>NO</th>
 								<th>분류</th>
+								<th>지역</th>
 								<th>장소명</th>
 								<th>키워드</th>
 								<th>추천</th>
 								<th>평점</th>
-								<th>등록일</th>
 								<th>노출여부</th>
 								<th>
                                     <span class="inp_check allChk">
@@ -173,166 +173,35 @@ scope="application"/>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="rec" items="${ RecList }">
 							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="${contextPath }/admin/recPlace_mod">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
+								<td>${rec.recoNo}</td>
+								<td>
+									<c:if test="${rec.recoCategory == 1}">관광지</c:if>
+									<c:if test="${rec.recoCategory == 2}">식당</c:if>
+									<c:if test="${rec.recoCategory == 3}">카페</c:if>
+								</td>
+								<td>
+									<c:if test="${rec.recoArea == 1}">동부</c:if>
+									<c:if test="${rec.recoArea == 2}">서부</c:if>
+									<c:if test="${rec.recoArea == 3}">남부</c:if>
+									<c:if test="${rec.recoArea == 4}">북부</c:if>
+								</td>
+								<td>
+									<a class="active" href="#none" onclick="detailView(${rec.recoNo})">${rec.recoName}</a>
+								</td>
+								<td>${rec.recoKeyword}</td>
+								<td>${rec.likeCount}</td>
+								<td>${rec.score}</td>
+								<td>${rec.publicYn}</td>
 								<td>
                                     <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
+                                        <input type="checkbox" name="chk1" id="chk1_2" value="${rec.recoNo}">
                                         <label for="chk1_2"></label>
                                     </span>
                                 </td>
 							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
-							<tr>
-								<td>190</td>
-								<td>식당</td>
-								<td><a class="active" href="recPlace_modify_management.html">식당이름이요</a></td>
-								<td>#맛집 #분위기 #가성비 #갓성비</td>
-								<td>45</td>
-								<td>4.6</td>
-								<td>2021.10.15</td>
-								<td>Y</td>
-								<td>
-                                    <span class="inp_check">
-                                        <input type="checkbox" name="chk1" id="chk1_2">
-                                        <label for="chk1_2"></label>
-                                    </span>
-                                </td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -341,15 +210,52 @@ scope="application"/>
                     <a href="#" class="btn btnType2 btnSizeS"><span>삭제</span></a>
                 </div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/recPlaceMg?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/recPlaceMg?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/recPlaceMg?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/recPlaceMg?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath}/admin/recPlaceMg?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
 				</c:when>
 				<c:otherwise>
@@ -363,6 +269,10 @@ scope="application"/>
 			<!-- //contet -->
 		</div>
 	</div>
-	
+	<script>
+		function detailView(recoNo){
+			location.href='${contextPath}/admin/recPlace_mod?recoNo=' + recoNo;
+		}
+	</script>
 </body>
 </html>

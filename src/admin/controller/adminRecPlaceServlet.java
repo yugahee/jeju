@@ -39,7 +39,7 @@ public class adminRecPlaceServlet extends HttpServlet {
 		String searchCondition = request.getParameter("searchCondition");
 		String searchCondition2 = request.getParameter("searchCondition2");
 		String searchValue = request.getParameter("searchValue");
-		System.out.println(searchCondition);
+
 		Map<String, Object> map = new AdminService().selectRecList(page, new Search(searchCondition, searchCondition2, searchValue));
 		
 		request.setAttribute("listCount", map.get("listCount"));

@@ -16,6 +16,7 @@ import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
+import recommendation.model.vo.Recommendation;
 
 public class AdminDao {
 	
@@ -585,8 +586,93 @@ public class AdminDao {
 		return listCount;
 	}
 
-	public List<Rooms> selectRecList(Connection conn, PageInfo pi, Search search) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public List<Recommendation> selectRecList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("searchRecList");
+		List<Recommendation> RecList = new ArrayList<>();
+
+		if(search.getSearchValue() != null) {
+			if(!search.getSearchCondition().equals("전체")) {
+				sql = adminQuery.getProperty("searchRoomStatus");
+			}else {
+				sql = adminQuery.getProperty("searchRoomStatusAll");
+			}
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchRoomStatusAll"))) {
+				pstmt.setString(index++, search.getSearchValue());				
+			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Recommendation rec = new Recommendation();
+				rec.setRecoNo(rset.getInt("reco_no"));					// 추천장소번호
+				rec.setRecoCategory(rset.getInt("reco_category"));		// 카테고리
+				rec.setRecoArea(rset.getInt("reco_area"));				// 지역
+				rec.setRecoName(rset.getString("reco_name"));			// 이름
+				rec.setRecoKeyword(rset.getString("reco_keyword"));		// 키워드
+				rec.setLikeCount(rset.getInt("like_count"));			// 좋아요
+				rec.setScore(rset.getDouble("score"));					// 평점
+				rec.setPublicYn(rset.getString("public_yn"));			// 상태
+				RecList.add(rec);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return RecList;
 	}
+
+	public Recommendation selectReco(Connection conn, int recoNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Recommendation reco = null;
+		String sql = adminQuery.getProperty("selectReco");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, recoNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reco = new Recommendation();
+				reco.setRecoNo(rset.getInt("reco_no"));
+				reco.setPublicYn(rset.getString("public_yn"));
+				reco.setRecoArea(rset.getInt("reco_area"));
+				reco.setRecoAddress(rset.getString("reco_address"));
+				reco.setRecoCategory(rset.getInt("reco_category"));
+				reco.setRecoExpl(rset.getString("reco_expl"));
+				reco.setRecoKeyword(rset.getString("reco_keyword"));
+				reco.setRecoName(rset.getString("reco_name"));
+				reco.setNaverMap(rset.getString("naver_map"));
+				reco.setKakaoMap(rset.getString("kakao_map"));
+				reco.setRecoImage(rset.getString("reco_image"));
+				reco.setRecoArea(rset.getInt("reco_area"));
+				reco.setScore(rset.getDouble("score"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return reco;
+	}
+
+	
 }
