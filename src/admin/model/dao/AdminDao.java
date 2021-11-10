@@ -712,7 +712,6 @@ public class AdminDao {
 	
 	
 	
-	
 
 	public int getReserveListCount(Connection conn, Search search) {
 		PreparedStatement pstmt = null;
@@ -720,14 +719,38 @@ public class AdminDao {
 		int listCount = 0;		
 		String sql = adminQuery.getProperty("reserveCount");
 		
-		if(search.getSearchCondition() != null) {
-			sql = adminQuery.getProperty("reserveCount");
-		}else if(search.getSearchCondition2() != null) {
-			
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchAllReserveNoCount");
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveHostCount");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveGuestCount");
+				}
+			}else if(search.getSearchCondition().equals("예약신청") || search.getSearchCondition().equals("결제대기") || search.getSearchCondition().equals("예약완료") || search.getSearchCondition().equals("예약취소") || search.getSearchCondition().equals("숙박완료")){
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchReserveNoCount");					
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchReserveHostCount");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchReserveGuestCount");
+				}
+			}
 		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;							
+			
+			if((sql == adminQuery.getProperty("searchAllReserveNoCount")) || (sql == adminQuery.getProperty("searchAllReserveHostCount")) || (sql == adminQuery.getProperty("searchAllReserveGuestCount"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchReserveNoCount")) || (sql == adminQuery.getProperty("searchReserveHostCount")) || (sql == adminQuery.getProperty("searchReserveGuestCount"))){
+				pstmt.setString(index++, search.getSearchValue());
+				pstmt.setString(index++, search.getSearchCondition());
+			}
+			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
