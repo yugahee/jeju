@@ -718,6 +718,7 @@ public class RoomsDao {
 				review.setReview(rset.getString("review"));
 				review.setReviewDate(rset.getDate("review_date"));
 				review.setUserId(rset.getString("user_id"));
+				review.setStarPoint(rset.getInt("star"));
 				
 				reviewList.add(review);
 			}

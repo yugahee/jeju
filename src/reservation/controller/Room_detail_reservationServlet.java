@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import reservation.model.service.ReservationService;
+import reservation.model.vo.Reservation;
 
 /**
  * Servlet implementation class Room_detail_reservationServlet
@@ -51,6 +52,10 @@ public class Room_detail_reservationServlet extends HttpServlet {
 		
 		// 페이징 처리 된 숙소 리뷰 조회 
 		Map<String, Object> rMap = new ReservationService().selectRoomReview(page, roomNo);
+		
+		
+		// 예약 체킹
+//		List<Reservation> possibleReservation = new ReservationService().possibleReservation();
 		
 		if(room != null && rMap != null) {
 		 request.setAttribute("roomNo", roomNo);

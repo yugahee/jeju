@@ -367,8 +367,8 @@
 	
 	       peaktb.style.display = "none";
 	    }
-
-        
+		
+	    
     </script>
 
 <%@include file="/views/common/footer.jsp" %>

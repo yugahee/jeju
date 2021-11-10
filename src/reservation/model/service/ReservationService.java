@@ -142,11 +142,11 @@ public class ReservationService {
 	public List<Reservation> selectReserveInfoList(String userId, Search search) {
 		Connection conn = getConnection();
 		
-		List<Reservation> reserveInfo = reservationDao.selectReserveInfoList(conn, userId, search);
+		List<Reservation> reserveInfoList = reservationDao.selectReserveInfoList(conn, userId, search);
 		
 		 close(conn);
 		
-		return reserveInfo;
+		return reserveInfoList;
 	}
 
 	// 예약상태 '결제대기'로 업데이트
@@ -231,6 +231,15 @@ public class ReservationService {
 		
 		return lodgeCompletion;
 	}
+
+//	public List<Reservation> possibleReservation() {
+//		Connection conn = getConnection();
+//		
+//		 
+//		
+//		return null;
+//	}
+
 
 	
 
