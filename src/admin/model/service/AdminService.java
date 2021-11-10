@@ -1,6 +1,5 @@
 package admin.model.service;
 
-<<<<<<< HEAD
 import member.model.vo.Member;
 import recommendation.model.vo.Recommendation;
 import static common.JDBCTemplate.*;
@@ -14,7 +13,6 @@ import admin.model.dao.AdminDao;
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import host.model.vo.Rooms;
-import member.model.vo.Member;
 import reservation.model.vo.Reservation;
 
 public class AdminService{
@@ -192,7 +190,6 @@ public class AdminService{
 		return returnMap;
 	}
 
-<<<<<<< HEAD
 	public Recommendation selectReco(int recoNo) {
 		Connection conn = getConnection();		
 		Recommendation reco = adminDao.selectReco(conn, recoNo);
@@ -201,7 +198,13 @@ public class AdminService{
 		return reco;
 	}
 	
-=======
+	
+	
+	
+	
+	
+	
+	
 	public Map<String, Object> selectReserveList(int page, Search search) {
 		Connection conn = getConnection();
 		
@@ -220,8 +223,4 @@ public class AdminService{
 		
 		return returnMap;
 	}
-	
-	
-
->>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
 }
