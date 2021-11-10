@@ -212,10 +212,10 @@
 				<!-- </div> -->
 					<!-- 페이징 -->
 						<div class="paging">
-							<span class="first"><a href="${ contextPath }/host/mypage?page=1"><span class="blind">첫페이지</span></a></span>
+							<span class="first"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=1"><span class="blind">첫페이지</span></a></span>
 							<c:choose>
 								<c:when test="${ reviewPi.page > 1 }">
-								<span class="prev"><a href="${ contextPath }/host/mypage?page=${ reviewPi.page - 1 }"><span class="blind">이전페이지</span></a></span>
+								<span class="prev"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.page - 1 }"><span class="blind">이전페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
@@ -228,35 +228,23 @@
 								<span class="current">${ r }</span>
 								</c:when>
 								<c:otherwise>
-								<a href="${ contextPath }/host/mypage?page=${ r }">${ r }</a>
+								<a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ r }">${ r }</a>
 								</c:otherwise>
 							</c:choose>
 							</c:forEach>
 							
 							<c:choose>
 								<c:when test="${ reviewPi.page < reviewPi.maxPage }">
-								<span class="next"><a href="${ contextPath }/host/mypage?page=${ reviewPi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								<span class="next"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.page + 1 }"><span class="blind">다음페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 								</c:otherwise>
 							</c:choose>
 							
-							<span class="last"><a href="${ contextPath }/host/mypage?page=${ reviewPi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+							<span class="last"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.maxPage }"><span class="blind">마지막페이지</span></a></span>
 						</div>
 					
-					<!-- <div class="paging">
-						<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-						<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-						<a href="#">1</a>
-						<span class="current">2</span>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-						<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
-					</div> -->
-
 			</div>	
 			<div class="box">
 		    	<form name="reserveinfo" method="get">
