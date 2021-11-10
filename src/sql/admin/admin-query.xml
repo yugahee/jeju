@@ -413,4 +413,34 @@ WHERE RNUM BETWEEN ? AND ?
 	    AND RECO_KEYWORD LIKE '%'|| ? ||'%'
    ORDER BY RECO_NO
 </entry>
+<entry key="reserveCount">
+	SELECT
+    	COUNT(*)
+	FROM RESERVATION
+</entry>
+<entry key="reserveList">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
 </properties>

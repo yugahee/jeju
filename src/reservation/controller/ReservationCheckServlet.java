@@ -32,9 +32,16 @@ public class ReservationCheckServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
+		if(((Member)request.getSession().getAttribute("loginUser")) == null) {
+			request.getSession().setAttribute("message", "로그인을 해주셔야 예약조회가 가능합니다.");
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
 				
+		String userId = "";
+		userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
 		
 		// 예약리스트 가져오기
 		List<Reservation> reservationList = new ReservationService().userReservation(userId);
