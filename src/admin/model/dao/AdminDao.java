@@ -591,14 +591,26 @@ public class AdminDao {
 	public List<Recommendation> selectRecList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int cata_value = 0;
 		String sql = adminQuery.getProperty("searchRecList");
 		List<Recommendation> RecList = new ArrayList<>();
 
 		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cata_value = 1;
+			}
+			if(search.getSearchCondition().equals("식당")) {
+				cata_value = 2;
+			}
+			if(search.getSearchCondition().equals("카페")) {
+				cata_value = 3;
+			}
 			if(!search.getSearchCondition().equals("전체")) {
-				sql = adminQuery.getProperty("searchRecCata");
-			}else {
-				sql = adminQuery.getProperty("searchRoomStatusAll");
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListName");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKW");	
+				}
 			}
 		}
 		try {
@@ -608,10 +620,8 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			int index = 1;	
-			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
-				pstmt.setString(index++, search.getSearchCondition());
-				pstmt.setString(index++, search.getSearchValue());
-			}else if((sql == adminQuery.getProperty("searchRoomStatusAll"))) {
+			if(sql == adminQuery.getProperty("searchRecListName") || sql == adminQuery.getProperty("searchRecListKW")) {
+				pstmt.setInt(index++, cata_value);
 				pstmt.setString(index++, search.getSearchValue());				
 			}
 			pstmt.setInt(index++, startRow);
