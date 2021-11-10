@@ -90,7 +90,18 @@
 	WHERE ROOM_RESERVE = ?
 </entry>
 
-<entry key="selectRoomReview">
+<!-- 숙소 리뷰개수  -->
+<entry key="getReviewCount">
+		SELECT
+		       COUNT(*)
+		  FROM ROOMS_REVIEW 
+		 WHERE ROOM_NO = ?	
+		   AND REVIEW_STATUS = 'Y'
+</entry>
+
+
+<!-- 숙소 디테일뷰 리뷰 조회(기존)   -->
+<!-- <entry key="selectRoomReview">
     SELECT
            STAR
          , REVIEW
@@ -99,7 +110,24 @@
       FROM ROOMS_REVIEW
       JOIN MEMBER USING(USER_ID)
      WHERE ROOM_NO = ?
-</entry>
+</entry>  -->
+
+<!-- 숙소 디테일뷰 리뷰 조회   -->
+<entry key="selectRoomReview">
+    SELECT * 
+	  FROM (SELECT ROWNUM RNUM, A.*
+		      FROM (SELECT
+				          STAR
+				        , REVIEW
+				        , REVIEW_DATE
+				        , USER_NAME
+				     FROM ROOMS_REVIEW
+				     JOIN MEMBER USING(USER_ID)
+				    WHERE ROOM_NO = ?
+				      AND REVIEW_STATUS = 'Y'
+				    ORDER BY REVIEW_DATE DESC) A)
+	 WHERE RNUM BETWEEN ? AND ?
+</entry>  
 
 
 <!-- 예약 정보 insert -->

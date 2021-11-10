@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
@@ -204,7 +205,70 @@ public class ReservationDao {
 		return result;
 	}
 
-	public List<RoomReview> selectRoomReview(Connection conn, int roomNo) {
+//	public List<RoomReview> selectRoomReview(Connection conn, int roomNo) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		List<RoomReview> roomReviewList = new ArrayList<>();
+//		String sql =  roomQuery.getProperty("selectRoomReview");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, roomNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				RoomReview roomReview = new RoomReview();
+//				roomReview.setStar(rset.getInt("star"));
+//				roomReview.setReview(rset.getString("review"));
+//				roomReview.setReviewDate(rset.getDate("review_date"));
+//				roomReview.setUserName(rset.getString("user_name"));
+//				
+//				roomReviewList.add(roomReview);
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		
+//		return roomReviewList;
+//	}
+
+	
+	// 리뷰게시글 총 개수 구하기 
+	public int getReviewCount(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reviewCount = 0;
+		String sql = roomQuery.getProperty("getReviewCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reviewCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}	
+		
+		
+		return reviewCount;
+	}
+	
+	// 페이징 처리 된 숙소 리뷰 조회 
+	public List<RoomReview> selectRoomReview(Connection conn, PageInfo reviewPi, int roomNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<RoomReview> roomReviewList = new ArrayList<>();
@@ -213,6 +277,12 @@ public class ReservationDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, roomNo);
+			
+			int startRow = (reviewPi.getPage() - 1) * reviewPi.getBoardLimit() + 1;
+			int endRow = startRow + reviewPi.getBoardLimit() - 1;
+			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -226,17 +296,14 @@ public class ReservationDao {
 				roomReviewList.add(roomReview);
 			}
 			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
 		}
-		
 		
 		return roomReviewList;
 	}
-
+	
 
 	public int reserveEndUpdate(Connection conn, int room_reserve) {
 		PreparedStatement pstmt = null;
@@ -529,6 +596,12 @@ public class ReservationDao {
 		
 		return lodgeCompletion;
 	}
+
+
+	
+
+
+	
 
 
 	

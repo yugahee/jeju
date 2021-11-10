@@ -131,7 +131,6 @@
  
  <form name="payWaitUpdateOrReserveCancleForm" method="post"> 
  	<input type="hidden" id="room_reserve" name="reserve_no" >
- 	<input type="hidden" name="user_type" value="${loginUser.user_type}">
  </form>
  
  
