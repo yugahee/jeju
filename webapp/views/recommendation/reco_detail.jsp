@@ -56,10 +56,12 @@
 							</div>
 							<p>${ review.sComment }</p>
 							<p>${ review.writeTime }</p>
+							<c:if test="${ loginUser.user_id == review.userId }">
 							<div class="change_button">
 								<a href="#" class="btnTypeIcon btn_modify">수정</a>
 								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
 							</div>
+							</c:if>
 						</div>
 					</c:forEach>
 
