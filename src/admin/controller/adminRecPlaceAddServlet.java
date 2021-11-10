@@ -26,6 +26,8 @@ public class adminRecPlaceAddServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		request.getRequestDispatcher("/views/admin/recPlaceAdd_management.jsp").forward(request, response);
 	}
 

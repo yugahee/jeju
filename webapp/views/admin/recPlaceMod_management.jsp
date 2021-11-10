@@ -199,7 +199,7 @@ scope="application"/>
 											</script>
 										</td>
 										<td colspan="2">
-											<img id="output" src="${contextPath}${rec.fileList.get(0).filePath}${ rooms.fileList.get(0).changeName }">
+											<img id="output" src="${contextPath}${rec.recoImage}${rec.imageName}">
 										</td>
 									</tr>
 									<tr>

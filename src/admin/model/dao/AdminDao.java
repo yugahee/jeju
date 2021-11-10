@@ -665,6 +665,7 @@ public class AdminDao {
 				reco.setNaverMap(rset.getString("naver_map"));
 				reco.setKakaoMap(rset.getString("kakao_map"));
 				reco.setRecoImage(rset.getString("reco_image"));
+				reco.setImageName(rset.getString("image_name"));
 				reco.setRecoArea(rset.getInt("reco_area"));
 				reco.setScore(rset.getDouble("score"));
 			}
