@@ -244,7 +244,6 @@ public class Recommendation {
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
 				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
 				+ ", imageName=" + imageName + ", reviewList=" + reviewList + "]";
-				+ ", imageName=" + imageName + "]";
 	}
 
 }
