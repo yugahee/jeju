@@ -344,7 +344,8 @@
 		  FROM ROOMS R
 		  JOIN ROOMS_REVIEW RV ON(R.ROOM_NO = RV.ROOM_NO)
 		 WHERE R.USER_ID = ?
-		   AND R.STATUS = 'Y'	
+		   AND R.STATUS = 'Y'
+		   AND REVIEW_STATUS = 'Y'	
 	</entry>
 	
 	<entry key="selectReviewList">
@@ -352,6 +353,7 @@
 		  FROM (SELECT ROWNUM RNUM, A.*
 				  FROM (SELECT
 						       R.ROOM_NO
+						     , REVIEW_NO
 						     , ROOM_NAME
 						     , REVIEW
 						     , REVIEW_DATE
@@ -360,6 +362,7 @@
 						  JOIN ROOMS_REVIEW RV ON(R.ROOM_NO = RV.ROOM_NO)
 						 WHERE R.USER_ID = ?
 						   AND R.STATUS = 'Y'
+						   AND REVIEW_STATUS = 'Y'
 						 ORDER BY REVIEW_NO DESC) A)
 		 WHERE RNUM BETWEEN ? AND ?	
 	</entry>
@@ -436,6 +439,20 @@
 		 WHERE USER_ID = ?
 		   AND RESERVE_STATE = '예약완료'
 	</entry>
+	
+	<entry key="selectOneReview">
+		SELECT
+		       REVIEW
+		     , REVIEW_DATE
+		     , RV.USER_ID
+		     , STAR
+		     , ROOM_NAME
+		  FROM ROOMS_REVIEW RV
+		  JOIN ROOMS USING(ROOM_NO)
+		 WHERE REVIEW_NO = ?
+		   AND STATUS = 'Y'		
+	</entry>
+	
 	
 </properties>
 

@@ -316,6 +316,17 @@ public class RoomsService {
 		return reserveList;
 	}
 
+	// 리뷰 상세내용 팝업창 
+	public RoomReview selectOneReview(int reviewNo) {
+		Connection conn = getConnection();
+		
+		RoomReview review = roomDao.selectOneReview(conn, reviewNo);
+		
+		close(conn);
+		
+		return review;
+	}
+
 
 
 }

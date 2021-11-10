@@ -1230,7 +1230,7 @@
 	 .roomlist_search > p { margin: 10px 0; }
 	
      .roomlist_content { margin: 60px auto;}
-     .roomlist_img { width: 200px; height: 200px; }
+     .roomlist_img { width: 260px; height: 200px; }
      .roomlist_content tbody{ justify-content: center;}
      .roomlist_status { color: #0e7539; font-weight: 700; }
      .roomlist_btn {display: flex; justify-content: space-around;}
