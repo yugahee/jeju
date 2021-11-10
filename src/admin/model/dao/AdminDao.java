@@ -741,7 +741,7 @@ public class AdminDao {
 				
 				Payment pay = new Payment();
 				pay.setPrice(rset.getInt("price"));
-				pay.setPayDate(rset.getDate("pay_date"));
+				pay.setPayDate(rset.getTimestamp("pay_date"));
 				reserve.setPayment_info(pay);
 				
 				reserveList.add(reserve);

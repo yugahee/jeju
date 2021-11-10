@@ -42,15 +42,17 @@ public class adminReservationServlet extends HttpServlet {
 		String searchCondition = request.getParameter("searchCondition");
 		String searchCondition2 = request.getParameter("searchCondition2");
 		String searchValue = request.getParameter("searchValue");
-		Date startDate = Date.valueOf(request.getParameter("startDate"));
-		Date endDate = Date.valueOf(request.getParameter("endDate"));
+		//Date startDate = Date.valueOf(request.getParameter("startDate"));
+		//Date endDate = Date.valueOf(request.getParameter("endDate"));
 		
-		Map<String, Object> map = new AdminService().selectReserveList(page, new Search(searchCondition, searchCondition2, searchValue, startDate, endDate));
+		Map<String, Object> map = new AdminService().selectReserveList(page, new Search(searchCondition, searchCondition2, searchValue));
 		
 		request.setAttribute("listCount", map.get("listCount"));
 	    request.setAttribute("pi", map.get("pi"));
 	    request.setAttribute("reserveList", map.get("reserveList"));
 		
+	    System.out.println(map.get("reserveList"));
+	    
 		request.getRequestDispatcher("/views/admin/reservation_management.jsp").forward(request, response);
 	}
 
