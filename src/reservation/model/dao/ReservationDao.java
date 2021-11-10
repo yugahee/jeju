@@ -358,7 +358,7 @@ public class ReservationDao {
 	public List<Reservation> selectReserveInfoList(Connection conn, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		List<Reservation> reserveInfo = new ArrayList<>();
+		List<Reservation> reserveInfoList = new ArrayList<>();
 		String sql =  roomQuery.getProperty("selectReserveInfoList");
 		
 		// 검색 목록 조회
@@ -400,7 +400,7 @@ public class ReservationDao {
 				
 				reservation.setRoom_info(room);
 				
-				reserveInfo.add(reservation);
+				reserveInfoList.add(reservation);
 				
 			}
 			
@@ -411,7 +411,7 @@ public class ReservationDao {
 			close(rset);
 		}
 		
-		return reserveInfo;
+		return reserveInfoList;
 	}
 
 

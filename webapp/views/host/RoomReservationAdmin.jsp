@@ -75,7 +75,7 @@
 	                       <col style="width:13.2%">
 	                   </colgroup>
 	                  <c:choose>
-	                  <c:when test="${!empty reserveInfo }">
+	                  <c:when test="${!empty reserveInfoList }">
 		                   <thead>
 		                       <tr>
 		                           <th>NO</th>
@@ -88,7 +88,7 @@
 		                           <th>관리</th>
 		                       </tr>
 		                   </thead>
-		                   <c:forEach var="reserveInfo" items="${reserveInfo}">
+		                   <c:forEach var="reserveInfo" items="${reserveInfoList}">
 		                   <tbody>
 		                       <tr>
 		                           <td>1</td>
