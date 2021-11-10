@@ -23,7 +23,7 @@
 				
 				<div class="detail_content">
 					<div class="detail_exp"><!-- 소개 부분 -->
-						<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);">
+						<div class="imageArea" style="background-image: url(${ reco.recoImage });">
 						</div>
 						<div class="star_average">
 							<p>${ reco.recoName }</p>
