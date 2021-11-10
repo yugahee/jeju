@@ -24,4 +24,12 @@
  		  FROM MESSAGE
  		 WHERE MSG_NO = ?
 	</entry>
+	
+	<entry key="updateMessenger">
+		UPDATE MESSAGE
+		   SET MSG_CONTENT = ?
+		     , REPORT_USER = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE MSG_NO = ?
+	</entry>
 </properties>

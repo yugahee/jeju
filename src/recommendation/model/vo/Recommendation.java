@@ -19,6 +19,7 @@ public class Recommendation {
 	
 	private double score;			// 평점
 	private String imageName;		// 이미지명
+	private String deletedName;		// 삭제될 이미지명
 
 	private List<Reco_Review> reviewList;		// 리뷰 목록
 
@@ -78,7 +79,7 @@ public class Recommendation {
 	
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, double score, String imageName) {
+			int likeCount, double score, String imageName, String deletedName) {
 		super();
 		this.recoNo = recoNo;
 		this.publicYn = publicYn;
@@ -94,7 +95,9 @@ public class Recommendation {
 		this.likeCount = likeCount;
 		this.score = score;
 		this.imageName = imageName;
+		this.deletedName = deletedName;
 	}
+
 
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
@@ -115,6 +118,13 @@ public class Recommendation {
 		this.score = score;
 		this.imageName = imageName;
 		this.reviewList = reviewList;
+	}
+	public String getDeletedName() {
+		return deletedName;
+	}
+
+	public void setDeletedName(String deletedName) {
+		this.deletedName = deletedName;
 	}
 
 	public int getRecoNo() {
@@ -243,8 +253,8 @@ public class Recommendation {
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
 				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
-				+ ", imageName=" + imageName + ", reviewList=" + reviewList + "]";
-	}
+				+ ", imageName=" + imageName + ", deletedName=" + deletedName + ", reviewList=" + reviewList + "]";
+	}		
 
 }
 

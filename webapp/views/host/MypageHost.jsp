@@ -87,8 +87,9 @@
 								<colgroup>
 									<col style="width:8%">
 									<col style="width:12%">
-									<col style="width:50%">
-									<col style="width:12%">
+									<col style="width:37%">
+									<!-- <col style="width:12%"> -->
+									<col style="width:25%">
 									<col style="width:18%">
 								</colgroup>
 								<thead>
@@ -96,7 +97,8 @@
 										<th style="font-size: 1.2em;">No</th>
 										<th style="font-size: 1.2em;">숙소이름</th>
 										<th style="font-size: 1.2em;">후기내용</th>
-										<th style="font-size: 1.2em;">후기작성일</th>
+										<!-- <th style="font-size: 1.2em;">후기작성일</th> -->
+										<th style="font-size: 1.2em;">별점</th>
 										<th style="font-size: 1.2em;">작성자</th>
 									</tr>
 								</thead>
@@ -111,7 +113,27 @@
 										<!-- 리뷰 내용은 글자 50개 까지 노출 -->
 										<td><a href="#"><div class="review_content" onclick="showLayer('reviewdetail'); showdetail(${ review.reviewNo });">${ review.review }
 										</div></a></td>
-										<td><div class="review_date">${ review.reviewDate }</div></td>
+										<%-- <td><div class="review_date">${ review.reviewDate }</div></td> --%>
+										<td>
+											<div class="rating_star_large review_star">
+												<div class="pointArea">
+												<!-- 별 선택시마다 point: 20/40/60/80/100 , style: 20%/40%/60%/80%/100% 로 변경됨 -->
+												<span class="pointBg"
+												<c:if test="${ review.starPoint == 1 }">point="20" style="left: 20%;"</c:if>
+												<c:if test="${ review.starPoint == 2 }">point="40" style="left: 40%;"</c:if>
+												<c:if test="${ review.starPoint == 3 }">point="60" style="left: 60%;"</c:if>
+												<c:if test="${ review.starPoint == 4 }">point="80" style="left: 80%;"</c:if>
+												<c:if test="${ review.starPoint == 5 }">point="100" style="left: 100%;"</c:if>></span>
+												<span class="starPoint p2">
+													<button disabled="disabled">1점 선택</button>
+													<button disabled="disabled">2점 선택</button>
+													<button disabled="disabled">3점 선택</button>
+													<button disabled="disabled">4점 선택</button>
+													<button disabled="disabled">5점 선택</button>
+												</span>
+												</div>
+											</div>
+										</td>
 										<td><div class="review_writer">${ review.userId }</div></td>
 									</tr>
 									</c:forEach>
@@ -250,7 +272,7 @@
             reviewtab.replaceWith(roomtab);
             reviewtab.style.display = "none"
             roomtab.style.display = "block"
-            
+            // element.classList.toggle()은 만약 element의 클래스 목록에 해당 클래스가 있으면 제거하고, 클래스가 없으면 추가됨.
             roomli.classList.toggle("on");
             reviewli.classList.toggle("on");
         } else{
@@ -263,14 +285,16 @@
     }
     
     // 리뷰 내용 글자수가 30자 초과하면 뒷 내용 생략하기
-    let reviewcont = document.querySelectorAll(".review_content");
-	for(let i = 0; i < reviewcont.length; i++){
-
-		if(reviewcont[i].textContent.length > 30){
-			let reviewchange = reviewcont[i].textContent.substring(0, 30) + "..."; 
-			reviewcont[i].textContent = reviewchange;
+/*     let reviewcont = document.querySelectorAll(".review_content");
+	for(let cont of reviewcont){
+		if(cont.textContent.length > 20){
+			let rechange = cont.textContent.substr(0, 20) + "...";
+			console.log( cont.textContent.substr(0, 20));
+			cont.textContent = rechange;
+		} else{
+			cont.textContent = cont.textContent;
 		}
-	}
+	} */
 	
 	// 리뷰클릭시 팝업창으로 상세정보 보이기
 	function showdetail(reviewNo){

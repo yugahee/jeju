@@ -138,4 +138,27 @@ private Properties messengerQuery = new Properties();
 		return messenger;
 	}
 
+	public int modifyMessenger(Connection conn, Messenger messenger) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = messengerQuery.getProperty("updateMessenger");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messenger.getMsg_content());
+			pstmt.setString(2, messenger.getReport_user());
+			pstmt.setInt(3, messenger.getMsg_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		
+		return result;
+	}
+
 }

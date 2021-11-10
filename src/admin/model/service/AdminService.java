@@ -225,4 +225,41 @@ public class AdminService{
 		return returnMap;
 	}
 
+	public int updateRecoPhoto(Recommendation rec) {
+		Connection conn = getConnection();
+		
+		int recoResult = adminDao.modifyReco(conn, rec);
+		int updateImgResult = 0;
+		int updateImgCount = 0;
+		
+		updateImgResult += adminDao.modifyImg(conn, rec.getImageName(), rec.getRecoNo());
+		updateImgCount++;
+		
+		int result = 0;
+		if(recoResult > 0 && updateImgResult == updateImgCount) {
+			commit(conn);
+			result = 1;
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteReco(String[] arr) {
+		Connection conn = getConnection();		
+		int result = adminDao.deleteRec(conn, arr);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

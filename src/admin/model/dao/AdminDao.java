@@ -508,7 +508,6 @@ public class AdminDao {
 		}else if(!newUmail.equals("") && !newPwd.equals("")) {
 			sql = adminQuery.getProperty("updateAdminAll");
 		}
-		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -560,15 +559,23 @@ public class AdminDao {
 				}else {
 					sql = adminQuery.getProperty("getRecListCountStatusKW");	
 				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRecListCountStatusNameAll");				
+				}else {
+					sql = adminQuery.getProperty("getRecListCountStatusKWAll");	
+				}				
 			}
 		}
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 
 			int index = 1;
 			if(sql == adminQuery.getProperty("getRecListCountStatusName") || sql == adminQuery.getProperty("getRecListCountStatusKW") ) {
 				pstmt.setInt(index++, cata_value);
+			}
+			if(sql != adminQuery.getProperty("getRecListCount")) {
 				pstmt.setString(index++, search.getSearchValue());
 			}
 			
@@ -592,16 +599,35 @@ public class AdminDao {
 	public List<Recommendation> selectRecList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int cata_value = 0;
 		String sql = adminQuery.getProperty("searchRecList");
 		List<Recommendation> RecList = new ArrayList<>();
 
 		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cata_value = 1;
+			}
+			if(search.getSearchCondition().equals("식당")) {
+				cata_value = 2;
+			}
+			if(search.getSearchCondition().equals("카페")) {
+				cata_value = 3;
+			}
 			if(!search.getSearchCondition().equals("전체")) {
-				sql = adminQuery.getProperty("searchRoomStatus");
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListName");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKW");	
+				}
 			}else {
-				sql = adminQuery.getProperty("searchRoomStatusAll");
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListNameAll");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKWAll");	
+				}				
 			}
 		}
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -609,11 +635,11 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			int index = 1;	
-			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
-				pstmt.setString(index++, search.getSearchCondition());
-				pstmt.setString(index++, search.getSearchValue());
-			}else if((sql == adminQuery.getProperty("searchRoomStatusAll"))) {
-				pstmt.setString(index++, search.getSearchValue());				
+			if(sql == adminQuery.getProperty("searchRecListName") || sql == adminQuery.getProperty("searchRecListKW")) {
+				pstmt.setInt(index++, cata_value);		
+			}
+			if(sql != adminQuery.getProperty("searchRecList")) {
+				pstmt.setString(index++, search.getSearchValue());		
 			}
 			pstmt.setInt(index++, startRow);
 			pstmt.setInt(index, endRow);
@@ -677,6 +703,25 @@ public class AdminDao {
 		return reco;
 	}
 
+	public int modifyImg(Connection conn, String imageName, int recoNo) {PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("updateImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, imageName);
+			pstmt.setInt(2, recoNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	
@@ -691,14 +736,38 @@ public class AdminDao {
 		int listCount = 0;		
 		String sql = adminQuery.getProperty("reserveCount");
 		
-		if(search.getSearchCondition() != null) {
-			sql = adminQuery.getProperty("reserveCount");
-		}else if(search.getSearchCondition2() != null) {
-			
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchAllReserveNoCount");
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveHostCount");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveGuestCount");
+				}
+			}else if(search.getSearchCondition().equals("예약신청") || search.getSearchCondition().equals("결제대기") || search.getSearchCondition().equals("예약완료") || search.getSearchCondition().equals("예약취소") || search.getSearchCondition().equals("숙박완료")){
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchReserveNoCount");					
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchReserveHostCount");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchReserveGuestCount");
+				}
+			}
 		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;							
+			
+			if((sql == adminQuery.getProperty("searchAllReserveNoCount")) || (sql == adminQuery.getProperty("searchAllReserveHostCount")) || (sql == adminQuery.getProperty("searchAllReserveGuestCount"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchReserveNoCount")) || (sql == adminQuery.getProperty("searchReserveHostCount")) || (sql == adminQuery.getProperty("searchReserveGuestCount"))){
+				pstmt.setString(index++, search.getSearchValue());
+				pstmt.setString(index++, search.getSearchCondition());
+			}
+			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -731,9 +800,9 @@ public class AdminDao {
 				}else if(search.getSearchCondition2().equals("게스트ID")) {
 					sql = adminQuery.getProperty("searchAllReserveGuest");
 				}
-			}else{
+			}else if(search.getSearchCondition().equals("예약신청") || search.getSearchCondition().equals("결제대기") || search.getSearchCondition().equals("예약완료") || search.getSearchCondition().equals("예약취소") || search.getSearchCondition().equals("숙박완료")){
 				if(search.getSearchCondition2().equals("예약번호")) {
-					sql = adminQuery.getProperty("searchMemberId");					
+					sql = adminQuery.getProperty("searchReserveNo");					
 				}else if(search.getSearchCondition2().equals("호스트ID")) {
 					sql = adminQuery.getProperty("searchReserveHost");
 				}else if(search.getSearchCondition2().equals("게스트ID")) {
@@ -748,8 +817,17 @@ public class AdminDao {
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			int index = 1;							
+			
+			if((sql == adminQuery.getProperty("searchAllReserveNo")) || (sql == adminQuery.getProperty("searchAllReserveHost")) || (sql == adminQuery.getProperty("searchAllReserveGuest"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchReserveNo")) || (sql == adminQuery.getProperty("searchReserveHost")) || (sql == adminQuery.getProperty("searchReserveGuest"))){
+				pstmt.setString(index++, search.getSearchValue());
+				pstmt.setString(index++, search.getSearchCondition());
+			}
+			
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);			
 			
 			rset = pstmt.executeQuery();
 			
@@ -790,5 +868,60 @@ public class AdminDao {
 		
 		return reserveList;
 	}
-	
+
+	public int modifyReco(Connection conn, Recommendation rec) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("modifyRecoImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, rec.getRecoName());
+			pstmt.setString(2, rec.getPublicYn());
+			pstmt.setInt(3, rec.getRecoArea());
+			pstmt.setInt(4, rec.getRecoCategory());
+			pstmt.setString(5, rec.getRecoAddress());
+			pstmt.setString(6, rec.getNaverMap());
+			pstmt.setString(7, rec.getKakaoMap());
+			pstmt.setString(8, rec.getRecoKeyword());
+			pstmt.setString(9, rec.getRecoExpl());
+			pstmt.setString(10, rec.getImageName());
+			pstmt.setInt(11, rec.getRecoNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteRec(Connection conn, String[] arr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("deleteReco");
+		
+
+		for (int i = 0; i < arr.length; i++) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, arr[i]);
+				
+				result = pstmt.executeUpdate();
+				
+				System.out.println("dao" + result);
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+		return result;
+	}
 }

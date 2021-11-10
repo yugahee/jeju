@@ -539,6 +539,15 @@
      #write {float: right;margin-bottom: 30px;}
      .messengerList .btnSizeS {min-width:70px;padding:0 8px;height:30px;font-size:13px;line-height:28px;}
      .messengerList .paging {padding-top: 50px;}
+     
+          
+     #conMsg {
+		width: 70%;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    	text-align: left;
+	}
  /* 효은님 : E */
 
  /* 온화님 : S */
@@ -1123,12 +1132,19 @@
 
      /* 게스트 후기 탭 */
      .reviewtab { margin-top: 20px; }
-
+	 .review_content { 
+	 overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     }
      .reviewtbl { width : 850px; }
-     .review_no { text-align: center; }
+     .reviewtbl tbody div:not(.review_content)  { text-align: center; }
+
+     /* .review_no { text-align: center; }
      .review_roomname { text-align: center;}
 	 .review_date { text-align: center;}
-	 .review_writer { text-align: center;}
+	 .review_star { text-align: center;}
+	 .review_writer { text-align: center;} */
      .reviewtab_wrap { margin-bottom: 30px;}
 
      /* 숙소 등록 페이지 --------------------------------------------------------------------*/
