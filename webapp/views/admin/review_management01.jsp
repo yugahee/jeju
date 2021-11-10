@@ -71,12 +71,12 @@ scope="application"/>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">숙소 후기 관리</div>
-                    <div class="calendar">
+                    <!-- <div class="calendar">
                         <p class="ctit">기간 검색</p>
                         <div class="inp_text">
                             <input type="date"> ~ <input type="date">
                         </div>
-                    </div>
+                    </div> -->
 					<div class="selectbox">
 						<button class="title" type="button" title="검색 조건">검색 조건</button>
 						<ul class="selList" style="max-height: 0px; display: none;">

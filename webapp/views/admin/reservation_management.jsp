@@ -78,59 +78,59 @@ scope="application"/>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">예약 관리</div>
-					<form method="get" action="${ contextPath }/admin/userMg01">
-	                    <div class="calendar">
+					<form method="get" action="${ contextPath }/admin/resvMg">
+	                    <!-- <div class="calendar">
 	                        <p class="ctit">기간 검색</p>
 	                        <div class="inp_text">
 	                            <input type="date" name="startDate" > ~ <input type="date" name="endDate">
 	                        </div>
-	                    </div>
+	                    </div> -->
 						<div class="selectbox">
 							<button class="title" type="button" title="예약상태">예약상태</button>
 							<ul class="selList" style="max-height: 0px; display: none;">
 								<li>
-									<input type="radio" value="" class="option" id="select_res0" name="searchCondition">
+									<input type="radio" value="전체" class="option" id="select_res0" name="searchCondition">
 									<label for="select_res0">전체</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res1" name="searchCondition">
+									<input type="radio" value="예약신청" class="option" id="select_res1" name="searchCondition">
 									<label for="select_res1">예약신청</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res2" name="searchCondition">
-									<label for="select_res2">수락/결제 대기</label>
+									<input type="radio" value="결제대기" class="option" id="select_res2" name="searchCondition">
+									<label for="select_res2">결제대기</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res3" name="searchCondition">
-									<label for="select_res3">취소/만료/거절</label>
+									<input type="radio" value="예약완료" class="option" id="select_res1" name="searchCondition">
+									<label for="select_res1">예약완료</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res4" name="searchCondition">
-									<label for="select_res4">예약완료</label>
+									<input type="radio" value="예약취소" class="option" id="select_res3" name="searchCondition">
+									<label for="select_res3">예약취소</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res5" name="searchCondition">
-									<label for="select_res5">숙박완료</label>
+									<input type="radio" value="숙박완료" class="option" id="select_res4" name="searchCondition">
+									<label for="select_res4">숙박완료</label>
+								</li>
+								<li>
+									<input type="radio" value="리뷰완료" class="option" id="select_res5" name="searchCondition">
+									<label for="select_res5">리뷰완료</label>
 								</li>
 							</ul>
 						</div>
 						<div class="selectbox">
 							<button class="title" type="button" title="검색 조건">검색 조건</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
+							<ul class="selList" style="max-height: 0px; display: none;">														
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op1" name="searchCondition2">
+									<input type="radio" value="예약번호" class="option" id="select_search_op1" name="searchCondition2">
 									<label for="select_search_op1">예약번호</label>
-								</li>
+								</li>								
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op2" name="searchCondition2">
-									<label for="select_search_op1">숙소명</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="select_search_op3" name="searchCondition2">
+									<input type="radio" value="호스트ID" class="option" id="select_search_op3" name="searchCondition2">
 									<label for="select_search_op3">호스트 ID</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op4" name="searchCondition2">
+									<input type="radio" value="게스트ID" class="option" id="select_search_op4" name="searchCondition2">
 									<label for="select_search_op4">게스트 ID</label>
 								</li>
 							</ul>
