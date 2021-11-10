@@ -478,6 +478,167 @@ WHERE RNUM BETWEEN ? AND ?
     	COUNT(*)
 	FROM RESERVATION
 </entry>
+<entry key="searchAllReserveNoCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE ROOM_RESERVE = ?
+	    ) A
+	)
+</entry>
+<entry key="searchAllReserveHostCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE USER_ID LIKE '%' || ? ||'%'
+	    ) A
+	)
+</entry>
+<entry key="searchAllReserveGuestCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE GUEST LIKE '%' || ? ||'%'
+	    ) A
+	)
+</entry>
+<entry key="searchReserveNoCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE ROOM_RESERVE = ?
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+</entry>
+<entry key="searchReserveHostCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE USER_ID LIKE '%' || ? ||'%'
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+</entry>
+<entry key="searchReserveGuestCount">
+	SELECT 
+    	COUNT(*)
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE GUEST LIKE '%' || ? ||'%'
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+</entry>
+
+
+
+
+
+
+
+
 <entry key="reserveList">
 	SELECT 
     	*
