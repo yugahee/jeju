@@ -259,8 +259,8 @@ function changeBtnName() {
 		}
 		
 		// 출력용
-		/* console.log(recoArea);
-		console.log(recoCategory); */
+		console.log(recoArea);
+		console.log(recoCategory);
 		
 		document.getElementById("btn1").innerHTML = recoArea;
 		document.getElementById("btn2").innerHTML = recoCategory;
