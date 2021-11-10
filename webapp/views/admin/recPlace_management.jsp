@@ -151,7 +151,7 @@ scope="application"/>
 							<col width="30%">
 							<col width="6%">
 							<col width="6%">
-							<col width="6%">
+							<col width="8%">
 							<col width="6%">
 						</colgroup>
 						<thead>

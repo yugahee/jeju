@@ -180,7 +180,7 @@ scope="application"/>
 										<th>이미지</th>
 										<td>
 											<div class="inp_text">
-												<input type="file" accept="image/*" onchange="loadFile(event)">
+												<input name="uploadName" type="file" accept="image/*" onchange="loadFile(event)">
 											</div>
 											<script>
 												var loadFile = function(event) {

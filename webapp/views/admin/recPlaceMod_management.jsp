@@ -83,6 +83,8 @@ scope="application"/>
 					<div class="con">
 						<div class="listTit">추천장소 정보 수정</div>
 						<div class="tblType2 noBorder">
+						<form name="submitData" method="post" action="${contextPath}/admin/recPlace_mod" enctype="multipart/form-data">
+							<input type="hidden" name="recoNo" value="${rec.recoNo}">
 							<table>
 								<caption></caption>
 								<colgroup>
@@ -185,8 +187,9 @@ scope="application"/>
 										<th>이미지</th>
 										<td>
 											<div class="inp_text">
-												<input type="file" accept="image/*" onchange="loadFile(event)">
+												<input type="file" name="uploadName" accept="image/*" onchange="loadFile(event)">
 											</div>
+											<input type="hidden" name="imageName" value="${rec.imageName}">
 											<script>
 												var loadFile = function(event) {
 													var reader = new FileReader();
@@ -206,13 +209,13 @@ scope="application"/>
 										<th>네이버맵 URL</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input type="text" name="naverMap" value="${rec.naverMap}">
 											</div>
 										</td>
 										<th>카카오맵 URL</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input type="text" name="kakaoMap" value="${rec.kakaoMap}">
 											</div>
 										</td>
 									</tr>
@@ -220,38 +223,59 @@ scope="application"/>
 										<th>지도 api 주소</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input class="readOnly" readonly type="text" value="준비중">
 											</div>
 										</td>
 										<th>키워드</th>
 										<td>
 											<div class="inp_text">
-												<input type="text">
+												<input type="text" name="recoKeyword" value="${rec.recoKeyword}">
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<th>정보</th>
 										<td colspan="3">
-											<div class="textbox">
-												<textarea placeholder="내용"></textarea>
-												<span class="charCnt"><em>0</em>/200</span>
-											</div>
+			                                <div class="textbox">
+			                                    <textarea name="recoExpl" class="chatArea" placeholder="내용">${rec.recoExpl}</textarea>
+			                                    <span class="charCnt"><em class="update">0</em>/200</span>
+			                                </div>
 										</td>
 									</tr>
 								</tbody>
 							</table>
+						</form>
 						</div>
 					</div>
 					<div class="btn_wrap al_c">
-						<a href="#" class="btn btnType1 btnSizeS"><span>추가</span></a>
-						<a href="recPlace_management.html" class="btn btnType2 btnSizeS"><span>취소</span></a>
+						<a href="#none" onclick="javascript:document.submitData.submit()" class="btn btnType1 btnSizeS"><span>저장</span></a>
+						<a href="${contextPath}/admin/recPlaceMg" class="btn btnType2 btnSizeS"><span>취소</span></a>
 					</div>
 				</div>
 			</div>
 			<!-- //contet -->
 		</div>
 	</div>
-	
+	<script>
+	// textarea 글자 수
+	let content = document.querySelector(".chatArea");
+    let area1 = document.querySelector(".update ");
+    let val = content.value.length;
+    area1.innerHTML = val;
+   	if(val > 200){
+   		area1.style.color = 'red';
+   	}else{
+   		area1.style.color = '#222';
+   	}
+    content.onkeyup = function(){
+        let val = content.value.length;
+        area1.innerHTML = val;
+       	if(val > 200){
+       		area1.style.color = 'red';
+       	}else{
+       		area1.style.color = '#222';
+       	}
+    };
+	</script>
 </body>
 </html>

@@ -508,7 +508,6 @@ public class AdminDao {
 		}else if(!newUmail.equals("") && !newPwd.equals("")) {
 			sql = adminQuery.getProperty("updateAdminAll");
 		}
-		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -562,7 +561,7 @@ public class AdminDao {
 				}
 			}
 		}
-		System.out.println(sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -677,6 +676,26 @@ public class AdminDao {
 		return reco;
 	}
 
+	public int modifyImg(Connection conn, String imageName, int recoNo) {PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("updateImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, imageName);
+			pstmt.setInt(2, recoNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 	
 	
@@ -763,5 +782,35 @@ public class AdminDao {
 		
 		return reserveList;
 	}
-	
+
+	public int modifyReco(Connection conn, Recommendation rec) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("modifyRecoImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, rec.getRecoName());
+			pstmt.setString(2, rec.getPublicYn());
+			pstmt.setInt(3, rec.getRecoArea());
+			pstmt.setInt(4, rec.getRecoCategory());
+			pstmt.setString(5, rec.getRecoAddress());
+			pstmt.setString(6, rec.getNaverMap());
+			pstmt.setString(7, rec.getKakaoMap());
+			pstmt.setString(8, rec.getRecoKeyword());
+			pstmt.setString(9, rec.getRecoExpl());
+			pstmt.setString(10, rec.getImageName());
+			pstmt.setInt(11, rec.getRecoNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

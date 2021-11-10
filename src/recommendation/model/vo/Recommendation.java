@@ -17,6 +17,7 @@ public class Recommendation {
 	
 	private double score;			// 평점
 	private String imageName;		// 이미지명
+	private String deletedName;		// 삭제될 이미지명
 	
 	/*
 	 RECO_NO	NUMBER
@@ -72,9 +73,10 @@ public class Recommendation {
 		this.score = score;
 	}	
 	
+
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, double score, String imageName) {
+			int likeCount, double score, String imageName, String deletedName) {
 		super();
 		this.recoNo = recoNo;
 		this.publicYn = publicYn;
@@ -90,6 +92,15 @@ public class Recommendation {
 		this.likeCount = likeCount;
 		this.score = score;
 		this.imageName = imageName;
+		this.deletedName = deletedName;
+	}
+
+	public String getDeletedName() {
+		return deletedName;
+	}
+
+	public void setDeletedName(String deletedName) {
+		this.deletedName = deletedName;
 	}
 
 	public int getRecoNo() {
@@ -210,7 +221,7 @@ public class Recommendation {
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
 				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
-				+ ", imageName=" + imageName + "]";
+				+ ", imageName=" + imageName + ", deletedName=" + deletedName + "]";
 	}
 
 }
