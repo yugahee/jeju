@@ -1,5 +1,7 @@
 package recommendation.model.vo;
 
+import java.util.List;
+
 public class Recommendation {
 	
 	private int recoNo;				// 추천장소번호
@@ -16,6 +18,8 @@ public class Recommendation {
 	private int likeCount;			// 좋아요 횟수
 	
 	private double score;			// 평점
+	private String imageName;		// 이미지명
+	private List<Reco_Review> reviewList;		// 리뷰 목록
 	
 	/*
 	 RECO_NO	NUMBER
@@ -32,9 +36,8 @@ public class Recommendation {
  	 LIKE_COUNT	NUMBER
 	 */
 	
-	public Recommendation() {
-		
-	}
+	public Recommendation() {}
+	
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
 			int likeCount) {
@@ -70,7 +73,49 @@ public class Recommendation {
 		this.recoImage = recoImage;
 		this.likeCount = likeCount;
 		this.score = score;
+	}	
+	
+	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
+			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
+			int likeCount, double score, String imageName) {
+		super();
+		this.recoNo = recoNo;
+		this.publicYn = publicYn;
+		this.recoArea = recoArea;
+		this.recoAddress = recoAddress;
+		this.recoCategory = recoCategory;
+		this.recoExpl = recoExpl;
+		this.recoKeyword = recoKeyword;
+		this.recoName = recoName;
+		this.naverMap = naverMap;
+		this.kakaoMap = kakaoMap;
+		this.recoImage = recoImage;
+		this.likeCount = likeCount;
+		this.score = score;
+		this.imageName = imageName;
 	}
+
+	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
+			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
+			int likeCount, double score, String imageName, List<Reco_Review> reviewList) {
+		super();
+		this.recoNo = recoNo;
+		this.publicYn = publicYn;
+		this.recoArea = recoArea;
+		this.recoAddress = recoAddress;
+		this.recoCategory = recoCategory;
+		this.recoExpl = recoExpl;
+		this.recoKeyword = recoKeyword;
+		this.recoName = recoName;
+		this.naverMap = naverMap;
+		this.kakaoMap = kakaoMap;
+		this.recoImage = recoImage;
+		this.likeCount = likeCount;
+		this.score = score;
+		this.imageName = imageName;
+		this.reviewList = reviewList;
+	}
+
 	public int getRecoNo() {
 		return recoNo;
 	}
@@ -166,7 +211,14 @@ public class Recommendation {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
-	
+
+	public String getImageName() {
+		return imageName;
+	}
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
 
 	public double getScore() {
 		return score;
@@ -175,16 +227,23 @@ public class Recommendation {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	
+	public List<Reco_Review> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(List<Reco_Review> reviewList) {
+		this.reviewList = reviewList;
+	}
 
 	@Override
 	public String toString() {
 		return "Recommendation [recoNo=" + recoNo + ", publicYn=" + publicYn + ", recoArea=" + recoArea
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
-				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score + "]";
+				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
+				+ ", imageName=" + imageName + ", reviewList=" + reviewList + "]";
 	}
-
-	
 
 }
 

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import static common.JDBCTemplate.close;
+
+import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
 
 public class RecoDao {
@@ -252,6 +254,39 @@ public class RecoDao {
 		}
 		
 		return reco;
+	}
+
+	public List<Reco_Review> selectReviewList(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Reco_Review> reviewList = new ArrayList<>();
+		
+		String sql = recoQuery.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reviewList.add(new Reco_Review(rset.getInt("reco_review_no")
+											 , rset.getInt("score")
+											 , rset.getString("s_comment")
+											 , rset.getDate("write_time")
+											 , rset.getInt("reco_no")
+											 , rset.getString("user_id")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reviewList;
 	}
 
 }

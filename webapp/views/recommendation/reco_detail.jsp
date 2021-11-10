@@ -44,59 +44,24 @@
 						</div>
 					</div><!-- 맵부분 끝 -->
 
-					<div class="detail_review"><!-- 한줄평 시작 -->
+					<!-- 한줄평 리스트 시작 -->
+					<div class="detail_review">
 						<p>회원 리뷰</p>
+						
+					<c:forEach var="review" items="${ reco.reviewList }">
 						<div class="detail_comment">
-							<p>id</p>
+							<p>${ review.userId }</p>
 							<div class="rating_star">
 								<span class="starPoint p5">5</span>
 							</div>
-							<p>comment</p>
-							<p>202x.xx.xx hh:mm:ss</p>
+							<p>${ review.sComment }</p>
+							<p>${ review.writeTime }</p>
 							<div class="change_button">
 								<a href="#" class="btnTypeIcon btn_modify">수정</a>
 								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
 							</div>
 						</div>
-
-						<div class="detail_comment">
-							<p>id</p>
-							<div class="rating_star">
-								<span class="starPoint p5">5</span>
-							</div>
-							<p>comment</p>
-							<p>202x.xx.xx hh:mm:ss</p>
-							<div class="change_button">
-								<a href="#" class="btnTypeIcon btn_modify">수정</a>
-								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
-							</div>
-						</div>
-
-						<div class="detail_comment">
-							<p>id</p>
-							<div class="rating_star">
-								<span class="starPoint p5">5</span>
-							</div>
-							<p>comment</p>
-							<p>202x.xx.xx hh:mm:ss</p>
-							<div class="change_button">
-								<a href="#" class="btnTypeIcon btn_modify">수정</a>
-								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
-							</div>
-						</div>
-
-						<div class="detail_comment">
-							<p>id</p>
-							<div class="rating_star">
-								<span class="starPoint p5">5</span>
-							</div>
-							<p>comment</p>
-							<p>202x.xx.xx hh:mm:ss</p>
-							<div class="change_button">
-								<a href="#" class="btnTypeIcon btn_modify">수정</a>
-								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
-							</div>
-						</div>
+					</c:forEach>
 
 						<div class="detail_comment">
 							<p>id</p>

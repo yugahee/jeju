@@ -120,4 +120,16 @@
 		   AND RECO_NO = ?
 	</entry>
 	
+	<entry key="selectReviewList">
+		SELECT
+       		   RECO_REVIEW_NO
+		     , SCORE
+		     , S_COMMENT
+		     , WRITE_TIME
+		     , RECO_NO
+		     , USER_ID
+		  FROM RECO_REVIEW
+		 WHERE RECO_NO = ?
+	</entry>
+	
 </properties>
