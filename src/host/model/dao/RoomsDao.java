@@ -713,6 +713,7 @@ public class RoomsDao {
 			while(rset.next()) {
 				RoomReview review = new RoomReview();
 				review.setRoomNo(rset.getInt("room_no"));
+				review.setReviewNo(rset.getInt("review_no"));
 				review.setRoomName(rset.getString("room_name"));
 				review.setReview(rset.getString("review"));
 				review.setReviewDate(rset.getDate("review_date"));
@@ -762,6 +763,34 @@ public class RoomsDao {
 		}
 		
 		return reserveList;
+	}
+
+	public RoomReview selectOneReview(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		RoomReview review = null;
+		String sql = roomsQuery.getProperty("selectOneReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				review = new RoomReview();
+				review.setReview(rset.getString("review"));
+				review.setReviewDate(rset.getDate("review_date"));
+				review.setUserId(rset.getString("user_id"));
+				review.setStarPoint(rset.getInt("star"));
+				review.setRoomName(rset.getString("room_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return review;
 	}
 
 }

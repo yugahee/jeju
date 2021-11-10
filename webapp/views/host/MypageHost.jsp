@@ -28,7 +28,8 @@
 							<ul class="roomli_box">
 							<c:forEach var="room" items="${ roomList }">
 							<li class="main_roomlist">     <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
-								<a href="#"><img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
+								<a href="${ contextPath }/room/reserve/detail?roomNo=${ room.roomNo }">
+								<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
 								<h3>${ room.roomName }</h3>
 							</li>
 							</c:forEach>
@@ -108,7 +109,8 @@
 										<td><div class="review_no">${ no = no + 1 }</div></td>
 										<td><div class="review_roomname">${ review.roomName }</div></td>
 										<!-- 리뷰 내용은 글자 50개 까지 노출 -->
-										<td><a href="#"><div class="review_content">${ review.review }</div></a></td>
+										<td><a href="#"><div class="review_content" onclick="showLayer('reviewdetail'); showdetail(${ review.reviewNo });">${ review.review }
+										</div></a></td>
 										<td><div class="review_date">${ review.reviewDate }</div></td>
 										<td><div class="review_writer">${ review.userId }</div></td>
 									</tr>
@@ -168,6 +170,71 @@
                 </div>
 			</div>
 		</div>
+		<!-- 레이어 팝업  -->
+        <div id="reviewdetail" class="layerPop">
+            <div class="layerTit">
+                <h4>Review</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('reviewdetail');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+				<br>
+				<div class="tblType2 noBorder">
+					<table>
+						<colgroup>
+							<col style="width:20%;">
+							<!-- <col style="width:*;"> -->
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>숙소 이름</th>
+								<td id="roomname"></td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td id="writer"></td>
+							</tr>
+							<tr>
+								<th>작성일</th>
+								<td id="reviewdate"></td>
+							</tr>
+							<tr>
+								<th>별점</th>
+								<td>
+									<div class="rating_star_large">
+										<div class="pointArea">
+											<!-- 별 선택시마다 point: 20/40/60/80/100 , style: 20%/40%/60%/80%/100% 로 변경됨 -->
+											<span class="pointBg" point="80" style="left: 80%;"></span>
+											<span class="starPoint p2">
+												<button disabled="disabled">1점 선택</button>
+												<button disabled="disabled">2점 선택</button>
+												<button disabled="disabled">3점 선택</button>
+												<button disabled="disabled">4점 선택</button>
+												<button disabled="disabled">5점 선택</button>
+											</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>내용</th>
+								<td>
+									<div class="textbox">
+										<textarea class="readOnly" readonly id="content">
+										</textarea>
+									</div>
+
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="btn_wrap">
+					<button class="btn btnType2 btnSizeM" onclick="hideLayer('reviewdetail');return false;"><span>닫기</span></button>
+				</div>                         
+            </div>  <!-- 성수기 추가 레이어 내용 부분 끝 -->
+        </div>	
+		
 <script>
 	// 탭 변경하기 이벤트
     let roomli = document.querySelector(".roomli");
@@ -205,6 +272,52 @@
 		}
 	}
 	
+	// 리뷰클릭시 팝업창으로 상세정보 보이기
+	function showdetail(reviewNo){
+		// console.log(reviewNo);
+		// roomname , writer , reviewdate , content
+		/* <별 선택시마다 point: 20/40/60/80/100 , style: 20%/40%/60%/80%/100% 로 변경됨 
+			<span class="pointBg" point="80" style="left: 80%;"></span> */
+		$.ajax({
+			url : "${contextPath}/host/reviewDetail",
+			data : { reviewNo : reviewNo },
+			dataType : "json",
+			type : "get",
+			success : function(review){
+				document.getElementById('roomname').innerHTML = review.roomName;
+				document.getElementById('writer').innerHTML = review.userId;
+				document.getElementById('reviewdate').innerHTML = review.reviewDate;
+				document.getElementById('content').innerHTML = review.review;
+				
+				switch(review.starPoint){
+				case 1 :
+					document.querySelector('.pointBg').setAttribute('point', '20');
+					document.querySelector('.pointBg').setAttribute('style', 'left: 20%');
+					break;
+				case 2 :
+					document.querySelector('.pointBg').setAttribute('point', '40');
+					document.querySelector('.pointBg').setAttribute('style', 'left: 40%');
+					break;
+				case 3 :
+					document.querySelector('.pointBg').setAttribute('point', '60');
+					document.querySelector('.pointBg').setAttribute('style', 'left: 60%');
+					break;
+				case 4 :
+					document.querySelector('.pointBg').setAttribute('point', '80');
+					document.querySelector('.pointBg').setAttribute('style', 'left: 80%');
+					break;
+				case 5 :
+					document.querySelector('.pointBg').setAttribute('point', '100');
+					document.querySelector('.pointBg').setAttribute('style', 'left: 100%');
+					break;
+				}
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
 </script>
 
 <%@include file="/views/common/footer.jsp" %>
