@@ -105,7 +105,7 @@ public class ReservationService {
 		
 		int reviewCount = reservationDao.getReviewCount(conn, roomNo);
 		
-		/* pageInfo 객체 생성 => 3 : 하단에 보여질 페이지 목록 수, 10 : 한 페이지에 보여질 게시글 최대 개수*/
+		/* pageInfo 객체 생성 => 3 : 하단에 보여질 페이지 목록 수, 5 : 한 페이지에 보여질 게시글 최대 개수 : 2*/
 		PageInfo reviewPi = new PageInfo(page, reviewCount, 5, 2);
 		
 		/* 페이징 처리 된 리뷰 목록 조회 */
