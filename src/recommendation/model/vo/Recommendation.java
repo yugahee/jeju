@@ -19,8 +19,9 @@ public class Recommendation {
 	
 	private double score;			// 평점
 	private String imageName;		// 이미지명
+
 	private List<Reco_Review> reviewList;		// 리뷰 목록
-	
+
 	/*
 	 RECO_NO	NUMBER
 	 PUBLIC_YN	VARCHAR2(10 BYTE)
@@ -243,6 +244,7 @@ public class Recommendation {
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
 				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
 				+ ", imageName=" + imageName + ", reviewList=" + reviewList + "]";
+				+ ", imageName=" + imageName + "]";
 	}
 
 }

@@ -1,4 +1,4 @@
-package admin.controller;
+package host.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import common.model.vo.RoomReview;
+import host.model.service.RoomsService;
+
 /**
- * Servlet implementation class adminMainServlet
+ * Servlet implementation class ReviewDetailServlet
  */
-@WebServlet("/admin/recPlace_add")
-public class adminRecPlaceAddServlet extends HttpServlet {
+@WebServlet("/host/reviewDetail")
+public class ReviewDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminRecPlaceAddServlet() {
+    public ReviewDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +32,16 @@ public class adminRecPlaceAddServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
+		RoomReview review = new RoomsService().selectOneReview(reviewNo);
 		
-		request.getRequestDispatcher("/views/admin/recPlaceAdd_management.jsp").forward(request, response);
+		// 타입지정
+		response.setContentType("application/json; charset=utf-8");
+		
+		/* GSON 라이브러리 추가 후 GSON 객체의 toJson 메소드로 처리 */
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(review, response.getWriter());
 	}
 
 	/**

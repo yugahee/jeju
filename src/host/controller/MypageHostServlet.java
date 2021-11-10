@@ -58,6 +58,7 @@ public class MypageHostServlet extends HttpServlet {
 		
 		// 페이징과 관련 된 데이터, 리뷰조회
 		Map<String, Object> rMap = new RoomsService().selectRoomReview(page, userId);
+		// System.out.println(rMap);
 		request.setAttribute("reviewPi", rMap.get("reviewPi"));
 		request.setAttribute("reviewList", rMap.get("reviewList"));
 		
