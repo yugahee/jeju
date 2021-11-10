@@ -596,7 +596,7 @@ public class AdminDao {
 
 		if(search.getSearchValue() != null) {
 			if(!search.getSearchCondition().equals("전체")) {
-				sql = adminQuery.getProperty("searchRoomStatus");
+				sql = adminQuery.getProperty("searchRecCata");
 			}else {
 				sql = adminQuery.getProperty("searchRoomStatusAll");
 			}
