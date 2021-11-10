@@ -1487,9 +1487,10 @@
           border: 1px solid #eee;
           box-sizing: border-box;
           display: flex;
-          align-items: flex-start;
+          /*align-items: flex-start;*/
           justify-content: space-between;
           align-content: stretch;
+          align-items: center;
      }
      
      /* 리뷰쓰기 부분 수평 처리 */
