@@ -29,14 +29,15 @@ private Properties messengerQuery = new Properties();
 		}
 	}
 
-	public int getListCount(Connection conn) {
+	public int getSentListCount(Connection conn, String fromUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int listCount = 0;
-		String sql = messengerQuery.getProperty("getListCount");
+		String sql = messengerQuery.getProperty("getSentListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fromUser);
 			
 			rset = pstmt.executeQuery();
 			
@@ -55,10 +56,10 @@ private Properties messengerQuery = new Properties();
 		return listCount;
 	}
 
-	public List<Messenger> selectList(Connection conn, PageInfo pi) {
+	public List<Messenger> selectSentList(Connection conn, PageInfo pi, String fromUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = messengerQuery.getProperty("selectList");
+		String sql = messengerQuery.getProperty("selectSentList");
 		List<Messenger> messengerList = new ArrayList<>();
 		
 		try {
@@ -67,8 +68,9 @@ private Properties messengerQuery = new Properties();
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() -1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, fromUser); // 보낸 메시지 페이징 처리를 위한 조건
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -100,6 +102,81 @@ private Properties messengerQuery = new Properties();
 		return messengerList;
 	}
 
+
+	public int getReceiveListCount(Connection conn, String toUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = messengerQuery.getProperty("getReceiveListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, toUser);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				// count(*)의 결과만 가져오기 위해 1번 행의 값을 가져온다는 뜻으로 getInt(1)
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public List<Messenger> selectReceiveList(Connection conn, PageInfo pi, String toUser) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = messengerQuery.getProperty("selectReceiveList");
+		List<Messenger> messengerList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, toUser); // 보낸 메시지 페이징 처리를 위한 조건
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Messenger messenger = new Messenger();
+				messenger.setMsg_no(rset.getInt("msg_no"));
+				messenger.setMsg_cate(rset.getString("msg_cate"));
+				messenger.setMsg_content(rset.getString("msg_content"));
+				messenger.setChk_status(rset.getString("chk_status"));
+				messenger.setReply_status(rset.getString("reply_status"));
+				messenger.setMsg_date(rset.getTimestamp("msg_date"));
+				messenger.setReply_date(rset.getTimestamp("reply_date"));
+				messenger.setReply_content(rset.getString("reply_content"));
+				messenger.setFrom_user(rset.getString("from_user"));
+				messenger.setTo_user(rset.getString("to_user"));
+				messenger.setMsg_status(rset.getString("msg_status"));
+				messenger.setModify_date(rset.getTimestamp("modify_date"));
+				messenger.setReport_user(rset.getString("report_user"));
+				
+				messengerList.add(messenger);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return messengerList;
+	}
+
+	
 	public Messenger selectMessage(Connection conn, int msgNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -137,7 +214,8 @@ private Properties messengerQuery = new Properties();
 		
 		return messenger;
 	}
-
+	
+	
 	public int modifyMessenger(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -160,5 +238,4 @@ private Properties messengerQuery = new Properties();
 		
 		return result;
 	}
-
 }

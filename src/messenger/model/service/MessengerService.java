@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import admin.model.vo.PageInfo;
-import member.model.vo.Member;
 import messenger.model.dao.MessengerDao;
 import messenger.model.vo.Messenger;
 
@@ -16,17 +15,17 @@ public class MessengerService {
 	
 	private MessengerDao messengerDao = new MessengerDao();
 
-	public Map<String, Object> selectList(int page) {
+	public Map<String, Object> selectSentList(int page, String fromUser) {
 		Connection conn = getConnection();
 		
 		// 게시글 총 개수
-		int listCount = messengerDao.getListCount(conn);
+		int listCount = messengerDao.getSentListCount(conn, fromUser);
 		
 		// 페이징 처리할 객체
-		PageInfo pi = new PageInfo(page, listCount, 10, 10);
+		PageInfo pi = new PageInfo(page, listCount, 5, 5);
 		
 		// 페이징 처리 된 게시글 목록 조회
-		List<Messenger> messengerList = messengerDao.selectList(conn, pi);
+		List<Messenger> messengerList = messengerDao.selectSentList(conn, pi, fromUser);
 		
 		Map<String, Object> returnMap = new HashMap<>();
 		
@@ -37,7 +36,31 @@ public class MessengerService {
 			
 		return returnMap;
 	}
+	
+	
+	public Map<String, Object> selectReceiveList(int page, String toUser) {
+		Connection conn = getConnection();
+		
+		// 게시글 총 개수
+		int listCount = messengerDao.getReceiveListCount(conn, toUser);
+		
+		// 페이징 처리할 객체
+		PageInfo pi = new PageInfo(page, listCount, 5, 5);
+		
+		// 페이징 처리 된 게시글 목록 조회
+		List<Messenger> messengerList = messengerDao.selectReceiveList(conn, pi, toUser);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		
+		returnMap.put("pi", pi);
+		returnMap.put("messengerList", messengerList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
 
+	
 	public Messenger selectMessage(int msgNo) {
 		Connection conn = getConnection();
 		
@@ -63,5 +86,6 @@ public class MessengerService {
 		
 		return result;
 	}
+
 
 }
