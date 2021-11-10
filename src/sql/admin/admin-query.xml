@@ -503,4 +503,173 @@ WHERE RNUM BETWEEN ? AND ?
 	)
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
+
+
+
+
+
+
+
+
+
+<entry key="searchAllReserveNo">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE ROOM_RESERVE = ?
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?;
+</entry>
+<entry key="searchAllReserveHost">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE USER_ID LIKE '%' || ? ||'%'
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchAllReserveGuest">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE GUEST LIKE '%' || ? ||'%'
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchReserveNo">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE ROOM_RESERVE = ?
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?;
+</entry>
+<entry key="searchReserveHost">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE USER_ID LIKE '%' || ? ||'%'
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchReserveGuest">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+	            ROOM_RESERVE
+	            , ROOM_NAME
+	            , USER_ID
+	            , RESERVE_STATE
+	            , RESERVE_NUM
+	            , GUEST
+	            , PONE
+	            , P.PRICE
+	            , PAY_DATE
+	        FROM RESERVATION S
+	        JOIN ROOMS R USING(ROOM_NO)
+	        LEFT JOIN PAYMENT P ON(RECEP_NO = ROOM_RESERVE)
+            WHERE GUEST LIKE '%' || ? ||'%'
+            AND RESERVE_STATE = ?
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
+
 </properties>

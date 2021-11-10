@@ -750,9 +750,9 @@ public class AdminDao {
 				}else if(search.getSearchCondition2().equals("게스트ID")) {
 					sql = adminQuery.getProperty("searchAllReserveGuest");
 				}
-			}else{
+			}else if(search.getSearchCondition().equals("예약신청") || search.getSearchCondition().equals("결제대기") || search.getSearchCondition().equals("예약완료") || search.getSearchCondition().equals("예약취소") || search.getSearchCondition().equals("숙박완료")){
 				if(search.getSearchCondition2().equals("예약번호")) {
-					sql = adminQuery.getProperty("searchMemberId");					
+					sql = adminQuery.getProperty("searchReserveNo");					
 				}else if(search.getSearchCondition2().equals("호스트ID")) {
 					sql = adminQuery.getProperty("searchReserveHost");
 				}else if(search.getSearchCondition2().equals("게스트ID")) {
@@ -767,8 +767,17 @@ public class AdminDao {
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			int index = 1;							
+			
+			if((sql == adminQuery.getProperty("searchAllReserveNo")) || (sql == adminQuery.getProperty("searchAllReserveHost")) || (sql == adminQuery.getProperty("searchAllReserveGuest"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchReserveNo")) || (sql == adminQuery.getProperty("searchReserveHost")) || (sql == adminQuery.getProperty("searchReserveGuest"))){
+				pstmt.setString(index++, search.getSearchValue());
+				pstmt.setString(index++, search.getSearchCondition());
+			}
+			
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);			
 			
 			rset = pstmt.executeQuery();
 			
