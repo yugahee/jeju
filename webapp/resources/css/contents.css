@@ -1658,13 +1658,16 @@
      
      /* 글씨 간격 */
      .reco_address {
-     	line-height: 1;
+     	line-height: 2;
+     	margin-bottom: 10px;
      	font-size: 1.1rem;
      }
      
      .exp {
-     	line-height: 5;
+     	line-height: 2;
+     	width: 650px;
      }
+     
      
      /* 맵 부분 위치 및 스타일 지정 */
      .reco_map {

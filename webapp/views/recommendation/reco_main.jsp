@@ -7,11 +7,6 @@
 		<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
 	
-	<!-- 검색할 경우 searchParam -->
-	<%-- <c:if test="${ !empty param.searchValue }">		<!-- 검색했을 때 url 뒤에 파라미터까지 붙인 값을 searchParam이라는 변수로 선언한다. -->
-		<c:set var="searchParam" value="&searchValue=${ param.searchValue }"/>	<!-- url 뒤에 같이 넘어가야 하는 파라미터들 -->
-	</c:if> --%>
-
 	<div class="main">
 		<div class="container">
 			<div class="sub_upper">
