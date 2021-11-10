@@ -938,7 +938,7 @@
      .lodging_detail .reviewSort{
      display: flex;
      justify-content: space-between;
-     margin-bottom: 85px;
+     margin-bottom: 60px;
      }
 
      .lodging_detail .reviewSort li {
@@ -1047,6 +1047,12 @@
      .okAndNo{
      display: flex;
      justify-content: center;
+     }
+     
+     
+     .pagingMargin{
+     	margin-bottom: 75px;
+     
      }
      
 /* 온화님 : E */
@@ -1230,7 +1236,7 @@
 	 .roomlist_search > p { margin: 10px 0; }
 	
      .roomlist_content { margin: 60px auto;}
-     .roomlist_img { width: 200px; height: 200px; }
+     .roomlist_img { width: 260px; height: 200px; }
      .roomlist_content tbody{ justify-content: center;}
      .roomlist_status { color: #0e7539; font-weight: 700; }
      .roomlist_btn {display: flex; justify-content: space-around;}
@@ -1487,9 +1493,10 @@
           border: 1px solid #eee;
           box-sizing: border-box;
           display: flex;
-          align-items: flex-start;
+          /*align-items: flex-start;*/
           justify-content: space-between;
           align-content: stretch;
+          align-items: center;
      }
      
      /* 리뷰쓰기 부분 수평 처리 */

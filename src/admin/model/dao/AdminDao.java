@@ -707,8 +707,14 @@ public class AdminDao {
 	public int getReserveListCount(Connection conn, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int listCount = 0;
+		int listCount = 0;		
 		String sql = adminQuery.getProperty("reserveCount");
+		
+		if(search.getSearchCondition() != null) {
+			sql = adminQuery.getProperty("reserveCount");
+		}else if(search.getSearchCondition2() != null) {
+			
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -735,6 +741,27 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = adminQuery.getProperty("reserveList");
 		
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchAllReserveNo");
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveHost");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchAllReserveGuest");
+				}
+			}else{
+				if(search.getSearchCondition2().equals("예약번호")) {
+					sql = adminQuery.getProperty("searchMemberId");					
+				}else if(search.getSearchCondition2().equals("호스트ID")) {
+					sql = adminQuery.getProperty("searchReserveHost");
+				}else if(search.getSearchCondition2().equals("게스트ID")) {
+					sql = adminQuery.getProperty("searchReserveGuest");
+				}
+			}
+		}
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
@@ -760,7 +787,7 @@ public class AdminDao {
 				
 				Payment pay = new Payment();
 				pay.setPrice(rset.getInt("price"));
-				pay.setPayDate(rset.getDate("pay_date"));
+				pay.setPayDate(rset.getTimestamp("pay_date"));
 				reserve.setPayment_info(pay);
 				
 				reserveList.add(reserve);

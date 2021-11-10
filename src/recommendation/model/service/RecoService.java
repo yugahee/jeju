@@ -1,9 +1,12 @@
 package recommendation.model.service;
 
+import static common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.util.List;
-import static common.JDBCTemplate.*;
+
 import recommendation.model.dao.RecoDao;
+import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
 
 public class RecoService {
@@ -67,6 +70,11 @@ public class RecoService {
 		Connection conn = getConnection();
 		Recommendation reco = recoDao.selectReco(conn, rno);
 		
+		// 댓글 조회 추가
+		List<Reco_Review> reviewList = recoDao.selectReviewList(conn, rno);
+		
+		reco.setReviewList(reviewList);
+
 		close(conn);
 		
 		return reco;

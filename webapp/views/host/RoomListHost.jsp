@@ -53,11 +53,11 @@
 								<table summary="숙소목록">
 									<colgroup>
 										<col style="width:9.2%">
-										<col style="width:20%">
+										<col style="width:26%">
 										<col style="width:9.2%">
 										<col style="width:12.8%">
 										<col style="width:12.8%">
-										<col style="width:30%">
+										<col style="width:24%">
 									</colgroup>
 									<thead>
 										<tr>
@@ -76,7 +76,7 @@
 											<c:forEach var="room" items="${ roomList }">													
 												<tr>
 													<td>${ no = no + 1 }</td>    <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
-													<td class="al_l"><a href="#">  
+													<td class="al_l"><a href="${ contextPath }/room/reserve/detail?roomNo=${ room.roomNo }">  
 													<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}" class="roomlist_img">
 													</a></td>
 													<td><span class="roomlist_status" 

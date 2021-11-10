@@ -1,8 +1,11 @@
 package reservation.model.service;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import common.model.vo.RoomReview;
 
@@ -85,16 +88,38 @@ public class ReservationService {
 	}
 
 
-	// 숙소 예약 화면(디테일 뷰) 리뷰 조회 
-	public List<RoomReview> selectRoomReview(int roomNo) {
+//	// 숙소 예약 화면(디테일 뷰) 리뷰 조회 
+//	public List<RoomReview> selectRoomReview(int roomNo) {
+//		Connection conn = getConnection();
+//		
+//		List<RoomReview> roomReviewList = reservationDao.selectRoomReview(conn, roomNo);
+//		
+//		close(conn);
+//		
+//		return roomReviewList;
+//	}
+	
+	// 페이징 처리한 숙소 디테일뷰 리뷰 조회 
+	public Map<String, Object> selectRoomReview(int page, int roomNo) {
 		Connection conn = getConnection();
 		
-		List<RoomReview> roomReviewList = reservationDao.selectRoomReview(conn, roomNo);
+		int reviewCount = reservationDao.getReviewCount(conn, roomNo);
+		
+		/* pageInfo 객체 생성 => 3 : 하단에 보여질 페이지 목록 수, 5 : 한 페이지에 보여질 게시글 최대 개수 : 2*/
+		PageInfo reviewPi = new PageInfo(page, reviewCount, 5, 2);
+		
+		/* 페이징 처리 된 리뷰 목록 조회 */
+		List<RoomReview> roomReviewList = reservationDao.selectRoomReview(conn, reviewPi, roomNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("reviewPi", reviewPi);
+		map.put("roomReviewList", roomReviewList);
 		
 		close(conn);
 		
-		return roomReviewList;
+		return map;
 	}
+	
 
 	// 예약 신청 버튼 클릭 후 확인 버튼 클릭 시 예약자 정보 삽입 
 	public int insertReservation(Member loginUser, Reservation reserveInfo) {
@@ -206,6 +231,8 @@ public class ReservationService {
 		
 		return lodgeCompletion;
 	}
+
+	
 
 
 

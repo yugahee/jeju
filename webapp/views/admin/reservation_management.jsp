@@ -78,59 +78,59 @@ scope="application"/>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">예약 관리</div>
-					<form method="get" action="${ contextPath }/admin/userMg01">
-	                    <div class="calendar">
+					<form method="get" action="${ contextPath }/admin/resvMg">
+	                    <!-- <div class="calendar">
 	                        <p class="ctit">기간 검색</p>
 	                        <div class="inp_text">
 	                            <input type="date" name="startDate" > ~ <input type="date" name="endDate">
 	                        </div>
-	                    </div>
+	                    </div> -->
 						<div class="selectbox">
 							<button class="title" type="button" title="예약상태">예약상태</button>
 							<ul class="selList" style="max-height: 0px; display: none;">
 								<li>
-									<input type="radio" value="" class="option" id="select_res0" name="searchCondition">
+									<input type="radio" value="전체" class="option" id="select_res0" name="searchCondition">
 									<label for="select_res0">전체</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res1" name="searchCondition">
+									<input type="radio" value="예약신청" class="option" id="select_res1" name="searchCondition">
 									<label for="select_res1">예약신청</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res2" name="searchCondition">
-									<label for="select_res2">수락/결제 대기</label>
+									<input type="radio" value="결제대기" class="option" id="select_res2" name="searchCondition">
+									<label for="select_res2">결제대기</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res3" name="searchCondition">
-									<label for="select_res3">취소/만료/거절</label>
+									<input type="radio" value="예약완료" class="option" id="select_res1" name="searchCondition">
+									<label for="select_res1">예약완료</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res4" name="searchCondition">
-									<label for="select_res4">예약완료</label>
+									<input type="radio" value="예약취소" class="option" id="select_res3" name="searchCondition">
+									<label for="select_res3">예약취소</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_res5" name="searchCondition">
-									<label for="select_res5">숙박완료</label>
+									<input type="radio" value="숙박완료" class="option" id="select_res4" name="searchCondition">
+									<label for="select_res4">숙박완료</label>
+								</li>
+								<li>
+									<input type="radio" value="리뷰완료" class="option" id="select_res5" name="searchCondition">
+									<label for="select_res5">리뷰완료</label>
 								</li>
 							</ul>
 						</div>
 						<div class="selectbox">
 							<button class="title" type="button" title="검색 조건">검색 조건</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
+							<ul class="selList" style="max-height: 0px; display: none;">														
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op1" name="searchCondition2">
+									<input type="radio" value="예약번호" class="option" id="select_search_op1" name="searchCondition2">
 									<label for="select_search_op1">예약번호</label>
-								</li>
+								</li>								
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op2" name="searchCondition2">
-									<label for="select_search_op1">숙소명</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="select_search_op3" name="searchCondition2">
+									<input type="radio" value="호스트ID" class="option" id="select_search_op3" name="searchCondition2">
 									<label for="select_search_op3">호스트 ID</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="select_search_op4" name="searchCondition2">
+									<input type="radio" value="게스트ID" class="option" id="select_search_op4" name="searchCondition2">
 									<label for="select_search_op4">게스트 ID</label>
 								</li>
 							</ul>
@@ -143,26 +143,11 @@ scope="application"/>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
-						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
-								</li>
-							</ul>
-						</div>
+						<p class="totalCnt">총 ${listCount} 개</p>						
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">				
 				<div class="tblType3 noBorT noBorB boardList">
 					<table summary="예약 테이블">
 						<caption>예약 테이블</caption>
@@ -191,86 +176,96 @@ scope="application"/>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="reserve" items="${ reserveList }" varStatus="status">
 							<tr onclick="showLayer('reservPop')">
-								<td>12222</td>								
-								<td>제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
+								<td>${ reserve.room_reserve }</td>								
+								<td>${ reserve.room_info.roomName }</td>
+								<td>${ reserve.room_info.userId }</td>
+								<td>${ reserve.reserve_state }</td>
+								<td>${ reserve.reserve_num }</td>
+								<td>${ reserve.guest }</td>
+								<td>${ reserve.pone }</td>
+								<td>
+									<c:choose>
+										<c:when test="${ reserve.payment_info.payDate != null}">
+											<fmt:formatDate value="${ reserve.payment_info.payDate }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/>											
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${ reserve.payment_info.price != 0}">
+											<fmt:formatNumber value="${ reserve.payment_info.price }" groupingUsed="true" />											
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
-							<tr onclick="showLayer('reservPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
-							</tr>
-							<tr onclick="showLayer('reservPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
-							</tr>
-							<tr onclick="showLayer('reservPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까 제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
-							</tr>
-							<tr onclick="showLayer('reservPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
-							</tr>
-							<tr onclick="showLayer('reservPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>hosthost</td>
-								<td>취소/만료/거절</td>
-								<td>3</td>
-								<td>guestguest</td>
-								<td>010-3581-1513</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>150,000</td>
-							</tr>
+							</c:forEach>				
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/resvMg?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/resvMg?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/resvMg?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/resvMg?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/resvMg?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
+				</c:when>
+				<c:otherwise>
+					<div class="noData">
+		                <p>해당 정보가 없습니다</p>
+		                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+		            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>

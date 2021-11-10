@@ -83,14 +83,30 @@
 					</div>
 					
 					
-		<%-- 	 	<%
-					String[] address;
+			<%--  	<%
+					String[] roomFac;
 					if( room.getRoomFac() != null) {
-						address = room.getRoomFac().split("\\|"); // 3개짜리 배열로 잘라짐
+						roomFac = room.getRoomFac().split("\\,"); // 배열로 잘라짐
 					} else {
-						address = new String[] {"", "", ""};
+						roomFac = new String[] {"", "", "", "", ""};
 					}
-				%>  --%>
+					
+					// 여기 아래부터 에러 
+					
+					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
+							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
+					
+					int index = 0;
+					String[] samDefaultFac = null;
+					for( int i = 0; i < defaultFac.length; i++) {
+						for( int j = 0; j < roomFac.length; j++) {
+							if(defaultFac[i].equals(roomFac[i])) {
+								samDefaultFac[index++] = roomFac[i];
+							}
+						}
+					}
+					
+				%> --%>  
 					
 					
 					<!--숙소 시설 글씨-->
@@ -106,25 +122,25 @@
 						</ul>
 						<span class="minititle_text">기본 시설</span>
 						<ul class="text_group">
-							<li>TV </li> <li>에어컨</li> <li>와이파이</li> 
+							<li><%-- <%= samDefaultFac[0] %> --%> </li> <li>에어컨</li> <li>와이파이</li> 
 							<li>전기포트</li> <li>전기포트</li>  <li>전자렌지</li>
 							<li>밥솥 </li> <li>수건</li> <li>식기</li> 
 							<li>다리미</li> <li>헤어드라이기</li>  <li>냉장고</li>
 						</ul>	
 						<span class="minititle_text">추가 시설</span>
 						<ul class="text_group">
-							<li>욕조 </li> <li>세탁기</li> <li>건조기</li> 
+							<li><%-- <%= roomFac[1] %> --%> </li> <li>세탁기</li> <li>건조기</li> 
 							<li>무료주차</li> <li>위생용품</li>  <li>바비큐</li>
 							<li>테라스 </li> 
 						</ul>	
 						<span class="minititle_text">특별 시설</span>
 						<ul class="text_group">
-							<li>가족/어린이 환영 </li> <li>반려동물 입실가능</li> <li>반려동물 입실금지</li> 
+							<li><%-- <%= roomFac[2] %> --%> </li> <li>반려동물 입실가능</li> <li>반려동물 입실금지</li> 
 							<li>휠체어 사용가능</li>  
 						</ul>
 						<span class="minititle_text">안전 시설</span>
 						<ul class="text_group">
-							<li>화재감지기 </li> <li>구급상자</li> <li>실내흡연 불가능</li> 
+							<li><%-- <%= roomFac[3] %> --%> </li> <li>구급상자</li> <li>실내흡연 불가능</li> 
 							<li>소화기</li>
 						</ul>
 						<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
@@ -169,7 +185,7 @@
 					</div>
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">후기 30개</span>
+						<span class="text3">후기 ${reviewPi.listCount}</span>
 					</div>
 				<!-- <div class="reviewFlexBox"> -->
 					<div class="reviewBox">
@@ -194,54 +210,41 @@
 						</ul>												
 					</div>
 				<!-- </div> -->
-					<!--페이징-->
-						 <div class="paging">   <!-- ${ contextPath }/board/list?page=1${ searchParam } 검색조건도 추가하기 href 속성에!! -->
-							<span class="first"><a href="${ contextPath }/host/roomlist?page=1"><span class="blind">첫페이지</span></a></span>
+					<!-- 페이징 -->
+						<div class="paging pagingMargin">
+							<span class="first"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=1"><span class="blind">첫페이지</span></a></span>
 							<c:choose>
-								<c:when test="${ pi.page > 1 }">
-								<span class="prev"><a href="${ contextPath }/host/roomlist?page=${ pi.page - 1}"><span class="blind">이전페이지</span></a></span>
+								<c:when test="${ reviewPi.page > 1 }">
+								<span class="prev"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.page - 1 }"><span class="blind">이전페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
 								</c:otherwise>
-							</c:choose>
+							</c:choose>	
 							
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:forEach var="r" begin="${ reviewPi.startPage }" end="${ reviewPi.endPage }">
 							<c:choose>
-								<c:when test="${ p eq pi.page }">  <!-- 현재 페이지일 경우 -->
-								<span class="current">${ p }</span>	
+								<c:when test="${ r eq reviewPi.page }">  <!-- 현재 페이지일 경우 -->
+								<span class="current">${ r }</span>
 								</c:when>
 								<c:otherwise>
-								<a href="${ contextPath }/host/roomlist?page=${ p }">${ p }</a>
+								<a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ r }">${ r }</a>
 								</c:otherwise>
 							</c:choose>
 							</c:forEach>
 							
 							<c:choose>
-								<c:when test="${ pi.page < pi.maxPage }">
-								<span class="next"><a href="${ contextPath }/host/roomlist?page=${ pi.page + 1 }"><span class="blind">다음페이지</span></a></span>
+								<c:when test="${ reviewPi.page < reviewPi.maxPage }">
+								<span class="next"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.page + 1 }"><span class="blind">다음페이지</span></a></span>
 								</c:when>
 								<c:otherwise>
 								<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
 								</c:otherwise>
 							</c:choose>
 							
-							<span class="last"><a href="${ contextPath }/host/roomlist?page=${ pi.maxPage }"><span class="blind">마지막페이지</span></a></span>
-							
-						</div> 
+							<span class="last"><a href="${ contextPath }/room/reserve/detail?roomNo=${roomNo}&page=${ reviewPi.maxPage }"><span class="blind">마지막페이지</span></a></span>
+						</div>
 					
-					<!-- <div class="paging">
-						<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-						<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-						<a href="#">1</a>
-						<span class="current">2</span>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-						<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
-					</div> -->
-
 			</div>	
 			<div class="box">
 		    	<form name="reserveinfo" method="get">

@@ -76,6 +76,9 @@
 				});
 				
 				calendar.render();
+			},
+			error : function(e){
+				console.log(e);
 			}
 		});
 		
