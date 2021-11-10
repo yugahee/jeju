@@ -85,6 +85,7 @@ public class LoginCheckFilter implements Filter {
 		permitList.add("/jeju/findId");
 		permitList.add("/jeju/checkId");
 		permitList.add("/jeju/join");
+		permitList.add("/jeju/pwdModify");
 		permitList.add("/jeju/room/reservation");
 		permitList.add("/jeju/room/reserve/detail");
 		permitList.add("/jeju/reservation/checkView");
@@ -102,6 +103,7 @@ public class LoginCheckFilter implements Filter {
 		permitList.add("/jeju/mbti/test3");
 		permitList.add("/jeju/mbti/test4");
 		permitList.add("/jeju/admin/login");
+		
 		
 		resourceList = new ArrayList<String>();
 		resourceList.add("/resources/");
