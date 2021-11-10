@@ -1,9 +1,9 @@
 package reservation.model.vo;
 
 import java.sql.Date;
-import java.util.List;
 
 import host.model.vo.Rooms;
+import payment.model.vo.Payment;
 
 
 public class Reservation {
@@ -17,12 +17,14 @@ public class Reservation {
 	private String guest;			   // 게스트ID
 	private int room_no;			   // 숙소번호
 	private Rooms room_info;	   		// 숙소정보
+	private Payment payment_info;		// 결제 정보
 	
 	public Reservation() {}
 
-
+	
+	
 	public Reservation(int room_reserve, Date start_date, Date end_date, String person_reserve, String pone,
-			String reserve_state, int reserve_num, String guest, int room_no, Rooms room_info) {
+			String reserve_state, int reserve_num, String guest, int room_no, Rooms room_info, Payment payment_info) {
 		super();
 		this.room_reserve = room_reserve;
 		this.start_date = start_date;
@@ -34,8 +36,8 @@ public class Reservation {
 		this.guest = guest;
 		this.room_no = room_no;
 		this.room_info = room_info;
+		this.payment_info = payment_info;
 	}
-
 
 
 
@@ -120,6 +122,20 @@ public class Reservation {
 	public void setRoom_info(Rooms room_info) {
 		this.room_info = room_info;
 	}
+	
+	
+
+
+	public Payment getPayment_info() {
+		return payment_info;
+	}
+
+
+
+	public void setPayment_info(Payment payment_info) {
+		this.payment_info = payment_info;
+	}
+
 
 
 	@Override
@@ -127,11 +143,11 @@ public class Reservation {
 		return "Reservation [room_reserve=" + room_reserve + ", start_date=" + start_date + ", end_date=" + end_date
 				+ ", person_reserve=" + person_reserve + ", pone=" + pone + ", reserve_state=" + reserve_state
 				+ ", reserve_num=" + reserve_num + ", guest=" + guest + ", room_no=" + room_no + ", room_info="
-				+ room_info + "]";
+				+ room_info + ", payment_info=" + payment_info + "]";
 	}
-	
-	
-	
+
+
+
 	
 
 }

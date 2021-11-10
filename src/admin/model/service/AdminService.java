@@ -1,7 +1,9 @@
 package admin.model.service;
 
-import member.model.vo.Member;
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -12,6 +14,8 @@ import admin.model.dao.AdminDao;
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import host.model.vo.Rooms;
+import member.model.vo.Member;
+import reservation.model.vo.Reservation;
 
 public class AdminService{
 	
@@ -187,4 +191,26 @@ public class AdminService{
 		
 		return returnMap;
 	}
+
+	public Map<String, Object> selectReserveList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getReserveListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Reservation> reserveList = adminDao.selectReserveList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("reserveList", reserveList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+	
+	
+
 }

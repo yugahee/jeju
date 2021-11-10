@@ -70,9 +70,7 @@ public class PaymentInsertServlet extends HttpServlet {
 		}	
 		
 		
-		int paymentResult = new PaymentService().paymentInsert(reserveNo, totalPrice);		
-		
-		System.out.println("포인트insert : " + pointResult + "\n 멤버포인트 : " +  userPointResult + "\n 결제insert : " + paymentResult);
+		int paymentResult = new PaymentService().paymentInsert(reserveNo, totalPrice);				
 		
 		String msg = "";
 		if(pointResult > 0 && userPointResult > 0 && paymentResult > 0) {
