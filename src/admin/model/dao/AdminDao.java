@@ -16,6 +16,8 @@ import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
+import payment.model.vo.Payment;
+import reservation.model.vo.Reservation;
 import recommendation.model.vo.Recommendation;
 
 public class AdminDao {
@@ -674,5 +676,91 @@ public class AdminDao {
 		return reco;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+
+	public int getReserveListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = adminQuery.getProperty("reserveCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
+
+	public List<Reservation> selectReserveList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		List<Reservation> reserveList = new ArrayList<>();
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("reserveList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reservation reserve = new Reservation();
+				reserve.setRoom_reserve(rset.getInt("room_reserve"));
+				reserve.setReserve_state(rset.getString("reserve_state"));
+				reserve.setReserve_num(rset.getInt("reserve_num"));
+				reserve.setGuest(rset.getString("guest"));
+				reserve.setPone(rset.getString("pone"));
+				
+				Rooms room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				room.setUserId(rset.getString("user_id"));
+				reserve.setRoom_info(room);
+				
+				Payment pay = new Payment();
+				pay.setPrice(rset.getInt("price"));
+				pay.setPayDate(rset.getDate("pay_date"));
+				reserve.setPayment_info(pay);
+				
+				reserveList.add(reserve);
+			}
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reserveList;
+	}
 	
 }

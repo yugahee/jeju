@@ -1,11 +1,18 @@
 package admin.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import admin.model.service.AdminService;
+import admin.model.vo.Search;
 
 /**
  * Servlet implementation class adminMainServlet
@@ -26,6 +33,24 @@ public class adminReservationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int page = 1;
+		
+		if(request.getParameter("page") !=null) {
+	         page = Integer.parseInt(request.getParameter("page"));
+	    }
+				
+		String searchCondition = request.getParameter("searchCondition");
+		String searchCondition2 = request.getParameter("searchCondition2");
+		String searchValue = request.getParameter("searchValue");
+		Date startDate = Date.valueOf(request.getParameter("startDate"));
+		Date endDate = Date.valueOf(request.getParameter("endDate"));
+		
+		Map<String, Object> map = new AdminService().selectReserveList(page, new Search(searchCondition, searchCondition2, searchValue, startDate, endDate));
+		
+		request.setAttribute("listCount", map.get("listCount"));
+	    request.setAttribute("pi", map.get("pi"));
+	    request.setAttribute("reserveList", map.get("reserveList"));
+		
 		request.getRequestDispatcher("/views/admin/reservation_management.jsp").forward(request, response);
 	}
 

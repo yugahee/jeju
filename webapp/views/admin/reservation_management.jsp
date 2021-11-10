@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -68,69 +72,74 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>			
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 && !empty param.searchValue && !empty param.startDate && !empty param.endDate }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }&startDate=${param.startDate}&endDate=${param.endDate}"/>
+			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">예약 관리</div>
-                    <div class="calendar">
-                        <p class="ctit">기간 검색</p>
-                        <div class="inp_text">
-                            <input type="date"> ~ <input type="date">
-                        </div>
-                    </div>
-					<div class="selectbox">
-						<button class="title" type="button" title="예약상태">예약상태</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_res0" name="select_user">
-								<label for="select_res0">전체</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res1" name="select_user">
-								<label for="select_res1">예약신청</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res2" name="select_user">
-								<label for="select_res2">수락/결제 대기</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res3" name="select_user">
-								<label for="select_res3">취소/만료/거절</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res4" name="select_user">
-								<label for="select_res4">예약완료</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res5" name="select_user">
-								<label for="select_res5">숙박완료</label>
-							</li>
-						</ul>
-					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">검색 조건</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">예약번호</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op1">숙소명</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">호스트 ID</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
-								<label for="select_search_op4">게스트 ID</label>
-							</li>
-						</ul>
-					</div>					
-					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
-					</div>
+					<form method="get" action="${ contextPath }/admin/userMg01">
+	                    <div class="calendar">
+	                        <p class="ctit">기간 검색</p>
+	                        <div class="inp_text">
+	                            <input type="date" name="startDate" > ~ <input type="date" name="endDate">
+	                        </div>
+	                    </div>
+						<div class="selectbox">
+							<button class="title" type="button" title="예약상태">예약상태</button>
+							<ul class="selList" style="max-height: 0px; display: none;">
+								<li>
+									<input type="radio" value="" class="option" id="select_res0" name="searchCondition">
+									<label for="select_res0">전체</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_res1" name="searchCondition">
+									<label for="select_res1">예약신청</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_res2" name="searchCondition">
+									<label for="select_res2">수락/결제 대기</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_res3" name="searchCondition">
+									<label for="select_res3">취소/만료/거절</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_res4" name="searchCondition">
+									<label for="select_res4">예약완료</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_res5" name="searchCondition">
+									<label for="select_res5">숙박완료</label>
+								</li>
+							</ul>
+						</div>
+						<div class="selectbox">
+							<button class="title" type="button" title="검색 조건">검색 조건</button>
+							<ul class="selList" style="max-height: 0px; display: none;">
+								<li>
+									<input type="radio" value="" class="option" id="select_search_op1" name="searchCondition2">
+									<label for="select_search_op1">예약번호</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_search_op2" name="searchCondition2">
+									<label for="select_search_op1">숙소명</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_search_op3" name="searchCondition2">
+									<label for="select_search_op3">호스트 ID</label>
+								</li>
+								<li>
+									<input type="radio" value="" class="option" id="select_search_op4" name="searchCondition2">
+									<label for="select_search_op4">게스트 ID</label>
+								</li>
+							</ul>
+						</div>					
+						<div class="inp_text search">
+							<input type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력하세요">
+							<a href="#" class="btn_sch">검색</a>
+						</div>
+					</form>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
@@ -170,7 +179,7 @@ scope="application"/>
 						</colgroup>
 						<thead>
 							<tr>
-								<th>NO</th>
+								<th>예약번호</th>								
 								<th>숙소명</th>
 								<th>호스트ID</th>
 								<th>예약 상태</th>
@@ -183,7 +192,7 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<tr onclick="showLayer('reservPop')">
-								<td>123456</td>
+								<td>12222</td>								
 								<td>제주라도 넘어갈까</td>
 								<td>hosthost</td>
 								<td>취소/만료/거절</td>
