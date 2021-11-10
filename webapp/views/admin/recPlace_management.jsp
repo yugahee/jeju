@@ -283,27 +283,29 @@ scope="application"/>
 				for(var i = 0; i < chkLength; i++){
 					arr.arrVal.push(chk[i].value);	// 체크된 값 배열에 담기
 				}
-			}
-			if(confirm("정말 삭제하시겠습니까?")){
-				$.ajax({
-					url : "${contextPath}/admin/recDelete",
-					data : arr,
-			        //dataType: "json",
-					type : "post",
-					success : function(arr){
-						if(arr){
-							alert('삭제되었습니다');
-							location.reload();
-						}else{
-							alert('실패');
+				if(confirm("정말 삭제하시겠습니까?")){
+					$.ajax({
+						url : "${contextPath}/admin/recDelete",
+						data : arr,
+				        //dataType: "json",
+						type : "post",
+						success : function(arr){
+							if(arr){
+								alert('삭제되었습니다');
+								location.reload();
+							}else{
+								alert('실패');
+							}
+						},
+						error : function(e){
+							console.log(e);
 						}
-					},
-					error : function(e){
-						console.log(e);
-					}
-				});
+					});
+				}else{
+					return false;
+				}
 			}else{
-				return false;
+				alert('선택된 추천장소가 없습니다.');
 			}
 		}
 	</script>

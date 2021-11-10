@@ -924,4 +924,25 @@ public class AdminDao {
 		}
 		return result;
 	}
+
+	public int pwdReset(Connection conn, String checkKey, String to_email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("resetPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, checkKey);
+			pstmt.setString(2, to_email);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

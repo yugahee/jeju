@@ -562,6 +562,11 @@ WHERE RNUM BETWEEN ? AND ?
 	DELETE RECOMMENDATION
      WHERE RECO_NO = ?
 </entry>
+<entry key="resetPwd">  
+	UPDATE MEMBER
+	   SET USER_PWD = ?
+     WHERE EMAIL = ?
+</entry>
 
 
 
