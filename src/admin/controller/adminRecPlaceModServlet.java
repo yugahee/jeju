@@ -95,9 +95,7 @@ public class adminRecPlaceModServlet extends HttpServlet {
 		rec.setRecoKeyword(recoKeyword);
 		rec.setRecoExpl(recoExpl);
 		rec.setRecoImage(recoImage);
-		rec.setImageName(imageName);
-		
-		System.out.println(multiRequest.getFilesystemName(uploadName));
+		rec.setImageName(imageName);		
 		
 		if(multiRequest.getFilesystemName(uploadName) != null) {
 			rec.setRecoImage("/resources/uploadFiles/");

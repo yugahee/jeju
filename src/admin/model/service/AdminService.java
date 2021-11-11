@@ -248,6 +248,20 @@ public class AdminService{
 		return result;
 	}
 
+	public int insertRecoPhoto(Recommendation rec) {
+		Connection conn = getConnection();		
+		int recoResult = adminDao.insertReco(conn, rec);
+		if(recoResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return recoResult;
+	}
+
 	public int deleteReco(String[] arr) {
 		Connection conn = getConnection();		
 		int result = adminDao.deleteRec(conn, arr);
@@ -261,12 +275,6 @@ public class AdminService{
 		
 		return result;
 	}
-
-	public int checkEmail(String to_email) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 	public int pwdReset(String checkKey, String to_email) {
 		Connection conn = getConnection();		
