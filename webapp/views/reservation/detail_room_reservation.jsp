@@ -330,11 +330,20 @@
 	    	 if( '${loginUser.user_type}' == '게스트') {
 			   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
 			     ch.click();    // 레이아웃 닫기
-		    
-		    	 alert("예약 신청이 완료되었습니다."); 
-			    
-			     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
-			     document.forms.reserveinfo.submit();
+			     
+			     let checkIn = document.querySelector('#checkIn').value();
+			     let checkOut = document.querySelector("#checkOut").value();
+		    	
+			     for( let possiReserve in '${possibleReservList}') {
+			    	 if('${possiReserve.start_date}' == checkIn && 
+			    		'${possiReserve.end_date}' == checkOut ) {
+			    		 alert('예약가능한 날짜가 아닙니다. 다시 예약해주세요.')
+			    	 } else {
+			    		 alert("예약 신청이 완료되었습니다."); 
+					     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
+					     document.forms.reserveinfo.submit();
+			    	 }
+			     }
 	    	 } else{
 	    	 	alert("로그인 후 예약신청 바랍니다.")
 	    	 	location.href="${contextPath}/login";

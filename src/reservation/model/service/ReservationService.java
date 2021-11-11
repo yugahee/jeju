@@ -232,13 +232,15 @@ public class ReservationService {
 		return lodgeCompletion;
 	}
 
-//	public List<Reservation> possibleReservation() {
-//		Connection conn = getConnection();
-//		
-//		 
-//		
-//		return null;
-//	}
+	public List<Reservation> possibleReservation(int roomNo) {
+		Connection conn = getConnection();
+		
+		List<Reservation> possibleReservList = reservationDao.possibleReservation(conn, roomNo);
+		 
+		close(conn);
+		
+		return possibleReservList;
+	}
 
 
 	
