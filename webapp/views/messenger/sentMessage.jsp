@@ -156,7 +156,13 @@
 		</div>
 	</div>
 </div>
-
+<c:if test="${!empty reportType}">
+<script>
+	$(function(){
+		showLayer('writingMessage');		
+	});
+</script>
+</c:if>
 
 <!-- 해당 메시지 상세 보기 & 상대방이 메시지를 읽지 않은 경우 수정 및 삭제 기능과 연결 -->
 <script>
@@ -311,14 +317,23 @@
                             <th>카테고리</th>
                             <td>
                                 <div class="selectbox">
-                                    <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
+                                    <button class="title" type="button" title="카테고리 선택">
+                                    	<c:choose>
+                                    		<c:when test="${reportType eq '신고'}">
+                                    			2. 신고
+                                    		</c:when>
+                                    		<c:otherwise>
+	                                    		카테고리를 선택하세요
+                                    		</c:otherwise>
+                                    	</c:choose>
+                                    </button>
                                     <ul class="selList">
                                         <li>
                                             <input type="radio" value="문의" class="option" id="sel1_1" name="category" />
                                             <label for="sel1_1">1. 문의</label>
                                         </li>
                                         <li>
-                                            <input type="radio" value="신고" class="option" id="sel1_2" name="category" />
+                                            <input type="radio" value="신고" class="option" id="sel1_2" name="category" <c:if test="${reportType eq '신고'}">checked="checked"</c:if> />
                                             <label for="sel1_2">2. 신고</label>
                                         </li>
                                     </ul>
@@ -331,7 +346,7 @@
                             <th>피신고인</th>
                             <td>
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." />
+                                    <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." <c:if test="${!empty reportUser}">value="${reportUser}" readonly</c:if> />
                                 </div>
                             </td>
                         </tr>

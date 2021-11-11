@@ -34,7 +34,7 @@
 										</c:when>
 										<c:when test="${ reserve.reserve_state eq '숙박완료' }">
 											<a href="${contextPath}/roomReview?roomNo=${reserve.room_info.roomNo}&reserveNo=${reserve.room_reserve}" class="btn btnType1 btnSizeS"><span>리뷰쓰기</span></a>
-											<a href="#" class="btn btnType2 btnSizeS"><span>신고하기</span></a>
+											<a href="${contextPath}/messenger/list/sent?reportType=신고&reportUser=${reserve.room_info.userId}" class="btn btnType2 btnSizeS"><span>신고하기</span></a>
 										</c:when>
 										<c:otherwise>				
 											<a href="${contextPath}/roomReview/update?reserveNo=${reserve.room_reserve}" class="btn btnType1 btnSizeS"><span>리뷰수정</span></a>											

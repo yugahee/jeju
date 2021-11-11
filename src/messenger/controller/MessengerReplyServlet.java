@@ -1,10 +1,6 @@
-package reservation.controller;
+package messenger.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import reservation.model.service.ReservationService;
-import reservation.model.vo.Reservation;
+import member.model.vo.Member;
+import messenger.model.vo.Messenger;
 
 /**
- * Servlet implementation class ReserveCheckServlet
+ * Servlet implementation class MessengerReplyServlet
  */
-@WebServlet("/reserve/dateCheck")
-public class ReserveCheckServlet extends HttpServlet {
+@WebServlet("/messenger/reply")
+public class MessengerReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserveCheckServlet() {
+    public MessengerReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,24 +38,18 @@ public class ReserveCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
-		Date startDate = Date.valueOf(request.getParameter("startDate")); 
-		Date endDate = Date.valueOf(request.getParameter("endDate"));
+		int msg_no = Integer.parseInt(request.getParameter("msg_no"));
+		String from_user = request.getParameter("from_user");
+		String to_user = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
+		String reply_content = request.getParameter("Rcontent");
 		
-		// 예약 체킹
-		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
+		Messenger messenger = new Messenger();
+		messenger.setMsg_no(msg_no);
+		messenger.setFrom_user(from_user);
+		messenger.setTo_user(to_user);
+		messenger.setReply_content(reply_content);
 		
-		System.out.println(possibleReservList);
-		
-	
-		
-		PrintWriter out = response.getWriter();
-		
-		//out.print("fail");	
-
-		out.print("success");
-		
-		
+		System.out.println(messenger);
 	}
 
 }

@@ -287,66 +287,38 @@ scope="application"/>
 					<tbody>
 						<tr>
 							<th>예약번호</th>
-							<td>123456</td>
+							<td id="rNo">123456</td>
 						</tr>
 						<tr>
 							<th>숙소명</th>
-							<td>제주라도 넘어갈까 제주라도 넘어갈까</td>
+							<td id="rName">제주라도 넘어갈까 제주라도 넘어갈까</td>
 						</tr>
 						<tr>
 							<th>게스트ID</th>
-							<td>user03</td>
+							<td id="rGuest">user03</td>
 						</tr>
 						<tr>
 							<th>결제 금액</th>
-							<td>250,000</td>
+							<td id="rPrice">250,000</td>
 						</tr>
 						<tr>
 							<th>결제 시간</th>
-							<td>2021.10.15 08:10:10</td>
+							<td id="rPaydate">2021.10.15 08:10:10</td>
 						</tr>
 						<tr>
 							<th>예약 상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="예약신청" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">예약신청</label>
-										</li>
-										<li>
-											<input type="radio" value="결제대기" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">결제대기</label>
-										</li>
-										<li>
-											<input type="radio" value="예약취소" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">예약취소</label>
-										</li>
-                                        <!--  -->
-										<li>
-											<input type="radio" value="예약완료" class="option" id="sel1_4" name="select1" />
-											<label for="sel1_4">예약완료</label>
-										</li>
-										<li>
-											<input type="radio" value="숙박완료" class="option" id="sel1_5" name="select1" />
-											<label for="sel1_5">숙박완료</label>
-										</li>
-									</ul>
+								<div class="selectbox" id="rState">
+									
 								</div>
 							</td>
-						</tr>
-						<tr class="price_back" style="display: none;">
-							<th>환불금액</th>
-                            <td>350,000</td>
-						</tr>
+						</tr>						
 					</tbody>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <button type="button" class="btn btnType1 btnSizeM" onclick="stateUpdate(); hideLayer('reservPop');"><span>적용</span></button>
+				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('reservPop');"><span>취소</span></button>
             </div>
 		</div> 
 	</div>
@@ -359,8 +331,108 @@ scope="application"/>
 			data : {reserveNo : reserveNo},
 			dataType : "json",
 			type : "post",
-			success : function(result){					
+			success : function(result){							
+				document.getElementById("rNo").innerText = result.room_reserve;
+				document.getElementById("rName").innerText = result.room_info.roomName;
+				document.getElementById("rGuest").innerText = result.guest;
+				
+				if(result.payment_info.price != 0){
+					document.getElementById("rPrice").innerText = result.payment_info.price;
+					document.getElementById("rPaydate").innerText = result.payment_info.payDate;					
+				}else{
+					document.getElementById("rPrice").innerText = "-";
+					document.getElementById("rPaydate").innerText = "-";
+				}
+				
+				let html = "";
+				
+				if(result.reserve_state == "예약신청"){
+					html = '<button class="title" type="button" title="상태" id="rState">예약신청</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" checked="checked" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}else if(result.reserve_state == "결제대기"){
+					html = '<button class="title" type="button" title="상태" id="rState">결제대기</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" checked="checked" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}else if(result.reserve_state == "예약완료"){
+					html = '<button class="title" type="button" title="상태" id="rState">예약완료</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" checked="checked" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}else if(result.reserve_state == "예약취소"){
+					html = '<button class="title" type="button" title="상태" id="rState">예약취소</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" checked="checked" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}else if(result.reserve_state == "숙박완료"){
+					html = '<button class="title" type="button" title="상태" id="rState">숙박완료</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" checked="checked" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}else{
+					html = '<button class="title" type="button" title="상태" id="rState">리뷰완료</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="예약신청" class="option" id="sel1_1" name="reserState" /><label for="sel1_1">예약신청</label></li>'
+						+ '<li><input type="radio" value="결제대기" class="option" id="sel1_2" name="reserState" /><label for="sel1_2">결제대기</label></li>'
+						+ '<li><input type="radio" value="예약취소" class="option" id="sel1_3" name="reserState" /><label for="sel1_3">예약취소</label></li>'                                        
+						+ '<li><input type="radio" value="예약완료" class="option" id="sel1_4" name="reserState" /><label for="sel1_4">예약완료</label></li>'
+						+ '<li><input type="radio" value="숙박완료" class="option" id="sel1_5" name="reserState" /><label for="sel1_5">숙박완료</label></li>'
+						+ '<li><input type="radio" value="리뷰완료" class="option" id="sel1_5" name="reserState" checked="checked" /><label for="sel1_5">리뷰완료</label></li>'
+						+ '</ul>';
+				}
+				
+				document.getElementById("rState").innerHTML = html;
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function stateUpdate(){
+		$.ajax({
+			url : "${contextPath}/admin/reserveUpdate",
+			data : {reserveNo : $("#rNo").text(),
+					rstate : $("input[name='reserState']:checked").val()
+			},
+			dataType : "json",
+			type : "post",
+			success : function(result){	
 				console.log(result);
+				if(result == "success"){
+					alert("성공적으로 적용되었습니다.");
+					location.reload();
+				}else{
+					alert("업데이트가 되지 않았습니다ㅜㅜ");
+				}
 			},
 			error : function(e){
 				console.log(e);

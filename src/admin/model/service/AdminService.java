@@ -309,6 +309,7 @@ public class AdminService{
 		return result;
 	}
 
+
 	public Map<String, Object> selectMsgList(int page, Search search) {
 		Connection conn = getConnection();
 		
@@ -336,6 +337,20 @@ public class AdminService{
 		close(conn);
 		
 		return msg;
+  }
+	public int reserveUpdate(int reserveNo, String reserveState) {
+		Connection conn = getConnection();
+		
+		int result = adminDao.reserveUpdate(conn, reserveNo, reserveState);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
-
 }

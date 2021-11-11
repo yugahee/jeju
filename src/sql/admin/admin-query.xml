@@ -974,4 +974,9 @@ WHERE RNUM BETWEEN ? AND ?
 	LEFT JOIN PAYMENT P ON (ROOM_RESERVE = RECEP_NO)
 	WHERE ROOM_RESERVE = ?
 </entry>
+<entry key="reserveUpdate">
+	UPDATE RESERVATION
+	SET RESERVE_STATE = ?
+	WHERE ROOM_RESERVE = ?
+</entry>
 </properties>
