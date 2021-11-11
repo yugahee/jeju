@@ -45,6 +45,7 @@ public class ReservationCheckServlet extends HttpServlet {
 		
 		// 예약리스트 가져오기
 		List<Reservation> reservationList = new ReservationService().userReservation(userId);
+		System.out.println(reservationList);
 		
 		Date current = new Date();
 		

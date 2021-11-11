@@ -29,7 +29,7 @@ public class MsgSentListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		// * page : 현재 요청 페이지
 		// 기본적으로 게시판은 1페이지부터 시작
 		int page = 1;
@@ -45,6 +45,18 @@ public class MsgSentListServlet extends HttpServlet {
 		Map<String, Object> map = new MessengerService().selectSentList(page, fromUser);
 
 		//System.out.println(map);
+		
+		// 예약조회에서 신고버튼 누르고 넘어온 경우
+		String reportType = "";
+		String reportUser = "";
+		
+		if(request.getParameter("reportType") != null) {
+			reportType = request.getParameter("reportType");
+			reportUser = request.getParameter("reportUser");
+		}
+		
+		request.setAttribute("reportType", reportType);
+		request.setAttribute("reportUser", reportUser);
 		
 		request.setAttribute("pi", map.get("pi"));
 		request.setAttribute("messengerList", map.get("messengerList"));
