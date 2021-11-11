@@ -306,7 +306,8 @@ public class RecoDao {
 											 , rset.getString("s_comment")
 											 , rset.getDate("write_time")
 											 , rset.getInt("reco_no")
-											 , rset.getString("user_id")));
+											 , rset.getString("user_id")
+											 , rset.getString("public_yn")));
 			}
 			
 		} catch (SQLException e) {
@@ -317,6 +318,27 @@ public class RecoDao {
 		}
 		
 		return reviewList;
+	}
+	
+	// 리뷰 삭제
+	public int deleteReview(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = recoQuery.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, reviewNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -79,35 +79,22 @@
 					<div class="detail_review">
 						<p>회원 리뷰</p>
 						
-					<c:forEach var="review" items="${ reco.reviewList }">
-						<div class="detail_comment">
-							<p>${ review.userId }</p>
-							<div class="rating_star">
-								<span class="starPoint p5">5</span>
+						<c:forEach var="review" items="${ reco.reviewList }">
+							<div class="detail_comment">
+								<p>${ review.userId }</p>
+								<div class="rating_star">
+									<span class="starPoint p5">5</span>
+								</div>
+								<p>${ review.sComment }</p>
+								<p>${ review.writeTime }</p>
+								<c:if test="${ loginUser.user_id == review.userId }">
+								<div class="change_button">
+									<a href="#" class="btnTypeIcon btn_modify">수정</a>
+									<a href="#" onclick= "deleteReview(${ review.recoReviewNo }, ${ review.recoNo });" class="btnTypeIcon btn_delete">삭제</a>
+								</div>
+								</c:if>
 							</div>
-							<p>${ review.sComment }</p>
-							<p>${ review.writeTime }</p>
-							<c:if test="${ loginUser.user_id == review.userId }">
-							<div class="change_button">
-								<a href="#" class="btnTypeIcon btn_modify">수정</a>
-								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
-							</div>
-							</c:if>
-						</div>
-					</c:forEach>
-
-						<div class="detail_comment">
-							<p>id</p>
-							<div class="rating_star">
-								<span class="starPoint p5">5</span>
-							</div>
-							<p>comment</p>
-							<p>202x.xx.xx hh:mm:ss</p>
-							<div class="change_button">
-								<a href="#" class="btnTypeIcon btn_modify">수정</a>
-								<a href="#" class="btnTypeIcon btn_delete">삭제</a>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 					<!-- 한줄평 끝 -->
 					
@@ -135,5 +122,23 @@
 	
 	marker.setMap(map);		// 마커가 지도 위에 표시되도록 설정
 	
-	// marker.setMap(null);		마커 제거 원할 시 실행
+	// marker.setMap(null);		마커 제거
+</script>
+
+<!-- 리뷰 삭제 -->
+<script>
+	function deleteReview(reviewNo, recoNo) {
+		$.ajax({
+			url : "${ contextPath }/reco/deleteReview",
+			type : "post",
+			dataType : "gson",
+			data : { reviewNo : reviewNo, rno : recoNo },
+			success : function(data) {
+				console.log(data);
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	};
 </script>
