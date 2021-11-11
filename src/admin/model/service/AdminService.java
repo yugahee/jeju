@@ -337,5 +337,20 @@ public class AdminService{
 		
 		return msg;
 	}
+	public int reserveUpdate(int reserveNo, String reserveState) {
+		Connection conn = getConnection();
+		
+		int result = adminDao.reserveUpdate(conn, reserveNo, reserveState);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
 }

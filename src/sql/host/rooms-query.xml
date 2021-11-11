@@ -454,6 +454,14 @@
 		   AND STATUS = 'Y'		
 	</entry>
 	
+	<entry key="reserveState">
+		SELECT
+		       COUNT(*)
+		  FROM RESERVATION
+		  JOIN ROOMS USING(ROOM_NO)
+		 WHERE ROOM_NO = ?
+		   AND RESERVE_STATE IN('예약신청', '결제대기', '예약완료')	
+	</entry>
 	
 </properties>
 

@@ -44,7 +44,7 @@ public class ReservationCheckServlet extends HttpServlet {
 		userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
 		
 		// 예약리스트 가져오기
-		List<Reservation> reservationList = new ReservationService().userReservation(userId);
+		List<Reservation> reservationList = new ReservationService().userReservation(userId);		
 		
 		Date current = new Date();
 		

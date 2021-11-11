@@ -1141,4 +1141,24 @@ public class AdminDao {
 				
 		return msg;
 	}
+	public int reserveUpdate(Connection conn, int reserveNo, String reserveState) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("reserveUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reserveState);
+			pstmt.setInt(2, reserveNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
 }

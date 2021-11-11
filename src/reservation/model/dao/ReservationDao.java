@@ -157,6 +157,7 @@ public class ReservationDao {
 				room.setRoomNo(rset.getInt("room_no"));
 				room.setRoomName(rset.getString("room_name"));
 				room.setAddress(rset.getString("address"));
+				room.setUserId(rset.getString("user_id"));
 				room.setStartTime(rset.getString("start_time"));
 				room.setEndTime(rset.getString("end_time"));
 				
@@ -615,7 +616,7 @@ public class ReservationDao {
 			while(rset.next()) {
 				Reservation reserve = new Reservation();
 				reserve.setStart_date(rset.getDate("start_date"));
-				reserve.setEnd_date(rset.getDate("start_date"));
+				reserve.setEnd_date(rset.getDate("end_date"));
 				
 				possibleReservList.add(reserve);
 			}

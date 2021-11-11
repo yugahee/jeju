@@ -562,67 +562,78 @@
 									<ul>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, 'TV') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac1" value="TV" required>
+												<input type="checkbox" name="roomfac" id="fac1" value="TV"
+												<c:if test="${ fn:contains(facArr, 'TV') }">checked</c:if>>
 												<label for="fac1">TV</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '에어컨') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac2" value="에어컨">
+												<input type="checkbox" name="roomfac" id="fac2" value="에어컨"
+												<c:if test="${ fn:contains(facArr, '에어컨') }">checked</c:if>>
 												<label for="fac2">에어컨</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '와이파이') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac3" value="와이파이">
+												<input type="checkbox" name="roomfac" id="fac3" value="와이파이"
+												<c:if test="${ fn:contains(facArr, '와이파이') }">checked</c:if>>
 												<label for="fac3">와이파이</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '전기포트') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac4" value="전기포트">
+												<input type="checkbox" name="roomfac" id="fac4" value="전기포트"
+												<c:if test="${ fn:contains(facArr, '전기포트') }">checked</c:if>>
 												<label for="fac4">전기포트</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '전자렌지') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac5" value="전자렌지">
+												<input type="checkbox" name="roomfac" id="fac5" value="전자렌지"
+												<c:if test="${ fn:contains(facArr, '전자렌지') }">checked</c:if>>
 												<label for="fac5">전자렌지</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '밥솥') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac6" value="밥솥">
+												<input type="checkbox" name="roomfac" id="fac6" value="밥솥"
+												<c:if test="${ fn:contains(facArr, '밥솥') }">checked</c:if>>
 												<label for="fac6">밥솥</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '수건') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac7" value="수건">
+												<input type="checkbox" name="roomfac" id="fac7" value="수건"
+												<c:if test="${ fn:contains(facArr, '수건') }">checked</c:if>>
 												<label for="fac7">수건</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '식기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac8" value="식기">
+												<input type="checkbox" name="roomfac" id="fac8" value="식기"
+												<c:if test="${ fn:contains(facArr, '식기') }">checked</c:if>>
 												<label for="fac8">식기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '다리미') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac9" value="다리미">
+												<input type="checkbox" name="roomfac" id="fac9" value="다리미"
+												<c:if test="${ fn:contains(facArr, '다리미') }">checked</c:if>>
 												<label for="fac9">다리미</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '헤어드라이기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac10" value="헤어드라이기">
+												<input type="checkbox" name="roomfac" id="fac10" value="헤어드라이기"
+												<c:if test="${ fn:contains(facArr, '헤어드라이기') }">checked</c:if>>
 												<label for="fac10">헤어드라이기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '냉장고') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac11" value="냉장고">
+												<input type="checkbox" name="roomfac" id="fac11" value="냉장고"
+												<c:if test="${ fn:contains(facArr, '냉장고') }">checked</c:if>>
 												<label for="fac11">냉장고</label>
 											</span>
 										</li>
@@ -633,43 +644,50 @@
 									<ul>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '욕조') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac12" value="욕조">
+												<input type="checkbox" name="roomfac" id="fac12" value="욕조"
+												<c:if test="${ fn:contains(facArr, '욕조') }">checked</c:if>>
 												<label for="fac12">욕조</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '세탁기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac13" value="세탁기">
+												<input type="checkbox" name="roomfac" id="fac13" value="세탁기"
+												<c:if test="${ fn:contains(facArr, '세탁기') }">checked</c:if>>
 												<label for="fac13">세탁기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '건조기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac14" value="건조기">
+												<input type="checkbox" name="roomfac" id="fac14" value="건조기"
+												<c:if test="${ fn:contains(facArr, '건조기') }">checked</c:if>>
 												<label for="fac14">건조기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '무료주차') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac15" value="무료주차">
+												<input type="checkbox" name="roomfac" id="fac15" value="무료주차"
+												<c:if test="${ fn:contains(facArr, '무료주차') }">checked</c:if>>
 												<label for="fac15">무료주차</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '위생용품') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac16" value="위생용품">
+												<input type="checkbox" name="roomfac" id="fac16" value="위생용품"
+												<c:if test="${ fn:contains(facArr, '위생용품') }">checked</c:if>>
 												<label for="fac16">위생용품</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '바비큐') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac17" value="바비큐">
+												<input type="checkbox" name="roomfac" id="fac17" value="바비큐"
+												<c:if test="${ fn:contains(facArr, '바비큐') }">checked</c:if>>
 												<label for="fac17">바비큐</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '테라스') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac18" value="테라스">
+												<input type="checkbox" name="roomfac" id="fac18" value="테라스"
+												<c:if test="${ fn:contains(facArr, '테라스') }">checked</c:if>>
 												<label for="fac18">테라스</label>
 											</span>
 										</li>
@@ -680,25 +698,29 @@
 									<ul>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '가족/어린이 환영') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac19" value="가족/어린이 환영">
+												<input type="checkbox" name="roomfac" id="fac19" value="가족/어린이 환영"
+												<c:if test="${ fn:contains(facArr, '가족/어린이 환영') }">checked</c:if>>
 												<label for="fac19">가족/어린이 환영</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '반려동물 입실가능') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac20" value="반려동물 입실가능">
+												<input type="checkbox" name="roomfac" id="fac20" value="반려동물 입실가능"
+												<c:if test="${ fn:contains(facArr, '반려동물 입실가능') }">checked</c:if>>
 												<label for="fac20">반려동물 입실가능</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '반려동물 입실금지') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac21" value="반려동물 입실금지">
+												<input type="checkbox" name="roomfac" id="fac21" value="반려동물 입실금지"
+												<c:if test="${ fn:contains(facArr, '반려동물 입실금지') }">checked</c:if>>
 												<label for="fac21">반려동물 입실금지</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '휠체어 사용가능') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac22" value="휠체어 사용가능">
+												<input type="checkbox" name="roomfac" id="fac22" value="휠체어 사용가능"
+												<c:if test="${ fn:contains(facArr, '휠체어 사용가능') }">checked</c:if>>
 												<label for="fac22">휠체어 사용가능</label>
 											</span>
 										</li>
@@ -709,25 +731,29 @@
 									<ul>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '화재감지기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac23" value="화재감지기">
+												<input type="checkbox" name="roomfac" id="fac23" value="화재감지기"
+												<c:if test="${ fn:contains(facArr, '화재감지기') }">checked</c:if>>
 												<label for="fac23">화재감지기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '구급상자') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac24" value="구급상자">
+												<input type="checkbox" name="roomfac" id="fac24" value="구급상자"
+												<c:if test="${ fn:contains(facArr, '구급상자') }">checked</c:if>>
 												<label for="fac24">구급상자</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '소화기') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac25" value="소화기">
+												<input type="checkbox" name="roomfac" id="fac25" value="소화기"
+												<c:if test="${ fn:contains(facArr, '소화기') }">checked</c:if>>
 												<label for="fac25">소화기</label>
 											</span>
 										</li>
 										<li>
 											<span class="inp_check <c:if test="${ fn:contains(facArr, '실내흡연 불가능') }">checked</c:if>">
-												<input type="checkbox" name="roomfac" id="fac26" value="실내흡연 불가능">
+												<input type="checkbox" name="roomfac" id="fac26" value="실내흡연 불가능"
+												<c:if test="${ fn:contains(facArr, '실내흡연 불가능') }">checked</c:if>>
 												<label for="fac26">실내흡연 불가능</label>
 											</span>
 										</li>
@@ -766,12 +792,18 @@
 			
 			// form 태그 제출시 체크항목
 			function formCheck(){
-				
+				// 숙소이름에 특수문자 사용한 경우
 				if(document.getElementById("nameresult").getAttribute('class') == 'error'){
 					alert('숙소 이름에는 특수문자를 사용하실 수 없습니다.');
 					return false;
 				}
 				
+				// 체크박스에 선택된 값이 없는 경우
+				if(!$('input:checkbox[name="roomfac"]').is(":checked")){
+					alert('숙소 시설을 선택해주세요.');
+					return false;
+				}
+			
 				return true;
 			}
 	

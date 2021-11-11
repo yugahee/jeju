@@ -478,7 +478,7 @@
 									<ul>
 										<li>
 											<span class="inp_check">
-												<input type="checkbox" name="roomfac" id="fac1" value="TV" required>
+												<input type="checkbox" name="roomfac" id="fac1" value="TV">
 												<label for="fac1">TV</label>
 											</span>
 										</li>
@@ -698,9 +698,15 @@
 			
 			// form 태그 제출시 체크항목
 			function formCheck(){
-				
+				// 숙소이름에 특수문자 사용한 경우
 				if(document.getElementById("nameresult").getAttribute('class') == 'error'){
 					alert('숙소 이름에는 특수문자를 사용하실 수 없습니다.');
+					return false;
+				}
+				
+				// 체크박스에 선택된 값이 없는 경우
+				if(!$('input:checkbox[name="roomfac"]').is(":checked")){
+					alert('숙소 시설을 선택해주세요.');
 					return false;
 				}
 				

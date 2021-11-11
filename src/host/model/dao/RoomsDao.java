@@ -794,4 +794,27 @@ public class RoomsDao {
 		return review;
 	}
 
+	public int reserveState(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int reserveCount = 0;
+		String sql = roomsQuery.getProperty("reserveState");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reserveCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return reserveCount;
+	}
+
 }
