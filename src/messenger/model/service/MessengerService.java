@@ -88,4 +88,38 @@ public class MessengerService {
 	}
 
 
+	public int deleteMessage(int msgNo) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.deleteMessage(conn, msgNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public int insertMessenger(Messenger messenger) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.insertMessenger(conn, messenger);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 }

@@ -247,6 +247,32 @@ public class AdminService{
 		
 		return result;
 	}
+<<<<<<< HEAD
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public Reservation reserveDetail(int reserveNo) {
+		Connection conn = getConnection();
+		
+		Reservation reserve = adminDao.reserveDetail(conn, reserveNo);
+		
+		close(conn);
+		
+		return reserve;
+	}
+
 
 	public int insertRecoPhoto(Recommendation rec) {
 		Connection conn = getConnection();		

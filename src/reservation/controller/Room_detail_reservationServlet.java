@@ -52,16 +52,14 @@ public class Room_detail_reservationServlet extends HttpServlet {
 		
 		// 페이징 처리 된 숙소 리뷰 조회 
 		Map<String, Object> rMap = new ReservationService().selectRoomReview(page, roomNo);
+					
 		
-		
-		// 예약 체킹
-//		List<Reservation> possibleReservation = new ReservationService().possibleReservation();
 		
 		if(room != null && rMap != null) {
 		 request.setAttribute("roomNo", roomNo);
          request.setAttribute("room", room);
          request.setAttribute("reviewPi", rMap.get("reviewPi"));
- 		 request.setAttribute("roomReviewList", rMap.get("roomReviewList"));
+ 		 request.setAttribute("roomReviewList", rMap.get("roomReviewList")); 		 
         request.getRequestDispatcher("/views/reservation/detail_room_reservation.jsp").forward(request, response);
       } else {
         request.setAttribute("message", "숙소 예약 페이지 상세보기에 실패하였습니다.");
@@ -69,7 +67,7 @@ public class Room_detail_reservationServlet extends HttpServlet {
       }
 		
 		
-//		/* 여기서부터 원래 해놨던 것*/
+//		/* 여기서부터 원래 해놨던 것(페이징 처리 전)*/
 //		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 //		Rooms room = new ReservationService().detailSelectRoom(roomNo);
 //		

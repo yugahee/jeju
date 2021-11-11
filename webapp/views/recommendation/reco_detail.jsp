@@ -28,9 +28,40 @@
 						<div class="star_average">
 							<p>${ reco.recoName }</p>
 							<div class="rating_star">
-								<span class="starPoint p5">5</span>
+								<c:set var="star" value="${ reco.intScore }" />
+								<c:set var="avg" value="${ reco.avgScore }" />
+								<c:choose>
+									<c:when test="${ star eq 5 }">
+										<span class="starPoint p5">5</span>
+										<p>  ${ avg } / 5</p>									
+									</c:when>
+									
+									<c:when test="${ star eq 4 }">
+										<span class="starPoint p4">4</span>
+										<p>${ avg } / 5</p>							
+									</c:when>
+									
+									<c:when test="${ star eq 3 }">
+										<span class="starPoint p3">3</span>
+										<p>${ avg } / 5</p>						
+									</c:when>
+									
+									<c:when test="${ star eq 2 }">
+										<span class="starPoint p2">2</span>	
+										<p>${ avg } / 5</p>								
+									</c:when>
+									
+									<c:when test="${ star eq 1 }">
+										<span class="starPoint p1">1</span>
+										<p>${ avg } / 5</p>					
+									</c:when>
+									
+									<c:when test="${ star eq 0 }">
+										<span class="starPoint p0">0</span>
+										<p>${ avg } / 5</p>									
+									</c:when>
+								</c:choose>
 							</div>
-							<p>(3.2/5)</p>
 						</div>
 						<div class="reco_address">${ reco.recoAddress }</div>
 						<div class="exp">${ reco.recoExpl }</div>
@@ -91,12 +122,12 @@
 <script>
 	var mapContainer = document.getElementById('recoMap');		// 지도를 표시할 div
 	var mapOptions = {		// 지도를 생성할 때 필요한 기본 옵션
-			center: new kakao.maps.LatLng(33.5000496081595, 126.46078090711264),	// 지도의 중심 좌표
+			center: new kakao.maps.LatLng(${ reco.coordinate }),	// 지도의 중심 좌표
 			level: 3		// 지도의 레벨(확대, 축소 정도)
 	};
 	var map = new kakao.maps.Map(mapContainer, mapOptions);	// 지도 생성 및 객체 리턴
 	
-	var markerPosition = new kakao.maps.LatLng(33.5000496081595, 126.46078090711264);	// 마커 표시 위치 지정
+	var markerPosition = new kakao.maps.LatLng(${ reco.coordinate });	// 마커 표시 위치 지정
 	
 	var marker = new kakao.maps.Marker({
 		position: markerPosition

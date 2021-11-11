@@ -1,6 +1,10 @@
-package messenger.controller;
+package reservation.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import messenger.model.service.MessengerService;
+import reservation.model.service.ReservationService;
+import reservation.model.vo.Reservation;
 
 /**
- * Servlet implementation class MessengerDeleteServelt
+ * Servlet implementation class ReserveCheckServlet
  */
-@WebServlet("/messenger/delete")
-public class MessengerDeleteServelt extends HttpServlet {
+@WebServlet("/reserve/dateCheck")
+public class ReserveCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessengerDeleteServelt() {
+    public ReserveCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,17 +42,24 @@ public class MessengerDeleteServelt extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int msgNo = Integer.parseInt(request.getParameter("msg_no"));
+		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
+		Date startDate = Date.valueOf(request.getParameter("startDate")); 
+		Date endDate = Date.valueOf(request.getParameter("endDate"));
 		
-		int result = new MessengerService().deleteMessage(msgNo);
+		// 예약 체킹
+		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
 		
-		if(result > 0) {
-			request.getSession().setAttribute("message", "메시지 삭제가 완료되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/messenger/list/received");
-		} else {
-			request.setAttribute("message", "메시지 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
-		}
+		System.out.println(possibleReservList);
+		
+	
+		
+		PrintWriter out = response.getWriter();
+		
+		//out.print("fail");	
+
+		out.print("success");
+		
+		
 	}
 
 }

@@ -1,4 +1,4 @@
-package messenger.controller;
+package admin.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import messenger.model.service.MessengerService;
+import com.google.gson.Gson;
+
+import admin.model.service.AdminService;
+import reservation.model.vo.Reservation;
 
 /**
- * Servlet implementation class MessengerDeleteServelt
+ * Servlet implementation class adminReservationDetailServlet
  */
-@WebServlet("/messenger/delete")
-public class MessengerDeleteServelt extends HttpServlet {
+@WebServlet("/admin/reserveDetail")
+public class adminReservationDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessengerDeleteServelt() {
+    public adminReservationDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +34,19 @@ public class MessengerDeleteServelt extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+			
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int msgNo = Integer.parseInt(request.getParameter("msg_no"));
+		int reserveNo = Integer.parseInt(request.getParameter("reserveNo"));
 		
-		int result = new MessengerService().deleteMessage(msgNo);
+		Reservation reserve = new AdminService().reserveDetail(reserveNo);
 		
-		if(result > 0) {
-			request.getSession().setAttribute("message", "메시지 삭제가 완료되었습니다.");
-			response.sendRedirect(request.getContextPath()+"/messenger/list/received");
-		} else {
-			request.setAttribute("message", "메시지 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
-		}
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(reserve, response.getWriter());
 	}
 
 }

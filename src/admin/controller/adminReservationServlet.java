@@ -45,9 +45,7 @@ public class adminReservationServlet extends HttpServlet {
 		
 		request.setAttribute("listCount", map.get("listCount"));
 	    request.setAttribute("pi", map.get("pi"));
-	    request.setAttribute("reserveList", map.get("reserveList"));
-		
-	    System.out.println(map.get("reserveList"));
+	    request.setAttribute("reserveList", map.get("reserveList"));			   
 	    
 		request.getRequestDispatcher("/views/admin/reservation_management.jsp").forward(request, response);
 	}

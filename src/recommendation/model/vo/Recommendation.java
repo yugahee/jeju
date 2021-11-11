@@ -17,9 +17,11 @@ public class Recommendation {
 	private String recoImage;		// 이미지경로(1개)
 	private int likeCount;			// 좋아요 횟수
 	
-	private double score;			// 평점
 	private String imageName;		// 이미지명
 	private String deletedName;		// 삭제될 이미지명
+	private String coordinate;		// api 좌표
+	private double avgScore;		// 평균 평점
+	private int intScore;			// 평점(정수)
 
 	private List<Reco_Review> reviewList;		// 리뷰 목록
 
@@ -39,28 +41,10 @@ public class Recommendation {
 	 */
 	
 	public Recommendation() {}
-	
-	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
-			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount) {
-		super();
-		this.recoNo = recoNo;
-		this.publicYn = publicYn;
-		this.recoArea = recoArea;
-		this.recoAddress = recoAddress;
-		this.recoCategory = recoCategory;
-		this.recoExpl = recoExpl;
-		this.recoKeyword = recoKeyword;
-		this.recoName = recoName;
-		this.naverMap = naverMap;
-		this.kakaoMap = kakaoMap;
-		this.recoImage = recoImage;
-		this.likeCount = likeCount;
-	}
 
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, double score) {
+			int likeCount, String imageName, String deletedName, String coordinate, double avgScore, int intScore) {
 		super();
 		this.recoNo = recoNo;
 		this.publicYn = publicYn;
@@ -74,34 +58,17 @@ public class Recommendation {
 		this.kakaoMap = kakaoMap;
 		this.recoImage = recoImage;
 		this.likeCount = likeCount;
-		this.score = score;
-	}	
-	
-	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
-			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, double score, String imageName, String deletedName) {
-		super();
-		this.recoNo = recoNo;
-		this.publicYn = publicYn;
-		this.recoArea = recoArea;
-		this.recoAddress = recoAddress;
-		this.recoCategory = recoCategory;
-		this.recoExpl = recoExpl;
-		this.recoKeyword = recoKeyword;
-		this.recoName = recoName;
-		this.naverMap = naverMap;
-		this.kakaoMap = kakaoMap;
-		this.recoImage = recoImage;
-		this.likeCount = likeCount;
-		this.score = score;
 		this.imageName = imageName;
 		this.deletedName = deletedName;
+		this.coordinate = coordinate;
+		this.avgScore = avgScore;
+		this.intScore = intScore;
 	}
-
 
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, double score, String imageName, List<Reco_Review> reviewList) {
+			int likeCount, String imageName, String deletedName, String coordinate, double avgScore, int intScore,
+			List<Reco_Review> reviewList) {
 		super();
 		this.recoNo = recoNo;
 		this.publicYn = publicYn;
@@ -115,10 +82,14 @@ public class Recommendation {
 		this.kakaoMap = kakaoMap;
 		this.recoImage = recoImage;
 		this.likeCount = likeCount;
-		this.score = score;
 		this.imageName = imageName;
+		this.deletedName = deletedName;
+		this.coordinate = coordinate;
+		this.avgScore = avgScore;
+		this.intScore = intScore;
 		this.reviewList = reviewList;
 	}
+
 	public String getDeletedName() {
 		return deletedName;
 	}
@@ -230,13 +201,18 @@ public class Recommendation {
 		this.imageName = imageName;
 	}
 
-
-	public double getScore() {
-		return score;
+	public double getAvgScore() {
+		return avgScore;
 	}
 
-	public void setScore(double score) {
-		this.score = score;
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
+	}
+	public double getintScore() {
+		return intScore;
+	}
+	public void setintScore(int intScore) {
+		this.intScore = intScore;
 	}
 	
 	public List<Reco_Review> getReviewList() {
@@ -247,14 +223,23 @@ public class Recommendation {
 		this.reviewList = reviewList;
 	}
 
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
+	}
+
 	@Override
 	public String toString() {
 		return "Recommendation [recoNo=" + recoNo + ", publicYn=" + publicYn + ", recoArea=" + recoArea
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
-				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
-				+ ", imageName=" + imageName + ", deletedName=" + deletedName + ", reviewList=" + reviewList + "]";
-	}		
+				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", avgScore=" + avgScore
+				+ ", intScore" + intScore + ", imageName=" + imageName + ", deletedName=" + deletedName + ", coordinate="
+				+ coordinate + ", reviewList=" + reviewList + "]";
+	}
 
 }
 

@@ -300,7 +300,7 @@
                 </div>  
                 <div class="okAndNo">
               		<a class="btn btnType1 btnSizeS" type="button" 
-           			 onclick="reserveOk();"><span>확인</span></a>
+           			 onclick="reserveChk(${room.roomNo});"><span>확인</span></a>
            			 <a href="#" class="btn btnType2 btnSizeS" type="button" 
            			 onclick="reserveCancell();"><span>취소</span></a>
                 </div>
@@ -326,15 +326,41 @@
 	
 	<!--  예약 신청 확인 시 동작 -->
 	<script>
+		 // 예약날자 비교 
+		 function reserveChk(roomNo){			 
+			 $.ajax({
+				url : "${contextPath}/reserve/dateCheck",
+				data : {roomNo : roomNo,
+						startDate : $("#checkIn").val(),
+						endDate : $("#checkOut").val()},
+				dataType : "json",
+				type : "post",
+				success : function(result){					
+					if(result == "success"){
+						//reserveOk();						
+					}else{
+						alert("예약이 가득차 예약이 불가능합니다ㅠㅠ");
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		 }
+		 
+		 // 비교가 완료 후 가능한 날짜면 실행
 	     function reserveOk(){
 	    	 if( '${loginUser.user_type}' == '게스트') {
 			   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
 			     ch.click();    // 레이아웃 닫기
-		    
-		    	 alert("예약 신청이 완료되었습니다."); 
-			    
+			     
+			     let checkIn = document.querySelector('#checkIn').value();
+			     let checkOut = document.querySelector("#checkOut").value();
+		    	
+	    		 alert("예약 신청이 완료되었습니다."); 
 			     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
 			     document.forms.reserveinfo.submit();
+			    	
 	    	 } else{
 	    	 	alert("로그인 후 예약신청 바랍니다.")
 	    	 	location.href="${contextPath}/login";
