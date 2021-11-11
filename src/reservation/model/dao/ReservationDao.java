@@ -598,6 +598,40 @@ public class ReservationDao {
 	}
 
 
+	public List<Reservation> possibleReservation(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Reservation> possibleReservList = new ArrayList<>();
+		String sql = roomQuery.getProperty("possibleReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				Reservation reserve = new Reservation();
+				reserve.setStart_date(rset.getDate("start_date"));
+				reserve.setEnd_date(rset.getDate("start_date"));
+				
+				possibleReservList.add(reserve);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return possibleReservList;
+	}
+
+
 	
 
 
