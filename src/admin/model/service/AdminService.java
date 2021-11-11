@@ -247,4 +247,28 @@ public class AdminService{
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public Reservation reserveDetail(int reserveNo) {
+		Connection conn = getConnection();
+		
+		Reservation reserve = adminDao.reserveDetail(conn, reserveNo);
+		
+		close(conn);
+		
+		return reserve;
+	}
 }

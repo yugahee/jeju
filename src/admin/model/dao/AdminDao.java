@@ -873,4 +873,28 @@ public class AdminDao {
 		
 		return result;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Reservation reserveDetail(Connection conn, int reserveNo) {
+		PreparedStatement pstmt = null;		
+		ResultSet rset = null;
+		Reservation reserve = new Reservation();
+		String sql = adminQuery.getProperty("reserveDetail");
+		
+		
+		
+		return null;
+	}
 }

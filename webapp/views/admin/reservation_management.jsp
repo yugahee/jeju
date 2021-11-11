@@ -86,30 +86,33 @@ scope="application"/>
 	                        </div>
 	                    </div> -->
 						<div class="selectbox">
-							<button class="title" type="button" title="예약상태">예약상태</button>
+							<button class="title" type="button" title="예약상태">
+								<c:if test="${ param.searchCondition == null }">전체</c:if>
+								<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>
+							</button>
 							<ul class="selList" style="max-height: 0px; display: none;">
 								<li>
-									<input type="radio" value="전체" class="option" id="select_res0" name="searchCondition">
+									<input type="radio" value="전체" class="option" id="select_res0" name="searchCondition" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
 									<label for="select_res0">전체</label>
 								</li>
 								<li>
-									<input type="radio" value="예약신청" class="option" id="select_res1" name="searchCondition">
+									<input type="radio" value="예약신청" class="option" id="select_res1" name="searchCondition" <c:if test="${ param.searchCondition == '예약신청' }">checked="checked"</c:if>>
 									<label for="select_res1">예약신청</label>
 								</li>
 								<li>
-									<input type="radio" value="결제대기" class="option" id="select_res2" name="searchCondition">
+									<input type="radio" value="결제대기" class="option" id="select_res2" name="searchCondition" <c:if test="${ param.searchCondition == '결제대기' }">checked="checked"</c:if>>
 									<label for="select_res2">결제대기</label>
 								</li>
 								<li>
-									<input type="radio" value="예약완료" class="option" id="select_res1" name="searchCondition">
+									<input type="radio" value="예약완료" class="option" id="select_res1" name="searchCondition" <c:if test="${ param.searchCondition == '예약완료' }">checked="checked"</c:if>>
 									<label for="select_res1">예약완료</label>
 								</li>
 								<li>
-									<input type="radio" value="예약취소" class="option" id="select_res3" name="searchCondition">
+									<input type="radio" value="예약취소" class="option" id="select_res3" name="searchCondition" <c:if test="${ param.searchCondition == '예약취소' }">checked="checked"</c:if>>
 									<label for="select_res3">예약취소</label>
 								</li>
 								<li>
-									<input type="radio" value="숙박완료" class="option" id="select_res4" name="searchCondition">
+									<input type="radio" value="숙박완료" class="option" id="select_res4" name="searchCondition" <c:if test="${ param.searchCondition == '숙박완료' }">checked="checked"</c:if>>
 									<label for="select_res4">숙박완료</label>
 								</li>								
 							</ul>
@@ -118,15 +121,15 @@ scope="application"/>
 							<button class="title" type="button" title="검색 조건">검색 조건</button>
 							<ul class="selList" style="max-height: 0px; display: none;">														
 								<li>
-									<input type="radio" value="예약번호" class="option" id="select_search_op1" name="searchCondition2">
+									<input type="radio" value="예약번호" class="option" id="select_search_op1" name="searchCondition2" <c:if test="${ param.searchCondition2 == '예약번호' }">checked="checked"</c:if>>
 									<label for="select_search_op1">예약번호</label>
 								</li>								
 								<li>
-									<input type="radio" value="호스트ID" class="option" id="select_search_op3" name="searchCondition2">
+									<input type="radio" value="호스트ID" class="option" id="select_search_op3" name="searchCondition2" <c:if test="${ param.searchCondition2 == '호스트ID' }">checked="checked"</c:if>>
 									<label for="select_search_op3">호스트 ID</label>
 								</li>
 								<li>
-									<input type="radio" value="게스트ID" class="option" id="select_search_op4" name="searchCondition2">
+									<input type="radio" value="게스트ID" class="option" id="select_search_op4" name="searchCondition2" <c:if test="${ param.searchCondition2 == '게스트ID' }">checked="checked"</c:if>>
 									<label for="select_search_op4">게스트 ID</label>
 								</li>
 							</ul>
@@ -173,7 +176,7 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<c:forEach var="reserve" items="${ reserveList }" varStatus="status">
-							<tr onclick="showLayer('reservPop')">
+							<tr onclick="showLayer('reservPop'); selectReserve(${ reserve.room_reserve })">
 								<td>${ reserve.room_reserve }</td>								
 								<td>${ reserve.room_info.roomName }</td>
 								<td>${ reserve.room_info.userId }</td>
@@ -310,47 +313,31 @@ scope="application"/>
 									<ul class="selList">
 										<li>
 											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked" />
+											<input type="radio" value="예약신청" class="option" id="sel1_1" name="select1" checked="checked" />
 											<label for="sel1_1">예약신청</label>
 										</li>
 										<li>
-											<input type="radio" value="" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">수락/결제 대기</label>
+											<input type="radio" value="결제대기" class="option" id="sel1_2" name="select1" />
+											<label for="sel1_2">결제대기</label>
 										</li>
 										<li>
-											<input type="radio" value="" class="option" id="sel1_3" name="select1" />
-											<label for="sel1_3">취소/만료/거절</label>
+											<input type="radio" value="예약취소" class="option" id="sel1_3" name="select1" />
+											<label for="sel1_3">예약취소</label>
 										</li>
                                         <!--  -->
 										<li>
-											<input type="radio" value="" class="option" id="sel1_4" name="select1" />
+											<input type="radio" value="예약완료" class="option" id="sel1_4" name="select1" />
 											<label for="sel1_4">예약완료</label>
 										</li>
 										<li>
-											<input type="radio" value="" class="option" id="sel1_5" name="select1" />
+											<input type="radio" value="숙박완료" class="option" id="sel1_5" name="select1" />
 											<label for="sel1_5">숙박완료</label>
 										</li>
 									</ul>
 								</div>
 							</td>
 						</tr>
-                        <!-- 예약상태 취소/만료/거절 시  -->
-						<tr>
-							<th>취소 시간</th>
-							<td>2021.10.15 08:10:10</td>
-						</tr>
-						<tr>
-							<th>사유</th>
-							<!-- 값이 있는 경우 -->
-                            <!-- <td>결제 만료</td> -->
-                            <!-- 값을 넣어야될 경우 -->
-                            <td>
-                                <div class="inp_text">
-                                    <input type="text" />
-                                </div>
-                            </td>
-						</tr>
-						<tr>
+						<tr class="price_back" style="display: none;">
 							<th>환불금액</th>
                             <td>350,000</td>
 						</tr>
@@ -365,3 +352,19 @@ scope="application"/>
 	</div>
 </body>
 </html>
+<script>
+	function selectReserve(reserveNo){
+		$.ajax({
+			url : "${contextPath}/admin/reserveDetail",
+			data : {reserveNo : reserveNo},
+			dataType : "json",
+			type : "post",
+			success : function(reserve){					
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+</script>
