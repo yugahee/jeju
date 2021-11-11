@@ -359,8 +359,8 @@ scope="application"/>
 			data : {reserveNo : reserveNo},
 			dataType : "json",
 			type : "post",
-			success : function(user){					
-				
+			success : function(result){					
+				console.log(result);
 			},
 			error : function(e){
 				console.log(e);
