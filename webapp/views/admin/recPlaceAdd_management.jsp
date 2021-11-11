@@ -99,13 +99,13 @@ scope="application"/>
 										<td>
 											<div class="selectbox">
 												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
+														<input type="radio" value="Y" class="option" id="sel1_1" name="select1">
 														<label for="sel1_1">노출</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
+														<input type="radio" value="N" class="option" id="sel1_2" name="select1">
 														<label for="sel1_2">비노출</label>
 													</li>
 												</ul>
@@ -117,26 +117,22 @@ scope="application"/>
 										<td>
 											<div class="selectbox">
 												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1">
-														<label for="sel1_1">동부</label>
+														<input type="radio" value="1" class="option" id="sel2_1" name="select2">
+														<label for="sel2_1">동부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">서부</label>
+														<input type="radio" value="2" class="option" id="sel2_2" name="select2">
+														<label for="sel2_2">서부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_3" name="select1">
-														<label for="sel1_3">남부</label>
+														<input type="radio" value="3" class="option" id="sel2_3" name="select2">
+														<label for="sel2_3">남부</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_4" name="select1">
-														<label for="sel1_4">북부</label>
-													</li>
-													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">중부</label>
+														<input type="radio" value="4" class="option" id="sel2_4" name="select2">
+														<label for="sel2_4">북부</label>
 													</li>
 												</ul>
 											</div>
@@ -145,18 +141,18 @@ scope="application"/>
 										<td>
 											<div class="selectbox">
 												<button class="title" type="button" title="선택">선택</button>
-												<ul class="selList" style="max-height: 0px; display: none;">
+												<ul class="selList">
 													<li>
-														<input type="radio" value="" class="option" id="sel1_1" name="select1">
-														<label for="sel1_1">식당</label>
+														<input type="radio" value="1" class="option" id="sel3_1" name="select3">
+														<label for="sel3_1">관광지</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">카페</label>
+														<input type="radio" value="2" class="option" id="sel3_2" name="select3">
+														<label for="sel3_2">식당</label>
 													</li>
 													<li>
-														<input type="radio" value="" class="option" id="sel1_2" name="select1">
-														<label for="sel1_2">관광</label>
+														<input type="radio" value="3" class="option" id="sel3_3" name="select3">
+														<label for="sel3_3">카페</label>
 													</li>
 												</ul>
 											</div>
