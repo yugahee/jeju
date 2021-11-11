@@ -247,7 +247,6 @@ public class AdminService{
 		
 		return result;
 	}
-<<<<<<< HEAD
 	
 	
 	
