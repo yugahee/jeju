@@ -280,10 +280,11 @@ scope="application"/>
 						<col style="width:20%;">
 						<col style="width:*;">
 					</colgroup>
-					<tbody>						
+					<tbody>	
 						<tr>
 							<th>ID</th>
 							<td id="mid"></td>
+							<input type="hidden" name="email" class="emailpop">
 						</tr>
 						<tr>
 							<th>이름</th>
@@ -301,7 +302,7 @@ scope="application"/>
 							<th>관리</th>
 							<td>
 								<div class="btn_wrap">
-									<a href="#" class="btn btnType2 btnSizeS"><span>비밀번호 초기화</span></a>
+									<a href="#non" class="btn btnType2 btnSizeS" onclick="pwdReset();"><span>비밀번호 초기화</span></a>
 									<a href="#none" class="btn btnType2 btnSizeS" onclick="deleteData();"><span>계정 삭제</span></a>
 								</div>
 							</td>
@@ -329,6 +330,7 @@ scope="application"/>
 				if(user){
 					$("#mid").text(user.user_id);
 					$("#mname").text(user.user_name);
+					$(".emailpop").val(user.email);
 					if(user.status == 'Y'){										
 						html = '<button class="title" type="button" title="상태">Y</button>'
 							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="Y">'
@@ -382,6 +384,27 @@ scope="application"/>
 				},
 				error : function(e){
 					alert('정보 삭제 실패');
+				}
+			});
+		}else{
+			return false;
+		}
+	}
+	function pwdReset(){
+		let email = $('.emailpop').val();
+		console.log(email);
+		if(confirm("정말 초기화하시겠습니까?")){
+			$.ajax({
+				url : "${contextPath}/admin/pwdReset",
+				data : {email : email},
+				//dataType : "json",
+				type : "post",
+				success : function(email){	
+					alert('초기화 완료');
+					location.reload();
+				},
+				error : function(e){
+					alert('초기화 실패');
 				}
 			});
 		}else{

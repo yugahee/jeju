@@ -358,7 +358,7 @@ public class ReservationDao {
 	public List<Reservation> selectReserveInfoList(Connection conn, String userId, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		List<Reservation> reserveInfo = new ArrayList<>();
+		List<Reservation> reserveInfoList = new ArrayList<>();
 		String sql =  roomQuery.getProperty("selectReserveInfoList");
 		
 		// 검색 목록 조회
@@ -400,7 +400,7 @@ public class ReservationDao {
 				
 				reservation.setRoom_info(room);
 				
-				reserveInfo.add(reservation);
+				reserveInfoList.add(reservation);
 				
 			}
 			
@@ -411,7 +411,7 @@ public class ReservationDao {
 			close(rset);
 		}
 		
-		return reserveInfo;
+		return reserveInfoList;
 	}
 
 
@@ -595,6 +595,40 @@ public class ReservationDao {
 		}
 		
 		return lodgeCompletion;
+	}
+
+
+	public List<Reservation> possibleReservation(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Reservation> possibleReservList = new ArrayList<>();
+		String sql = roomQuery.getProperty("possibleReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				Reservation reserve = new Reservation();
+				reserve.setStart_date(rset.getDate("start_date"));
+				reserve.setEnd_date(rset.getDate("start_date"));
+				
+				possibleReservList.add(reserve);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return possibleReservList;
 	}
 
 

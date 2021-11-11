@@ -294,6 +294,16 @@
 	   AND USER_ID = ?
 </entry>
 
+<!-- 예약체킹  -->
+<entry key="possibleReservation">
+	SELECT 
+	       START_DATE
+	     , END_DATE
+	  FROM RESERVATION 
+	 WHERE RESERVE_STATE != '예약취소'
+	   AND ROOM_NO = ?
+</entry>
+
 
 
 </properties>

@@ -37,7 +37,7 @@ scope="application"/>
 <% 
 	session.removeAttribute("message");
 } %>
-	<div id="wrap" class="wrap">
+	<div id="wrap" class="wrap"> 
 		<div class="lnb">
 			<h1 class="logo">
 				<a href="<%= request.getContextPath() %>/admin">

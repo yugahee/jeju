@@ -166,7 +166,7 @@
 		var newMail = $("[name=pwd_mail]");
 	
 		$.ajax({
-			url : "${contextPath}/mypage/mailChange",
+			url : "${contextPath}/modify/mailSent",
 			type : "post",
 			data : { newMail : newMail.val() },
 			success : function(result){

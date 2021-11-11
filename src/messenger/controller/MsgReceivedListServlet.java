@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Member;
 import messenger.model.service.MessengerService;
 
 /**
- * Servlet implementation class MessengerListServlet
+ * Servlet implementation class MsgReceivedListServlet
  */
-@WebServlet("/messenger/list")
-public class MessengerListServlet extends HttpServlet {
+@WebServlet("/messenger/list/received")
+public class MsgReceivedListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessengerListServlet() {
-        
+    public MsgReceivedListServlet() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -37,16 +39,18 @@ public class MessengerListServlet extends HttpServlet {
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
+		
+		String toUser = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
 
 		// 페이징과 관련 된 데이터, 조회 된 boardList를 map에 담아 리턴
-		Map<String, Object> map = new MessengerService().selectList(page);
+		Map<String, Object> map = new MessengerService().selectReceiveList(page, toUser);
 
 		//System.out.println(map);
 		
 		request.setAttribute("pi", map.get("pi"));
 		request.setAttribute("messengerList", map.get("messengerList"));
 
-		request.getRequestDispatcher("/views/messenger/sentMessage.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/messenger/receivedMessage.jsp").forward(request, response);
 	}
 
 	/**

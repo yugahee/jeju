@@ -13,8 +13,8 @@
 			<div class="container">
 				<nav class="sub_menu">
                     <ul>
-                        <li><a href="${ contextPath }/received/messenger">받은 메시지</a></li>
-                        <li><a href="${ contextPath }/messenger/list" class="active">보낸 메시지</a></li>
+                        <li><a href="${ contextPath }/messenger/list/received">받은 메시지</a></li>
+                        <li><a href="${ contextPath }/messenger/list/sent" class="active">보낸 메시지</a></li>
                     </ul>
                 </nav>
                 <div class="sub messengerList">
@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                             <c:forEach var="msg" items="${ messengerList }">
-                            <c:if test="${ msg.from_user eq loginUser.user_id }">
+                            <%-- <c:if test="${ msg.from_user eq loginUser.user_id }"> --%>
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
                                     <td>${ msg.msg_no }</td>
@@ -64,22 +64,22 @@
                                     </c:when>
                                     </c:choose> --%>
                                 </tr>
-                            </c:if>
+                            <%-- </c:if> --%>
                             </c:forEach>
                             </tbody>
                         </table>
                     </div>
         
-        
+       
                     <div class="paging">
                     <!-- 첫 번째 페이지로 -->
-                        <span class="first"><a href="${ contextPath }/messenger/list?page=1"></a></span>
+                        <span class="first"><a href="${ contextPath }/messenger/list/sent?page=1"></a></span>
                         <span class="prev">
                         	<c:choose>
 							<%-- 조건 : 현재 페이지가 1페이지가 아니라면--%>
 							<c:when test="${ pi.page > 1 }">
 							<%-- 현재 페이지 -1 페이지로 이동되게  --%>
-							<a href="${ contextPath }/messenger/list?page=${ pi.page - 1}"></a>
+							<a href="${ contextPath }/messenger/list/sent?page=${ pi.page - 1}"></a>
 							</c:when>
 							<%-- 현재 페이지가 1페이지인 경우 = 페이지 이동 안되게 --%>
 							<c:otherwise>
@@ -99,7 +99,7 @@
 							</c:when>
 							<c:otherwise>
 							<%-- 요청하는 페이지가 현재 페이징 바와 다르다면 해당 페이지가 들어간 페이징바 보이게 --%>
-							<a href="${ contextPath }/messenger/list?page=${ p }">${ p }</a>
+							<a href="${ contextPath }/messenger/list/sent?page=${ p }">${ p }</a>
 							</c:otherwise>
 							</c:choose>
 							</c:forEach>
@@ -110,7 +110,7 @@
 							<%-- 조건 : 현재 페이지가 마지막 페이지가 아니라면--%>
 							<c:when test="${ pi.page < pi.maxPage }">
 							<%-- 현재 페이지 +1 페이지로 이동되게  --%>
-							<a href="${ contextPath }/messenger/list?page=${ pi.page + 1}"></a>
+							<a href="${ contextPath }/messenger/list/sent?page=${ pi.page + 1}"></a>
 							</c:when>
 							<%-- 현재 페이지가 마지막 페이지인 경우 = 페이지 이동 안되게 --%>
 							<c:otherwise>
@@ -119,7 +119,7 @@
 							</c:choose>  
                         </span>
                         <!-- 마지막 페이지로 -->
-                        <span class="last"><a href="${ contextPath }/messenger/list?page=${ pi.maxPage }"></a></span>
+                        <span class="last"><a href="${ contextPath }/messenger/list/sent?page=${ pi.maxPage }"></a></span>
                     </div>
                 </div>
 			</div>

@@ -207,7 +207,7 @@ scope="application"/>
 				</div>
                 <div class="btn_wrap recPlace">
                     <a href="${contextPath }/admin/recPlace_add" class="btn btnType1 btnSizeS"><span>추가</span></a>
-                    <a href="#" class="btn btnType2 btnSizeS"><span>삭제</span></a>
+                    <a href="#none" onclick="deleteRec();" class="btn btnType2 btnSizeS"><span>삭제</span></a>
                 </div>
 				<div class="paging">
 					<span class="first">
@@ -272,6 +272,41 @@ scope="application"/>
 	<script>
 		function detailView(recoNo){
 			location.href='${contextPath}/admin/recPlace_mod?recoNo=' + recoNo;
+		}
+		function deleteRec(){
+			let chk = $('.checked:not(.allChk) input[name="chk1"]:checked');		
+			let chkLength = chk.length;	// 체크된 갯수
+			let arr = {
+				"arrVal" : []
+			};	
+			if(chkLength >= 1){
+				for(var i = 0; i < chkLength; i++){
+					arr.arrVal.push(chk[i].value);	// 체크된 값 배열에 담기
+				}
+				if(confirm("정말 삭제하시겠습니까?")){
+					$.ajax({
+						url : "${contextPath}/admin/recDelete",
+						data : arr,
+				        //dataType: "json",
+						type : "post",
+						success : function(arr){
+							if(arr){
+								alert('삭제되었습니다');
+								location.reload();
+							}else{
+								alert('실패');
+							}
+						},
+						error : function(e){
+							console.log(e);
+						}
+					});
+				}else{
+					return false;
+				}
+			}else{
+				alert('선택된 추천장소가 없습니다.');
+			}
 		}
 	</script>
 </body>

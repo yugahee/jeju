@@ -559,6 +559,12 @@ public class AdminDao {
 				}else {
 					sql = adminQuery.getProperty("getRecListCountStatusKW");	
 				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRecListCountStatusNameAll");				
+				}else {
+					sql = adminQuery.getProperty("getRecListCountStatusKWAll");	
+				}				
 			}
 		}
 		
@@ -568,6 +574,8 @@ public class AdminDao {
 			int index = 1;
 			if(sql == adminQuery.getProperty("getRecListCountStatusName") || sql == adminQuery.getProperty("getRecListCountStatusKW") ) {
 				pstmt.setInt(index++, cata_value);
+			}
+			if(sql != adminQuery.getProperty("getRecListCount")) {
 				pstmt.setString(index++, search.getSearchValue());
 			}
 			
@@ -591,16 +599,35 @@ public class AdminDao {
 	public List<Recommendation> selectRecList(Connection conn, PageInfo pi, Search search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int cata_value = 0;
 		String sql = adminQuery.getProperty("searchRecList");
 		List<Recommendation> RecList = new ArrayList<>();
 
 		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cata_value = 1;
+			}
+			if(search.getSearchCondition().equals("식당")) {
+				cata_value = 2;
+			}
+			if(search.getSearchCondition().equals("카페")) {
+				cata_value = 3;
+			}
 			if(!search.getSearchCondition().equals("전체")) {
-				sql = adminQuery.getProperty("searchRecCata");
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListName");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKW");	
+				}
 			}else {
-				sql = adminQuery.getProperty("searchRoomStatusAll");
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRecListNameAll");				
+				}else {
+					sql = adminQuery.getProperty("searchRecListKWAll");	
+				}				
 			}
 		}
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -608,11 +635,11 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			int index = 1;	
-			if((sql == adminQuery.getProperty("searchRoomStatus"))) {
-				pstmt.setString(index++, search.getSearchCondition());
-				pstmt.setString(index++, search.getSearchValue());
-			}else if((sql == adminQuery.getProperty("searchRoomStatusAll"))) {
-				pstmt.setString(index++, search.getSearchValue());				
+			if(sql == adminQuery.getProperty("searchRecListName") || sql == adminQuery.getProperty("searchRecListKW")) {
+				pstmt.setInt(index++, cata_value);		
+			}
+			if(sql != adminQuery.getProperty("searchRecList")) {
+				pstmt.setString(index++, search.getSearchValue());		
 			}
 			pstmt.setInt(index++, startRow);
 			pstmt.setInt(index, endRow);
@@ -695,7 +722,6 @@ public class AdminDao {
 		
 		return result;
 	}
-	
 	
 	
 	
@@ -874,18 +900,7 @@ public class AdminDao {
 		return result;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public Reservation reserveDetail(Connection conn, int reserveNo) {
 		PreparedStatement pstmt = null;		
@@ -896,5 +911,51 @@ public class AdminDao {
 		
 		
 		return null;
+	}
+
+	public int deleteRec(Connection conn, String[] arr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("deleteReco");
+		
+
+		for (int i = 0; i < arr.length; i++) {
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, arr[i]);
+				
+				result = pstmt.executeUpdate();
+				
+				System.out.println("dao" + result);
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+		return result;
+	}
+
+	public int pwdReset(Connection conn, String checkKey, String to_email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("resetPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, checkKey);
+			pstmt.setString(2, to_email);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

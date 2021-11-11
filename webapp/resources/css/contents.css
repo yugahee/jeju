@@ -1132,12 +1132,19 @@
 
      /* 게스트 후기 탭 */
      .reviewtab { margin-top: 20px; }
-
+	 .review_content { 
+	 overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     }
      .reviewtbl { width : 850px; }
-     .review_no { text-align: center; }
+     .reviewtbl tbody div:not(.review_content)  { text-align: center; }
+
+     /* .review_no { text-align: center; }
      .review_roomname { text-align: center;}
 	 .review_date { text-align: center;}
-	 .review_writer { text-align: center;}
+	 .review_star { text-align: center;}
+	 .review_writer { text-align: center;} */
      .reviewtab_wrap { margin-bottom: 30px;}
 
      /* 숙소 등록 페이지 --------------------------------------------------------------------*/
@@ -1667,13 +1674,16 @@
      
      /* 글씨 간격 */
      .reco_address {
-     	line-height: 1;
+     	line-height: 2;
+     	margin-bottom: 10px;
      	font-size: 1.1rem;
      }
      
      .exp {
-     	line-height: 5;
+     	line-height: 2;
+     	width: 650px;
      }
+     
      
      /* 맵 부분 위치 및 스타일 지정 */
      .reco_map {

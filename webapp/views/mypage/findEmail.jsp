@@ -77,7 +77,7 @@
 				data : { newMail : newMail.val() },
 				success : function(result){
 						if(result == "success"){
-						alert("인증 메일을 발송하였습니다. 인증 코드를 입력해주세요. 메일을 받지 못하신 경우에는 입력하신 메일 주소를 다시 한 번 확인해주세요.");						
+						alert("인증 메일을 발송하였습니다. 인증 코드를 입력해주세요. ");						
 					} else {
 						alert("인증 메일 발송에 실패했습니다. 다시 한 번 시도해주세요.");
 					}

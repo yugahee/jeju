@@ -247,6 +247,7 @@ public class AdminService{
 		
 		return result;
 	}
+<<<<<<< HEAD
 	
 	
 	
@@ -271,4 +272,40 @@ public class AdminService{
 		
 		return reserve;
 	}
+
+
+	public int deleteReco(String[] arr) {
+		Connection conn = getConnection();		
+		int result = adminDao.deleteRec(conn, arr);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int checkEmail(String to_email) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public int pwdReset(String checkKey, String to_email) {
+		Connection conn = getConnection();		
+		int result = adminDao.pwdReset(conn, checkKey, to_email);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

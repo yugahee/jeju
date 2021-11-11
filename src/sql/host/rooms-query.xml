@@ -358,6 +358,7 @@
 						     , REVIEW
 						     , REVIEW_DATE
 						     , RV.USER_ID
+						     , STAR
 						  FROM ROOMS R
 						  JOIN ROOMS_REVIEW RV ON(R.ROOM_NO = RV.ROOM_NO)
 						 WHERE R.USER_ID = ?
