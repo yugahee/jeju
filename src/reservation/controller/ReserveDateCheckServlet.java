@@ -19,13 +19,13 @@ import reservation.model.vo.Reservation;
  * Servlet implementation class ReserveCheckServlet
  */
 @WebServlet("/reserve/dateCheck")
-public class ReserveCheckServlet extends HttpServlet {
+public class ReserveDateCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReserveCheckServlet() {
+    public ReserveDateCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,19 +46,32 @@ public class ReserveCheckServlet extends HttpServlet {
 		Date startDate = Date.valueOf(request.getParameter("startDate")); 
 		Date endDate = Date.valueOf(request.getParameter("endDate"));
 		
+		
 		// 예약 체킹
 		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
+		//System.out.println(possibleReservList);
 		
-		System.out.println(possibleReservList);
-		
-	
-		
+		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
-		//out.print("fail");	
-
-		out.print("success");
+		int result = 0; // 성공시 1, 실패시 0 
+		for(Reservation DateCheck : possibleReservList) {
+			Date startDateDB = DateCheck.getStart_date();
+			Date endDateDB = DateCheck.getEnd_date();
+			
+			if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
+				result = 1;
+			} else {
+				result = 0;
+			}
+			
+		}
 		
+		if(result == 1) {
+			out.print("success");
+		} else {
+			out.print("fail");	
+		}
 		
 	}
 
