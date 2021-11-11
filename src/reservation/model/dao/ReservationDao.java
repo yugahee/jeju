@@ -615,7 +615,7 @@ public class ReservationDao {
 			while(rset.next()) {
 				Reservation reserve = new Reservation();
 				reserve.setStart_date(rset.getDate("start_date"));
-				reserve.setEnd_date(rset.getDate("start_date"));
+				reserve.setEnd_date(rset.getDate("end_date"));
 				
 				possibleReservList.add(reserve);
 			}
