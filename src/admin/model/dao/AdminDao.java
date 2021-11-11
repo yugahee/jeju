@@ -1030,10 +1030,10 @@ public class AdminDao {
 			if(rset.next()) {
 				listCount = rset.getInt(1);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}		
@@ -1141,6 +1141,7 @@ public class AdminDao {
 				
 		return msg;
 	}
+  
 	public int reserveUpdate(Connection conn, int reserveNo, String reserveState) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -1152,6 +1153,7 @@ public class AdminDao {
 			pstmt.setInt(2, reserveNo);
 			
 			result = pstmt.executeUpdate();
+
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
