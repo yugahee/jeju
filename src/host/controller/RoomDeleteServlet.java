@@ -30,16 +30,29 @@ public class RoomDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int roomNo = Integer.parseInt(request.getParameter("roomno"));
 		
-		int result = new RoomsService().deleteRoom(roomNo);
-		// System.out.println(result);
+		// 해당 숙소의 예약진행내역 파악 => '예약신청', '결제대기', '예약완료' 포함되면 삭제불가
+		int reserveCount = new RoomsService().reserveState(roomNo);
 		
-		if(result > 0) {			
+		if(reserveCount > 0) {
+			// 삭제불가
+			request.getSession().setAttribute("message", "해당 숙소의 예약내역이 존재하여 숙소 삭제를 할 수 없습니다.");
 			response.sendRedirect(request.getContextPath() + "/host/roomlist");
 			
 		} else {
-			request.setAttribute("message", "해당 숙소 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+			// 삭제가능
+			// 숙소 삭제 로직 : 예약진행내역이 없는경우 수행
+			int result = new RoomsService().deleteRoom(roomNo);
+			// System.out.println(result);
+			
+			if(result > 0) {			
+				response.sendRedirect(request.getContextPath() + "/host/roomlist");
+				
+			} else {
+				request.setAttribute("message", "해당 숙소 삭제에 실패하였습니다.");
+				request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+			}
 		}
+		
 	}
 
 	/**
