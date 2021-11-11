@@ -87,7 +87,7 @@ scope="application"/>
 					<form method="get" action="${ contextPath }/admin/roomsMg">
 					<div class="selectbox">
 						<button class="title" type="button">
-							<c:if test="${ param.searchCondition == null }">전체</c:if>
+							<c:if test="${ param.searchCondition == null }">숙소상태</c:if>
 							<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
 						</button>
 						<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">

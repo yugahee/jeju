@@ -1,6 +1,7 @@
 package admin.model.service;
 
 import member.model.vo.Member;
+import messenger.model.vo.Messenger;
 import recommendation.model.vo.Recommendation;
 import static common.JDBCTemplate.*;
 
@@ -306,6 +307,35 @@ public class AdminService{
 		close(conn);
 		
 		return result;
+	}
+
+	public Map<String, Object> selectMsgList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getMsgListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Messenger> msgList = adminDao.selectMsgList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("msgList", msgList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+
+	public Messenger msgDetail(int msgNo) {
+		Connection conn = getConnection();
+		
+		Messenger msg = adminDao.msgDetail(conn, msgNo);	
+		commit(conn);	
+		close(conn);
+		
+		return msg;
 	}
 
 }

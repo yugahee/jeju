@@ -16,6 +16,7 @@ import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
+import messenger.model.vo.Messenger;
 import payment.model.vo.Payment;
 import reservation.model.vo.Reservation;
 import recommendation.model.vo.Recommendation;
@@ -1013,5 +1014,131 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int getMsgListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String sql = adminQuery.getProperty("getMsgListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}		
+		
+		return listCount;
+	}
+
+	public List<Messenger> selectMsgList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("searchMsg");
+		List<Messenger> msgList = new ArrayList<>();
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			 
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+			
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Messenger msg = new Messenger();
+				msg.setMsg_no(rset.getInt("msg_no"));
+				msg.setMsg_cate(rset.getString("msg_cate"));
+				msg.setMsg_content(rset.getString("msg_content"));
+				msg.setChk_status(rset.getString("chk_status"));
+				msg.setReply_status(rset.getString("reply_status"));
+				msg.setMsg_date(rset.getDate("msg_date"));
+				msg.setReply_date(rset.getDate("reply_date"));
+				msg.setReply_content(rset.getString("reply_content"));
+				msg.setFrom_user(rset.getString("from_user"));
+				msg.setTo_user(rset.getString("to_user"));
+				msg.setMsg_status(rset.getString("msg_status"));
+				msg.setModify_date(rset.getDate("modify_date"));
+				msg.setReport_user(rset.getString("report_user"));
+				msgList.add(msg);
+			}			
+			System.out.println(msgList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return msgList;
+	}
+
+	public Messenger msgDetail(Connection conn, int msgNo) {
+		PreparedStatement pstmt2 = null;
+		ResultSet rset2 = null;
+		Messenger msg = new Messenger();
+		String sql2 = adminQuery.getProperty("msgDetailChk");
+		// 읽음상태 업데이트
+		try {
+			pstmt2 = conn.prepareStatement(sql2);
+			pstmt2.setInt(1, msgNo);
+			pstmt2.executeUpdate();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} finally {
+			close(rset2);
+			close(pstmt2);
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("msgDetail");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, msgNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {			
+				msg.setMsg_no(rset.getInt("msg_no"));
+				msg.setMsg_cate(rset.getString("msg_cate"));
+				msg.setMsg_content(rset.getString("msg_content"));
+				msg.setChk_status(rset.getString("chk_status"));
+				msg.setReply_status(rset.getString("reply_status"));
+				msg.setMsg_date(rset.getDate("msg_date"));
+				msg.setReply_date(rset.getDate("reply_date"));
+				msg.setReply_content(rset.getString("reply_content"));
+				msg.setFrom_user(rset.getString("from_user"));
+				msg.setTo_user(rset.getString("to_user"));
+				msg.setMsg_status(rset.getString("msg_status"));
+				msg.setModify_date(rset.getDate("modify_date"));
+				msg.setReport_user(rset.getString("report_user"));			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return msg;
 	}
 }

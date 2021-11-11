@@ -87,11 +87,11 @@ scope="application"/>
 					<form method="get" action="${ contextPath }/admin/recPlaceMg">
 					<div class="selectbox">
 						<button class="title" type="button">
-							<c:if test="${ param.searchCondition == null }">전체</c:if>
+							<c:if test="${ param.searchCondition == null }">카테고리</c:if>
 							<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
 						</button>
 						<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
-						<ul class="selList" id="searchCondition" style="max-height: 0px; display: none;">
+						<ul class="selList" id="searchCondition">
 							<li>
 								<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
 								<label for="sel_type1_1">전체</label>

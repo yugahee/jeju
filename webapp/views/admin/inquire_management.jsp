@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -63,218 +74,197 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
-			</div>		
+			</div>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">문의 관리</div>
+					<form method="get" action="${ contextPath }/admin/inquireMg">
+                    <!-- 
+                    	시간 나면 해야지
                     <div class="calendar">
                         <p class="ctit">기간 검색</p>
                         <div class="inp_text">
                             <input type="date"> ~ <input type="date">
                         </div>
-                    </div>
+                    </div> -->
 					<div class="selectbox">
-						<button class="title" type="button" title="문의구분">문의구분</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
+						<button class="title" type="button">
+							<c:if test="${ param.searchCondition == null }">문의유형</c:if>
+							<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+						</button>
+						<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
+						<ul class="selList" id="searchCondition">
 							<li>
-								<input type="radio" value="" class="option" id="select_res0" name="select_user">
-								<label for="select_res0">전체</label>
+								<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+								<label for="sel_type1_1">전체</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_res1" name="select_user">
-								<label for="select_res1">예약</label>
+								<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '문의' }">checked="checked"</c:if>>
+								<label for="sel_type1_2">문의</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_res2" name="select_user">
-								<label for="select_res2">결제</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res3" name="select_user">
-								<label for="select_res3">인증</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res4" name="select_user">
-								<label for="select_res4">신고</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res5" name="select_user">
-								<label for="select_res5">기타</label>
+								<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '신고' }">checked="checked"</c:if>>
+								<label for="sel_type1_3">신고</label>
 							</li>
 						</ul>
 					</div>
 					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">검색 조건</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-                            <li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">ID</label>
+						<button class="title" type="button">
+							<c:if test="${ param.searchCondition2 == null }">답변상태</c:if>
+							<c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>
+						</button>
+						<input class="inputVal" type="hidden" name="searchCondition2" value="<c:if test="${ param.searchCondition2 == null }">전체</c:if><c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>">
+						<ul class="selList" id="searchCondition2">
+							<li>
+								<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '전체' }">checked="checked"</c:if>>
+								<label for="sel_type2_1">전체</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op2">이름</label>
+								<input class="option" type="radio" id="sel_type2_2" <c:if test="${ param.searchCondition2 == '미답변' }">checked="checked"</c:if>>
+								<label for="sel_type2_2">미답변</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">내용</label>
-							</li>
-						</ul>
-					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="답변 상태">답변 상태</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-                            <li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">전체</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op2">답변 완료</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">미답변</label>
+								<input class="option" type="radio" id="sel_type2_3" <c:if test="${ param.searchCondition2 == '답변완료' }">checked="checked"</c:if>>
+								<label for="sel_type2_3">답변완료</label>
 							</li>
 						</ul>
 					</div>
 					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
+						<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="아이디를 입력하세요">
+						<button type="submit" class="btn_sch">검색</button>
 					</div>
+					</form>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
-						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
-								</li>
-							</ul>
-						</div>
+						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">
 				<div class="tblType3 noBorT noBorB boardList">
 					<table summary="추천장소 후기 테이블">
 						<caption>추천장소 후기 테이블</caption>
 						<colgroup>
+							<col width="10%">
 							<col width="8%">
-							<col width="8%">
-							<col width="15%">
 							<col width="*">
 							<col width="10%">
+							<col width="10%">
+							<col width="8%">
 							<col width="8%">
 							<col width="10%">
-							<col width="10%">
-							<col width="10%">
+							<col width="8%">
 						</colgroup>
 						<thead>
 							<tr>
-								<th>NO</th>
-								<th>구분</th>
-								<th>제목</th>
+								<th>메시지 번호</th>
+								<th>카테고리</th>
 								<th>내용</th>
-								<th>ID</th>
 								<th>작성자</th>
-								<th>문의시간</th>
-								<th>상태</th>
+								<th>작성시간</th>
+								<th>읽음여부</th>
+								<th>답변여부</th>
 								<th>답변시간</th>
+								<th>상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('inquirePop')">
-								<td>57873</td>
-								<td>예약</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>답변 완료</td>
-								<td>2021.10.15<br>08:10:10</td>
+							<c:forEach var="msg" items="${msgList}">
+							<tr onclick="showLayer('inquirePop'); msgdata(this);">
+								<td style="display:none;"><input type="hidden" value="${msg.msg_no}"></td>
+								<td>${msg.msg_no}</td>
+								<td>${msg.msg_cate}</td>
+								<td>${msg.msg_content}</td>
+								<td>${msg.from_user}</td>
+								<td>
+									<fmt:formatDate value="${msg.msg_date}" type="both" pattern="yyyy.MM.dd"/>
+									<br>
+									<fmt:formatDate value="${msg.msg_date}" type="both" pattern="HH:mm:ss"/>
+								</td>
+								<td>${msg.chk_status}</td>
+								<td>${msg.reply_status}</td>
+								<td>
+									<!-- 값이 없을 경우 '-' 표시 -->
+									<c:choose>
+										<c:when test="${null ne msg.reply_date}">
+											<fmt:formatDate value="${msg.reply_date}" type="both" pattern="yyyy.MM.dd"/>
+											<br>
+											<fmt:formatDate value="${msg.reply_date}" type="both" pattern="HH:mm:ss"/>
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${msg.msg_status}</td>
 							</tr>
-							<tr onclick="showLayer('inquirePop')">
-								<td>23623</td>
-								<td>예약</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>답변 완료</td>
-								<td>2021.10.15<br>08:10:10</td>
-							</tr>
-							<tr onclick="showLayer('inquirePop')">
-								<td>124125</td>
-								<td>예약</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>답변 완료</td>
-								<td>2021.10.15<br>08:10:10</td>
-							</tr>
-							<tr onclick="showLayer('inquirePop')">
-								<td>12512</td>
-								<td>결제</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>미답변</td>
-								<td>-</td>
-							</tr>
-							<tr onclick="showLayer('inquirePop')">
-								<td>56423</td>
-								<td>예약</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>미답변</td>
-								<td>-</td>
-							</tr>
-							<tr onclick="showLayer('inquirePop')">
-								<td>436346</td>
-								<td>예약</td>
-								<td>문의드립니다 문의드려요</td>
-								<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>미답변</td>
-								<td>-</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/inquireMg?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/inquireMg?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/inquireMg?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/inquireMg?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath}/admin/inquireMg?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="noData">
+	                <p>해당 정보가 없습니다</p>
+	                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+	            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>
@@ -297,39 +287,30 @@ scope="application"/>
 					<tbody>
 						<tr>
 							<th>NO</th>
-							<td>124125</td>
+							<td id="mno"></td>
 						</tr>
 						<tr>
-							<th>구분</th>
-							<td>예약</td>
+							<th>카테고리</th>
+							<td id="mcata"></td>
 						</tr>
-                        <!-- 신고일 시 -->
-						<tr>
-							<th>신고유형</th>
-							<td>???</td>
-						</tr>
-						<tr>
-							<th>피신고자</th>
-							<td>sdfdssdf</td>
+						<tr class="mreport">
+							<th>피신고인</th>
+							<td id="mreport"></td>
 						</tr>
 						<tr>
-							<th>ID</th>
-							<td>useruser01</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>문의드립니다 문의드려요</td>
+							<th>작성자</th>
+							<td id="mfrom"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td>문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요문의내용은 다음과 같습니다. 안녕하세요 문의내용은 다음과 같습니다. 안녕하세요</td>
+							<td id="mcontent"></td>
 						</tr>
-						<tr>
+						<tr class="chatTr">
 							<th>답변란</th>
 							<td>
                                 <div class="textbox">
-                                    <textarea>안녕하세요. 고갱님 문의 답변드립니다.</textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
+                                    <textarea class="chatArea" placeholder="답변을 해주세요🤔"></textarea>
+                                    <span class="charCnt"><em class="update">0</em>/200</span>
                                 </div>
                             </td>
 						</tr>
@@ -337,10 +318,93 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="javascript:void(0)" class="btn btnType1 btnSizeM" onclick="commitData();"><span>적용</span></a>
+				<a href="javascript:void(0)" class="btn btnType2 btnSizeM" onclick="hideLayer('inquirePop');"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
+	<script>
+	// textarea 글자 수
+	let content = document.querySelector(".chatArea");
+    content.onkeyup = function(){
+        let area1 = document.querySelector(".update ");
+        let val = content.value.length;
+        area1.innerHTML = val;
+       	if(val > 200){
+       		area1.style.color = 'red';
+       	}else{
+       		area1.style.color = '#222';
+       	}
+    };
+    
+    let firstcVal = '';
+	function msgdata(elem){		
+		let msgNo = $(elem).find('input').val();	
+		$.ajax({
+			url : "${contextPath}/admin/msgDetail",
+			data : {msgNo : msgNo},
+			dataType : "json",
+			type : "get",
+			success : function(msg){
+				$('.mreport').hide();
+				if(msg){	
+					$("#mno").text(msg.msg_no);
+					$("#mcata").text(msg.msg_cate);
+					$("#mfrom").text(msg.from_user);
+					$("#mcontent").text(msg.msg_content);
+					if(msg.report_user != null){	// 신고일 경우
+						$('.mreport').show();
+						$("#mreport").text(msg.report_user);
+					}
+					if(msg.reply_content != null){	// 답변을 달았을 경우
+						$('.chatArea').val(msg.reply_content);
+						$(".chatArea").addClass('readOnly');
+						$('.chatArea').attr('readonly', true);
+					}else{
+						$(".chatArea").val('');	
+						$(".chatArea").removeClass('readOnly');
+						$('.chatArea').attr('readonly', false);
+					}
+					let area1 = document.querySelector(".update");
+			        let val = content.value.length;
+			        area1.innerHTML = val;
+			        
+			        firstcVal = $('.chatArea').val();
+				}else{
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function commitData(){
+		let mVal = $('#mno').text();
+		let cVal = $('.chatArea ').val();
+		if(cVal.length <= 200){					
+			$.ajax({
+				url : "${contextPath}/admin/roomDetailModify",
+				data : {mVal : mVal, firstcVal : firstcVal, cVal : cVal},
+				//dataType : "json",
+				type : "post",
+				success : function(msg){	
+					if(firstVal == statusVal && cVal == ''){
+						alert('수정 사항이 없습니다.');
+					}else{
+						alert('상태 수정 완료');
+					}
+					location.reload();
+				},
+				error : function(e){
+					alert('상태 수정 실패');
+				}
+			});
+		}else{
+			alert('글자 수 확인');
+			$('.chatArea ').focus();
+		}
+	}
+	</script>
 </body>
 </html>

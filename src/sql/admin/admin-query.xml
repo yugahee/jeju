@@ -588,6 +588,33 @@ WHERE RNUM BETWEEN ? AND ?
 
 
 
+<entry key="getMsgListCount">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+</entry>
+<entry key="searchMsg">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="msgDetail">
+	SELECT
+      	   *
+    FROM MESSAGE
+   WHERE MSG_NO = ?
+</entry>
+<entry key="msgDetailChk">
+	UPDATE MESSAGE
+    SET CHK_STATUS = 'Y'
+  WHERE MSG_NO = ?
+</entry>
+
+
+
 
 
 <entry key="reserveCount">
@@ -749,13 +776,6 @@ WHERE RNUM BETWEEN ? AND ?
 	)
 </entry>
 
-
-
-
-
-
-
-
 <entry key="reserveList">
 	SELECT 
     	*
@@ -781,14 +801,6 @@ WHERE RNUM BETWEEN ? AND ?
 	)
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
-
-
-
-
-
-
-
-
 
 <entry key="searchAllReserveNo">
 	SELECT 
