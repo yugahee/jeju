@@ -248,7 +248,7 @@ scope="application"/>
 						</div>
 					</div>
 					<div class="btn_wrap al_c">
-						<a href="#none" onclick="javascript:document.submitData.submit()" class="btn btnType1 btnSizeS"><span>저장</span></a>
+						<a href="#none" onclick="return submit();" class="btn btnType1 btnSizeS"><span>저장</span></a>
 						<a href="${contextPath}/admin/recPlaceMg" class="btn btnType2 btnSizeS"><span>취소</span></a>
 					</div>
 				</div>
@@ -276,6 +276,20 @@ scope="application"/>
        		area1.style.color = '#222';
        	}
     };
+    function submit(){
+    	let val = content.value.length;
+       	if(val > 200){
+       		alert('글자수 확인! 200자가 넘은 글자는 삭제됩니다😵');
+       		let a = content.value.substr(0,200);
+       		content.value = a;
+       		area1.innerHTML = 200;
+       		area1.style.color = '#222';
+       		content.focus();
+       		return false;
+       	}else{
+       		document.submitData.submit();
+       	}
+    }
 	</script>
 </body>
 </html>

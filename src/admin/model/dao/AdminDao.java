@@ -214,8 +214,7 @@ public class AdminDao {
 			pstmt.setString(1, idVal);
 			
 			result = pstmt.executeUpdate();
-			
-			System.out.println("dao" + result);
+
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		} finally {
@@ -627,7 +626,6 @@ public class AdminDao {
 				}				
 			}
 		}
-		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -869,6 +867,38 @@ public class AdminDao {
 		return reserveList;
 	}
 
+	public int insertReco(Connection conn, Recommendation rec) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("InsertRecoImg");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			/*
+			노출여부 			지역			주소			카테고리			설명
+			키워드			이름			네이버맵		카카오맵			이미지 명
+			*/
+			pstmt.setString(1, rec.getPublicYn());
+			pstmt.setInt(2, rec.getRecoArea());
+			pstmt.setString(3, rec.getRecoAddress());
+			pstmt.setInt(4, rec.getRecoCategory());
+			pstmt.setString(5, rec.getRecoExpl());
+			pstmt.setString(6, rec.getRecoKeyword());
+			pstmt.setString(7, rec.getRecoName());
+			pstmt.setString(8, rec.getNaverMap());
+			pstmt.setString(9, rec.getKakaoMap());
+			pstmt.setString(10, rec.getRecoImage());
+			pstmt.setString(11, rec.getImageName());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	public int modifyReco(Connection conn, Recommendation rec) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -955,7 +985,6 @@ public class AdminDao {
 				
 				result = pstmt.executeUpdate();
 				
-				System.out.println("dao" + result);
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			} finally {
