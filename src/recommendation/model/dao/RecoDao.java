@@ -52,7 +52,12 @@ public class RecoDao {
 											  , rset.getString("naver_map")
 											  , rset.getString("kakao_map")
 											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")));
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("deleted_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,7 +96,12 @@ public class RecoDao {
 											  , rset.getString("naver_map")
 											  , rset.getString("kakao_map")
 											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")));
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("deleted_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,7 +138,12 @@ public class RecoDao {
 											  , rset.getString("naver_map")
 											  , rset.getString("kakao_map")
 											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")));
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("deleted_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -165,7 +180,12 @@ public class RecoDao {
 											  , rset.getString("naver_map")
 											  , rset.getString("kakao_map")
 											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")));
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("deleted_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -204,7 +224,12 @@ public class RecoDao {
 											  , rset.getString("naver_map")
 											  , rset.getString("kakao_map")
 											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")));
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("deleted_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -233,18 +258,23 @@ public class RecoDao {
 			
 			if(rset.next()) {
 				reco = new Recommendation(rset.getInt("reco_no")
-						  				, rset.getString("public_yn")
-						  				, rset.getInt("reco_area")
-						  				, rset.getString("reco_address")
-						  				, rset.getInt("reco_category")
-						  				, rset.getString("reco_expl")
-						  				, rset.getString("reco_keyword")
-						  				, rset.getString("reco_name")
-						  				, rset.getString("naver_map")
-						  				, rset.getString("kakao_map")
-						  				, rset.getString("reco_image")
-						  				, rset.getInt("like_count"));
-			}
+									  	, rset.getString("public_yn")
+									  	, rset.getInt("reco_area")
+									  	, rset.getString("reco_address")
+									  	, rset.getInt("reco_category")
+									  	, rset.getString("reco_expl")
+									  	, rset.getString("reco_keyword")
+									  	, rset.getString("reco_name")
+									  	, rset.getString("naver_map")
+									  	, rset.getString("kakao_map")
+									  	, rset.getString("reco_image")
+									  	, rset.getInt("like_count")
+									  	, rset.getString("image_name")
+									  	, rset.getString("deleted_name")
+									  	, rset.getString("coordinate")
+									  	, rset.getDouble("avg_score")
+									  	, rset.getInt("int_score"));
+		}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

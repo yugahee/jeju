@@ -91,12 +91,12 @@
 <script>
 	var mapContainer = document.getElementById('recoMap');		// 지도를 표시할 div
 	var mapOptions = {		// 지도를 생성할 때 필요한 기본 옵션
-			center: new kakao.maps.LatLng(33.5000496081595, 126.46078090711264),	// 지도의 중심 좌표
+			center: new kakao.maps.LatLng(${ reco.coordinate }),	// 지도의 중심 좌표
 			level: 3		// 지도의 레벨(확대, 축소 정도)
 	};
 	var map = new kakao.maps.Map(mapContainer, mapOptions);	// 지도 생성 및 객체 리턴
 	
-	var markerPosition = new kakao.maps.LatLng(33.5000496081595, 126.46078090711264);	// 마커 표시 위치 지정
+	var markerPosition = new kakao.maps.LatLng(${ reco.coordinate });	// 마커 표시 위치 지정
 	
 	var marker = new kakao.maps.Marker({
 		position: markerPosition
