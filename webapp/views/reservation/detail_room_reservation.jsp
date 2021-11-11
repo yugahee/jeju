@@ -83,20 +83,20 @@
 					</div>
 					
 					
-			<%--  	<%
-					String[] roomFac;
-					if( room.getRoomFac() != null) {
-						roomFac = room.getRoomFac().split("\\,"); // 배열로 잘라짐
+			  	<%
+					String[] roomFac = room.getRoomFac().split(",");
+					/* if( room.getRoomFac() != null) {
+						roomFac = room.getRoomFac().split(","); // 배열로 잘라짐
 					} else {
 						roomFac = new String[] {"", "", "", "", ""};
-					}
+					} */
 					
 					// 여기 아래부터 에러 
 					
 					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
 							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
 					
-					int index = 0;
+					/* int index = 0;
 					String[] samDefaultFac = null;
 					for( int i = 0; i < defaultFac.length; i++) {
 						for( int j = 0; j < roomFac.length; j++) {
@@ -104,14 +104,27 @@
 								samDefaultFac[index++] = roomFac[i];
 							}
 						}
+					} */
+					
+					/* String samDefaultFac = null; */
+					String[] result = null;
+					int index = 0;
+					for(String dbFac : roomFac) {
+						for( String defaultRoom : defaultFac) {
+							if(dbFac.equals(defaultRoom)) {
+								result[index++] = dbFac;
+								/* result[index++] = samDefaultFac; */
+							}
+						}
 					}
 					
-				%> --%>  
+				%>   
 					
 					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>
+						
 					</div>
 
 					<div class="moreSee2">
@@ -122,7 +135,7 @@
 						</ul>
 						<span class="minititle_text">기본 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= samDefaultFac[0] %> --%> </li> <li>에어컨</li> <li>와이파이</li> 
+							<li> <%= result[0] %>  </li> <li> <%= result[1] %> </li> <li> <%= result[2] %> </li> 
 							<li>전기포트</li> <li>전기포트</li>  <li>전자렌지</li>
 							<li>밥솥 </li> <li>수건</li> <li>식기</li> 
 							<li>다리미</li> <li>헤어드라이기</li>  <li>냉장고</li>
@@ -337,7 +350,7 @@
 				type : "post",
 				success : function(result){					
 					if(result == "success"){
-						//reserveOk();						
+						reserveOk();						
 					}else{
 						alert("예약이 가득차 예약이 불가능합니다ㅠㅠ");
 					}
