@@ -17,6 +17,8 @@ public class Recommendation {
 	private String recoImage;		// 이미지경로(1개)
 	private int likeCount;			// 좋아요 횟수
 	
+	private double score;			// 평점(어드민에서 쓸것)
+	
 	private String imageName;		// 이미지명
 	private String deletedName;		// 삭제될 이미지명
 	private String coordinate;		// api 좌표
@@ -208,13 +210,23 @@ public class Recommendation {
 	public void setAvgScore(double avgScore) {
 		this.avgScore = avgScore;
 	}
-	public double getintScore() {
+	
+	public int getIntScore() {
 		return intScore;
 	}
-	public void setintScore(int intScore) {
+
+	public void setIntScore(int intScore) {
 		this.intScore = intScore;
 	}
-	
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
 	public List<Reco_Review> getReviewList() {
 		return reviewList;
 	}
@@ -236,9 +248,9 @@ public class Recommendation {
 		return "Recommendation [recoNo=" + recoNo + ", publicYn=" + publicYn + ", recoArea=" + recoArea
 				+ ", recoAddress=" + recoAddress + ", recoCategory=" + recoCategory + ", recoExpl=" + recoExpl
 				+ ", recoKeyword=" + recoKeyword + ", recoName=" + recoName + ", naverMap=" + naverMap + ", kakaoMap="
-				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", avgScore=" + avgScore
-				+ ", intScore" + intScore + ", imageName=" + imageName + ", deletedName=" + deletedName + ", coordinate="
-				+ coordinate + ", reviewList=" + reviewList + "]";
+				+ kakaoMap + ", recoImage=" + recoImage + ", likeCount=" + likeCount + ", score=" + score
+				+ ", imageName=" + imageName + ", deletedName=" + deletedName + ", coordinate=" + coordinate
+				+ ", avgScore=" + avgScore + ", intScore=" + intScore + ", reviewList=" + reviewList + "]";
 	}
 
 }
