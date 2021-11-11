@@ -246,15 +246,7 @@ public class AdminService{
 		close(conn);
 		
 		return result;
-	}
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	
-	
+	}	
 	
 	
 	

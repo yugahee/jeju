@@ -908,9 +908,36 @@ public class AdminDao {
 		Reservation reserve = new Reservation();
 		String sql = adminQuery.getProperty("reserveDetail");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserveNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reserve.setRoom_reserve(reserveNo);
+				reserve.setGuest(rset.getString("guest"));
+				reserve.setReserve_state(rset.getString("reserve_state"));
+				
+				Rooms room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				reserve.setRoom_info(room);
+				
+				Payment pay = new Payment();
+				pay.setPrice(rset.getInt("price"));
+				pay.setPayDate(rset.getTimestamp("pay_date"));
+				reserve.setPayment_info(pay);				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+					
 		
-		
-		return null;
+		return reserve;
 	}
 
 	public int deleteRec(Connection conn, String[] arr) {
