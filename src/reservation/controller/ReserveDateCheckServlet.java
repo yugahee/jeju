@@ -54,7 +54,7 @@ public class ReserveDateCheckServlet extends HttpServlet {
 		//response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
-		int result = 0; // 성공시 1, 실패시 0 
+		int result = 0; // 성공시 1, 실패시 0....
 		for(Reservation DateCheck : possibleReservList) {
 			Date startDateDB = DateCheck.getStart_date();
 			Date endDateDB = DateCheck.getEnd_date();
