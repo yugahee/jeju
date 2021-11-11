@@ -157,6 +157,7 @@ public class ReservationDao {
 				room.setRoomNo(rset.getInt("room_no"));
 				room.setRoomName(rset.getString("room_name"));
 				room.setAddress(rset.getString("address"));
+				room.setUserId(rset.getString("user_id"));
 				room.setStartTime(rset.getString("start_time"));
 				room.setEndTime(rset.getString("end_time"));
 				

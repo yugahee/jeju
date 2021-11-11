@@ -67,6 +67,7 @@
 	    , ROOM_NO
 	    , ROOM_NAME
 	    , ADDRESS
+	    , USER_ID
 	    , START_TIME
 	    , END_TIME
 	    , FILE_PATH
