@@ -36,10 +36,6 @@
 					<!-- ** 기본설정 1 ** -->
 					<form method="post" action="${ contextPath }/host/roomUpdate1" name="roomenrollbasic" onsubmit="return formCheck();">
 					<input type="hidden" name="roomno" value="${ room.roomNo }"> 
-					<!-- 숙소시설 기존값 (배열로 넘겨야하나 문자열로 넘겨야하나) -->
-					<c:forTokens var="fac" items="${ room.roomFac }" delims=",">
-					<input type="hidden" name="originroomfac" value="${ fac }">
-					</c:forTokens>
 					
 						<div class="roomenroll_title_main">
 							<h2>설명</h2><span>숙소를 소개해주세요.</span>
