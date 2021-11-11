@@ -51,7 +51,7 @@ public class ReserveDateCheckServlet extends HttpServlet {
 		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
 		//System.out.println(possibleReservList);
 		
-		response.setContentType("application/json; charset=utf-8");
+		//response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
 		int result = 0; // 성공시 1, 실패시 0 
@@ -59,10 +59,14 @@ public class ReserveDateCheckServlet extends HttpServlet {
 			Date startDateDB = DateCheck.getStart_date();
 			Date endDateDB = DateCheck.getEnd_date();
 			
-			if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
-				result = 1;
-			} else {
+			//인수 날짜가Date 객체와 같으면0을 반환합니다.
+			//Date 객체가 인수 날짜 이후 인 경우 양수 값을 반환합니다.
+			//Date 객체가 인수 날짜보다 앞에 있으면 음수를 반환합니다.
+			if(startDateDB.compareTo(startDate) == 0 && endDateDB.compareTo(endDate) == 0) {
 				result = 0;
+				break;
+			} else if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
+				result = 1;
 			}
 			
 		}
