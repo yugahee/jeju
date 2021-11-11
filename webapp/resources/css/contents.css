@@ -1660,11 +1660,19 @@
      	text-align: center;
      	justify-content: center;
      }
+     .star_average>div {
+     	display: flex;
+     	align-items: center;
+     }
      
      /* 별점 간격 */
      .rating_star {
      	margin: 0 5px 0 15px;
      }
+     .star_average .rating_star p {
+     	margin: 0 5px;
+     }
+     
      
      /* 제목 글씨 크기 */
      .star_average > p:first-child {

@@ -88,14 +88,45 @@
 							</div>
 							
 							<div class="item_info">
-									<a href="#" onclick="detailView(${ reco.recoNo })">		<%-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 --%>
+									<a href="#" onclick="detailView(${ reco.recoNo })">		<!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
 										<p class="item_title">${ reco.recoName }</p>
 									</a>
-									<div class="star_average">
+									<div class="star_average">				<!-- 별점 부분 -->
 										<div class="rating_star">
-											<span class="starPoint p4">5</span>
+										<c:set var="star" value="${ reco.intScore }" />
+										<c:set var="avg" value="${ reco.avgScore }" />
+										<c:choose>
+											<c:when test="${ star eq 5 }">
+												<span class="starPoint p5">5</span>
+												<p>  ${ avg } / 5</p>									
+											</c:when>
+											
+											<c:when test="${ star eq 4 }">
+												<span class="starPoint p4">4</span>
+												<p>${ avg } / 5</p>							
+											</c:when>
+											
+											<c:when test="${ star eq 3 }">
+												<span class="starPoint p3">3</span>
+												<p>${ avg } / 5</p>						
+											</c:when>
+											
+											<c:when test="${ star eq 2 }">
+												<span class="starPoint p2">2</span>	
+												<p>${ avg } / 5</p>								
+											</c:when>
+											
+											<c:when test="${ star eq 1 }">
+												<span class="starPoint p1">1</span>
+												<p>${ avg } / 5</p>					
+											</c:when>
+											
+											<c:when test="${ star eq 0 }">
+												<span class="starPoint p0">0</span>
+												<p>${ avg } / 5</p>									
+											</c:when>
+										</c:choose>
 										</div>
-										<p>3</p>
 									</div>
 									<p class="adress">${ reco.recoAddress }</p>
 									<div class="reco_review">
@@ -154,7 +185,7 @@
 									</a>
 									<div class="star_average">
 										<div class="rating_star">
-											<span class="starPoint p5">5</span>
+											<span class="starPoint p0">5</span>
 										</div>
 										<p>(3.2/5)</p>
 									</div>
