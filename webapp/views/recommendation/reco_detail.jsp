@@ -28,9 +28,40 @@
 						<div class="star_average">
 							<p>${ reco.recoName }</p>
 							<div class="rating_star">
-								<span class="starPoint p5">5</span>
+								<c:set var="star" value="${ reco.intScore }" />
+								<c:set var="avg" value="${ reco.avgScore }" />
+								<c:choose>
+									<c:when test="${ star eq 5 }">
+										<span class="starPoint p5">5</span>
+										<p>  ${ avg } / 5</p>									
+									</c:when>
+									
+									<c:when test="${ star eq 4 }">
+										<span class="starPoint p4">4</span>
+										<p>${ avg } / 5</p>							
+									</c:when>
+									
+									<c:when test="${ star eq 3 }">
+										<span class="starPoint p3">3</span>
+										<p>${ avg } / 5</p>						
+									</c:when>
+									
+									<c:when test="${ star eq 2 }">
+										<span class="starPoint p2">2</span>	
+										<p>${ avg } / 5</p>								
+									</c:when>
+									
+									<c:when test="${ star eq 1 }">
+										<span class="starPoint p1">1</span>
+										<p>${ avg } / 5</p>					
+									</c:when>
+									
+									<c:when test="${ star eq 0 }">
+										<span class="starPoint p0">0</span>
+										<p>${ avg } / 5</p>									
+									</c:when>
+								</c:choose>
 							</div>
-							<p>(3.2/5)</p>
 						</div>
 						<div class="reco_address">${ reco.recoAddress }</div>
 						<div class="exp">${ reco.recoExpl }</div>
