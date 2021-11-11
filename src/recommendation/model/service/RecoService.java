@@ -79,5 +79,25 @@ public class RecoService {
 		
 		return reco;
 	}
+	
+	// 리뷰 삭제
+	public List<Reco_Review> deleteReview(int reviewNo, int rno) {
+		Connection conn = getConnection();
+		List<Reco_Review> reviewList = null;
+		int result = recoDao.deleteReview(conn, reviewNo);
+		
+		if(result > 0) {		// 삭제 잘 될 경우에 삭제된 리뷰 리스트 읽어오기
+			reviewList = recoDao.selectReviewList(conn, rno);
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		System.out.println(reviewList);		// 아 왜 계속 null 뜨지ㅠㅠㅠㅠㅠㅠ
+		
+		close(conn);
+		
+		return reviewList;
+	}
 
 }
