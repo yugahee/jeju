@@ -53,4 +53,40 @@
 		     , MODIFY_DATE = SYSDATE
 		 WHERE MSG_NO = ?
 	</entry>
+	
+	<entry key="deleteMessage">
+		UPDATE MESSAGE
+		   SET MSG_STATUS = 'N'
+		 WHERE MSG_NO = ?
+	</entry>
+	
+	<entry key="insertMessenger">
+		INSERT 
+		  INTO MESSAGE
+		(
+			   MSG_NO
+			 , MSG_CATE
+     		 , MSG_CONTENT
+     		 , CHK_STATUS
+    		 , MSG_DATE
+     		 , FROM_USER
+     		 , TO_USER
+     		 , MSG_STATUS
+     		 , MODIFY_DATE
+     		 , REPORT_USER
+		)
+		VALUES
+		(
+			 SEQ_MNO.NEXTVAL
+			 , ?
+			 , ?
+			 , DEFAULT
+			 , SYSDATE
+			 , ?
+			 , ?
+			 , DEFAULT
+			 , SYSDATE
+			 , ?
+		)  	
+	</entry>
 </properties>
