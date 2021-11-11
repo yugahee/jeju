@@ -64,7 +64,8 @@ public class RoomUpdate1Servlet extends HttpServlet {
 		
 		String startTime = request.getParameter("starttime");
 		String endTime = request.getParameter("endtime");
-		String[] roomFacArr = request.getParameterValues("roomfac");		
+		
+		String[] roomFacArr = request.getParameterValues("roomfac");	
 		
 		String roomFac = "";
 		if(roomFacArr != null) {
