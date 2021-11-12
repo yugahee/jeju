@@ -21,6 +21,7 @@ import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
 import reservation.model.vo.Reservation;
+import reservation.model.vo.RoomSearch;
 
 public class ReservationDao {
 
@@ -77,7 +78,7 @@ public class ReservationDao {
 	}
 	
 	// 조건검색 시 숙소리스트 목록 조회 
-	public List<Rooms> filterRoomList(Connection conn, Rooms rooms) {
+	public List<Rooms> filterRoomList(Connection conn, RoomSearch roomSearch) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> filterRoomList = new ArrayList<>();
@@ -86,15 +87,15 @@ public class ReservationDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, rooms.getLocation());
-			pstmt.setString(2, rooms.getRoomType());
-			pstmt.setString(3, rooms.getRoomFac());
-			pstmt.setString(4, rooms.getBuildingType());
+			pstmt.setString(1, roomSearch.getLocation());
+			pstmt.setString(2, roomSearch.getRoom_type());
+			pstmt.setString(3, roomSearch.getSpecialFac());
+			pstmt.setString(4, roomSearch.getBuilding_type());
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Rooms room = new Rooms();
+				Rooms rooms = new Rooms();
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
