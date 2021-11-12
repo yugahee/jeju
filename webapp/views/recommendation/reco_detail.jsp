@@ -78,9 +78,10 @@
 					<!-- 한줄평 리스트 시작 -->
 					<div class="detail_review">
 						<p>회원 리뷰</p>
-						
+						<form method="POST" action="${ contextPath }/reco/deleteReview">
 						<c:forEach var="review" items="${ reco.reviewList }">
 							<div class="detail_comment">
+							<input type="hidden">
 								<p>${ review.userId }</p>
 								<div class="rating_star">
 									<span class="starPoint p5">5</span>
@@ -95,6 +96,7 @@
 								</c:if>
 							</div>
 						</c:forEach>
+						</form>
 					</div>
 					<!-- 한줄평 끝 -->
 					

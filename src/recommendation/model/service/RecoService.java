@@ -88,8 +88,10 @@ public class RecoService {
 		
 		if(result > 0) {		// 삭제 잘 될 경우에 삭제된 리뷰 리스트 읽어오기
 			reviewList = recoDao.selectReviewList(conn, rno);
+			System.out.println(1);
 			commit(conn);
 		} else {
+			System.out.println(0);
 			rollback(conn);
 		}
 		
