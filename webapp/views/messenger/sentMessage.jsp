@@ -46,7 +46,10 @@
                                     <td>${ msg.msg_no }</td>
                                     <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.to_user }</td>
-                                    <td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
+                                    <c:choose>
+                                    <c:when test="${!empty msg.reply_date}"><td><fmt:formatDate value="${ msg.reply_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:when>
+                                    <c:otherwise><td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:otherwise>
+                                    </c:choose>
                                     <td>${ msg.chk_status }</td>                                  
                                 </tr>
                             </c:forEach>
@@ -183,6 +186,10 @@
 
 						if (msg) {
 							mno = msg.msg_no;
+							
+							// 답장이 없는 상태인 경우 = 내가 문의, 신고를 보낸 메세지인 경우
+							if(msg.reply_status != 'Y'){
+								
 							if(msg.chk_status == 'N'){
 								
 								if (msg.msg_cate == '문의') {
@@ -201,7 +208,7 @@
 								}
 								$("#call_reportId").html(report);
 
-								content = '<div class="textbox"><textarea name="modify_content" id="modify_content">' + msg.msg_content + '</textarea></div>';
+								content = '<div class="textbox"><textarea name="modify_content" id="modify_content">' + msg.msg_content + '</textarea><span class="charCnt"><em>0</em>/200</span></div>';
 								$("#call_content").html(content);
 
 								
@@ -237,6 +244,65 @@
 										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
 								$("#modifyBtn").html(btn);
 							}
+							
+							} else {
+								if(msg.chk_status == 'N'){
+									
+									if (msg.msg_cate == '문의') {
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									} else {
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									}
+									$("#call_cate").html(category);
+									
+									if (msg.msg_cate == '문의') {
+										report = '<div class="inp_text inp_cell">'
+												+ '<input type="text" name="modify_Id" id="modify_Id" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readOnly /></div>';
+									} else {
+										report = '<div class="inp_text inp_cell">'
+												+ '<input type="text" name="modify_Id" id="modify_Id" value="' + msg.report_user + '" /></div>';
+									}
+									$("#call_reportId").html(report);
+
+									content = '<div class="textbox"><textarea name="Rmodify_content" id="Rmodify_content">'+ "Re. " + msg.reply_content + '</textarea><span class="charCnt"><em>0</em>/200</span></div>';
+									$("#call_content").html(content);
+
+									
+									btn = '<button type="button" class="btn btnType1 btnSizeS" id="modify" onclick="msgReModify('+ mno +');hideLayer(\'callMessage\');"><span>수정</span></button>'
+											+ '<button type="button" class="btn btnType3 btnSizeS" id="delete" onclick="msgDelete('+ mno +');"><span>삭제</span></button>'
+											+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+									$("#modifyBtn").html(btn);
+									
+								} else {
+									if (msg.msg_cate == '문의') {
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									} else {
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									}
+									$("#call_cate").html(category);
+
+									if (msg.msg_cate == '문의') {
+										report = '<div class="inp_text inp_cell">'
+												+ '<input type="text" name="userId" id="call_userId" class="readOnly" placeholder="신고하실 회원의 아이디를 입력하세요." readonly /></div>';
+									} else {
+										report = '<div class="inp_text inp_cell">'
+												+ '<input type="text" name="userId" id="call_userId" class="readOnly" value="' + msg.report_user + '" readonly /></div>';
+									}
+									$("#call_reportId").html(report);
+
+									
+									content = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + "Re. " + msg.reply_content + '</textarea></div>';
+									$("#call_content").html(content);
+									
+									
+									btn = '<button type="button" class="btn btnType1 btnSizeS disabled" id="btn_modify" disabled><span>수정</span></button>'
+											+ '<button type="button" class="btn btnType2 btnSizeS disabled" id="btn_delete" disabled><span>삭제</span></button>'
+											+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+									$("#modifyBtn").html(btn);
+								}
+								
+							}
+							
 						} else {
 							alert('메시지 상세보기에 실패했습니다.');
 						}
@@ -248,39 +314,68 @@
 	}
 	
 	
-	// 메시지 수정
+	// 보낸 메시지 수정
 	function msgModify(mno){
+		
 		let msg_no = mno;
 		let NreportId = $("#modify_Id").val();
 		let Ncontent = $("#modify_content").val();
+
 		$.ajax({
 			url : "${contextPath}/messenger/modify",
-			data : { NreportId : NreportId, Ncontent : Ncontent, msg_no : msg_no },
+			data : {
+				NreportId : NreportId,
+				Ncontent : Ncontent,
+				msg_no : msg_no
+			},
 			type : "post",
-			success : function(msg){
+			success : function(msg) {
 				alert('메시지 수정이 완료되었습니다.');
 				location.reload();
 			},
-			error : function(e){
+			error : function(e) {
+				alert('메시지 수정에 실패하였습니다.');
+			}
+		});
+		
+	}
+
+	
+	// 답장 메시지 수정
+	function msgReModify(mno){
+	
+		let msg_no = mno;
+		let Ncontent = $("#Rmodify_content").val();
+
+		$.ajax({
+			url : "${contextPath}/messenger/modify",
+			data : { msg_no : msg_no, Ncontent : Ncontent },
+			type : "get",
+			success : function(msg) {
+				alert('메시지 수정이 완료되었습니다.');
+				location.reload();
+			},
+			error : function(e) {
 				alert('메시지 수정에 실패하였습니다.');
 			}
 		});
 	}
 	
-	
 	// 메시지 삭제
-	function msgDelete(mno){
+	function msgDelete(mno) {
 		let msg_no = mno;
-		if(confirm("해당 메시지를 삭제하시겠습니까?")){
+		if (confirm("해당 메시지를 삭제하시겠습니까?")) {
 			$.ajax({
 				url : "${contextPath}/messenger/delete",
-				data : { msg_no : msg_no },
+				data : {
+					msg_no : msg_no
+				},
 				type : "post",
-				success : function(msg){
+				success : function(msg) {
 					alert('메시지 삭제가 완료되었습니다.');
 					location.reload();
 				},
-				error : function(e){
+				error : function(e) {
 					alert('메세지 삭제에 실패하였습니다.');
 				}
 			});
@@ -288,7 +383,6 @@
 			return false;
 		}
 	}
-	
 </script>
 
     <!-- 메신저 글쓰기 팝업 화면 -->
@@ -372,30 +466,18 @@
     
 <script>
 	
-	/* $('#Mcontent').keyup(function (e){
-	    var content = $(this).val();
-	    $('.charCnt').text("("+content.length+" / 200)");    //글자수 실시간 카운팅
-
-	    if (content.length > 200){
-	        alert("최대 200자까지 입력 가능합니다.");
-	        $(this).val(content.substring(0, 200));
-	        $('.charCnt').text("(200 / 200)");
-	    }
-	}); */
+	// +문의 선택 시 피신고인 인풋값 disabled 되게
 	
-	// 글자 수 체크 & 문의 선택 시 피신고인 인풋값 disabled 되게
-	
-	$(document).ready(function() {
-	    $('#Mcontent').on('keyup', function() {
-	        $('.charCnt').text("("+$(this).val().length+" / 200)");
-	 
-	        if($(this).val().length > 200) {
-	            $(this).val($(this).val().substring(0, 200));
-	            $('.charCnt').text("(200 / 200)");
-	        }
-	    });
+	// 글자수 체크
+	$('#Mcontent').on('keyup', function() {
+	    $('.charCnt').text(+$(this).val().length+"/200");
+	    
+	      if($(this).val().length > 200) {
+	          $(this).val($(this).val().substring(0, 200));
+	          $('.charCnt').text("200/200");
+	      }
 	});
-
+	
 	
 
 </script>
