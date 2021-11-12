@@ -1329,6 +1329,57 @@ public class AdminDao {
 		
 		return reviewList;
 	}
+
+	public RoomReview roomReviewDetail(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		RoomReview rr = new RoomReview();
+		String sql = adminQuery.getProperty("roomReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				rr.setReviewNo(rset.getInt("review_no"));
+				rr.setStarPoint(rset.getInt("star"));
+				rr.setReview(rset.getString("review"));
+				rr.setRoomNo(rset.getInt("room_no"));
+				rr.setReviewDate(rset.getDate("review_date"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setReserveNo(rset.getInt("recep_no"));
+				rr.setReviewStatus(rset.getString("review_status"));
+				rr.setRoomName(rset.getString("room_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return rr;
+	}
+
+	public int roomReviewUpdate(Connection conn, int reviewNo, String reviewState) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("roomReviewUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reviewState);
+			pstmt.setInt(2, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
 	
 	
 	
