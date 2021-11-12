@@ -1588,19 +1588,6 @@
           
      }
      
-     /*
-     1. 버튼 클릭 시 폼 넣는 법
-     2. 배너 크기 조정 및 안 움직이게
-     3. 검색 텍스트영역 height 조정
-     */
- 
-     /* reco_detail */
-     /*
-     1. 이전으로 버튼 앞에 '<' 표시
-     2. 사진 크기 조정
-     3. 맵부분 버튼 세로 가운데 정렬 하는 법
-     */
-
      /* 이전으로 버튼&하트 일렬로 */
      .detail_upper {
           display: flex;
@@ -1678,6 +1665,22 @@
      	margin: 0 5px;
      }
      
+     /* 레이어 닫기 버튼 위치 */
+     #recoClose {
+     	top: 20px;
+     	right: 10px;
+     }
+     
+     /* 별점 위치 */
+     #moveStar {
+     	margin-bottom: 15px;
+     }
+     
+     /* 레이어 제목 */
+     #recoH2 {
+     	margin: 10px auto;
+     	line-height: 1;
+     }
      
      /* 제목 글씨 크기 */
      .star_average > p:first-child {

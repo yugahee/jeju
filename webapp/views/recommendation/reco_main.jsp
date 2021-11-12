@@ -143,18 +143,18 @@
 								<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
 									<form>
 										<div class="layerTit">
+											<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
 											<h4>리뷰 등록</h4>
 											
-											<button class="btn_closeLayer" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
 										</div>
 										<div class="layerBody">
-											<h4>장소명</h4>
+											<h2 id="recoH2">${ reco.recoName }</h2>
 											<h4>별점을 등록해주세요</h4>
 		
-											<div class="rating_star_large">		<!-- 별점 시작 -->
+											<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
 												<div class="pointArea">
 													<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
-													<span class="starPoint p2">
+													<span class="starPoint p4">
 														<button>1점 선택</button>
 														<button>2점 선택</button>
 														<button>3점 선택</button>
@@ -164,8 +164,7 @@
 												</div>
 											</div>		<!-- 별점 끝 -->
 											<div>
-												<textarea width="10px;" height="10px;" style="resize: none;" name="content">
-												</textarea>
+												<input type="text" placeholder="50자 내로 입력해주세요" style="width:400px;height:50px;">
 												<input type="submit">
 											</div>
 										</div>
