@@ -22,10 +22,17 @@ public class ReservationService {
 	private ReservationDao reservationDao = new ReservationDao();
 	
 	// 숙소예약 화면 리스트 조회 
-	public List<Rooms> selectRoom() {
+	public List<Rooms> selectRoomList(Rooms rooms) {
 		Connection conn = getConnection();
 		
-		List<Rooms> roomList = reservationDao.selectRoom(conn);	
+		List<Rooms> roomList;
+		if(rooms.getLocation() != null || rooms.getRoomType() != null ||
+		   rooms.getRoomFac() != null || rooms.getBuildingType() != null) {
+				roomList = reservationDao.filterRoomList(conn, rooms);	
+		} else {
+			// 전체목록 조회
+				roomList = reservationDao.selectRoomList(conn);	
+		}
 				
 		close(conn);
 		
@@ -241,6 +248,18 @@ public class ReservationService {
 		
 		return possibleReservList;
 	}
+
+	// 숙소예약화면 조건검색
+	public List<Rooms> filterRoomList(Rooms rooms) {
+		Connection conn = getConnection();
+		
+		List<Rooms> filterRoomList  = reservationDao.filterRoomList(conn, rooms);
+		
+		close(conn);
+		
+		return filterRoomList;
+	}
+
 
 
 	
