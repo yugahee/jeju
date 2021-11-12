@@ -586,12 +586,38 @@ WHERE RNUM BETWEEN ? AND ?
      WHERE EMAIL = ?
 </entry>
 
-
-
+<entry key="getMsgListCountAll">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+</entry>
 <entry key="getMsgListCount">
      SELECT
             COUNT(*)
        FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+</entry>
+<entry key="getMsgListCountStatusChk">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND MSG_CATE = ?
+        AND REPLY_STATUS = ?
+</entry>
+<entry key="getMsgListCountStatus">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND MSG_CATE = ?
+</entry>
+<entry key="getMsgListCountChk">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND REPLY_STATUS = ?
 </entry>
 <entry key="searchMsg">
      SELECT *
@@ -601,6 +627,46 @@ WHERE RNUM BETWEEN ? AND ?
    	    FROM MESSAGE) A)
        WHERE RNUM BETWEEN ? AND ?
 </entry>
+<entry key="searchMsgAll">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%') A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgChk">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND REPLY_STATUS = ?) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgStatus">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND MSG_CATE = ?) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgStatusChk">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND MSG_CATE = ?
+   	     AND REPLY_STATUS = ?) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
 <entry key="msgDetail">
 	SELECT
       	   *
@@ -608,6 +674,11 @@ WHERE RNUM BETWEEN ? AND ?
    WHERE MSG_NO = ?
 </entry>
 <entry key="msgDetailChk">
+	UPDATE MESSAGE
+    SET CHK_STATUS = 'Y'
+  WHERE MSG_NO = ?
+</entry>
+<entry key="updateMsg">
 	UPDATE MESSAGE
     SET CHK_STATUS = 'Y'
   WHERE MSG_NO = ?

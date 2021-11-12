@@ -274,7 +274,7 @@ scope="application"/>
 	<div id="inquirePop" class="layerPop">
 		<div class="layerTit">
 			<h4>문의 내용</h4>
-			<button class="btn_closeLayer" onclick="hideLayer('inquirePop');"><span class="blind">레이어팝업 닫기</span></button>
+			<button class="btn_closeLayer" onclick="hideLayer('inquirePop');location.reload();"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
 			<div class="tblType2 noBorder">
@@ -319,7 +319,7 @@ scope="application"/>
 			</div>			
 			<div class="btn_wrap">
                 <a href="javascript:void(0)" class="btn btnType1 btnSizeM" onclick="commitData();"><span>적용</span></a>
-				<a href="javascript:void(0)" class="btn btnType2 btnSizeM" onclick="hideLayer('inquirePop');"><span>취소</span></a>
+				<a href="javascript:void(0)" class="btn btnType2 btnSizeM" onclick="hideLayer('inquirePop');location.reload();"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
@@ -384,12 +384,12 @@ scope="application"/>
 		let cVal = $('.chatArea ').val();
 		if(cVal.length <= 200){					
 			$.ajax({
-				url : "${contextPath}/admin/roomDetailModify",
+				url : "${contextPath}/admin/msgDetailModify",
 				data : {mVal : mVal, firstcVal : firstcVal, cVal : cVal},
 				//dataType : "json",
 				type : "post",
 				success : function(msg){	
-					if(firstVal == statusVal && cVal == ''){
+					if(firstcVal == cVal){
 						alert('수정 사항이 없습니다.');
 					}else{
 						alert('상태 수정 완료');
@@ -401,7 +401,7 @@ scope="application"/>
 				}
 			});
 		}else{
-			alert('글자 수 확인');
+			alert('글자 수를 확인해주세요😂');
 			$('.chatArea ').focus();
 		}
 	}

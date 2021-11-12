@@ -352,4 +352,19 @@ public class AdminService{
 		
 		return result;
 	}
+
+	public int modifyMsg(Messenger msg, String mVal, String firstcVal, String cVal) {
+		Connection conn = getConnection();		
+		int result = adminDao.modifyMsg(conn, msg, mVal, firstcVal, cVal);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }
