@@ -65,7 +65,8 @@ public class Room_reservationServlet extends HttpServlet {
 		rooms.setRoomType(room_type);
 		rooms.setBuildingType(building_type);
 		rooms.setRoomFac(specialFac);
-			
+		
+		System.out.println(rooms);
 		
 		// 숙소예약 클릭 시 OR 조건검색 적용시 
 		List<Rooms> roomList = new ReservationService().selectRoomList(rooms);
