@@ -77,6 +77,7 @@
 			<button class="btn_closeLayer" onclick="hideLayer('filterSearch');"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
+		 <form name="filterSearch" method="post" action="${contextPath}/filter/search">	
 			<div class="layerSort" >
 				<div class="layerdiv layerdiv2">
 					가격 범위
@@ -95,23 +96,23 @@
 					지역
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">동부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">서부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">중부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">남부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">북부</label>
 				</span>
 			</div>
@@ -180,10 +181,11 @@
 					<label for="chk1_1">휠체어 사용가능</label>
 				</span>
 			</div>
-			<div class="btn_wrap">
-                <a href="${contextPath}/room/reservation" class="btn btnType1 btnSizeM"><span>적용</span></a>
+			<div class="btn_wrap btnMargin">
+                <button class="btn btnType1 btnSizeM"><span>적용</span></button>
                 <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
+          </form>
 		</div>  
 	</div>
 	
@@ -212,6 +214,7 @@
 			output.innerHTML = this.value;
 		}
 	</script>
+
 
 	
 <%@ include file="/views/common/footer.jsp" %>
