@@ -337,6 +337,16 @@ public class RoomsService {
 		return reserveCount;
 	}
 
+	public Rooms returnDetail(int roomNo) {
+		Connection conn = getConnection();
+		
+		Rooms room = roomDao.returnDetail(conn, roomNo);
+		
+		close(conn);
+		
+		return room;
+	}
+
 
 
 }
