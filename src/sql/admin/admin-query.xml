@@ -1192,4 +1192,45 @@ WHERE REVIEW_NO = ?
 	SET REVIEW_STATUS = ?
 	WHERE REVIEW_NO = ?
 </entry>
+
+<entry key="getRRListCount">
+     SELECT
+            COUNT(*)
+       FROM RECO_REVIEW
+   ORDER BY RECO_REVIEW_NO
+</entry>
+<entry key="getRRListCountCateLc">
+	 SELECT
+            COUNT(*)
+       FROM RECO_REVIEW
+       JOIN RECOMMENDATION USING(RECO_NO)
+      WHERE RECO_CATEGORY = ?
+        AND RECO_NAME LIKE '%'||?||'%'
+   ORDER BY RECO_REVIEW_NO
+</entry>
+<entry key="getRRListCountCateId">
+	 SELECT
+            COUNT(*)
+       FROM RECO_REVIEW
+       JOIN RECOMMENDATION USING(RECO_NO)
+      WHERE RECO_CATEGORY = ?
+        AND USER_ID LIKE '%'||?||'%'
+   ORDER BY RECO_REVIEW_NO
+</entry>
+<entry key="getRRListCountLc">
+	 SELECT
+            COUNT(*)
+       FROM RECO_REVIEW
+       JOIN RECOMMENDATION USING(RECO_NO)
+      WHERE RECO_NAME LIKE '%'||?||'%'
+   ORDER BY RECO_REVIEW_NO
+</entry>
+<entry key="getRRListCountId">
+	 SELECT
+            COUNT(*)
+       FROM RECO_REVIEW
+       JOIN RECOMMENDATION USING(RECO_NO)
+      WHERE USER_ID LIKE '%'||?||'%'
+   ORDER BY RECO_REVIEW_NO
+</entry>
 </properties>

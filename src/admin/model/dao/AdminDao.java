@@ -20,6 +20,7 @@ import member.model.vo.Member;
 import messenger.model.vo.Messenger;
 import payment.model.vo.Payment;
 import reservation.model.vo.Reservation;
+import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
 
 public class AdminDao {
@@ -1449,6 +1450,67 @@ public class AdminDao {
 		}
 				
 		return result;
+	}
+
+	public int getRRListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		int cate = 0;
+		
+		String sql = adminQuery.getProperty("getRRListCount");
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cate = 1;
+			}else if(search.getSearchCondition().equals("식당")) {
+				cate = 2;
+			}else if(search.getSearchCondition().equals("카페")) {
+				cate = 3;
+			}
+			if(!search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountCateLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountCateId");
+				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountId");
+				}
+			}
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;
+			if(sql == adminQuery.getProperty("getRRListCountCateLc") || sql == adminQuery.getProperty("getRRListCountCateId")) {
+				pstmt.setInt(index++, cate);
+				pstmt.setString(index++, search.getSearchValue());
+			}else if(sql == adminQuery.getProperty("getRRListCountLc") || sql == adminQuery.getProperty("getRRListCountId")) {
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}			
+		
+		return listCount;
+	}
+
+	public List<Reco_Review> selectRRList(Connection conn, PageInfo pi, Search search) {
+		return null;
 	}
 	
 	
