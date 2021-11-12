@@ -356,10 +356,14 @@ public class AdminService{
 	public int modifyMsg(Messenger msg, String mVal, String firstcVal, String cVal) {
 		Connection conn = getConnection();		
 		int result = adminDao.modifyMsg(conn, msg, mVal, firstcVal, cVal);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
+		System.out.println(firstcVal.equals(""));
+		if(firstcVal.equals("")) {	// 문의 내용이 있을 경우 커밋 안 함
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}else {
 			rollback(conn);
 		}
 		
