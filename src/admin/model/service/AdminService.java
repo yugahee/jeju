@@ -13,6 +13,7 @@ import java.util.Map;
 import admin.model.dao.AdminDao;
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import reservation.model.vo.Reservation;
 
@@ -367,4 +368,27 @@ public class AdminService{
 		
 		return result;
 	}
+
+	public Map<String, Object> selectRoomReview(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getrReviewListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<RoomReview> reviewList = adminDao.selectRreviewList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("reviewList", reviewList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+	
+	
+	
+	
 }

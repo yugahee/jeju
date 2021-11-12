@@ -49,8 +49,6 @@ public class ReservationCancleServlet extends HttpServlet {
 		// 결제 이력이 있는 예약인지 아닌지 
 		Payment payChk = new PaymentService().reservePayCheck(reserv_no);
 		
-		System.out.println(payChk);
-		
 		if(payChk.getPrice() != 0) {
 			// 환불처리
 			int payBack = new PaymentService().payBack(reserv_no);

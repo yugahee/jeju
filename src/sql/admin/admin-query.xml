@@ -1050,4 +1050,34 @@ WHERE RNUM BETWEEN ? AND ?
 	SET RESERVE_STATE = ?
 	WHERE ROOM_RESERVE = ?
 </entry>
+<entry key="rReviewListCount">
+	SELECT
+	    COUNT(*)
+	FROM ROOMS_REVIEW
+</entry>
+<entry key="getRreviewList">
+	SELECT 
+    	*
+	FROM(
+	    SELECT 
+	        ROWNUM RNUM
+	        , A.*
+	    FROM (
+	        SELECT
+                REVIEW_NO
+                , STAR
+                , REVIEW
+                , ROOM_NO
+                , REVIEW_DATE
+                , RR.USER_ID
+                , RECEP_NO
+                , REVIEW_STATUS
+                , ROOM_NAME
+            FROM ROOMS_REVIEW RR
+            LEFT JOIN ROOMS RM USING(ROOM_NO)
+            ORDER BY 1 DESC
+	    ) A
+	)
+	WHERE RNUM BETWEEN ? AND ?
+</entry>
 </properties>
