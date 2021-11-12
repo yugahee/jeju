@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
 import messenger.model.vo.Messenger;
@@ -1254,4 +1255,83 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	
+	
+	
+	public int getrReviewListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("rReviewListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+			
+		
+		return result;
+	}
+
+	public List<RoomReview> selectRreviewList(Connection conn, PageInfo pi, Search search) {		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<RoomReview> reviewList = new ArrayList<>();
+		String sql = adminQuery.getProperty("getRreviewList");
+		
+		try {
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				RoomReview rr = new RoomReview();
+				rr.setReviewNo(rset.getInt("review_no"));
+				rr.setStarPoint(rset.getInt("star"));
+				rr.setReview(rset.getString("review"));
+				rr.setRoomNo(rset.getInt("room_no"));
+				rr.setReviewDate(rset.getDate("review_date"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setReserveNo(rset.getInt("recep_no"));
+				rr.setReviewStatus(rset.getString("review_status"));
+				rr.setRoomName(rset.getString("room_name"));
+				
+				reviewList.add(rr);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reviewList;
+	}
+	
+	
+	
+	
+	
 }
