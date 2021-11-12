@@ -21,6 +21,7 @@ import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
 import reservation.model.vo.Reservation;
+import reservation.model.vo.RoomSearch;
 
 public class ReservationDao {
 
@@ -35,12 +36,12 @@ public class ReservationDao {
 		}
 	}
 	
-	
-	public List<Rooms> selectRoom(Connection conn) {
+	// 숙소예약 클릭 시 숙소 전체목록 조회 
+	public List<Rooms> selectRoomList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
-		String sql =  roomQuery.getProperty("selectRoom");
+		String sql =  roomQuery.getProperty("selectRoomList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -75,6 +76,57 @@ public class ReservationDao {
 
 		return roomList;
 	}
+	
+	// 조건검색 시 숙소리스트 목록 조회 
+	public List<Rooms> filterRoomList(Connection conn, RoomSearch roomSearch) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Rooms> filterRoomList = new ArrayList<>();
+		String sql = roomQuery.getProperty("filterRoomList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, roomSearch.getLocation());
+			pstmt.setString(2, roomSearch.getRoom_type());
+			pstmt.setString(3, roomSearch.getSpecialFac());
+			pstmt.setString(4, roomSearch.getBuilding_type());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms rooms = new Rooms();
+				rooms.setLocation(rset.getString("location"));
+				rooms.setRoomName(rset.getString("room_name"));
+				rooms.setRoomTitle(rset.getString("room_title"));
+				rooms.setPrice(rset.getInt("price"));
+				rooms.setStar(rset.getDouble("star"));
+				rooms.setRoomNo(rset.getInt("room_no"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files files = new Files();
+				files.setFilePath(rset.getString("file_path"));
+				files.setChangeName(rset.getString("change_name"));
+				
+				fileList.add(files);
+				rooms.setFileList(fileList);
+
+				filterRoomList.add(rooms);
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return filterRoomList;
+	}
+	
+	
+	
 
 	public Rooms detailSelectRoom(Connection conn, int roomNo) {
 		PreparedStatement pstmt = null;
@@ -631,6 +683,9 @@ public class ReservationDao {
 		
 		return possibleReservList;
 	}
+
+
+	
 
 
 	

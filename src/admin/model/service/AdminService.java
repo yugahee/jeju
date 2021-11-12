@@ -13,6 +13,7 @@ import java.util.Map;
 import admin.model.dao.AdminDao;
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import reservation.model.vo.Reservation;
 
@@ -356,6 +357,55 @@ public class AdminService{
 	public int modifyMsg(Messenger msg, String mVal, String firstcVal, String cVal) {
 		Connection conn = getConnection();		
 		int result = adminDao.modifyMsg(conn, msg, mVal, firstcVal, cVal);
+		System.out.println(firstcVal.equals(""));
+		if(firstcVal.equals("")) {	// 문의 내용이 있을 경우 커밋 안 함
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Map<String, Object> selectRoomReview(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getrReviewListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<RoomReview> reviewList = adminDao.selectRreviewList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("reviewList", reviewList);
+		
+		close(conn);
+		
+		return returnMap;
+	}
+
+	public RoomReview roomReviewDetail(int reviewNo) {
+		Connection conn = getConnection();
+		
+		RoomReview review = adminDao.roomReviewDetail(conn, reviewNo);
+		
+		close(conn);
+		
+		return review;
+	}
+
+	public int roomReviewUpdate(int reviewNo, String reviewState) {
+		Connection conn = getConnection();
+		
+		int result = adminDao.roomReviewUpdate(conn, reviewNo, reviewState);
 		
 		if(result > 0) {
 			commit(conn);
@@ -366,5 +416,8 @@ public class AdminService{
 		close(conn);
 		
 		return result;
+
 	}
+
+	
 }

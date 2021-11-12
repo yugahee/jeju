@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import admin.model.vo.PageInfo;
 import admin.model.vo.Search;
+import common.model.vo.RoomReview;
 import host.model.vo.Rooms;
 import member.model.vo.Member;
 import messenger.model.vo.Messenger;
@@ -1029,33 +1030,69 @@ public class AdminDao {
 			}else if(search.getSearchCondition2().equals("답변완료")) {
 				chk = "Y";
 			}
-			if(!search.getSearchCondition().equals("전체")) {
-				if(!search.getSearchCondition2().equals("전체")) {
-					sql = adminQuery.getProperty("getMsgListCountStatusChk");
+			if(!(search.getStartDate().equals("") && search.getEndDate().equals(""))) {
+				sql = adminQuery.getProperty("getMsgListCountDate");
+				if(!search.getSearchCondition().equals("전체")) {
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("getMsgListCountStatusChkDate");
+					}else {
+						sql = adminQuery.getProperty("getMsgListCountStatusDate");
+					}
 				}else {
-					sql = adminQuery.getProperty("getMsgListCountStatus");
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("getMsgListCountChkDate");
+					}
 				}
 			}else {
-				if(!search.getSearchCondition2().equals("전체")) {
-					sql = adminQuery.getProperty("getMsgListCountChk");
+				if(!search.getSearchCondition().equals("전체")) {
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("getMsgListCountStatusChk");
+					}else {
+						sql = adminQuery.getProperty("getMsgListCountStatus");
+					}
 				}else {
-					sql = adminQuery.getProperty("getMsgListCount");
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("getMsgListCountChk");
+					}else {
+						sql = adminQuery.getProperty("getMsgListCount");
+					}
 				}
 			}
 		}
-		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int index = 1;							
 			if(sql != adminQuery.getProperty("getMsgListCountAll")) {
 				pstmt.setString(index++, search.getSearchValue());
-				if(sql == adminQuery.getProperty("getMsgListCountStatusChk")) {
-					pstmt.setString(index++, search.getSearchCondition());
-					pstmt.setString(index++, chk);
-				}else if(sql == adminQuery.getProperty("getMsgListCountStatus")) {
-					pstmt.setString(index++, search.getSearchCondition());
-				}else if(sql == adminQuery.getProperty("getMsgListCountChk")) {
-					pstmt.setString(index++, chk);
+
+				if(!(search.getStartDate().equals("") && search.getEndDate().equals(""))) {
+					sql = adminQuery.getProperty("getMsgListCountDate");
+					if(!search.getSearchCondition().equals("전체")) {
+						if(!search.getSearchCondition2().equals("전체")) {
+							sql = adminQuery.getProperty("getMsgListCountStatusChkDate");
+							pstmt.setString(index++, search.getSearchCondition());
+							pstmt.setString(index++, chk);
+						}else {
+							sql = adminQuery.getProperty("getMsgListCountStatusDate");
+							pstmt.setString(index++, search.getSearchCondition());
+						}
+					}else {
+						if(!search.getSearchCondition2().equals("전체")) {
+							sql = adminQuery.getProperty("getMsgListCountChkDate");
+							pstmt.setString(index++, chk);
+						}
+					}
+					pstmt.setString(index++, search.getStartDate());
+					pstmt.setString(index++, search.getEndDate());
+				}else {
+					if(sql == adminQuery.getProperty("getMsgListCountStatusChk")) {
+						pstmt.setString(index++, search.getSearchCondition());
+						pstmt.setString(index++, chk);
+					}else if(sql == adminQuery.getProperty("getMsgListCountStatus")) {
+						pstmt.setString(index++, search.getSearchCondition());
+					}else if(sql == adminQuery.getProperty("getMsgListCountChk")) {
+						pstmt.setString(index++, chk);
+					}
 				}
 			}
 			
@@ -1088,21 +1125,35 @@ public class AdminDao {
 			}else if(search.getSearchCondition2().equals("답변완료")) {
 				chk = "Y";
 			}
-			if(!search.getSearchCondition().equals("전체")) {
-				if(!search.getSearchCondition2().equals("전체")) {
-					sql = adminQuery.getProperty("searchMsgStatusChk");
+			if(!(search.getStartDate().equals("") && search.getEndDate().equals(""))) {
+				sql = adminQuery.getProperty("searchMsgDate");
+				if(!search.getSearchCondition().equals("전체")) {
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("searchMsgStatusChkDate");
+					}else {
+						sql = adminQuery.getProperty("searchMsgStatusDate");
+					}
 				}else {
-					sql = adminQuery.getProperty("searchMsgStatus");
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("searchMsgChkDate");
+					}
 				}
 			}else {
-				if(!search.getSearchCondition2().equals("전체")) {
-					sql = adminQuery.getProperty("searchMsgChk");
+				if(!search.getSearchCondition().equals("전체")) {
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("searchMsgStatusChk");
+					}else {
+						sql = adminQuery.getProperty("searchMsgStatus");
+					}
 				}else {
-					sql = adminQuery.getProperty("searchMsgAll");
+					if(!search.getSearchCondition2().equals("전체")) {
+						sql = adminQuery.getProperty("searchMsgChk");
+					}else {
+						sql = adminQuery.getProperty("searchMsgAll");
+					}
 				}
 			}
 		}
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			 
@@ -1112,13 +1163,35 @@ public class AdminDao {
 			int index = 1;							
 			if(sql != adminQuery.getProperty("searchMsg")) {
 				pstmt.setString(index++, search.getSearchValue());
-				if(sql == adminQuery.getProperty("searchMsgStatusChk")) {
-					pstmt.setString(index++, search.getSearchCondition());
-					pstmt.setString(index++, chk);
-				}else if(sql == adminQuery.getProperty("searchMsgStatus")) {
-					pstmt.setString(index++, search.getSearchCondition());
-				}else if(sql == adminQuery.getProperty("searchMsgChk")) {
-					pstmt.setString(index++, chk);
+
+				if(!(search.getStartDate().equals("") && search.getEndDate().equals(""))) {
+					sql = adminQuery.getProperty("searchMsgDate");
+					if(!search.getSearchCondition().equals("전체")) {
+						if(!search.getSearchCondition2().equals("전체")) {
+							sql = adminQuery.getProperty("searchMsgStatusChkDate");
+							pstmt.setString(index++, search.getSearchCondition());
+							pstmt.setString(index++, chk);
+						}else {
+							sql = adminQuery.getProperty("searchMsgStatusDate");
+							pstmt.setString(index++, search.getSearchCondition());
+						}
+					}else {
+						if(!search.getSearchCondition2().equals("전체")) {
+							sql = adminQuery.getProperty("searchMsgChkDate");
+							pstmt.setString(index++, chk);
+						}
+					}
+					pstmt.setString(index++, search.getStartDate());
+					pstmt.setString(index++, search.getEndDate());
+				}else {
+					if(sql == adminQuery.getProperty("searchMsgStatusChk")) {
+						pstmt.setString(index++, search.getSearchCondition());
+						pstmt.setString(index++, chk);
+					}else if(sql == adminQuery.getProperty("searchMsgStatus")) {
+						pstmt.setString(index++, search.getSearchCondition());
+					}else if(sql == adminQuery.getProperty("searchMsgChk")) {
+						pstmt.setString(index++, chk);
+					}
 				}
 			}
 			
@@ -1134,17 +1207,16 @@ public class AdminDao {
 				msg.setMsg_content(rset.getString("msg_content"));
 				msg.setChk_status(rset.getString("chk_status"));
 				msg.setReply_status(rset.getString("reply_status"));
-				msg.setMsg_date(rset.getDate("msg_date"));
-				msg.setReply_date(rset.getDate("reply_date"));
+				msg.setMsg_date(rset.getTimestamp("msg_date"));
+				msg.setReply_date(rset.getTimestamp("reply_date"));
 				msg.setReply_content(rset.getString("reply_content"));
 				msg.setFrom_user(rset.getString("from_user"));
 				msg.setTo_user(rset.getString("to_user"));
 				msg.setMsg_status(rset.getString("msg_status"));
-				msg.setModify_date(rset.getDate("modify_date"));
+				msg.setModify_date(rset.getTimestamp("modify_date"));
 				msg.setReport_user(rset.getString("report_user"));
 				msgList.add(msg);
 			}			
-			System.out.println(msgList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1189,16 +1261,16 @@ public class AdminDao {
 				msg.setMsg_content(rset.getString("msg_content"));
 				msg.setChk_status(rset.getString("chk_status"));
 				msg.setReply_status(rset.getString("reply_status"));
-				msg.setMsg_date(rset.getDate("msg_date"));
-				msg.setReply_date(rset.getDate("reply_date"));
+				msg.setMsg_date(rset.getTimestamp("msg_date"));
+				msg.setReply_date(rset.getTimestamp("reply_date"));
 				msg.setReply_content(rset.getString("reply_content"));
 				msg.setFrom_user(rset.getString("from_user"));
 				msg.setTo_user(rset.getString("to_user"));
 				msg.setMsg_status(rset.getString("msg_status"));
-				msg.setModify_date(rset.getDate("modify_date"));
+				msg.setModify_date(rset.getTimestamp("modify_date"));
 				msg.setReport_user(rset.getString("report_user"));			
 			}
-			
+			System.out.println(msg);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1235,14 +1307,13 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = adminQuery.getProperty("updateMsgReply");
-				
+
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			int count = 1;
-			if(sql == adminQuery.getProperty("updateMsgReply")){
-				pstmt.setString(count++, cVal);
-			}
+			pstmt.setString(count++, cVal);
 			pstmt.setString(count, mVal);
 			
 			result = pstmt.executeUpdate();
@@ -1254,4 +1325,134 @@ public class AdminDao {
 		}
 		return result;
 	}
+	
+	
+	
+	
+	public int getrReviewListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("rReviewListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+			
+		
+		return result;
+	}
+
+	public List<RoomReview> selectRreviewList(Connection conn, PageInfo pi, Search search) {		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<RoomReview> reviewList = new ArrayList<>();
+		String sql = adminQuery.getProperty("getRreviewList");
+		
+		try {
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				RoomReview rr = new RoomReview();
+				rr.setReviewNo(rset.getInt("review_no"));
+				rr.setStarPoint(rset.getInt("star"));
+				rr.setReview(rset.getString("review"));
+				rr.setRoomNo(rset.getInt("room_no"));
+				rr.setReviewDate(rset.getDate("review_date"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setReserveNo(rset.getInt("recep_no"));
+				rr.setReviewStatus(rset.getString("review_status"));
+				rr.setRoomName(rset.getString("room_name"));
+				
+				reviewList.add(rr);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return reviewList;
+	}
+
+	public RoomReview roomReviewDetail(Connection conn, int reviewNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		RoomReview rr = new RoomReview();
+		String sql = adminQuery.getProperty("roomReviewDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				rr.setReviewNo(rset.getInt("review_no"));
+				rr.setStarPoint(rset.getInt("star"));
+				rr.setReview(rset.getString("review"));
+				rr.setRoomNo(rset.getInt("room_no"));
+				rr.setReviewDate(rset.getDate("review_date"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setReserveNo(rset.getInt("recep_no"));
+				rr.setReviewStatus(rset.getString("review_status"));
+				rr.setRoomName(rset.getString("room_name"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return rr;
+	}
+
+	public int roomReviewUpdate(Connection conn, int reviewNo, String reviewState) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("roomReviewUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reviewState);
+			pstmt.setInt(2, reviewNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+	
+	
+	
+	
+	
 }

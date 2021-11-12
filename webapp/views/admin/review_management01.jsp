@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -67,7 +68,10 @@ scope="application"/>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
-			</div>			
+			</div>		
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
+			</c:if>	
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">숙소 후기 관리</div>
@@ -81,158 +85,129 @@ scope="application"/>
 						<button class="title" type="button" title="검색 조건">검색 조건</button>
 						<ul class="selList" style="max-height: 0px; display: none;">
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
+								<input type="radio" value="" class="option" id="select_search_op1" name="searchCondition">
 								<label for="select_search_op1">숙소번호</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
+								<input type="radio" value="" class="option" id="select_search_op2" name="searchCondition">
 								<label for="select_search_op2">ID</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
+								<input type="radio" value="" class="option" id="select_search_op3" name="searchCondition">
 								<label for="select_search_op3">이름</label>
 							</li>
 							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
+								<input type="radio" value="" class="option" id="select_search_op4" name="searchCondition">
 								<label for="select_search_op4">내용</label>
 							</li>
 						</ul>
 					</div>					
 					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
+						<input type="text" name="searchValue" id="searchValue" placeholder="검색어를 입력하세요">
 						<a href="#" class="btn_sch">검색</a>
 					</div>
 				</div>
 				<div class="listTotal">
 					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
-						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
-								</li>
-							</ul>
-						</div>
+						<p class="totalCnt">총 ${listCount} 개</p>						
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">
 				<div class="tblType3 noBorT noBorB boardList">
 					<table summary="숙소 후기 테이블">
 						<caption>숙소 후기 테이블</caption>
 						<colgroup>
 							<col width="8%">
 							<col width="15%">
-							<col width="8%">
 							<col width="*">
+							<col width="8%">
 							<col width="10%">
 							<col width="8%">
-							<col width="6%">
-							<col width="12%">
 							<col width="6%">
 						</colgroup>
 						<thead>
 							<tr>
-								<th>NO</th>
-								<th>숙소명</th>
-								<th>후기번호</th>
+								<th>리뷰번호</th>
+								<th>숙소명</th>								
 								<th>내용</th>
-								<th>ID</th>
-								<th>작성자</th>
+								<th>작성자</th>								
 								<th>별점</th>
 								<th>작성시간</th>
 								<th>상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>123456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
+							<c:forEach var="review" items="${ reviewList }" varStatus="status">
+							<tr onclick="selectReview(${ review.reviewNo }); showLayer('roomRvPop')">
+								<td>${ review.reviewNo }</td>
+								<td>${ review.roomName }</td>								
+								<td>${ review.review }</td>
+								<td>${ review.userId }</td>
+								<td>${ review.starPoint }</td>								
+								<td>${ review.reviewDate }</td>
+								<td>${ review.reviewStatus }</td>
 							</tr>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까 제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('roomRvPop')">
-								<td>223456</td>
-								<td>제주라도 넘어갈까</td>
-								<td>123456</td>
-								<td>안녕하세요 여러분 시베리아 허허 벌판에 홀로 남은 야생 호랑이</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
+							</c:forEach>							
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/userMg01?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/userMg01?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/revwMg01?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/revwMg01?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/revwMg01?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
+				</c:when>
+				<c:otherwise>
+					<div class="noData">
+		                <p>해당 정보가 없습니다</p>
+		                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+		            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>
@@ -254,54 +229,34 @@ scope="application"/>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th>후기번호</th>
-							<td>123456</td>
+							<th>리뷰번호</th>
+							<td id="rNo">123456</td>
 						</tr>
 						<tr>
 							<th>숙소명</th>
-							<td>제주라도 넘어갈까 제주라도 넘어갈까</td>
+							<td id="rName">제주라도 넘어갈까 제주라도 넘어갈까</td>
 						</tr>
 						<tr>
 							<th>ID</th>
-							<td>user03</td>
-						</tr>
-						<tr>
-							<th>작성자</th>
-							<td>네글자인</td>
-						</tr>
+							<td id="rId">user03</td>
+						</tr>						
 						<tr>
 							<th>별점</th>
 							<td>
-                                <div class="rating_star">
+                                <div class="rating_star" id="rStar">
                                     <span class="starPoint p5">5</span>
                                 </div>
                             </td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td>
-                                <div class="textbox">
-                                    <textarea placeholder="후기 내용을 입력해 주세요"></textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
-                                </div>
-                            </td>
+							<td id="rReview"></td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">노출</label>
-										</li>
-										<li>
-											<input type="radio" value="N" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">비노출</label>
-										</li>
-									</ul>
+								<div class="selectbox" id="rStatus">
+									
 								</div>
 							</td>
 						</tr>
@@ -309,10 +264,91 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <button type="button" class="btn btnType1 btnSizeM" onclick="stateUpdate(); hideLayer('roomRvPop');"><span>적용</span></button>
+				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('roomRvPop');"><span>취소</span></button>
             </div>
 		</div> 
 	</div>
 </body>
 </html>
+<script>
+	function selectReview(reviewNo){
+		$.ajax({
+			url : "${contextPath}/admin/rReviewDetail",
+			data : {reviewNo : reviewNo},
+			dataType : "json",
+			type : "post",
+			success : function(result){											
+				document.getElementById("rNo").innerText = result.reviewNo;
+				document.getElementById("rName").innerText = result.roomName;
+				document.getElementById("rId").innerText = result.userId;
+				document.getElementById("rReview").innerText = result.review;
+											
+				
+				// 별점
+				let starHtml = "";
+				
+				if(result.starPoint == 1){
+					starHtml = '<span class="starPoint p1">1</span>';
+				}else if(result.starPoint == 2){
+					starHtml = '<span class="starPoint p2">2</span>';
+				}else if(result.starPoint == 3){
+					starHtml = '<span class="starPoint p3">3</span>';
+				}else if(result.starPoint == 4){
+					starHtml = '<span class="starPoint p4">4</span>';
+				}else{
+					starHtml = '<span class="starPoint p5">5</span>';
+				}
+				
+				document.getElementById("rStar").innerHTML = starHtml;
+				
+	
+				//상태
+				let stateHtml = "";
+				
+				if(result.reviewStatus == "Y"){
+					stateHtml = '<button class="title" type="button" title="상태" id="rState">노출</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" checked="checked" /><label for="sel1_1">노출</label></li>'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" /><label for="sel1_2">비노출</label></li>'						
+						+ '</ul>';
+				}else{
+					stateHtml = '<button class="title" type="button" title="상태" id="rState">비노출</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" /><label for="sel1_1">노출</label></li>'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" checked="checked" /><label for="sel1_2">비노출</label></li>'						
+						+ '</ul>';
+				}
+				
+				document.getElementById("rStatus").innerHTML = stateHtml;
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function stateUpdate(){
+		$.ajax({
+			url : "${contextPath}/admin/rReviewUpdate",
+			data : {reviewNo : $("#rNo").text(),
+					rstate : $("input[name='reviewState']:checked").val()
+			},
+			dataType : "json",
+			type : "post",
+			success : function(result){	
+				console.log(result);
+				if(result == "success"){
+					alert("성공적으로 적용되었습니다.");
+					location.reload();
+				}else{
+					alert("업데이트가 되지 않았습니다ㅜㅜ");
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+</script>

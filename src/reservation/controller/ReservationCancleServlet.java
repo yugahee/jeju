@@ -1,6 +1,7 @@
 package reservation.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
+import payment.model.service.PaymentService;
+import payment.model.vo.Payment;
+import point.model.service.PointService;
 import reservation.model.service.ReservationService;
 
 /**
@@ -41,6 +45,16 @@ public class ReservationCancleServlet extends HttpServlet {
 		String user_type = ((Member)request.getSession().getAttribute("loginUser")).getUser_type(); 
 			
 		int reserv_no = Integer.parseInt(request.getParameter("reserve_no"));
+		
+		// 결제 이력이 있는 예약인지 아닌지 
+		Payment payChk = new PaymentService().reservePayCheck(reserv_no);
+		
+		if(payChk.getPrice() != 0) {
+			// 환불처리
+			int payBack = new PaymentService().payBack(reserv_no);
+			// 포인트 회수 및 사용처리 삭제
+			int pointBack = new PointService().pointBack(reserv_no);
+		}
 		
 		int result = new ReservationService().reservationCancle(reserv_no);
 		

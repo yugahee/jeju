@@ -77,6 +77,7 @@
 			<button class="btn_closeLayer" onclick="hideLayer('filterSearch');"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
+		 <form method="post" action="${contextPath}/room/reservation">	
 			<div class="layerSort" >
 				<div class="layerdiv layerdiv2">
 					가격 범위
@@ -95,23 +96,23 @@
 					지역
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1">
 					<label for="chk1_1">동부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_2">
 					<label for="chk1_1">서부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_3">
 					<label for="chk1_1">중부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_4">
 					<label for="chk1_1">남부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_5">
 					<label for="chk1_1">북부</label>
 				</span>
 			</div>
@@ -120,19 +121,19 @@
 					숙소종류
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="room_type" id="chk1_6">
 					<label for="chk1_1">원룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="room_type" id="chk1_7">
 					<label for="chk1_1">투룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="room_type" id="chk1_8">
 					<label for="chk1_1">복층</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="room_type" id="chk1_9">
 					<label for="chk1_1">쓰리룸이상</label>
 				</span>
 			</div>
@@ -141,29 +142,29 @@
 					건물유형
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_10">
 					<label for="chk1_1">원룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_11">
 					<label for="chk1_1">빌라</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_12">
 					<label for="chk1_1">펜션</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin2">
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_13">
 					<label for="chk1_1">단독주택</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_14">
 					<label for="chk1_1">오피스텔</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="building_type" id="chk1_15">
 					<label for="chk1_1">쉐어하우스</label>
 				</span>
 			</div>
@@ -172,18 +173,19 @@
 					특별시설
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="specialFac" id="chk1_16">
 					<label for="chk1_1">반려동물 입실가능</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="chk1" id="chk1_1">
+					<input type="checkbox" name="specialFac" id="chk1_17">
 					<label for="chk1_1">휠체어 사용가능</label>
 				</span>
 			</div>
-			<div class="btn_wrap">
-                <a href="${contextPath}/room/reservation" class="btn btnType1 btnSizeM"><span>적용</span></a>
+			<div class="btn_wrap btnMargin">
+                <button class="btn btnType1 btnSizeM"><span>적용</span></button>
                 <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
+          </form>
 		</div>  
 	</div>
 	
@@ -212,6 +214,7 @@
 			output.innerHTML = this.value;
 		}
 	</script>
+
 
 	
 <%@ include file="/views/common/footer.jsp" %>

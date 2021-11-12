@@ -88,9 +88,16 @@
 													<td><fmt:formatDate value="${ room.createDate }" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 													<td>
 														<div class="roomlist_btn">
-														<!-- <div class="btn_wrap"><button class="btn btnType1 btnSizeS" onclick="calendarView()"><span>달력관리</span></button></div> -->
-														<div class="btn_wrap"><button class="btn btnType2 btnSizeS" onclick="updateRoomView(${ room.roomNo });"><span>수정</span></button></div>
-														<div class="btn_wrap"><button class="btn btnType3 btnSizeS" onclick="deleteRoom(${ room.roomNo });"><span>삭제</span></button></div>
+														<c:choose>
+															<c:when test="${ room.enrollStatus eq '승인반려' }">
+															<div class="btn_wrap"><button class="btn btnType2 btnSizeS" onclick="showLayer('returnreason'); showdetail(${ room.roomNo });"><span>반려사유</span></button></div>
+															<div class="btn_wrap"><button class="btn btnType3 btnSizeS" onclick="deleteRoom(${ room.roomNo });"><span>삭제</span></button></div>		
+															</c:when>
+															<c:otherwise>
+															<div class="btn_wrap"><button class="btn btnType2 btnSizeS" onclick="updateRoomView(${ room.roomNo });"><span>수정</span></button></div>
+															<div class="btn_wrap"><button class="btn btnType3 btnSizeS" onclick="deleteRoom(${ room.roomNo });"><span>삭제</span></button></div>															
+															</c:otherwise>
+														</c:choose>
 														</div>
 													</td>
 												</tr>
@@ -162,6 +169,48 @@
 			</div>
 		</div>
 		
+		<!-- 레이어 팝업 returnreason showLayer('레이어 아이디명') / hideLayer('레이어 아이디명') .layerTit : 제목 부분 / .layerBody : 본문 컨텐츠 부분-->
+        <div id="returnreason" class="layerPop">
+            <div class="layerTit">
+                <h4>승인반려</h4>
+                <button class="btn_closeLayer" onclick="hideLayer('returnreason');"><span class="blind">레이어팝업 닫기</span></button>
+            </div>
+            <div class="layerBody">
+				<br>
+				<div class="tblType2 noBorder">
+					<table>
+						<colgroup>
+							<col style="width:20%;">
+							<!-- <col style="width:*;"> -->
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>작성자</th>
+								<td>관리자</td>
+							<tr>
+							<tr>
+								<th>숙소이름</th>
+								<td id="roomname"></td>
+							<tr>
+								<th>내용</th>
+								<td>
+									<div class="textbox">
+										<textarea class="readOnly" id="content" readonly>
+										</textarea>
+									</div>
+
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="btn_wrap">
+					<button class="btn btnType2 btnSizeM" onclick="hideLayer('returnreason');return false;"><span>닫기</span></button>
+				</div>                         
+            </div>  <!-- 레이어 내용 부분 끝 -->
+        </div>		
+		
 		<script>
 			function updateRoomView(roomno){
 				location.href='${contextPath}/host/roomUpdateView?roomno=' + roomno;
@@ -171,6 +220,23 @@
 				if(confirm("해당 숙소를 삭제하시겠습니까?")){
 					location.href='${contextPath}/host/roomDelete?roomno=' + roomno;
 				}
+			}
+			
+			// 반려사유 버튼 클릭시(반려 사유 내용 팝업에 내용작성)
+			function showdetail(roomno){
+				$.ajax({
+					url : "${contextPath}/host/returnDetail",
+					data : { roomno : roomno },
+					dataType : "json",
+					type : "get",
+					success : function(room){
+						document.getElementById('roomname').innerHTML = room.roomName;
+						document.getElementById('content').innerHTML = room.returnReason;
+					},
+					error : function(e){
+						console.log(e);
+					}
+				});
 			}
 		
 		</script>

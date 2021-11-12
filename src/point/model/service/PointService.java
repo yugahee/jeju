@@ -65,6 +65,22 @@ public class PointService {
 		return result;
 	}
 
+	public int pointBack(int reserv_no) {
+		Connection conn = getConnection();
+		
+		int result = pointDao.pointBack(conn, reserv_no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 	
 	
 }

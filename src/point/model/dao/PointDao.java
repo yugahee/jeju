@@ -133,5 +133,23 @@ public class PointDao {
 		return result;
 	}
 
+	public int pointBack(Connection conn, int reserv_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = pointQuery.getProperty("pointBack");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserv_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 
 }

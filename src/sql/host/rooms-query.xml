@@ -463,6 +463,14 @@
 		   AND RESERVE_STATE IN('예약신청', '결제대기', '예약완료')	
 	</entry>
 	
+	<entry key="returnDetail">
+		SELECT 
+		       ROOM_NAME
+		     , RETURN_REASON
+		  FROM ROOMS
+		 WHERE ROOM_NO = ?
+	</entry>
+	
 </properties>
 
 

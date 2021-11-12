@@ -1,6 +1,6 @@
 package admin.model.vo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Search {
 
@@ -8,24 +8,11 @@ public class Search {
 	private int searchConditionI;		// 검색조건 값이 숫자인 경우
 	private String searchCondition2;	// 검색조건 2
 	private String searchValue;			// 조건 값 
-	private Date startDate;				// 기간검색 1
-	private Date endDate;				// 기간검색 2
+	private String startDate;			// 기간검색 1
+	private String endDate;				// 기간검색 2
 	
 	public Search() {}
 	
-	
-
-	public Search(String searchCondition, int searchConditionI, String searchCondition2, String searchValue,
-			Date startDate, Date endDate) {
-		super();
-		this.searchCondition = searchCondition;
-		this.searchConditionI = searchConditionI;
-		this.searchCondition2 = searchCondition2;
-		this.searchValue = searchValue;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
-
 
 	public Search(String searchCondition, String searchValue) {
 		super();
@@ -48,9 +35,7 @@ public class Search {
 		this.searchValue = searchValue;
 	}
 
-	
-
-	public Search(String searchCondition, String searchCondition2, String searchValue, Date startDate, Date endDate) {
+	public Search(String searchCondition, String searchCondition2, String searchValue, String startDate, String endDate) {
 		super();
 		this.searchCondition = searchCondition;
 		this.searchCondition2 = searchCondition2;
@@ -59,7 +44,16 @@ public class Search {
 		this.endDate = endDate;
 	}
 
-
+	public Search(String searchCondition, int searchConditionI, String searchCondition2, String searchValue,
+			String startDate, String endDate) {
+		super();
+		this.searchCondition = searchCondition;
+		this.searchConditionI = searchConditionI;
+		this.searchCondition2 = searchCondition2;
+		this.searchValue = searchValue;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 
 	public int getSearchConditionI() {
 		return searchConditionI;
@@ -93,31 +87,24 @@ public class Search {
 		this.searchValue = searchValue;
 	}
 
-	
-	
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
 
-
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
 
-
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
 
-
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -125,6 +112,4 @@ public class Search {
 				+ ", searchCondition2=" + searchCondition2 + ", searchValue=" + searchValue + ", startDate=" + startDate
 				+ ", endDate=" + endDate + "]";
 	}
-
-
 }

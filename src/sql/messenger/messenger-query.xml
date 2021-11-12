@@ -46,13 +46,27 @@
  		 WHERE MSG_NO = ?
 	</entry>
 	
-	<entry key="updateMessenger">
+	<entry key="modifyMessenger">
 		UPDATE MESSAGE
 		   SET MSG_CONTENT = ?
 		     , REPORT_USER = ?
 		     , MODIFY_DATE = SYSDATE
 		 WHERE MSG_NO = ?
 	</entry>
+	
+	<entry key="modifyReMessenger">
+		UPDATE MESSAGE
+		   SET REPLY_DATE = SYSDATE
+		     , REPLY_CONTENT = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE MSG_NO = ?
+	</entry>
+
+	<entry key="statusMessenger">
+		UPDATE MESSAGE
+		   SET CHK_STATUS = 'Y'
+		 WHERE MSG_NO = ?
+	</entry>	
 	
 	<entry key="deleteMessage">
 		UPDATE MESSAGE
@@ -88,5 +102,15 @@
 			 , SYSDATE
 			 , ?
 		)  	
+	</entry>
+	
+	<entry key="replyMessenger">
+		UPDATE MESSAGE
+		   SET REPLY_STATUS = 'Y'
+		     , REPLY_DATE = SYSDATE
+		     , REPLY_CONTENT = ?
+		     , FROM_USER = ?
+		     , TO_USER = ?
+		 WHERE MSG_NO = ?
 	</entry>
 </properties>

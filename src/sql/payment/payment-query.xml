@@ -43,4 +43,17 @@
 		PONE = ?		
 	WHERE ROOM_RESERVE = ?
 </entry>
+<entry key="reservePayCheck">
+	SELECT
+	    PRICE
+	    , PAY_DATE
+	FROM PAYMENT
+	WHERE PAY_DIVI = '결제'
+	AND RECEP_NO = ?
+</entry>
+<entry key="payBack">
+	UPDATE PAYMENT
+	SET PAY_DIVI = '환불'
+	WHERE RECEP_NO = ?
+</entry>
 </properties>

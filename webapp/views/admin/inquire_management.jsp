@@ -78,21 +78,23 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>
-			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
-				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 && !empty param.startDate && !empty param.endDate}">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }&startDate=${ param.startDate }&endDate=${ param.endDate }"/>
 			</c:if>
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">문의 관리</div>
 					<form method="get" action="${ contextPath }/admin/inquireMg">
-                    <!-- 
-                    	시간 나면 해야지
                     <div class="calendar">
                         <p class="ctit">기간 검색</p>
                         <div class="inp_text">
-                            <input type="date"> ~ <input type="date">
+                            <input type="date" name="startDate"
+                            value="<c:if test="${ param.startDate == null }"></c:if><c:if test="${ param.startDate != null }">${param.startDate}</c:if>">
+                             ~ 
+                             <input type="date" name="endDate"
+                            value="<c:if test="${ param.endDate == null }"></c:if><c:if test="${ param.endDate != null }">${param.endDate}</c:if>">
                         </div>
-                    </div> -->
+                    </div>
 					<div class="selectbox">
 						<button class="title" type="button">
 							<c:if test="${ param.searchCondition == null }">문의유형</c:if>
@@ -405,6 +407,35 @@ scope="application"/>
 			$('.chatArea ').focus();
 		}
 	}
+	$("input[type='date']").change(function(){
+		let startDate = $("input[name='startDate']").val();
+		let endDate = $("input[name='endDate']").val();
+		let change1;
+		let change2;
+		let arr1 = startDate.split('-');
+		let arr2 = endDate.split('-');
+		if(startDate != '' && endDate != ''){
+			// 날짜 값 비교 
+			if(arr1[0] > arr2[0]){
+				change1 = endDate;
+				change2 = startDate;
+			}else if(arr1[1] > arr2[1]){
+				change1 = endDate;
+				change2 = startDate;
+			}else if(arr1[2] > arr2[2]){
+				change1 = endDate;
+				change2 = startDate;
+			}else{
+				change1 = startDate;
+				change2 = endDate;
+			}
+			/* console.log("처음 : " + change1);
+			console.log("마지막 : " + change2); */
+			
+			$("input[name='startDate']").val(change1);
+			$("input[name='endDate']").val(change2);
+		}
+	});
 	</script>
 </body>
 </html>

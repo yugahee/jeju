@@ -34,7 +34,7 @@
        </div><!-- sec01 END -->
        <div class="sec sec02">
            <div class="search_box">
-               <form>
+               <form method="get" action="${contextPath}/reserve/select/admin">
                    <div class="selectbox">
                        <button class="title" type="button" title="검색옵션 선택">검색옵션 선택</button>
                        <ul class="selList">

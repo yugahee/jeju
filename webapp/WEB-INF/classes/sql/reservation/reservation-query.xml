@@ -3,7 +3,7 @@
 <properties>
 
 <!-- 숙소예약 화면(썸네일 부분) list  -->
-<entry key="selectRoom">
+<entry key="selectRoomList">
 	   SELECT 
 		     LOCATION,
 		     ROOM_NAME,
@@ -22,6 +22,33 @@
 		GROUP BY LOCATION, ROOM_NAME, ROOM_TITLE, PRICE, FILE_PATH, CHANGE_NAME, ROOM_NO
 		ORDER BY ROOM_NO DESC
 </entry>
+
+
+<entry key="filterRoomList">
+	SELECT 
+		     LOCATION,
+		     ROOM_NAME,
+		     ROOM_TITLE,
+		     PRICE,
+		     ROUND(AVG(STAR),1) STAR,
+		     FILE_PATH,
+		     CHANGE_NAME,
+		     ROOM_NO
+		 FROM ROOMS R
+		 LEFT OUTER JOIN FILES F USING(ROOM_NO)
+	  	 LEFT OUTER JOIN ROOMS_REVIEW USING(ROOM_NO)
+	  	WHERE FILE_LEVEL = 0
+	  	  AND R.STATUS = 'Y'
+	  	  AND ENROLL_STATUS = '등록완료'
+	  	  AND LOCATION LIKE '%' || ? || '%'
+	  	  AND ROOM_TYPE LIKE '%' || ? || '%'
+	  	  AND ROOM_FAC LIKE '%' || ? || '%'
+	  	  AND BUILDING_TYPE LIKE '%' || ? || '%'
+		GROUP BY LOCATION, ROOM_NAME, ROOM_TITLE, PRICE, FILE_PATH, CHANGE_NAME, ROOM_NO
+		ORDER BY ROOM_NO DESC 
+</entry>
+
+
 
 <entry key="detailSelectRoom">
 	SELECT 
@@ -305,6 +332,7 @@
 	 WHERE RESERVE_STATE != '예약취소'
 	   AND ROOM_NO = ?
 </entry>
+
 
 
 

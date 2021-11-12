@@ -16,16 +16,24 @@ import host.model.vo.Rooms;
 import member.model.vo.Member;
 import reservation.model.dao.ReservationDao;
 import reservation.model.vo.Reservation;
+import reservation.model.vo.RoomSearch;
 
 public class ReservationService {
 
 	private ReservationDao reservationDao = new ReservationDao();
 	
 	// 숙소예약 화면 리스트 조회 
-	public List<Rooms> selectRoom() {
+	public List<Rooms> selectRoomList(RoomSearch roomSearch) {
 		Connection conn = getConnection();
 		
-		List<Rooms> roomList = reservationDao.selectRoom(conn);	
+		List<Rooms> roomList;
+		if(roomSearch.getLocation() != null || roomSearch.getRoom_type() != null ||
+			roomSearch.getSpecialFac() != null || roomSearch.getBuilding_type() != null) {
+			roomList = reservationDao.filterRoomList(conn, roomSearch);	
+		} else {
+			// 전체목록 조회
+			roomList = reservationDao.selectRoomList(conn);	
+		}
 				
 		close(conn);
 		
@@ -241,6 +249,9 @@ public class ReservationService {
 		
 		return possibleReservList;
 	}
+
+
+
 
 
 	
