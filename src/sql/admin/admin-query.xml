@@ -619,6 +619,44 @@ WHERE RNUM BETWEEN ? AND ?
       WHERE FROM_USER LIKE '%'|| ? ||'%' 
         AND REPLY_STATUS = ?
 </entry>
+
+<entry key="getMsgListCountDate">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND MSG_DATE >= ?
+   	    AND ? > MSG_DATE
+</entry>
+<entry key="getMsgListCountStatusChkDate">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND MSG_CATE = ?
+        AND REPLY_STATUS = ?
+        AND MSG_DATE >= ?
+   	    AND ? > MSG_DATE
+</entry>
+<entry key="getMsgListCountStatusDate">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND MSG_CATE = ?
+        AND MSG_DATE >= ?
+   	    AND ? > MSG_DATE
+</entry>
+<entry key="getMsgListCountChkDate">
+     SELECT
+            COUNT(*)
+       FROM MESSAGE
+      WHERE FROM_USER LIKE '%'|| ? ||'%' 
+        AND REPLY_STATUS = ?
+        AND MSG_DATE >= ?
+   	    AND ? > MSG_DATE
+</entry>
+
 <entry key="searchMsg">
      SELECT *
      FROM(SELECT ROWNUM RNUM, A.*
@@ -667,6 +705,54 @@ WHERE RNUM BETWEEN ? AND ?
    	     AND REPLY_STATUS = ?) A)
        WHERE RNUM BETWEEN ? AND ?
 </entry>
+<entry key="searchMsgDate">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND MSG_DATE >= ?
+   	     AND ? > MSG_DATE) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgChkDate">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND REPLY_STATUS = ?
+   	     AND MSG_DATE >= ?
+   	     AND ? > MSG_DATE) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgStatusDate">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND MSG_CATE = ?
+   	     AND MSG_DATE >= ?
+   	     AND ? > MSG_DATE) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchMsgStatusChkDate">
+     SELECT *
+     FROM(SELECT ROWNUM RNUM, A.*
+     	FROM(SELECT
+         	   *
+   	    FROM MESSAGE
+   	   WHERE FROM_USER LIKE '%'|| ? ||'%'
+   	     AND MSG_CATE = ?
+   	     AND REPLY_STATUS = ?
+   	     AND MSG_DATE >= ?
+   	     AND ? > MSG_DATE) A)
+       WHERE RNUM BETWEEN ? AND ?
+</entry>
 <entry key="msgDetail">
 	SELECT
       	   *
@@ -683,7 +769,13 @@ WHERE RNUM BETWEEN ? AND ?
     SET CHK_STATUS = 'Y'
   WHERE MSG_NO = ?
 </entry>
-
+<entry key="updateMsgReply">
+	UPDATE MESSAGE
+	SET REPLY_CONTENT = ?,
+		REPLY_STATUS = 'Y',
+		REPLY_DATE = SYSDATE
+	WHERE MSG_NO = ?
+</entry>
 
 
 
