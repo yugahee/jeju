@@ -40,4 +40,8 @@
 		SET POINT = POINT + ?
 		WHERE USER_ID = ?
 	</entry>
+	<entry key="pointBack">
+		DELETE FROM POINT
+		WHERE RECEP_NO = ?
+	</entry>
 </properties>

@@ -6,6 +6,7 @@ import java.sql.Connection;
 
 import host.model.vo.PeakSeason;
 import payment.model.dao.PaymentDao;
+import payment.model.vo.Payment;
 import reservation.model.vo.Reservation;
 
 public class PaymentService {
@@ -55,6 +56,34 @@ public class PaymentService {
 		
 		int result = paymentDao.reserveStateUpdate(conn, reserveNo, reserveName, phone);
 		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public Payment reservePayCheck(int reserv_no) {
+		Connection conn = getConnection();
+		
+		Payment pay = paymentDao.reservePayCheck(conn, reserv_no);
+		
+		close(conn);
+		
+		return pay;
+	}
+
+
+	public int payBack(int reserv_no) {
+		Connection conn = getConnection();
+		
+		int result = paymentDao.payBack(conn, reserv_no);
+
 		if(result > 0) {
 			commit(conn);
 		}else {
