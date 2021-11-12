@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import reservation.model.service.ReservationService;
 import reservation.model.vo.Reservation;
 
@@ -46,15 +48,18 @@ public class ReserveDateCheckServlet extends HttpServlet {
 		Date startDate = Date.valueOf(request.getParameter("startDate")); 
 		Date endDate = Date.valueOf(request.getParameter("endDate"));
 		
+		System.out.println(startDate);
+		System.out.println(endDate);
 		
 		// 예약 체킹
 		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
-		//System.out.println(possibleReservList);
+		System.out.println(possibleReservList);
 		
 		//response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
 		int result = 0; // 성공시 1, 실패시 0
+		String sresult = "";
 		for(Reservation DateCheck : possibleReservList) {
 			Date startDateDB = DateCheck.getStart_date();
 			Date endDateDB = DateCheck.getEnd_date();
@@ -68,14 +73,23 @@ public class ReserveDateCheckServlet extends HttpServlet {
 			} else if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
 				result = 1;
 			}
-			
 		}
 		
-		if(result == 1) {
-			out.print("success");
-		} else {
-			out.print("fail");	
-		}
+		if(result > 0 ) {
+	         out.print("success"); 
+	      }else {
+	    	  out.print("fail"); 
+	      }
+		
+//		if(result > 0 ) {
+//	         sresult = "success";
+//	      }else {
+//	         sresult = "fail";
+//	      }
+//	      
+//	      response.setContentType("application/json;charset=utf-8");
+//	      new Gson().toJson(sresult, response.getWriter());
+		
 		
 	}
 
