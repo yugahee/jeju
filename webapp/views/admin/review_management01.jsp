@@ -139,7 +139,7 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<c:forEach var="review" items="${ reviewList }" varStatus="status">
-							<tr onclick="showLayer('roomRvPop')">
+							<tr onclick="selectReview(${ review.reviewNo }); showLayer('roomRvPop')">
 								<td>${ review.reviewNo }</td>
 								<td>${ review.roomName }</td>								
 								<td>${ review.review }</td>
@@ -229,54 +229,34 @@ scope="application"/>
 					</colgroup>
 					<tbody>
 						<tr>
-							<th>후기번호</th>
-							<td>123456</td>
+							<th>리뷰번호</th>
+							<td id="rNo">123456</td>
 						</tr>
 						<tr>
 							<th>숙소명</th>
-							<td>제주라도 넘어갈까 제주라도 넘어갈까</td>
+							<td id="rName">제주라도 넘어갈까 제주라도 넘어갈까</td>
 						</tr>
 						<tr>
 							<th>ID</th>
-							<td>user03</td>
-						</tr>
-						<tr>
-							<th>작성자</th>
-							<td>네글자인</td>
-						</tr>
+							<td id="rId">user03</td>
+						</tr>						
 						<tr>
 							<th>별점</th>
 							<td>
-                                <div class="rating_star">
+                                <div class="rating_star" id="rStar">
                                     <span class="starPoint p5">5</span>
                                 </div>
                             </td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td>
-                                <div class="textbox">
-                                    <textarea placeholder="후기 내용을 입력해 주세요"></textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
-                                </div>
-                            </td>
+							<td id="rReview"></td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">노출</label>
-										</li>
-										<li>
-											<input type="radio" value="N" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">비노출</label>
-										</li>
-									</ul>
+								<div class="selectbox" id="rStatus">
+									
 								</div>
 							</td>
 						</tr>
@@ -284,10 +264,91 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <button type="button" class="btn btnType1 btnSizeM" onclick="stateUpdate(); hideLayer('roomRvPop');"><span>적용</span></button>
+				<button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('roomRvPop');"><span>취소</span></button>
             </div>
 		</div> 
 	</div>
 </body>
 </html>
+<script>
+	function selectReview(reviewNo){
+		$.ajax({
+			url : "${contextPath}/admin/rReviewDetail",
+			data : {reviewNo : reviewNo},
+			dataType : "json",
+			type : "post",
+			success : function(result){											
+				document.getElementById("rNo").innerText = result.reviewNo;
+				document.getElementById("rName").innerText = result.roomName;
+				document.getElementById("rId").innerText = result.userId;
+				document.getElementById("rReview").innerText = result.review;
+											
+				
+				// 별점
+				let starHtml = "";
+				
+				if(result.starPoint == 1){
+					starHtml = '<span class="starPoint p1">1</span>';
+				}else if(result.starPoint == 2){
+					starHtml = '<span class="starPoint p2">2</span>';
+				}else if(result.starPoint == 3){
+					starHtml = '<span class="starPoint p3">3</span>';
+				}else if(result.starPoint == 4){
+					starHtml = '<span class="starPoint p4">4</span>';
+				}else{
+					starHtml = '<span class="starPoint p5">5</span>';
+				}
+				
+				document.getElementById("rStar").innerHTML = starHtml;
+				
+	
+				//상태
+				let stateHtml = "";
+				
+				if(result.reviewStatus == "Y"){
+					stateHtml = '<button class="title" type="button" title="상태" id="rState">노출</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" checked="checked" /><label for="sel1_1">노출</label></li>'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" /><label for="sel1_2">비노출</label></li>'						
+						+ '</ul>';
+				}else{
+					stateHtml = '<button class="title" type="button" title="상태" id="rState">비노출</button>'
+						+ '<ul class="selList">'
+						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" /><label for="sel1_1">노출</label></li>'
+						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" checked="checked" /><label for="sel1_2">비노출</label></li>'						
+						+ '</ul>';
+				}
+				
+				document.getElementById("rStatus").innerHTML = stateHtml;
+				
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function stateUpdate(){
+		$.ajax({
+			url : "${contextPath}/admin/rReviewUpdate",
+			data : {reviewNo : $("#rNo").text(),
+					rstate : $("input[name='reviewState']:checked").val()
+			},
+			dataType : "json",
+			type : "post",
+			success : function(result){	
+				console.log(result);
+				if(result == "success"){
+					alert("성공적으로 적용되었습니다.");
+					location.reload();
+				}else{
+					alert("업데이트가 되지 않았습니다ㅜㅜ");
+				}
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
+</script>

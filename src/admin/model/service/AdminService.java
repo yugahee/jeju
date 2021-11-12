@@ -391,8 +391,33 @@ public class AdminService{
 		
 		return returnMap;
 	}
-	
-	
-	
+
+	public RoomReview roomReviewDetail(int reviewNo) {
+		Connection conn = getConnection();
+		
+		RoomReview review = adminDao.roomReviewDetail(conn, reviewNo);
+		
+		close(conn);
+		
+		return review;
+	}
+
+	public int roomReviewUpdate(int reviewNo, String reviewState) {
+		Connection conn = getConnection();
+		
+		int result = adminDao.roomReviewUpdate(conn, reviewNo, reviewState);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+
+	}
+
 	
 }

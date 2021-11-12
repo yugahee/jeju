@@ -1172,4 +1172,24 @@ WHERE RNUM BETWEEN ? AND ?
 	)
 	WHERE RNUM BETWEEN ? AND ?
 </entry>
+<entry key="roomReviewDetail">
+	SELECT
+    REVIEW_NO
+    , STAR
+    , REVIEW
+    , ROOM_NO
+    , REVIEW_DATE
+    , RR.USER_ID
+    , RECEP_NO
+    , REVIEW_STATUS
+    , ROOM_NAME
+FROM ROOMS_REVIEW RR
+LEFT JOIN ROOMS RM USING(ROOM_NO)
+WHERE REVIEW_NO = ?
+</entry>
+<entry key="roomReviewUpdate">
+	UPDATE ROOMS_REVIEW
+	SET REVIEW_STATUS = ?
+	WHERE REVIEW_NO = ?
+</entry>
 </properties>
