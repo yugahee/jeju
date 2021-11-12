@@ -2,6 +2,7 @@ package admin.model.service;
 
 import member.model.vo.Member;
 import messenger.model.vo.Messenger;
+import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
 import static common.JDBCTemplate.*;
 
@@ -417,6 +418,25 @@ public class AdminService{
 		
 		return result;
 
+	}
+
+	public Map<String, Object> selectRRList(int page, Search search) {
+		Connection conn = getConnection();
+		
+		int listCount = adminDao.getRRListCount(conn, search);
+		PageInfo pi = new PageInfo(page, listCount, 5, 10);
+		
+		List<Reco_Review> RRList = adminDao.selectRRList(conn, pi, search);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+	
+		returnMap.put("listCount", listCount);
+		returnMap.put("pi", pi);
+		returnMap.put("RRList", RRList);
+		
+		close(conn);
+		
+		return returnMap;
 	}
 
 	

@@ -13,6 +13,10 @@ public class Reco_Review {
 	
 	private String publicYn;		// 노출여부
 	
+	// 관리자에서 필요함
+	private String rName;		// 이름
+	private int rArea;			// 지역(1='동부', 2='서부', 3='남부', 4='북부')
+	private int rCate;		// 카테고리(1='관광지', 2='식당', 3='카페')
 	
 	/*
 	  RECO_REVIEW_NO NUMBER
@@ -37,6 +41,21 @@ public class Reco_Review {
 		this.recoNo = recoNo;
 		this.userId = userId;
 		this.publicYn = publicYn;
+	}
+	
+	public Reco_Review(int recoReviewNo, int score, String sComment, Date writeTime, int recoNo, String userId,
+			String publicYn, String rName, int rArea, int rCate) {
+		super();
+		this.recoReviewNo = recoReviewNo;
+		this.score = score;
+		this.sComment = sComment;
+		this.writeTime = writeTime;
+		this.recoNo = recoNo;
+		this.userId = userId;
+		this.publicYn = publicYn;
+		this.rName = rName;
+		this.rArea = rArea;
+		this.rCate = rCate;
 	}
 
 	public int getRecoReviewNo() {
@@ -95,11 +114,34 @@ public class Reco_Review {
 		this.publicYn = publicYn;
 	}
 
+	public String getrName() {
+		return rName;
+	}
+
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
+
+	public int getrArea() {
+		return rArea;
+	}
+
+	public void setrArea(int rArea) {
+		this.rArea = rArea;
+	}
+
+	public int getrCate() {
+		return rCate;
+	}
+
+	public void setrCate(int rCate) {
+		this.rCate = rCate;
+	}
+
 	@Override
 	public String toString() {
 		return "Reco_Review [recoReviewNo=" + recoReviewNo + ", score=" + score + ", sComment=" + sComment
 				+ ", writeTime=" + writeTime + ", recoNo=" + recoNo + ", userId=" + userId + ", publicYn=" + publicYn
-				+ "]";
+				+ ", rName=" + rName + ", rArea=" + rArea + ", rCate=" + rCate + "]";
 	}
-	
 }

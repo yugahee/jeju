@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
+scope="application"/>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,9 +29,14 @@
     <script type="text/javascript" src="${contextPath}/resources/js/admin.js"></script>
     
 </head>
-<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
-scope="application"/>
 <body>	
+<% if(session.getAttribute("message") != null) { %>
+<script>
+	alert('<%= session.getAttribute("message")  %>');
+</script>
+<% 
+	session.removeAttribute("message");
+} %>
 	<div id="wrap" class="wrap">
 		<div class="lnb">
 			<h1 class="logo">
@@ -44,7 +55,7 @@ scope="application"/>
 				</li>
 				<li><a href="<%= request.getContextPath() %>/admin/resvMg">예약 관리</a></li>
 				<li>
-					<a href="#none" class="active">후기 관리</a>
+					<a class="active" href="#none">후기 관리</a>
 					<ul class="subMenu">
 						<li><a href="<%= request.getContextPath() %>/admin/revwMg01">숙소 후기 관리</a></li>
 						<li><a class="active" href="<%= request.getContextPath() %>/admin/revwMg02">추천장소 후기 관리</a></li>
@@ -63,197 +74,181 @@ scope="application"/>
                     <!-- 관리자일 떄 -->
                     <ul class="userCon" id="adminUserCon" style="display: none">
                         <li><a href="<%= request.getContextPath() %>/admin/account">계정 관리</a></li>
-                        <li><a href="<%= request.getContextPath() %>/admin/password">비밀번호 관리</a></li>
                         <li><a href="<%= request.getContextPath() %>/admin/logout">로그아웃</a></li>
                     </ul>
 				</div>
-			</div>			
+			</div>
+			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			</c:if>	
 			<div class="content">
 				<div class="listSearch">
 					<div class="listTit">추천장소 후기 관리</div>
-                    <div class="calendar">
-                        <p class="ctit">기간 검색</p>
-                        <div class="inp_text">
-                            <input type="date"> ~ <input type="date">
-                        </div>
-                    </div>
-					<div class="selectbox">
-						<button class="title" type="button" title="분류">분류</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_res0" name="select_user">
-								<label for="select_res0">전체</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res1" name="select_user">
-								<label for="select_res1">식당</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res2" name="select_user">
-								<label for="select_res2">카페</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_res3" name="select_user">
-								<label for="select_res3">관광</label>
-							</li>
-						</ul>
-					</div>
-					<div class="selectbox">
-						<button class="title" type="button" title="검색 조건">검색 조건</button>
-						<ul class="selList" style="max-height: 0px; display: none;">
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op1" name="select_search_op">
-								<label for="select_search_op1">장소명</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op2" name="select_search_op">
-								<label for="select_search_op2">ID</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op3" name="select_search_op">
-								<label for="select_search_op3">이름</label>
-							</li>
-							<li>
-								<input type="radio" value="" class="option" id="select_search_op4" name="select_search_op">
-								<label for="select_search_op4">내용</label>
-							</li>
-						</ul>
-					</div>					
-					<div class="inp_text search">
-						<input type="text" name="" id="" placeholder="검색어를 입력하세요">
-						<a href="#" class="btn_sch">검색</a>
-					</div>
-				</div>
-				<div class="listTotal">
-					<div class="sortArea">
-						<p class="totalCnt">총 32,000건</p>
+					<form method="get" action="${contextPath}/admin/revwMg02">
 						<div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<ul class="selList" style="max-height: 0px; display: none;">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition == null }">카테고리</c:if>
+								<c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>								
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition" value="<c:if test="${ param.searchCondition == null }">전체</c:if><c:if test="${ param.searchCondition != null }">${param.searchCondition}</c:if>">
+							<ul class="selList" id="searchCondition">
 								<li>
-									<input type="radio" value="" class="option" id="sel1_1" name="select1" checked="checked">
-									<label for="sel1_1">목록 10개</label>
+									<input class="option" type="radio" id="sel_type1_1" <c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+									<label for="sel_type1_1">전체</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_2" name="select1">
-									<label for="sel1_2">목록 20개</label>
+									<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '관광지' }">checked="checked"</c:if>>
+									<label for="sel_type1_2">관광지</label>
 								</li>
 								<li>
-									<input type="radio" value="" class="option" id="sel1_3" name="select1">
-									<label for="sel1_3">전체보기</label>
+									<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '식당' }">checked="checked"</c:if>>
+									<label for="sel_type1_3">식당</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type1_4" <c:if test="${ param.searchCondition == '카페' }">checked="checked"</c:if>>
+									<label for="sel_type1_4">카페</label>
 								</li>
 							</ul>
 						</div>
+						<div class="selectbox">
+							<button class="title" type="button">
+								<c:if test="${ param.searchCondition2 == null }">검색조건</c:if>
+								<c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>
+							</button>
+							<input class="inputVal" type="hidden" name="searchCondition2" value="<c:if test="${ param.searchCondition2 == null }">장소명</c:if><c:if test="${ param.searchCondition2 != null }">${param.searchCondition2}</c:if>">
+							<ul class="selList" id="searchCondition2">
+								<li>
+									<input class="option" type="radio" id="sel_type2_1" <c:if test="${ param.searchCondition2 == '장소명' }">checked="checked"</c:if>>
+									<label for="sel_type2_1">장소명</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type2_2" <c:if test="${ param.searchCondition2 == 'ID' }">checked="checked"</c:if>>
+									<label for="sel_type2_2">ID</label>
+								</li>
+							</ul>
+						</div>
+						<div class="inp_text search">
+							<input type="text" name="searchValue" value="${ param.searchValue }" placeholder="검색어를 입력하세요">
+							<button type="submit" class="btn_sch">검색</button>
+						</div>
+					</form>
+				</div>
+				<div class="listTotal">
+					<div class="sortArea">
+						<p class="totalCnt">총 ${listCount} 개</p>
 					</div>
 				</div>
+				<c:choose>
+				<c:when test="${listCount != 0 }">
 				<div class="tblType3 noBorT noBorB boardList">
 					<table summary="추천장소 후기 테이블">
 						<caption>추천장소 후기 테이블</caption>
 						<colgroup>
 							<col width="8%">
-							<col width="15%">
 							<col width="8%">
+							<col width="8%">
+							<col width="15%">
 							<col width="*">
-							<col width="10%">
 							<col width="8%">
 							<col width="6%">
-							<col width="12%">
+							<col width="8%">
 							<col width="6%">
 						</colgroup>
 						<thead>
 							<tr>
+								<th>리뷰번호</th>
 								<th>분류</th>
+								<th>지역</th>
 								<th>장소명</th>
-								<th>후기번호</th>
 								<th>내용</th>
-								<th>ID</th>
 								<th>작성자</th>
 								<th>별점</th>
 								<th>작성시간</th>
-								<th>상태</th>
+								<th>상태</th><!-- 상태값 컬럼 추가해야 됨 -->
 							</tr>
 						</thead>
 						<tbody>
-							<tr onclick="showLayer('recRvPop')">
-								<td>식당</td>
-								<td>원두 돈까스 전문 원돈</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
+							<c:forEach var="rReview" items="${ RRList }">
+							<tr onclick="showLayer('recRvPop'); userdata(this);">
+								<td style="display:none;"><input type="hidden" value="${rReview.recoReviewNo}"></td>
+								<td>${rReview.rCate}</td>
+								<td>${rReview.rArea}</td>
+								<td>${rReview.rName}</td>
+								<td>${rReview.userId}</td>
+								<td>${rReview.score}</td>
+								<td>
+									<!-- enrollDate 값이 없을 경우 - 표기 -->
+									<c:choose>
+										<c:when test="${null ne rReview.writeTime}">
+											<fmt:formatDate value="${rReview.writeTime}" type="both" pattern="yyyy.MM.dd" />
+										</c:when>
+										<c:otherwise>
+											-
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${rReview.publicYn}</td>
 							</tr>
-							<tr onclick="showLayer('recRvPop')">
-								<td>식당</td>
-								<td>원두 돈까스 전문 원돈</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('recRvPop')">
-								<td>식당</td>
-								<td>원두 돈까스 전문 원돈</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('recRvPop')">
-								<td>카페</td>
-								<td>제주에서도 카페갈까</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('recRvPop')">
-								<td>카페</td>
-								<td>원두 돈까스 전문 원돈</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
-							<tr onclick="showLayer('recRvPop')">
-								<td>카페</td>
-								<td>원두 돈까스 전문 원돈</td>
-								<td>123456</td>
-								<td>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요</td>
-								<td>useruser01</td>
-								<td>네글자인</td>
-								<td>5</td>
-								<td>2021.10.15<br>08:10:10</td>
-								<td>Y</td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="paging">
-					<span class="first"><a href="#"><span class="blind">첫페이지</span></a></span>
-					<span class="prev"><a href="#"><span class="blind">이전페이지</span></a></span>
-					<a href="#">1</a>
-					<span class="current">2</span>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<span class="next"><a href="#"><span class="blind">다음페이지</span></a></span>
-					<span class="last"><a href="#"><span class="blind">마지막페이지</span></a></span>
+					<span class="first">
+						<a href="${contextPath}/admin/revwMg02?page=1${searchParam}">
+							<span class="blind">첫페이지</span>
+						</a>
+					</span>
+					<span class="prev">
+						<c:choose>
+						<c:when test="${pi.page > 1 }">				
+						<a href="${contextPath }/admin/revwMg02?page=${pi.page -1}${searchParam}">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+							<span class="blind">이전페이지</span>
+						</a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">					
+					<c:choose>
+						<c:when test="${ p eq pi.page }">
+						<span class="current">${ p }</span>
+						</c:when>
+						<c:otherwise>
+						<a href="${contextPath}/admin/revwMg02?page=${ p }${searchParam}">${ p }</a>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+					<span class="next">
+						<c:choose>
+						<c:when test="${ pi.page < pi.maxPage }">				
+						<a href="${contextPath }/admin/revwMg02?page=${pi.page + 1}${searchParam}">
+						<span class="blind">다음페이지</span></a>
+						</c:when>
+						<c:otherwise>						
+						<a href="#none">
+						<span class="blind">다음페이지</span></a>
+						</c:otherwise>
+						</c:choose>
+					</span>
+					<span class="last">
+						<a href="${contextPath }/admin/revwMg02?page=${pi.maxPage }${searchParam}">
+							<span class="blind">마지막페이지</span>
+						</a>
+					</span>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="noData">
+	                <p>해당 정보가 없습니다</p>
+	                <p class="subtxt">새로운 검색어를 입력해주세요</p>
+	            </div>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- //contet -->
 		</div>

@@ -78,8 +78,8 @@ scope="application"/>
                     </ul>
 				</div>
 			</div>
-			<c:if test="${ !empty param.searchCondition && !empty param.searchCondition2 }">
-				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchCondition2=${ param.searchCondition2 }&searchValue=${ param.searchValue }"/>
+			<c:if test="${ !empty param.searchCondition}">
+				<c:set var="searchParam" value="&searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue }"/>
 			</c:if>
 			<div class="content">
 				<div class="listSearch">
