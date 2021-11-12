@@ -77,7 +77,7 @@
 			<button class="btn_closeLayer" onclick="hideLayer('filterSearch');"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
-		 <form name="filterSearch" method="post" action="${contextPath}/room/reservation">	
+		 <form method="post" action="${contextPath}/room/reservation">	
 			<div class="layerSort" >
 				<div class="layerdiv layerdiv2">
 					가격 범위
