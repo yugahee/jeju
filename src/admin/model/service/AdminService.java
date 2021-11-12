@@ -332,7 +332,7 @@ public class AdminService{
 		Connection conn = getConnection();
 		
 		Messenger msg = adminDao.msgDetail(conn, msgNo);	
-		commit(conn);	
+		commit(conn);	// 읽음 처리 커밋
 		close(conn);
 		
 		return msg;
