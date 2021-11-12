@@ -761,6 +761,9 @@ public class RoomsDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return reserveList;
@@ -789,6 +792,9 @@ public class RoomsDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return review;
@@ -812,9 +818,39 @@ public class RoomsDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return reserveCount;
+	}
+
+	public Rooms returnDetail(Connection conn, int roomNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Rooms room = null;
+		String sql = roomsQuery.getProperty("returnDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				room = new Rooms();
+				room.setRoomName(rset.getString("room_name"));
+				room.setReturnReason(rset.getString("return_reason"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return room;
 	}
 
 }
