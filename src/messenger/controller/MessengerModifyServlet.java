@@ -31,14 +31,31 @@ public class MessengerModifyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 답장으로 보낸 메시지 수정
+		int msg_no = Integer.parseInt(request.getParameter("msg_no"));
+		String Ncontent = request.getParameter("Ncontent");
 		
+		Messenger messenger = new Messenger();
+		messenger.setMsg_no(msg_no);
+		messenger.setReply_content(Ncontent);
 		
+		int result = new MessengerService().modifyReMessenger(messenger);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("message", "메세지 수정이 완료되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/messenger/list/sent");
+		}else {
+			request.setAttribute("message", "메세지 수정에 실패하였습니다.");
+			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 보낸 메시지 수정
+		
 		int msg_no = Integer.parseInt(request.getParameter("msg_no"));
 		String NreportId = request.getParameter("NreportId");
 		String Ncontent = request.getParameter("Ncontent");
@@ -51,10 +68,10 @@ public class MessengerModifyServlet extends HttpServlet {
 		int result = new MessengerService().modifyMessenger(messenger);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("message", "정보가 수정 되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/messenger/list");
+			request.getSession().setAttribute("message", "메세지 수정이 완료되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/messenger/list/sent");
 		}else {
-			request.setAttribute("message", "정보 수정 실패");
+			request.setAttribute("message", "메세지 수정에 실패하였습니다.");
 			request.getRequestDispatcher("/views/common/errorpage.jsp").forward(request, response);
 		}
 	}

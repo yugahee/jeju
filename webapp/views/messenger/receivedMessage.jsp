@@ -29,7 +29,7 @@
                                 <col style="width:13.8%">
                                 <col style="width:9.2%">
                             </colgroup>
-                            <!-- <button type="button" onclick="showLayer('writingMessage');" class="btn btnType1 btnSizeM" id="write"><span>관리자에게 보내기</span></button> -->
+
                             <thead>
                                 <tr>
                                     <th>NO</th>
@@ -37,16 +37,15 @@
                                     <th>보낸 회원</th>
                                     <th>받은 날짜</th>
                                     <c:if test="${ loginUser.user_type eq '호스트' }">
-                                    <th>답장여부</th>
+                                    <th>답변여부</th>
                                     </c:if>
-                                    <th style="width: 90px;">읽음여부</th>
+                                    <!-- <th style="width: 90px;">읽음여부</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="msg" items="${ messengerList }">             
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
-                                	<%-- <td style="display:none;"><input type="hidden" value="${ msg.from_user }"></td> --%>
                                     <td>${ msg.msg_no }</td>
                                     <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.from_user }</td>
@@ -55,7 +54,7 @@
                                     <c:otherwise><td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:otherwise>
                                     </c:choose>
                                     <c:if test="${ loginUser.user_type eq '호스트' }"><td>${ msg.reply_status }</td></c:if>
-                                    <td>${ msg.chk_status }</td>                                 
+                                    <%-- <td>${ msg.chk_status }</td>  --%>                                
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -117,12 +116,14 @@
 			</div>
 		</div>
 <%@ include file="/views/common/footer.jsp" %>
+
+
 <!-- 보낸 메시지 팝업 화면: 기본적으로 내용 변경 불가하게 모두 disable,readonly 처리 -->
 <div id="callMessage" class="layerPop calldMessage">
 	<div class="layerTit">
 		<h4>messenger</h4>
 		<button type="button" class="btn_closeLayer"
-			onclick="hideLayer('callMessage');">
+			onclick="hideLayer('callMessage');"> <!-- chk_status('여기 mno값 들어가게'); -->
 			<span class="blind">팝업 닫기</span>
 		</button>
 	</div>
@@ -132,15 +133,13 @@
 			<table>
 				<colgroup>
 					<col style="width: 20%;">
-					<!-- <col style="width:*;"> -->
 				</colgroup>
 				<tbody>
-					<!-- <input type="hidden" id="mno" value=""> -->
 					<tr>
 						<th>보낸 사람</th>
 						<td id="from_Id"></td>
 					</tr>
-					<!-- 메시지 보낼 때 선택했던 값으로 checked -->
+
 					<tr>
 						<th>카테고리</th>
 						<td id="call_cate">
@@ -171,10 +170,10 @@
 </div>
 
 
-<!-- 해당 메시지 상세 보기 & 상대방이 메시지를 읽지 않은 경우 수정 및 삭제 기능과 연결 -->
+<!-- 해당 메시지 상세 보기 & 메시지 답장 -->
 <script>
 	function msgDetail(elem){
-		let msgNo = $(elem).find('input').val();
+		let msgNo = $(elem).find('input').val();		
 		
 		$.ajax({
 			url : "${contextPath}/messenger/detail",
@@ -189,11 +188,9 @@
 						var Rcontent = '';
 						var btn = '';
 						var mno = '';
-						var from = '';
 
 						if (msg) {
-							mno = msg.msg_no;
-							from = msg.from_user;
+							mno = msg.msg_no;					
 							
 							// 받은 메시지가 내가 보낸 메시지의 답변인 경우: 상세 메시지를 읽을 수만 있게 , 읽음 여부 Y
 							//or 게스트가 보낸 문의 메시지인 경우(해당 유저가 호스트일 때) : 답장 할 수 있게, 읽음 여부 Y
@@ -224,7 +221,7 @@
 								Rcontent = '<div class="textbox"><textarea class="readOnly" name="reply_context" readonly>' + msg.reply_content + '</textarea></div>';
 								$("#reply_con").html(Rcontent);
 								
-								btn = '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+								btn = '<button type="button" class="btn btnType2 btnSizeS" onclick="chk_status('+ mno +');hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
 								$("#rBtn").html(btn);
 	
 									
@@ -252,11 +249,11 @@
 								content = '<div class="textbox"><textarea class="readOnly" name="re_content" id="re_content" readonly>' + msg.msg_content + '</textarea></div></td></tr>';
 								$("#call_content").html(content);
 								
-								Rcontent = '<div class="textbox"><textarea name="reply_context" id="reply_context"></textarea></div>';
+								Rcontent = '<div class="textbox"><textarea name="reply_content" id="reply_content"></textarea></div>';
 								$("#reply_con").html(Rcontent);
 																
-								btn = '<button type="button" class="btn btnType1 btnSizeS" id="btn_reply" onclick="msgReply('+ mno +', '+ from +');hideLayer(\'callMessage\');"><span>답장</span></button>'
-										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+								btn = '<button type="button" class="btn btnType1 btnSizeS" id="btn_reply" onclick="msgReply('+ mno +');hideLayer(\'callMessage\');"><span>답장</span></button>'
+										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="chk_status('+ mno +');hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
 								$("#rBtn").html(btn);
 							}
 						} else {
@@ -272,185 +269,41 @@
 	
 	
 	// 메시지 답장
-	function msgReply(mno, from){
+	function msgReply(mno){
 		let msg_no = mno;
-		let from_user = from;
-		let Rcontent = $("reply_context").val();
+		let fromUser = $("#from_Id").text();
+		let Rcontent = $("#reply_content").val();
 		
 		$.ajax({
 			url : "${contextPath}/messenger/reply",
-			data : { Rcontent : Rcontent, msg_no : msg_no, from_user : from_user },
+			data : { msg_no : msg_no, fromUser : fromUser,  Rcontent : Rcontent },
 			type : "post",
 			success : function(msg){
-				alert('메시지 수정이 완료되었습니다.');
+				alert('답장 보내기가 완료되었습니다.');
 				location.reload();
 			},
 			error : function(e){
-				alert('메시지 수정에 실패하였습니다.');
+				alert('답장 보내기에 실패하였습니다.');
 			}
 		});
 	} 
 	
+	// 읽음 표시 'Y'로 업데이트
+	function chk_status(mno){
+		let msg_no = mno;
+		
+		$.ajax({
+			url : "${contextPath}/messenger/detail",
+			data : { msg_no : msg_no },
+			type : "post",
+			success : function(msg){
+				location.reload();
+			},
+			error : function(e){
+				console.log(e);
+			}
+		});
+	}
 </script>
 
-<%-- 
 
-    <!-- 보낸 메시지 수정 팝업 화면-->
-    <div id="modifyMessage" class="layerPop modifyMessage">
-        <div class="layerTit">
-            <h4>messenger</h4>
-            <button type="button" class="btn_closeLayer" onclick="hideLayer('modifyMessage');hideLayer('callMessage');"><span class="blind">팝업 닫기</span></button>
-        </div>
-        <div class="layerBody">
-        <form action="${ contextPath }/message/modify" method="post">
-            <br>
-            <div class="tblType2 noBorder">
-                <table>
-                    <colgroup>
-                        <col style="width:20%;">
-                        <!-- <col style="width:*;"> -->
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>보낸 사람</th>
-                            <td>
-                                ${ loginUser.user_id }
-                            </td>
-                        </tr>
-                        <!-- 메시지 보낼 때 선택했던 값으로 checked -->
-                        <tr>
-                            <th>카테고리</th>
-                            <td>
-                                <div class="selectbox">
-                                    <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
-                                    <ul class="selList">
-                                       <c:choose>
-                                    	<c:when test="${ message.msg_cate eq '문의'}">
-                                        <li>
-                                            <input type="radio" value="문의" class="option" id="sel2_1" name="modify_cate" checked="checked"/>
-                                            <label for="sel2_1">1. 문의</label>
-                                        </li>
-                                        </c:when>
-                                    	<c:otherwise>
-                                        <li>
-                                            <input type="radio" value="신고" class="option" id="sel2_2" name="modify_cate" checked="checked"/>
-                                            <label for="sel2_2">2. 신고</label>
-                                        </li>
-                                        </c:otherwise>
-                                    	</c:choose>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>                     
-                        
-                         <!-- 문의로 보냈었던 내용이라 disabled가 default-->
-                        <tr id="report_id">
-                            <th>피신고인</th>
-                            <td>
-                            <c:choose>
-                            <c:when test="${ message.msg_cate eq '문의'}">
-                                <div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="modify_toUser" class="readOnly"  placeholder="신고하실 회원의 아이디를 입력하세요." readonly />
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                            	<div class="inp_text inp_cell">
-                                    <input type="text" name="userId" id="modify_toUser" class="readOnly" value="${ message.to_user }" />
-                                </div>
-                            </c:otherwise>
-                            </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>내용</th>
-                            <td>
-                                <div class="textbox">
-                                    <textarea id="modify_content">
-                                       
-                                    </textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="btn_wrap" id="msg_btnWrap">
-                <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>수정하기</span></button>
-                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('modifyMessage');hideLayer('callMessage');return false;"><span>닫기</span></button>
-            </div>
-            </form>
-        </div>
-    </div> --%>
-
-
- <%--    <!-- 메신저 답장 팝업 화면 -->
-    <div id="ReplyMessage" class="layerPop ReplyMessage">
-        <div class="layerTit">
-            <h4>messenger</h4>
-            <button type="button" class="btn_closeLayer" onclick="hideLayer('ReplyMessage');"><span class="blind">팝업 닫기</span></button>
-        </div>
-        <div class="layerBody">
-        <form action="${ contextPath }/messenger/reply" method="post">
-            <br>
-            <div class="tblType2 noBorder">
-                <table>
-                    <colgroup>
-                        <col style="width:20%;">
-                        <!-- <col style="width:*;"> -->
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>보낸 사람</th>
-                            <td>
-                                ${ loginUser.user_id }
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>카테고리</th>
-                            <td>
-                                <div class="selectbox">
-                                    <button class="title" type="button" title="카테고리 선택">카테고리를 선택하세요</button>
-                                    <ul class="selList">
-                                        <li>
-                                            <input type="radio" value="문의" class="option" id="sel1_1" name="category" />
-                                            <label for="sel1_1">1. 문의</label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" value="신고" class="option" id="sel1_2" name="category" />
-                                            <label for="sel1_2">2. 신고</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                      
-                        <!-- 카테고리에서 2.신고를 선택한 경우에만 보이게 -->
-                        <tr id="report_id">
-                            <th>피신고인</th>
-                            <td>
-                                <div class="inp_text inp_cell">
-                                    <input type="text" name="toUser" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>내용</th>
-                            <td>
-                                <div class="textbox">
-                                    <textarea placeholder="내용을 입력해 주세요" name="msg_content">${ messenger.msg_no }</textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="btn_wrap" id="msg_btnWrap">
-                <button class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>보내기</span></button>
-                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('ReplyMessage');return false;"><span>닫기</span></button>
-            </div>
-            </form>
-        </div>
-    </div>
-     --%>

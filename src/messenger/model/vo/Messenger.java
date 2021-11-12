@@ -7,7 +7,7 @@ public class Messenger {
 	private int msg_no;					// 메시지 번호
 	private String msg_cate;			// 메시지 카테고리
 	private String msg_content;			// 메시지 내용
-	private String chk_status;			// 읽음 여부 확인
+	private String chk_status;			// 받는 회원 읽음 여부 확인
 	private String reply_status;		// 답변 여부 확인
 	private Date msg_date;				// 작성 시간
 	private Date reply_date;			// 답변 시간
