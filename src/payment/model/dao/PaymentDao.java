@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import host.model.vo.PeakSeason;
 import host.model.vo.Rooms;
+import payment.model.vo.Payment;
 import reservation.model.vo.Reservation;
 
 public class PaymentDao {
@@ -132,6 +133,52 @@ public class PaymentDao {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public Payment reservePayCheck(Connection conn, int reserv_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Payment pay = new Payment();
+		String sql =  paymentQuery.getProperty("reservePayCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserv_no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pay.setPrice(rset.getInt("price"));
+				pay.setPayDate(rset.getTimestamp("pay_date"));
+			}			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return pay;
+	}
+
+	public int payBack(Connection conn, int reserv_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql =  paymentQuery.getProperty("payBack");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserv_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		
