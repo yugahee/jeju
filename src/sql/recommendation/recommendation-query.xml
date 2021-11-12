@@ -158,8 +158,16 @@
 		     , WRITE_TIME
 		     , RECO_NO
 		     , USER_ID
+		     , PUBLIC_YN
 		  FROM RECO_REVIEW
 		 WHERE RECO_NO = ?
+		   AND PUBLIC_YN = 'Y'
+	</entry>
+	
+	<entry key="deleteReivew">
+		UPDATE RECO_REVIEW
+		   SET PUBLIC_YN = 'N'
+		 WHERE RECO_REVIEW_NO = ?
 	</entry>
 	
 </properties>

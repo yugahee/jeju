@@ -11,6 +11,8 @@ public class Reco_Review {
 	private int recoNo;				// 추천장소번호
 	private String userId;			// 아이디
 	
+	private String publicYn;		// 노출여부
+	
 	
 	/*
 	  RECO_REVIEW_NO NUMBER
@@ -25,8 +27,8 @@ public class Reco_Review {
 		
 	}
 
-
-	public Reco_Review(int recoReviewNo, int score, String sComment, Date writeTime, int recoNo, String userId) {
+	public Reco_Review(int recoReviewNo, int score, String sComment, Date writeTime, int recoNo, String userId,
+			String publicYn) {
 		super();
 		this.recoReviewNo = recoReviewNo;
 		this.score = score;
@@ -34,72 +36,70 @@ public class Reco_Review {
 		this.writeTime = writeTime;
 		this.recoNo = recoNo;
 		this.userId = userId;
+		this.publicYn = publicYn;
 	}
-
 
 	public int getRecoReviewNo() {
 		return recoReviewNo;
 	}
 
-
 	public void setRecoReviewNo(int recoReviewNo) {
 		this.recoReviewNo = recoReviewNo;
 	}
-
 
 	public int getScore() {
 		return score;
 	}
 
-
 	public void setScore(int score) {
 		this.score = score;
 	}
-
 
 	public String getsComment() {
 		return sComment;
 	}
 
-
 	public void setsComment(String sComment) {
 		this.sComment = sComment;
 	}
-
 
 	public Date getWriteTime() {
 		return writeTime;
 	}
 
-
 	public void setWriteTime(Date writeTime) {
 		this.writeTime = writeTime;
 	}
-
 
 	public int getRecoNo() {
 		return recoNo;
 	}
 
-
 	public void setRecoNo(int recoNo) {
 		this.recoNo = recoNo;
 	}
-
 
 	public String getUserId() {
 		return userId;
 	}
 
-
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getPublicYn() {
+		return publicYn;
+	}
+
+	public void setPublicYn(String publicYn) {
+		this.publicYn = publicYn;
 	}
 
 	@Override
 	public String toString() {
 		return "Reco_Review [recoReviewNo=" + recoReviewNo + ", score=" + score + ", sComment=" + sComment
-				+ ", writeTime=" + writeTime + ", recoNo=" + recoNo + ", userId=" + userId + "]";
+				+ ", writeTime=" + writeTime + ", recoNo=" + recoNo + ", userId=" + userId + ", publicYn=" + publicYn
+				+ "]";
 	}
 	
 }
