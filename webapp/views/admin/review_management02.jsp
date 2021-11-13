@@ -171,9 +171,20 @@ scope="application"/>
 							<c:forEach var="rReview" items="${ RRList }">
 							<tr onclick="showLayer('recRvPop'); userdata(this);">
 								<td style="display:none;"><input type="hidden" value="${rReview.recoReviewNo}"></td>
-								<td>${rReview.rCate}</td>
-								<td>${rReview.rArea}</td>
+								<td>${rReview.recoReviewNo}</td>
+								<td>
+									<c:if test="${rReview.rCate == 1}">관광지</c:if>
+									<c:if test="${rReview.rCate == 2}">식당</c:if>
+									<c:if test="${rReview.rCate == 3}">카페</c:if>
+								</td>
+								<td>
+									<c:if test="${rReview.rArea == 1}">동부</c:if>
+									<c:if test="${rReview.rArea == 2}">서부</c:if>
+									<c:if test="${rReview.rArea == 3}">남부</c:if>
+									<c:if test="${rReview.rArea == 4}">북부</c:if>
+								</td>
 								<td>${rReview.rName}</td>
+								<td>${rReview.sComment}</td>
 								<td>${rReview.userId}</td>
 								<td>${rReview.score}</td>
 								<td>
