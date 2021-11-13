@@ -293,7 +293,7 @@
 				</form>
 				<div class="boxChild3">
 					<div id="won1">예상결제금액:</div>
-					<div id="won2">20000</div>
+					<div id="won2">${room.price}</div>
 				</div>  
 				<a href="#" id="xx" class="btn btnType1 btnSizeL reserve_request" onclick="showLayer('reserveApply');" ><span>예약 신청</span></a>
 			</div>
@@ -322,7 +322,12 @@
            	<div class="hiddenlayerpop">
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
-  	
+  
+    <script>
+    $.(#won2).val();
+    
+    </script>      
+          
   	<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7289567e1bdecd9a73b71af51976bb56&libraries=services"></script>
 	<script>
@@ -367,6 +372,7 @@
 			});    
 			
 	</script>
+
           
     <!-- 예약 신청 취소 시 동작 -->  
     <script>

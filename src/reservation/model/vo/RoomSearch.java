@@ -23,6 +23,11 @@ public class RoomSearch {
 		this.inwonsu = inwonsu;
 	}
 
+	public RoomSearch(String checkIn, String checkOut) {
+		super();
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+	}
 
 	public RoomSearch(String location, String room_type, String building_type, String specialFac) {
 		super();
@@ -39,7 +44,19 @@ public class RoomSearch {
 		this.checkOut = checkOut;
 		this.inwonsu = inwonsu;
 	}
+	
+	
 
+	public RoomSearch(String location, String room_type, String building_type, String specialFac, String checkIn,
+			String checkOut) {
+		super();
+		this.location = location;
+		this.room_type = room_type;
+		this.building_type = building_type;
+		this.specialFac = specialFac;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+	}
 
 	public String getLocation() {
 		return location;
