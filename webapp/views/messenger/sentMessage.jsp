@@ -44,11 +44,17 @@
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
                                     <td>${ msg.msg_no }</td>
+                                    <c:choose>
+                                    <c:when test="${!empty msg.reply_content }">
+                                    <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.reply_content }</button></td>
+                                    <td>${ msg.to_user }</td>
+                                    <td><fmt:formatDate value="${ msg.reply_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
+                                    </c:when>
+                                    <c:otherwise>
                                     <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.to_user }</td>
-                                    <c:choose>
-                                    <c:when test="${!empty msg.reply_date}"><td><fmt:formatDate value="${ msg.reply_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:when>
-                                    <c:otherwise><td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:otherwise>
+                                    <td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td>
+                                    </c:otherwise>
                                     </c:choose>
                                     <td>${ msg.chk_status }</td>                                  
                                 </tr>
@@ -317,6 +323,17 @@
 	// 보낸 메시지 수정
 	function msgModify(mno){
 		
+		
+		$('#Rmodify_content').on('keyup', function() {
+		    $('.charCnt').text(+$(this).val().length+"/200");
+		    
+		      if($(this).val().length > 200) {
+		          $(this).val($(this).val().substring(0, 200));
+		          $('.charCnt').text("200/200");
+		      }
+		});
+		
+		
 		let msg_no = mno;
 		let NreportId = $("#modify_Id").val();
 		let Ncontent = $("#modify_content").val();
@@ -411,23 +428,14 @@
                             <th>카테고리</th>
                             <td>
                                 <div class="selectbox">
-                                    <button class="title" type="button" title="카테고리 선택">
-                                    	<c:choose>
-                                    		<c:when test="${reportType eq '신고'}">
-                                    			2. 신고
-                                    		</c:when>
-                                    		<c:otherwise>
-	                                    		카테고리를 선택하세요
-                                    		</c:otherwise>
-                                    	</c:choose>
-                                    </button>
+                                    <button class="title" type="button" title="카테고리 선택" id="selectCate">카테고리를 선택하세요 </button>
                                     <ul class="selList">
                                         <li>
-                                            <input type="radio" value="문의" class="option" id="sel1_1" name="category" />
+                                            <input type="radio" value="문의" class="option category" id="sel1_1" name="category" />
                                             <label for="sel1_1">1. 문의</label>
                                         </li>
                                         <li>
-                                            <input type="radio" value="신고" class="option" id="sel1_2" name="category" <c:if test="${reportType eq '신고'}">checked="checked"</c:if> />
+                                            <input type="radio" value="신고" class="option category" id="sel1_2" name="category" />
                                             <label for="sel1_2">2. 신고</label>
                                         </li>
                                     </ul>
@@ -440,7 +448,7 @@
                             <th>피신고인</th>
                             <td>
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." <c:if test="${!empty reportUser}">value="${reportUser}" readonly</c:if> />
+                                    <input type="text" class="readOnly" name="reportId" id="in_report" placeholder="신고하실 회원의 아이디를 입력하세요." readonly/>
                                 </div>
                             </td>
                         </tr>
@@ -466,7 +474,21 @@
     
 <script>
 	
-	// +문의 선택 시 피신고인 인풋값 disabled 되게
+	// +신고 선택할 때만 피신고인 칸 입력 되게  
+	let cate = document.querySelectorAll('.category').forEach(item =>  item.addEventListener('change', test));
+    function test(){
+      let index = Array.from(document.querySelectorAll(".category")).indexOf(this);
+      if(index == 0){
+         document.getElementById('in_report').readOnly = true;
+         document.getElementById('in_report').classList.add('readOnly')
+      } else{
+         document.getElementById('in_report').readOnly = false;
+         document.getElementById('in_report').classList.remove('readOnly')
+      }
+    }
+	
+
+
 	
 	// 글자수 체크
 	$('#Mcontent').on('keyup', function() {

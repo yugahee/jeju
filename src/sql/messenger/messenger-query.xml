@@ -58,7 +58,6 @@
 		UPDATE MESSAGE
 		   SET REPLY_DATE = SYSDATE
 		     , REPLY_CONTENT = ?
-		     , MODIFY_DATE = SYSDATE
 		 WHERE MSG_NO = ?
 	</entry>
 
@@ -66,6 +65,7 @@
 		UPDATE MESSAGE
 		   SET CHK_STATUS = 'Y'
 		 WHERE MSG_NO = ?
+		   AND FROM_USER != ?
 	</entry>	
 	
 	<entry key="deleteMessage">
@@ -106,7 +106,8 @@
 	
 	<entry key="replyMessenger">
 		UPDATE MESSAGE
-		   SET REPLY_STATUS = 'Y'
+		   SET CHK_STATUS = 'N'
+		     , REPLY_STATUS = 'Y'
 		     , REPLY_DATE = SYSDATE
 		     , REPLY_CONTENT = ?
 		     , FROM_USER = ?
