@@ -33,6 +33,17 @@ public class Room_reservationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String checkIn = request.getParameter("checkIn");
+		String checkOut = request.getParameter("checkOut");
+		int inwonsu = Integer.parseInt(request.getParameter("inwonsu"));
+		
+		RoomSearch search1 = new RoomSearch();
+		search1.setCheckIn(checkIn);
+		search1.setCheckOut(checkOut);
+		search1.setInwonsu(inwonsu);
+		
+		List<Rooms> ableRoom = new ReservationService().roomSearch1(search1);
+		
 		// 조건 검색 적용 시
 		String[] locationArr = request.getParameterValues("location"); // 숙소위치
 		String[] room_typeArr = request.getParameterValues("room_type"); //숙소종류
@@ -85,54 +96,7 @@ public class Room_reservationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		// 조건 검색 적용 시
-		String[] locationArr = request.getParameterValues("location"); // 숙소위치
-		String[] room_typeArr = request.getParameterValues("room_type"); //숙소종류
-		String[] building_typeArr = request.getParameterValues("building_type"); //건물유형
-		String[] specialFacArr = request.getParameterValues("specialFac"); // 특별시설		
-		
-		String location = "";
-		String room_type = "";
-		String building_type = "";
-		String specialFac  = "";
-		
-		
-		if(locationArr != null && !locationArr[0].equals("")) {
-			location = String.join("," , locationArr);
-		}
-		
-		if(room_typeArr != null && !room_typeArr[0].equals("")) {
-			room_type = String.join(",", room_typeArr);
-		}
-		
-		if(building_typeArr != null && !building_typeArr[0].equals("")) {
-			building_type = String.join("," , building_typeArr);
-		}
-		
-		if(specialFacArr != null && !specialFacArr[0].equals("")) {
-			specialFac = String.join(",", specialFacArr);
-		}
-		
-		System.out.println(locationArr);
-		System.out.println(room_typeArr);
-		System.out.println(building_typeArr);
-		System.out.println(specialFacArr);
-		
-		
-		System.out.println(location);
-		System.out.println(room_type);
-		System.out.println(building_type);
-		System.out.println(specialFac);
-		
-		// 숙소예약 클릭 시 OR 조건검색 적용시 
-		List<Rooms> roomList = new ReservationService().selectRoomList(new RoomSearch(location, room_type, building_type, specialFac));
-		request.setAttribute("roomList", roomList);			
-		
-		//System.out.println(roomList);
-		
-		request.getRequestDispatcher("/views/reservation/room_reservation.jsp").forward(request, response);
+
 		
 	}
 
