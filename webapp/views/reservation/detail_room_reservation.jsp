@@ -84,29 +84,11 @@
 					</div>
 					
 					
-			  	<%
+			  <%-- 	<%
 					String[] roomFac = room.getRoomFac().split(",");
 			  		
-					/* if( room.getRoomFac() != null) {
-						roomFac = room.getRoomFac().split(","); // 배열로 잘라짐
-					} else {
-						roomFac = new String[] {"", "", "", "", ""};
-					} */
-					
-					// 여기 아래부터 에러 
-					
 					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
 							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
-					
-					/* int index = 0;
-					String[] samDefaultFac = null;
-					for( int i = 0; i < defaultFac.length; i++) {
-						for( int j = 0; j < roomFac.length; j++) {
-							if(defaultFac[i].equals(roomFac[i])) {
-								samDefaultFac[index++] = roomFac[i];
-							}
-						}
-					} */
 					
 					/* String samDefaultFac = null; */
 					String[] result = new String[11];
@@ -115,18 +97,15 @@
 						for(int j = 0; j < defaultFac.length; j++) {
 							if(roomFac[i].equals(defaultFac[j])) {
 								result[index++] = roomFac[i];
-								/* result[index++] = samDefaultFac; */
 							}
 						}
 					}
 					
-				%>   
-					
+				%>    --%>
 					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>
-						
 					</div>
 
 					<div class="moreSee2">
@@ -135,36 +114,40 @@
 							<li>숙소종류 : ${room.roomType} </li> <li>건물유형 : ${room.buildingType} </li> <li>건물평수 :${room.roomSize}</li> 
 							<li>방수 : ${room.room} </li> <li>침대수 : ${room.bed} </li>  <li>욕실수 : ${room.bath} </li>
 						</ul>
+						
 						<span class="minititle_text">기본 시설</span>
 						<ul class="text_group">
-						
-						<!-- 이 부분 참조하세요!! -->					
+						<!-- 이 부분 참조하세요!!    -->					
 						<c:forTokens var="fac" items="${ room.roomFac }" delims=",">
 						<c:set var="basic">TV, 에어컨, 와이파이, 전기포트, 전자렌지, 밥솥, 수건, 식기, 다리미, 헤어드라이기, 냉장고</c:set>
 						<c:if test="${ fn:contains(basic, fac) }"><li>${ fac }</li></c:if>						
 						</c:forTokens>
-						
-							<%-- <li> <%= result[0] %>  </li> <li> <%= result[1] %> </li> <li> <%= result[2] %> </li> 
-							<li>전기포트</li> <li>전기포트</li>  <li>전자렌지</li>
-							<li>밥솥 </li> <li>수건</li> <li>식기</li> 
-							<li>다리미</li> <li>헤어드라이기</li>  <li>냉장고</li> --%>
 						</ul>	
+						
 						<span class="minititle_text">추가 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[1] %> --%> </li> <li>세탁기</li> <li>건조기</li> 
-							<li>무료주차</li> <li>위생용품</li>  <li>바비큐</li>
-							<li>테라스 </li> 
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="add">욕조, 세탁기, 건조기, 무료주차 , 위생용품 , 바비큐, 테라스</c:set>
+						<c:if test="${ fn:contains(add,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>	
+						
 						<span class="minititle_text">특별 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[2] %> --%> </li> <li>반려동물 입실가능</li> <li>반려동물 입실금지</li> 
-							<li>휠체어 사용가능</li>  
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="special">가족/어린이 환영,반려동물 입실가능, 반려동물 입실금지, 휠체어 사용가능</c:set>
+						<c:if test="${ fn:contains(special,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>
+						
 						<span class="minititle_text">안전 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[3] %> --%> </li> <li>구급상자</li> <li>실내흡연 불가능</li> 
-							<li>소화기</li>
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="safety">화재감재기, 구급상자, 실내흡연 불가능, 소화기</c:set>
+						<c:if test="${ fn:contains(safety,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>
+						
 						<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
 				   </div>
 					
@@ -346,20 +329,32 @@
  	</script>
 	
 	
-	<!--  예약 신청 확인 시 동작 -->
 	<script>
-		 // 예약날자 비교 
-		 function reserveChk(roomNo){			 
+		 function reserveChk(roomNo){			
+			 if( '${loginUser.user_type}' != '게스트') {
+					alert("로그인 후 예약신청 바랍니다.")
+		    	 	location.href="${contextPath}/login";
+		    	 	return;
+			 }
+			 
+			// 예약날자 비교 
 			 $.ajax({
 				url : "${contextPath}/reserve/dateCheck",
 				data : {roomNo : roomNo,
 						startDate : $("#checkIn").val(),
 						endDate : $("#checkOut").val()},
-				dataType : "json",
+				/* dataType : "json", */
 				type : "post",
 				success : function(result){					
 					if(result == "success"){
-						reserveOk();						
+						const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+					     ch.click();    // 레이아웃 닫기
+						
+						 alert("예약 신청이 완료되었습니다.");
+					     
+					     // 예약 정보 인서트 
+						 document.forms.reserveinfo.action="${contextPath}/reservation/insert";
+					     document.forms.reserveinfo.submit();
 					}else{
 						alert("예약이 가득차 예약이 불가능합니다ㅠㅠ");
 					}
@@ -370,24 +365,6 @@
 			});
 		 }
 		 
-		 // 비교가 완료 후 가능한 날짜면 실행
-	     function reserveOk(){
-	    	 if( '${loginUser.user_type}' == '게스트') {
-			   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
-			     ch.click();    // 레이아웃 닫기
-			     
-			     let checkIn = document.querySelector('#checkIn').value();
-			     let checkOut = document.querySelector("#checkOut").value();
-		    	
-	    		 alert("예약 신청이 완료되었습니다."); 
-			     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
-			     document.forms.reserveinfo.submit();
-			    	
-	    	 } else{
-	    	 	alert("로그인 후 예약신청 바랍니다.")
-	    	 	location.href="${contextPath}/login";
-	    	 }
-	     }
    	</script>
 
 
