@@ -12,6 +12,11 @@
 <style>
 	.btn_wrap {
 		text-align: center;
+	}
+	
+	#imgRooms{
+	    display: block;
+    	margin: 0px auto;
 	}	
 </style>
   <% Rooms room = (Rooms)request.getAttribute("room"); %> 
@@ -30,7 +35,7 @@
 							<!-- Slides -->
 							<c:forEach items="${ room.fileList }" var="file">
 								<div class="swiper-slide">
-									<img src="${ contextPath }${ file.filePath }${ file.changeName }" class="lodging1">
+									<img src="${ contextPath }${ file.filePath }${ file.changeName }" class="lodging1" id="imgRooms">
 								</div>
 							</c:forEach>
 						</div>

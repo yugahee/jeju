@@ -8,6 +8,15 @@
 		text-align: center;
 	}
 	
+	#popBody {
+	    max-height: 500px;
+    	overflow-y: scroll;
+	}
+	
+	#callMessage {
+		min-height : 600px;
+	}
+	
 </style>
 		<div class="side_layout">
 			<div class="container">
@@ -123,11 +132,11 @@
 	<div class="layerTit">
 		<h4>messenger</h4>
 		<button type="button" class="btn_closeLayer"
-			onclick="hideLayer('callMessage');">
+			onclick="hideLayer('callMessage');location.reload();">
 			<span class="blind">팝업 닫기</span>
 		</button>
 	</div>
-	<div class="layerBody">
+	<div class="layerBody" id="popBody">
 		<br>
 		<div class="tblType2 noBorder">
 			<table>
@@ -266,7 +275,6 @@
 					}
 		});
 	}
-	
 	
 	
 	// 메시지 답장

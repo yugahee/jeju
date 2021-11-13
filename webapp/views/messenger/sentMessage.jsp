@@ -8,6 +8,10 @@
 		text-align: center;
 	}
 	
+	#callMessage {
+		min-height : 600px;
+	}
+	
 </style>
 		<div class="side_layout">
 			<div class="container">
@@ -270,7 +274,7 @@
 									}
 									$("#call_reportId").html(report);
 
-									content = '<div class="textbox"><textarea name="Rmodify_content" id="Rmodify_content">'+ "Re. " + msg.reply_content + '</textarea><span class="charCnt"><em>0</em>/200</span></div>';
+									content = '<div class="textbox"><textarea name="Rmodify_content" id="Rmodify_content">'+ msg.reply_content + '</textarea></div>';
 									$("#call_content").html(content);
 
 									
@@ -297,7 +301,7 @@
 									$("#call_reportId").html(report);
 
 									
-									content = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + "Re. " + msg.reply_content + '</textarea></div>';
+									content = '<div class="textbox"><textarea class="readOnly" name="call_context" readonly>' + msg.reply_content + '</textarea></div>';
 									$("#call_content").html(content);
 									
 									
@@ -345,20 +349,11 @@
 		});
 		
 	}
-
+	
 	
 	// 답장 메시지 수정
 	function msgReModify(mno){
-	/* 
-		$('#Rmodify_content').on('keyup', function() {
-		    $('.charCnt').text(+$(this).val().length+"/200");
-		    
-		      if($(this).val().length > 200) {
-		          $(this).val($(this).val().substring(0, 200));
-		          $('.charCnt').text("200/200");
-		      }
-		});
-		 */
+		 
 		
 		
 		let msg_no = mno;
