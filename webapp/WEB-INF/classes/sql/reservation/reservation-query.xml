@@ -334,6 +334,9 @@
 	 WHERE RESERVE_STATE != '예약취소'
 	   AND ROOM_NO = ?
 </entry>
+
+
+<!-- 게스트들이 예약해놓은 날짜 피해서 조회(체크인 날짜 이전과 체크아웃 날짜 이후의 숙소들만 조회) -->
 <entry key="roomSearch1">
 	SELECT 
      LOCATION,
@@ -356,6 +359,8 @@ WHERE FILE_LEVEL = 0
 GROUP BY LOCATION, ROOM_NAME, ROOM_TITLE, PRICE, FILE_PATH, CHANGE_NAME, ROOM_NO
 ORDER BY ROOM_NO DESC
 </entry>
+
+
 <entry key="roomSearch2">
 SELECT 
      LOCATION,
