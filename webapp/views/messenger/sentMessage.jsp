@@ -133,7 +133,7 @@
 			<table>
 				<colgroup>
 					<col style="width: 20%;">
-					<!-- <col style="width:*;"> -->
+					<col style="width:*;">
 				</colgroup>
 				<tbody>
 					<!-- <input type="hidden" id="mno" value=""> -->
@@ -199,9 +199,9 @@
 							if(msg.chk_status == 'N'){
 								
 								if (msg.msg_cate == '문의') {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 								} else {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 								}
 								$("#call_cate").html(category);
 								
@@ -225,9 +225,9 @@
 								
 							} else {
 								if (msg.msg_cate == '문의') {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 								} else {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 								}
 								$("#call_cate").html(category);
 
@@ -255,9 +255,9 @@
 								if(msg.chk_status == 'N'){
 									
 									if (msg.msg_cate == '문의') {
-										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 									} else {
-										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 									}
 									$("#call_cate").html(category);
 									
@@ -281,9 +281,9 @@
 									
 								} else {
 									if (msg.msg_cate == '문의') {
-										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 									} else {
-										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+										category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 									}
 									$("#call_cate").html(category);
 
@@ -323,17 +323,6 @@
 	// 보낸 메시지 수정
 	function msgModify(mno){
 		
-		
-		$('#Rmodify_content').on('keyup', function() {
-		    $('.charCnt').text(+$(this).val().length+"/200");
-		    
-		      if($(this).val().length > 200) {
-		          $(this).val($(this).val().substring(0, 200));
-		          $('.charCnt').text("200/200");
-		      }
-		});
-		
-		
 		let msg_no = mno;
 		let NreportId = $("#modify_Id").val();
 		let Ncontent = $("#modify_content").val();
@@ -360,7 +349,18 @@
 	
 	// 답장 메시지 수정
 	function msgReModify(mno){
-	
+	/* 
+		$('#Rmodify_content').on('keyup', function() {
+		    $('.charCnt').text(+$(this).val().length+"/200");
+		    
+		      if($(this).val().length > 200) {
+		          $(this).val($(this).val().substring(0, 200));
+		          $('.charCnt').text("200/200");
+		      }
+		});
+		 */
+		
+		
 		let msg_no = mno;
 		let Ncontent = $("#Rmodify_content").val();
 
@@ -400,6 +400,8 @@
 			return false;
 		}
 	}
+	
+	
 </script>
 
     <!-- 메신저 글쓰기 팝업 화면 -->
