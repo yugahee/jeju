@@ -151,7 +151,7 @@ scope="application"/>
 							<col width="*">
 							<col width="8%">
 							<col width="6%">
-							<col width="8%">
+							<col width="10%">
 							<col width="6%">
 						</colgroup>
 						<thead>
@@ -188,15 +188,9 @@ scope="application"/>
 								<td>${rReview.userId}</td>
 								<td>${rReview.score}</td>
 								<td>
-									<!-- enrollDate 값이 없을 경우 - 표기 -->
-									<c:choose>
-										<c:when test="${null ne rReview.writeTime}">
-											<fmt:formatDate value="${rReview.writeTime}" type="both" pattern="yyyy.MM.dd" />
-										</c:when>
-										<c:otherwise>
-											-
-										</c:otherwise>
-									</c:choose>
+									<fmt:formatDate value="${rReview.writeTime}" type="both" pattern="yyyy.MM.dd"/>
+										<br>
+									<fmt:formatDate value="${rReview.writeTime}" type="both" pattern="HH:mm:ss"/>
 								</td>
 								<td>${rReview.publicYn}</td>
 							</tr>
