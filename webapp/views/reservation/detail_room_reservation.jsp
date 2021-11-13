@@ -285,7 +285,7 @@
 				</form>
 				<div class="boxChild3">
 					<div id="won1">예상결제금액:</div>
-					<div id="won2">20000</div>
+					<div id="won2">${room.price}</div>
 				</div>  
 				<a href="#" id="xx" class="btn btnType1 btnSizeL reserve_request" onclick="showLayer('reserveApply');" ><span>예약 신청</span></a>
 			</div>
@@ -315,6 +315,24 @@
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
   
+    <script>
+    
+    
+    
+    
+    
+    
+    
+    $.(#won2).val();
+    
+    
+    
+    </script>      
+          
+          
+          
+          
+          
           
     <!-- 예약 신청 취소 시 동작 -->  
     <script>

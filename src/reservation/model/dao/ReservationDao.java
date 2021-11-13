@@ -41,7 +41,9 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
-		String sql =  roomQuery.getProperty("selectRoomList");
+		
+		String sql = roomQuery.getProperty("selectRoomList");
+		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -684,18 +686,99 @@ public class ReservationDao {
 		return possibleReservList;
 	}
 
+	public List<Rooms> searchRoomList(Connection conn, RoomSearch search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Rooms> roomList = new ArrayList<>();
+		
+		String sql = roomQuery.getProperty("roomSearch1");
 
-	
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
 
+			pstmt.setString(1, search.getCheckIn());
+			pstmt.setString(2, search.getCheckOut());
 
-	
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms rooms = new Rooms();
+				rooms.setLocation(rset.getString("location"));
+				rooms.setRoomName(rset.getString("room_name"));
+				rooms.setRoomTitle(rset.getString("room_title"));
+				rooms.setPrice(rset.getInt("price"));
+				rooms.setStar(rset.getDouble("star"));
+				rooms.setRoomNo(rset.getInt("room_no"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files files = new Files();
+				files.setFilePath(rset.getString("file_path"));
+				files.setChangeName(rset.getString("change_name"));
+				
+				fileList.add(files);
+				rooms.setFileList(fileList);
 
+				roomList.add(rooms);
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
 
-	
+		return roomList;
+	}
 
+	public List<Rooms> searchRoomList2(Connection conn, RoomSearch search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Rooms> roomList = new ArrayList<>();
+		
+		String sql = roomQuery.getProperty("roomSearch2");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 
-	
+			pstmt.setString(1, search.getSpecialFac());
+			pstmt.setString(2, search.getLocation());
+			pstmt.setString(3, search.getRoom_type());
+			pstmt.setString(4, search.getBuilding_type());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms rooms = new Rooms();
+				rooms.setLocation(rset.getString("location"));
+				rooms.setRoomName(rset.getString("room_name"));
+				rooms.setRoomTitle(rset.getString("room_title"));
+				rooms.setPrice(rset.getInt("price"));
+				rooms.setStar(rset.getDouble("star"));
+				rooms.setRoomNo(rset.getInt("room_no"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files files = new Files();
+				files.setFilePath(rset.getString("file_path"));
+				files.setChangeName(rset.getString("change_name"));
+				
+				fileList.add(files);
+				rooms.setFileList(fileList);
 
+				roomList.add(rooms);
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return roomList;
+	}
 
 
 
