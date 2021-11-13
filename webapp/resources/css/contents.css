@@ -795,7 +795,9 @@
   bottom:0;
   cursor:pointer;
 	}
-
+	
+	 /* 지도 api 부분*/
+	 .room_reserv_map { width: 600px; height: 400px; margin: 50px auto;}
 
 
      .lodging_detail .text_group{

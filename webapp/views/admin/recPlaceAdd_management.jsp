@@ -214,7 +214,7 @@ scope="application"/>
 										<th>지도 api 주소</th>
 										<td>
 											<div class="inp_text">
-												<input class="readOnly" readonly type="text" value="준비중">
+												<input type="text" name="coordinate">
 											</div>
 										</td>
 										<th>키워드</th>

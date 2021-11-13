@@ -67,6 +67,8 @@ public class adminRecPlaceAddServlet extends HttpServlet {
 		String recoExpl = multiRequest.getParameter("recoExpl");
 		String uploadName = "uploadName";
 		
+		String coordinate = multiRequest.getParameter("coordinate");
+		
 		rec.setPublicYn(publicYn);
 		rec.setRecoArea(recoArea);
 		rec.setRecoAddress(recoAddress);
@@ -77,7 +79,8 @@ public class adminRecPlaceAddServlet extends HttpServlet {
 		rec.setNaverMap(naverMap);
 		rec.setKakaoMap(kakaoMap);
 		rec.setRecoImage("/resources/uploadFiles/");
-		rec.setImageName(multiRequest.getFilesystemName(uploadName));	
+		rec.setImageName(multiRequest.getFilesystemName(uploadName));
+		rec.setCoordinate(coordinate);
 				
 		int result = new AdminService().insertRecoPhoto(rec);
 		if(result > 0) {

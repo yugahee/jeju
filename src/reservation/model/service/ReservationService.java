@@ -250,6 +250,16 @@ public class ReservationService {
 		return possibleReservList;
 	}
 
+	public List<Rooms> roomSearch1(RoomSearch search1) {
+		Connection conn = getConnection();
+		
+		List<Rooms> roomSearch1List = reservationDao.roomSearch1(conn, search1);
+		 
+		close(conn);
+		
+		return possibleReservList;
+	}
+
 
 
 

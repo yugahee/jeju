@@ -84,29 +84,11 @@
 					</div>
 					
 					
-			  	<%
+			  <%-- 	<%
 					String[] roomFac = room.getRoomFac().split(",");
 			  		
-					/* if( room.getRoomFac() != null) {
-						roomFac = room.getRoomFac().split(","); // 배열로 잘라짐
-					} else {
-						roomFac = new String[] {"", "", "", "", ""};
-					} */
-					
-					// 여기 아래부터 에러 
-					
 					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
 							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
-					
-					/* int index = 0;
-					String[] samDefaultFac = null;
-					for( int i = 0; i < defaultFac.length; i++) {
-						for( int j = 0; j < roomFac.length; j++) {
-							if(defaultFac[i].equals(roomFac[i])) {
-								samDefaultFac[index++] = roomFac[i];
-							}
-						}
-					} */
 					
 					/* String samDefaultFac = null; */
 					String[] result = new String[11];
@@ -115,18 +97,15 @@
 						for(int j = 0; j < defaultFac.length; j++) {
 							if(roomFac[i].equals(defaultFac[j])) {
 								result[index++] = roomFac[i];
-								/* result[index++] = samDefaultFac; */
 							}
 						}
 					}
 					
-				%>   
-					
+				%>    --%>
 					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>
-						
 					</div>
 
 					<div class="moreSee2">
@@ -135,38 +114,50 @@
 							<li>숙소종류 : ${room.roomType} </li> <li>건물유형 : ${room.buildingType} </li> <li>건물평수 :${room.roomSize}</li> 
 							<li>방수 : ${room.room} </li> <li>침대수 : ${room.bed} </li>  <li>욕실수 : ${room.bath} </li>
 						</ul>
+						
 						<span class="minititle_text">기본 시설</span>
 						<ul class="text_group">
-						
-						<!-- 이 부분 참조하세요!! -->					
+						<!-- 이 부분 참조하세요!!    -->					
 						<c:forTokens var="fac" items="${ room.roomFac }" delims=",">
 						<c:set var="basic">TV, 에어컨, 와이파이, 전기포트, 전자렌지, 밥솥, 수건, 식기, 다리미, 헤어드라이기, 냉장고</c:set>
 						<c:if test="${ fn:contains(basic, fac) }"><li>${ fac }</li></c:if>						
 						</c:forTokens>
-						
-							<%-- <li> <%= result[0] %>  </li> <li> <%= result[1] %> </li> <li> <%= result[2] %> </li> 
-							<li>전기포트</li> <li>전기포트</li>  <li>전자렌지</li>
-							<li>밥솥 </li> <li>수건</li> <li>식기</li> 
-							<li>다리미</li> <li>헤어드라이기</li>  <li>냉장고</li> --%>
 						</ul>	
+						
 						<span class="minititle_text">추가 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[1] %> --%> </li> <li>세탁기</li> <li>건조기</li> 
-							<li>무료주차</li> <li>위생용품</li>  <li>바비큐</li>
-							<li>테라스 </li> 
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="add">욕조, 세탁기, 건조기, 무료주차 , 위생용품 , 바비큐, 테라스</c:set>
+						<c:if test="${ fn:contains(add,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>	
+						
 						<span class="minititle_text">특별 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[2] %> --%> </li> <li>반려동물 입실가능</li> <li>반려동물 입실금지</li> 
-							<li>휠체어 사용가능</li>  
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="special">가족/어린이 환영,반려동물 입실가능, 반려동물 입실금지, 휠체어 사용가능</c:set>
+						<c:if test="${ fn:contains(special,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>
+						
 						<span class="minititle_text">안전 시설</span>
 						<ul class="text_group">
-							<li><%-- <%= roomFac[3] %> --%> </li> <li>구급상자</li> <li>실내흡연 불가능</li> 
-							<li>소화기</li>
+						<c:forTokens var="fac" items="${room.roomFac}" delims=",">
+						<c:set var="safety">화재감재기, 구급상자, 실내흡연 불가능, 소화기</c:set>
+						<c:if test="${ fn:contains(safety,fac) }"><li>${ fac }</li></c:if>
+						</c:forTokens>
 						</ul>
+						
 						<button type="button" class="moreBtn2" >숙소 시설 더 보기</button>
 				   </div>
+				   
+				   <!-- 지도 API -->
+				   <input type="hidden" id="address" value="${ room.address }">
+				   <input type="hidden" id="roomname" value="${ room.roomName }">
+					<div class="title_text">
+						<span>숙소 위치</span>
+					</div>
+					<div class="room_reserv_map" id="map"></div>
 					
 				   <div class="title_text">
 				 	<span>환불 정책</span>
@@ -331,7 +322,51 @@
            	<div class="hiddenlayerpop">
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
-  
+  	
+  	<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7289567e1bdecd9a73b71af51976bb56&libraries=services"></script>
+	<script>
+			
+			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+				center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표. (위도, 경도)
+				level: 3 //지도의 레벨(확대, 축소 정도)
+			};
+			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+						
+			// 주소 값 지도에 넣기			
+			var address = document.getElementById('address').value; 
+			var roomName = document.getElementById('roomname').value; 
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(address, function(result, status) {
+	
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+	
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+	
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			       /* var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+ roomName +'</div>'
+			        });
+			        infowindow.open(map, marker); */
+	
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});    
+			
+	</script>
           
     <!-- 예약 신청 취소 시 동작 -->  
     <script>
@@ -346,20 +381,32 @@
  	</script>
 	
 	
-	<!--  예약 신청 확인 시 동작 -->
 	<script>
-		 // 예약날자 비교 
-		 function reserveChk(roomNo){			 
+		 function reserveChk(roomNo){			
+			 if( '${loginUser.user_type}' != '게스트') {
+					alert("로그인 후 예약신청 바랍니다.")
+		    	 	location.href="${contextPath}/login";
+		    	 	return;
+			 }
+			 
+			// 예약날자 비교 
 			 $.ajax({
 				url : "${contextPath}/reserve/dateCheck",
 				data : {roomNo : roomNo,
 						startDate : $("#checkIn").val(),
 						endDate : $("#checkOut").val()},
-				dataType : "json",
+				/* dataType : "json", */
 				type : "post",
 				success : function(result){					
 					if(result == "success"){
-						reserveOk();						
+						const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+					     ch.click();    // 레이아웃 닫기
+						
+						 alert("예약 신청이 완료되었습니다.");
+					     
+					     // 예약 정보 인서트 
+						 document.forms.reserveinfo.action="${contextPath}/reservation/insert";
+					     document.forms.reserveinfo.submit();
 					}else{
 						alert("예약이 가득차 예약이 불가능합니다ㅠㅠ");
 					}
@@ -370,24 +417,6 @@
 			});
 		 }
 		 
-		 // 비교가 완료 후 가능한 날짜면 실행
-	     function reserveOk(){
-	    	 if( '${loginUser.user_type}' == '게스트') {
-			   	 const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
-			     ch.click();    // 레이아웃 닫기
-			     
-			     let checkIn = document.querySelector('#checkIn').value();
-			     let checkOut = document.querySelector("#checkOut").value();
-		    	
-	    		 alert("예약 신청이 완료되었습니다."); 
-			     document.forms.reserveinfo.action="${contextPath}/reservation/insert";
-			     document.forms.reserveinfo.submit();
-			    	
-	    	 } else{
-	    	 	alert("로그인 후 예약신청 바랍니다.")
-	    	 	location.href="${contextPath}/login";
-	    	 }
-	     }
    	</script>
 
 
