@@ -574,7 +574,9 @@ WHERE RNUM BETWEEN ? AND ?
 		?,
 		0,
 		?,
-		?
+		?,
+		0,
+		0
 	)
 </entry>
 <entry key="deleteReco">  
