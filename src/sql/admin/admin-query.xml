@@ -1233,4 +1233,25 @@ WHERE REVIEW_NO = ?
       WHERE USER_ID LIKE '%'||?||'%'
    ORDER BY RECO_REVIEW_NO
 </entry>
+<entry key="searchRR">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM RECO_REVIEW
+	JOIN RECOMMENDATION USING(RECO_NO)
+   ORDER BY RECO_REVIEW_NO DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+<entry key="searchRR">
+	SELECT *
+	FROM(SELECT ROWNUM RNUM, A.*
+	  FROM(SELECT
+                 *
+    FROM MEMBER
+   WHERE USER_TYPE != '관리자'
+     AND USER_ID LIKE '%'|| ? ||'%'
+   ORDER BY ENROLL_DATE DESC) A)
+WHERE RNUM BETWEEN ? AND ?
+</entry>
 </properties>

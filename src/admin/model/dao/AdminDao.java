@@ -1510,7 +1510,73 @@ public class AdminDao {
 	}
 
 	public List<Reco_Review> selectRRList(Connection conn, PageInfo pi, Search search) {
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int cate = 0;
+		String sql = adminQuery.getProperty("searchRR");
+		List<Reco_Review> RRList = new ArrayList<>();
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cate = 1;
+			}else if(search.getSearchCondition().equals("식당")) {
+				cate = 2;
+			}else if(search.getSearchCondition().equals("카페")) {
+				cate = 3;
+			}
+			if(!search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountCateLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountCateId");
+				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountId");
+				}
+			}
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			 
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+			if((sql == adminQuery.getProperty("searchMemberAllId")) || (sql == adminQuery.getProperty("searchMemberAllName"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchMemberId")) || (sql == adminQuery.getProperty("searchMemberName"))) {
+				pstmt.setString(index++, search.getSearchCondition());
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reco_Review rr = new Reco_Review();
+				rr.setRecoNo(recoNo);
+				rr.setrCate(rCate);
+				rr.setrArea(rArea);
+				rr.setrName(rName);
+				rr.setUserId(userId);
+				rr.setScore(score);
+				rr.setWriteTime(writeTime);
+				rr.setPublicYn(publicYn);
+				RRList.add(rr);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return RRList;
 	}
 	
 	
