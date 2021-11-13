@@ -1,4 +1,4 @@
-package res  ervation.model.service;
+package reservation.model.service;
 
 import java.sql.Connection;
 import java.util.HashMap;
