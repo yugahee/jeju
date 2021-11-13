@@ -177,7 +177,29 @@ private Properties messengerQuery = new Properties();
 	}
 
 	
-	public Messenger selectMessage(Connection conn, int msgNo) {
+	public Messenger selectMessage(Connection conn, int msgNo, String loginUser) {
+
+		// 메시지 상세 보기 시 읽음 표시 'Y' 처리 
+		PreparedStatement pstmt1 = null; 
+		String sql1 =  messengerQuery.getProperty("statusMessenger");
+		
+		try { 
+			pstmt1 = conn.prepareStatement(sql1);
+		  
+		    pstmt1.setInt(1, msgNo);
+		    pstmt1.setString(2, loginUser);
+		  
+		    pstmt1.executeUpdate();
+		    
+		  
+		  } catch (SQLException e) { 
+			  e.printStackTrace(); 
+		  } finally { 
+			  close(pstmt1); 
+		  }
+		 	
+
+		// 메시지 상세 보기
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Messenger messenger = null;
@@ -219,7 +241,7 @@ private Properties messengerQuery = new Properties();
 	public int modifyMessenger(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = messengerQuery.getProperty("updateMessenger");
+		String sql = messengerQuery.getProperty("modifyMessenger");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -227,6 +249,28 @@ private Properties messengerQuery = new Properties();
 			pstmt.setString(1, messenger.getMsg_content());
 			pstmt.setString(2, messenger.getReport_user());
 			pstmt.setInt(3, messenger.getMsg_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		
+		return result;
+	}
+	
+	public int modifyReMessenger(Connection conn, Messenger messenger) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = messengerQuery.getProperty("modifyReMessenger");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messenger.getReply_content());
+			pstmt.setInt(2, messenger.getMsg_no());
 			
 			result = pstmt.executeUpdate();
 			
@@ -284,4 +328,30 @@ private Properties messengerQuery = new Properties();
 		
 		return result;
 	}
+
+	public int replyMessenger(Connection conn, Messenger messenger) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = messengerQuery.getProperty("replyMessenger");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messenger.getReply_content());
+			pstmt.setString(2, messenger.getFrom_user());
+			pstmt.setString(3, messenger.getTo_user());
+			pstmt.setInt(4, messenger.getMsg_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		
+		return result;
+	}
+
+	
 }

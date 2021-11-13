@@ -61,10 +61,10 @@ public class MessengerService {
 	}
 
 	
-	public Messenger selectMessage(int msgNo) {
+	public Messenger selectMessage(int msgNo, String loginUser) {
 		Connection conn = getConnection();
-		
-		Messenger messenger = messengerDao.selectMessage(conn, msgNo);
+			
+		Messenger messenger = messengerDao.selectMessage(conn, msgNo, loginUser);
 		
 		close(conn);
 
@@ -87,6 +87,22 @@ public class MessengerService {
 		return result;
 	}
 
+	
+	public int modifyReMessenger(Messenger messenger) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.modifyReMessenger(conn, messenger);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
 	public int deleteMessage(int msgNo) {
 		Connection conn = getConnection();
@@ -120,6 +136,25 @@ public class MessengerService {
 		
 		return result;
 	}
+
+
+	public int ReplyMessenger(Messenger messenger) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.replyMessenger(conn, messenger);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 
 }
