@@ -1518,22 +1518,30 @@ public class AdminDao {
 		ResultSet rset = null;
 		String sql = adminQuery.getProperty("searchRR");
 		List<Reco_Review> RRList = new ArrayList<>();
+		int cate = 0;
 
-//		if(search.getSearchValue() != null) {
-//			if(!search.getSearchCondition().equals("전체")) {
-//				if(search.getSearchCondition2().equals("장소명")) {
-//					sql = adminQuery.getProperty("getRRListCountCateLc");
-//				}else if(search.getSearchCondition2().equals("ID")) {
-//					sql = adminQuery.getProperty("getRRListCountCateId");
-//				}
-//			}else {
-//				if(search.getSearchCondition2().equals("장소명")) {
-//					sql = adminQuery.getProperty("getRRListCountLc");
-//				}else if(search.getSearchCondition2().equals("ID")) {
-//					sql = adminQuery.getProperty("getRRListCountId");
-//				}
-//			}
-//		}
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cate = 1;
+			}else if(search.getSearchCondition().equals("식당")) {
+				cate = 2;
+			}else if(search.getSearchCondition().equals("카페")) {
+				cate = 3;
+			}
+			if(!search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRRCateLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("searchRRCateId");
+				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("searchRRLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("searchRRId");
+				}
+			}
+		}
 		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -1542,12 +1550,12 @@ public class AdminDao {
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
 			int index = 1;	
-//			if((sql == adminQuery.getProperty("searchMemberAllId")) || (sql == adminQuery.getProperty("searchMemberAllName"))) {
-//				pstmt.setString(index++, search.getSearchValue());
-//			}else if((sql == adminQuery.getProperty("searchMemberId")) || (sql == adminQuery.getProperty("searchMemberName"))) {
-//				pstmt.setString(index++, search.getSearchCondition());
-//				pstmt.setString(index++, search.getSearchValue());
-//			}
+			if((sql == adminQuery.getProperty("searchRRLc")) || (sql == adminQuery.getProperty("searchRRId"))) {
+				pstmt.setString(index++, search.getSearchValue());
+			}else if((sql == adminQuery.getProperty("searchRRCateLc")) || (sql == adminQuery.getProperty("searchRRCateId"))) {
+				pstmt.setInt(index++, cate);
+				pstmt.setString(index++, search.getSearchValue());
+			}
 			pstmt.setInt(index++, startRow);
 			pstmt.setInt(index, endRow);
 
@@ -1592,7 +1600,7 @@ public class AdminDao {
 				rr.setRecoReviewNo(rset.getInt("reco_review_no"));
 				rr.setScore(rset.getInt("score"));
 				rr.setsComment(rset.getString("s_comment"));
-				rr.setWriteTime(rset.getDate("write_time"));
+				rr.setWriteTime(rset.getTimestamp("write_time"));
 				rr.setRecoNo(rset.getInt("reco_no"));
 				rr.setUserId(rset.getString("user_id"));
 				rr.setPublicYn(rset.getString("status"));

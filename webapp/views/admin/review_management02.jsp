@@ -285,7 +285,7 @@ scope="application"/>
 						<tr>
 							<th>별점</th>
 							<td>
-                                <div id="rStar" class="rating_star">
+                                <div class="rating_star" id="rStar">
                                     <span class="starPoint p5">5</span>
                                 </div>
                             </td>
@@ -327,13 +327,13 @@ scope="application"/>
 					document.getElementById("rComment").innerText = result.sComment;
 					// 별점
 					let starHtml = "";					
-					if(result.starPoint == 1){
+					if(result.score == 1){
 						starHtml = '<span class="starPoint p1">1</span>';
-					}else if(result.starPoint == 2){
+					}else if(result.score == 2){
 						starHtml = '<span class="starPoint p2">2</span>';
-					}else if(result.starPoint == 3){
+					}else if(result.score == 3){
 						starHtml = '<span class="starPoint p3">3</span>';
-					}else if(result.starPoint == 4){
+					}else if(result.score == 4){
 						starHtml = '<span class="starPoint p4">4</span>';
 					}else{
 						starHtml = '<span class="starPoint p5">5</span>';
