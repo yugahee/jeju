@@ -324,13 +324,26 @@
           	</div>
   
     <script>
-    /* $(#won2).val();
-    
-    var checkIn = $(#checkIn).val();
-    var checkOut = $(#checkOut).val();
-     */
-    
-    
+
+    $("#checkOut").change(function(){
+    	var startDate = new Date($("#checkIn").val());
+        var endDate = new Date($("#checkOut").val());
+        
+        var sDate = startDate.getDate();
+        var eDate = endDate.getDate();
+        
+        var result;
+        let price = $("#won2").text();
+        if(sDate < eDate) {
+        	result = (eDate - sDate) * price;
+        }else{
+        	result = (sDate - eDate) * price;
+        }
+        
+        
+        $("#won2").text(result);
+    });
+ 
     
     </script>      
           
