@@ -1,6 +1,7 @@
 package payment.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,8 +40,6 @@ public class paymentViewServlet extends HttpServlet {
 		
 		Reservation reservationInfo = new PaymentService().reservePayment(reserveNo);
 		
-		System.out.println(reservationInfo);
-		
 		
 		// 성수기 인지 아닌지 체크
 		int roomNo = reservationInfo.getRoom_info().getRoomNo();
@@ -70,7 +69,14 @@ public class paymentViewServlet extends HttpServlet {
 			price = reservationInfo.getRoom_info().getPrice();			
 		}
 		
-		
+		// 몇박인지 계산 후 최종금액
+		Date date1 = reservationInfo.getStart_date(); //날짜1
+        Date date2 = reservationInfo.getEnd_date(); //날짜2
+       
+        long diffSec = (date1.getTime() - date2.getTime()) / 1000; //초 차이
+        int diffDays = (int)diffSec / (24*60*60); //일자수 차이
+        
+        price *= Math.abs(diffDays);
 		
 		// 사용자 포인트 값 가져오기
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
