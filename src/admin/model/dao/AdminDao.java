@@ -695,6 +695,7 @@ public class AdminDao {
 				reco.setImageName(rset.getString("image_name"));
 				reco.setRecoArea(rset.getInt("reco_area"));
 				reco.setScore(rset.getDouble("score"));
+				reco.setCoordinate(rset.getString("coordinate"));
 			}
 			
 		} catch (SQLException e) {
@@ -923,6 +924,7 @@ public class AdminDao {
 			pstmt.setString(9, rec.getRecoExpl());
 			pstmt.setString(10, rec.getImageName());
 			pstmt.setInt(11, rec.getRecoNo());
+			pstmt.setString(12, rec.getCoordinate());
 
 			result = pstmt.executeUpdate();
 			
