@@ -880,6 +880,7 @@ public class AdminDao {
 			/*
 			노출여부 			지역			주소			카테고리			설명
 			키워드			이름			네이버맵		카카오맵			이미지 명
+			api
 			*/
 			pstmt.setString(1, rec.getPublicYn());
 			pstmt.setInt(2, rec.getRecoArea());
@@ -892,6 +893,7 @@ public class AdminDao {
 			pstmt.setString(9, rec.getKakaoMap());
 			pstmt.setString(10, rec.getRecoImage());
 			pstmt.setString(11, rec.getImageName());
+			pstmt.setString(12, rec.getCoordinate());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -92,6 +92,27 @@ public class Recommendation {
 		this.reviewList = reviewList;
 	}
 
+	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
+			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
+			int likeCount, String imageName, String deletedName, String coordinate) {
+		super();
+		this.recoNo = recoNo;
+		this.publicYn = publicYn;
+		this.recoArea = recoArea;
+		this.recoAddress = recoAddress;
+		this.recoCategory = recoCategory;
+		this.recoExpl = recoExpl;
+		this.recoKeyword = recoKeyword;
+		this.recoName = recoName;
+		this.naverMap = naverMap;
+		this.kakaoMap = kakaoMap;
+		this.recoImage = recoImage;
+		this.likeCount = likeCount;
+		this.imageName = imageName;
+		this.deletedName = deletedName;
+		this.coordinate = coordinate;
+	}
+
 	public String getDeletedName() {
 		return deletedName;
 	}
