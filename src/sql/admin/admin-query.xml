@@ -1247,4 +1247,15 @@ WHERE REVIEW_NO = ?
    ORDER BY RECO_REVIEW_NO DESC) A)
 WHERE RNUM BETWEEN ? AND ?
 </entry>
+
+<!-- 추천장소 리뷰 RR -->
+<entry key="RRDetail">
+	SELECT * FROM RECO_REVIEW
+	WHERE RECO_REVIEW_NO = ?
+</entry>
+<entry key="RRModify">
+	UPDATE RECO_REVIEW
+	SET STATUS = ?
+	WHERE RECO_REVIEW_NO = ?
+</entry>
 </properties>

@@ -417,7 +417,6 @@ public class AdminService{
 		close(conn);
 		
 		return result;
-
 	}
 
 	public Map<String, Object> selectRRList(int page, Search search) {
@@ -439,5 +438,29 @@ public class AdminService{
 		return returnMap;
 	}
 
+	public Reco_Review RRDetail(int rno) {
+		Connection conn = getConnection();
+		Reco_Review RR = adminDao.RRDetail(conn, rno);
+		close(conn);
+		
+		return RR;
+	}
+
+
+	public int RRModify(int rno, String reviewState) {
+		Connection conn = getConnection();
+		
+		int result = adminDao.RRModify(conn, rno, reviewState);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 }

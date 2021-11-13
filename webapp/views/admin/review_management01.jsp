@@ -263,85 +263,85 @@ scope="application"/>
             </div>
 		</div> 
 	</div>
+	<script>
+		function selectReview(reviewNo){
+			$.ajax({
+				url : "${contextPath}/admin/rReviewDetail",
+				data : {reviewNo : reviewNo},
+				dataType : "json",
+				type : "post",
+				success : function(result){											
+					document.getElementById("rNo").innerText = result.reviewNo;
+					document.getElementById("rName").innerText = result.roomName;
+					document.getElementById("rId").innerText = result.userId;
+					document.getElementById("rReview").innerText = result.review;
+												
+					
+					// 별점
+					let starHtml = "";
+					
+					if(result.starPoint == 1){
+						starHtml = '<span class="starPoint p1">1</span>';
+					}else if(result.starPoint == 2){
+						starHtml = '<span class="starPoint p2">2</span>';
+					}else if(result.starPoint == 3){
+						starHtml = '<span class="starPoint p3">3</span>';
+					}else if(result.starPoint == 4){
+						starHtml = '<span class="starPoint p4">4</span>';
+					}else{
+						starHtml = '<span class="starPoint p5">5</span>';
+					}
+					
+					document.getElementById("rStar").innerHTML = starHtml;
+					
+		
+					//상태
+					let stateHtml = "";
+					
+					if(result.reviewStatus == "Y"){
+						stateHtml = '<button class="title" type="button" title="상태" id="rState">노출</button>'
+							+ '<ul class="selList">'
+							+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" checked="checked" /><label for="sel1_1">노출</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" /><label for="sel1_2">비노출</label></li>'						
+							+ '</ul>';
+					}else{
+						stateHtml = '<button class="title" type="button" title="상태" id="rState">비노출</button>'
+							+ '<ul class="selList">'
+							+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" /><label for="sel1_1">노출</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" checked="checked" /><label for="sel1_2">비노출</label></li>'						
+							+ '</ul>';
+					}
+					
+					document.getElementById("rStatus").innerHTML = stateHtml;
+					
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		}
+		
+		function stateUpdate(){
+			$.ajax({
+				url : "${contextPath}/admin/rReviewUpdate",
+				data : {reviewNo : $("#rNo").text(),
+						rstate : $("input[name='reviewState']:checked").val()
+				},
+				dataType : "json",
+				type : "post",
+				success : function(result){	
+					if(result == "success"){
+						alert("성공적으로 적용되었습니다.");
+						location.reload();
+					}else{
+						alert("업데이트가 되지 않았습니다ㅜㅜ");
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		}
+	</script>
 </body>
 </html>
-<script>
-	function selectReview(reviewNo){
-		$.ajax({
-			url : "${contextPath}/admin/rReviewDetail",
-			data : {reviewNo : reviewNo},
-			dataType : "json",
-			type : "post",
-			success : function(result){											
-				document.getElementById("rNo").innerText = result.reviewNo;
-				document.getElementById("rName").innerText = result.roomName;
-				document.getElementById("rId").innerText = result.userId;
-				document.getElementById("rReview").innerText = result.review;
-											
-				
-				// 별점
-				let starHtml = "";
-				
-				if(result.starPoint == 1){
-					starHtml = '<span class="starPoint p1">1</span>';
-				}else if(result.starPoint == 2){
-					starHtml = '<span class="starPoint p2">2</span>';
-				}else if(result.starPoint == 3){
-					starHtml = '<span class="starPoint p3">3</span>';
-				}else if(result.starPoint == 4){
-					starHtml = '<span class="starPoint p4">4</span>';
-				}else{
-					starHtml = '<span class="starPoint p5">5</span>';
-				}
-				
-				document.getElementById("rStar").innerHTML = starHtml;
-				
-	
-				//상태
-				let stateHtml = "";
-				
-				if(result.reviewStatus == "Y"){
-					stateHtml = '<button class="title" type="button" title="상태" id="rState">노출</button>'
-						+ '<ul class="selList">'
-						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" checked="checked" /><label for="sel1_1">노출</label></li>'
-						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" /><label for="sel1_2">비노출</label></li>'						
-						+ '</ul>';
-				}else{
-					stateHtml = '<button class="title" type="button" title="상태" id="rState">비노출</button>'
-						+ '<ul class="selList">'
-						+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" /><label for="sel1_1">노출</label></li>'
-						+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" checked="checked" /><label for="sel1_2">비노출</label></li>'						
-						+ '</ul>';
-				}
-				
-				document.getElementById("rStatus").innerHTML = stateHtml;
-				
-			},
-			error : function(e){
-				console.log(e);
-			}
-		});
-	}
-	
-	function stateUpdate(){
-		$.ajax({
-			url : "${contextPath}/admin/rReviewUpdate",
-			data : {reviewNo : $("#rNo").text(),
-					rstate : $("input[name='reviewState']:checked").val()
-			},
-			dataType : "json",
-			type : "post",
-			success : function(result){	
-				if(result == "success"){
-					alert("성공적으로 적용되었습니다.");
-					location.reload();
-				}else{
-					alert("업데이트가 되지 않았습니다ㅜㅜ");
-				}
-			},
-			error : function(e){
-				console.log(e);
-			}
-		});
-	}
-</script>

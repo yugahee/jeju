@@ -1576,9 +1576,51 @@ public class AdminDao {
 		
 		return RRList;
 	}
-	
-	
-	
-	
-	
+
+	public Reco_Review RRDetail(Connection conn, int rno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Reco_Review rr = new Reco_Review();
+		String sql = adminQuery.getProperty("RRDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				rr.setRecoReviewNo(rset.getInt("reco_review_no"));
+				rr.setScore(rset.getInt("score"));
+				rr.setsComment(rset.getString("s_comment"));
+				rr.setWriteTime(rset.getDate("write_time"));
+				rr.setRecoNo(rset.getInt("reco_no"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setPublicYn(rset.getString("status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rr;
+	}	
+
+	public int RRModify(Connection conn, int rno, String reviewState) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("RRModify");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reviewState);
+			pstmt.setInt(2, rno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
 }

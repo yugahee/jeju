@@ -169,7 +169,7 @@ scope="application"/>
 						</thead>
 						<tbody>
 							<c:forEach var="rReview" items="${ RRList }">
-							<tr onclick="showLayer('recRvPop'); userdata(this);">
+							<tr onclick="showLayer('recRvPop'); rDetail(${rReview.recoReviewNo});">
 								<td style="display:none;"><input type="hidden" value="${rReview.recoReviewNo}"></td>
 								<td>${rReview.recoReviewNo}</td>
 								<td>
@@ -276,20 +276,16 @@ scope="application"/>
 					<tbody>
 						<tr>
 							<th>후기번호</th>
-							<td>123456</td>
+							<td id="rNo">123456</td>
 						</tr>
 						<tr>
 							<th>ID</th>
-							<td>useruser01</td>
-						</tr>
-						<tr>
-							<th>작성자</th>
-							<td>네글자인</td>
+							<td id="rUserid">useruser01</td>
 						</tr>
 						<tr>
 							<th>별점</th>
 							<td>
-                                <div class="rating_star">
+                                <div id="rStar" class="rating_star">
                                     <span class="starPoint p5">5</span>
                                 </div>
                             </td>
@@ -298,27 +294,14 @@ scope="application"/>
 							<th>내용</th>
 							<td>
                                 <div class="textbox">
-                                    <textarea>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요 사실 뻥입니다</textarea>
-                                    <span class="charCnt"><em>0</em>/200</span>
+                                    <textarea id="rComment" class="readOnly" readonly>정말 강추합니다! 다음번 여행에도 갈 계획을 가지고 있어요 사실 뻥입니다</textarea>
                                 </div>
                             </td>
 						</tr>
 						<tr>
 							<th>상태</th>
 							<td>
-								<div class="selectbox">
-									<button class="title" type="button" title="상태">상태</button>
-									<ul class="selList">
-										<li>
-											<!-- 셀렉트바 초기 선택 표기 -->
-											<input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" />
-											<label for="sel1_1">노출</label>
-										</li>
-										<li>
-											<input type="radio" value="N" class="option" id="sel1_2" name="select1" />
-											<label for="sel1_2">비노출</label>
-										</li>
-									</ul>
+								<div id="rStatus" class="selectbox">
 								</div>
 							</td>
 						</tr>
@@ -326,10 +309,82 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="javascript:void(0);" onclick="stateUpdate(); hideLayer('recRvPop');" class="btn btnType1 btnSizeM"><span>적용</span></a>
+				<a href="javascript:void(0);" onclick="hideLayer('recRvPop');" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
+	<script>
+		function rDetail(rno){
+			$.ajax({
+				url : "${contextPath}/admin/RRDetail",
+				data : {rno : rno},
+				dataType : "json",
+				type : "post",
+				success : function(result){
+					document.getElementById("rNo").innerText = result.recoReviewNo;
+					document.getElementById("rUserid").innerText = result.userId;
+					document.getElementById("rComment").innerText = result.sComment;
+					// 별점
+					let starHtml = "";					
+					if(result.starPoint == 1){
+						starHtml = '<span class="starPoint p1">1</span>';
+					}else if(result.starPoint == 2){
+						starHtml = '<span class="starPoint p2">2</span>';
+					}else if(result.starPoint == 3){
+						starHtml = '<span class="starPoint p3">3</span>';
+					}else if(result.starPoint == 4){
+						starHtml = '<span class="starPoint p4">4</span>';
+					}else{
+						starHtml = '<span class="starPoint p5">5</span>';
+					}					
+					document.getElementById("rStar").innerHTML = starHtml;
+
+					//상태
+					let stateHtml = "";					
+					if(result.publicYn == "Y"){
+						stateHtml = '<button class="title" type="button" title="상태" id="rState">노출</button>'
+							+ '<ul class="selList">'
+							+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" checked="checked" /><label for="sel1_1">노출</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" /><label for="sel1_2">비노출</label></li>'						
+							+ '</ul>';
+					}else{
+						stateHtml = '<button class="title" type="button" title="상태" id="rState">비노출</button>'
+							+ '<ul class="selList">'
+							+ '<li><input type="radio" value="Y" class="option" id="sel1_1" name="reviewState" /><label for="sel1_1">노출</label></li>'
+							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="reviewState" checked="checked" /><label for="sel1_2">비노출</label></li>'						
+							+ '</ul>';
+					}					
+					document.getElementById("rStatus").innerHTML = stateHtml;					
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});		
+		}
+		
+		function stateUpdate(){
+			$.ajax({
+				url : "${contextPath}/admin/RRUpdate",
+				data : {rno : $("#rNo").text(),
+						rstate : $("input[name='reviewState']:checked").val()
+				},
+				dataType : "json",
+				type : "post",
+				success : function(result){	
+					if(result == "success"){
+						alert("성공적으로 적용되었습니다.");
+						location.reload();
+					}else{
+						alert("업데이트가 되지 않았습니다");
+					}
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		}
+		
+	</script>
 </body>
 </html>
