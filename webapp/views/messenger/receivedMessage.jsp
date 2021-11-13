@@ -39,13 +39,14 @@
                                     <c:if test="${ loginUser.user_type eq '호스트' }">
                                     <th>답변여부</th>
                                     </c:if>
-                                    <!-- <th style="width: 90px;">읽음여부</th> -->
+                                    <th style="width: 90px;">읽음여부</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="msg" items="${ messengerList }">             
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
+                                	<td style="display:none;"><input type="hidden" id="fromU" value="${ msg.from_user }"></td>
                                     <td>${ msg.msg_no }</td>
                                     <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.from_user }</td>
@@ -54,7 +55,7 @@
                                     <c:otherwise><td><fmt:formatDate value="${ msg.modify_date }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/></td></c:otherwise>
                                     </c:choose>
                                     <c:if test="${ loginUser.user_type eq '호스트' }"><td>${ msg.reply_status }</td></c:if>
-                                    <%-- <td>${ msg.chk_status }</td>  --%>                                
+                                    <td>${ msg.chk_status }</td>                                
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -123,7 +124,7 @@
 	<div class="layerTit">
 		<h4>messenger</h4>
 		<button type="button" class="btn_closeLayer"
-			onclick="hideLayer('callMessage');"> <!-- chk_status('여기 mno값 들어가게'); -->
+			onclick="hideLayer('callMessage');">
 			<span class="blind">팝업 닫기</span>
 		</button>
 	</div>
@@ -173,7 +174,7 @@
 <!-- 해당 메시지 상세 보기 & 메시지 답장 -->
 <script>
 	function msgDetail(elem){
-		let msgNo = $(elem).find('input').val();		
+		let msgNo = $(elem).find('input').val();
 		
 		$.ajax({
 			url : "${contextPath}/messenger/detail",
@@ -221,7 +222,7 @@
 								Rcontent = '<div class="textbox"><textarea class="readOnly" name="reply_context" readonly>' + msg.reply_content + '</textarea></div>';
 								$("#reply_con").html(Rcontent);
 								
-								btn = '<button type="button" class="btn btnType2 btnSizeS" onclick="chk_status('+ mno +');hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+								btn = '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;location.reload();"><span>닫기</span></button>';
 								$("#rBtn").html(btn);
 	
 									
@@ -253,7 +254,7 @@
 								$("#reply_con").html(Rcontent);
 																
 								btn = '<button type="button" class="btn btnType1 btnSizeS" id="btn_reply" onclick="msgReply('+ mno +');hideLayer(\'callMessage\');"><span>답장</span></button>'
-										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="chk_status('+ mno +');hideLayer(\'callMessage\');return false;"><span>닫기</span></button>';
+										+ '<button type="button" class="btn btnType2 btnSizeS" onclick="hideLayer(\'callMessage\');return false;location.reload();"><span>닫기</span></button>';
 								$("#rBtn").html(btn);
 							}
 						} else {
@@ -288,22 +289,6 @@
 		});
 	} 
 	
-	// 읽음 표시 'Y'로 업데이트
-	function chk_status(mno){
-		let msg_no = mno;
-		
-		$.ajax({
-			url : "${contextPath}/messenger/detail",
-			data : { msg_no : msg_no },
-			type : "post",
-			success : function(msg){
-				location.reload();
-			},
-			error : function(e){
-				console.log(e);
-			}
-		});
-	}
 </script>
 
 
