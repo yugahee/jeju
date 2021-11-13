@@ -46,7 +46,6 @@
                             <c:forEach var="msg" items="${ messengerList }">             
                                 <tr onclick="showLayer('callMessage'); msgDetail(this);">
                                 	<td style="display:none;"><input type="hidden" value="${ msg.msg_no }"></td>
-                                	<td style="display:none;"><input type="hidden" id="fromU" value="${ msg.from_user }"></td>
                                     <td>${ msg.msg_no }</td>
                                     <td class="al_l"><button class="message" id="conMsg"><span class="opt_cate">[${ msg.msg_cate }] </span>${ msg.msg_content }</button></td>
                                     <td>${ msg.from_user }</td>
@@ -134,6 +133,7 @@
 			<table>
 				<colgroup>
 					<col style="width: 20%;">
+					<col style="width:*;">
 				</colgroup>
 				<tbody>
 					<tr>
@@ -200,9 +200,9 @@
 								$("#from_Id").html(msg.from_user);
 								
 								if (msg.msg_cate == '문의') {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 								} else {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 								}
 								$("#call_cate").html(category);
 								
@@ -216,7 +216,7 @@
 								$("#call_reportId").html(report);
 
 						
-								content = '<div class="textbox"><textarea class="readOnly" name="re_content" id="re_content" readonly>' + msg.msg_content + '</textarea></div></td></tr>';
+								content = '<div class="textbox"><textarea class="readOnly" name="re_content" id="re_content" readonly>' + msg.msg_content + '</textarea></div></td></tr></div>';
 								$("#call_content").html(content);
 								
 								Rcontent = '<div class="textbox"><textarea class="readOnly" name="reply_context" readonly>' + msg.reply_content + '</textarea></div>';
@@ -231,9 +231,9 @@
 								$("#from_Id").html(msg.from_user);
 								
 								if (msg.msg_cate == '문의') {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">1. 문의</button></div>';
 								} else {
-									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button>';
+									category = '<div class="selectbox disabled"><button class="title" type="button" title="카테고리 선택">2. 신고</button></div>';
 								}
 								$("#call_cate").html(category);
 
@@ -247,7 +247,7 @@
 								$("#call_reportId").html(report);
 
 								
-								content = '<div class="textbox"><textarea class="readOnly" name="re_content" id="re_content" readonly>' + msg.msg_content + '</textarea></div></td></tr>';
+								content = '<div class="textbox"><textarea class="readOnly" name="re_content" id="re_content" readonly>' + msg.msg_content + '</textarea></div></td></tr></div>';
 								$("#call_content").html(content);
 								
 								Rcontent = '<div class="textbox"><textarea name="reply_content" id="reply_content"></textarea></div>';

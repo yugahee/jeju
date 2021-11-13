@@ -9,6 +9,11 @@
 <!-- swiper  -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<style>
+	.btn_wrap {
+		text-align: center;
+	}	
+</style>
   <% Rooms room = (Rooms)request.getAttribute("room"); %> 
  
 <%@ include file="/views/common/header.jsp" %>		
@@ -188,7 +193,7 @@
 							<h3>호스트 알리님</h3>
 						</div>
 						<div>
-							<button class="btn btnType1 btnSizeL"><span>호스트에게 연락하기</span></button>
+							<button class="btn btnType1 btnSizeL" type="button" onclick="showLayer('writingMessage');"><span>호스트에게 연락하기</span></button>
 						</div>
 					</div>
 
@@ -480,3 +485,80 @@
 
 		
 <%@ include file="/views/common/footer.jsp" %>
+
+
+    <!-- 메신저 글쓰기 팝업 화면 -->
+    <div id="writingMessage" class="layerPop writingMessage">
+        <div class="layerTit">
+            <h4>messenger</h4>
+            <button type="button" class="btn_closeLayer" onclick="hideLayer('writingMessage');"><span class="blind">팝업 닫기</span></button>
+        </div>
+        <div class="layerBody">
+        <form action="${ contextPath }/messenger/insert/host" method="post">
+        <input type="hidden" value="${ room.userId }" name="to_user">
+            <br>
+            <div class="tblType2 noBorder">
+                <table>
+                    <colgroup>
+                        <col style="width:20%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>보낸 사람</th>
+                            <td>
+                                ${ loginUser.user_id }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>카테고리</th>
+                            <td>
+                                <div class="selectbox">
+                                    <button class="title" type="button" title="카테고리 선택" id="selectCate" disabled >카테고리를 선택하세요 </button>
+                                    <ul class="selList">
+                                        <li>
+                                            <input type="radio" value="문의" class="option category" id="sel1_1" name="category" checked="checked"/>
+                                            <label for="sel1_1">1. 문의</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" value="신고" class="option category" id="sel1_2" name="category" />
+                                            <label for="sel1_2">2. 신고</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>내용</th>
+                            <td>
+                                <div class="textbox">
+                                    <textarea placeholder="내용을 입력해 주세요" name="msg_content" id="Mcontent"></textarea>
+                                    <span class="charCnt"><em>0</em>/200</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="btn_wrap" id="msg_btnWrap">
+                <button type="submit" class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>보내기</span></button>
+                <button type="button" class="btn btnType2 btnSizeM" onclick="hideLayer('writingMessage');return false;"><span>닫기</span></button>
+            </div>
+        </form>
+        </div>
+    </div>
+    
+    
+<script>
+
+	// 글자수 체크
+	$('#Mcontent').on('keyup', function() {
+	    $('.charCnt').text(+$(this).val().length+"/200");
+	    
+	      if($(this).val().length > 200) {
+	          $(this).val($(this).val().substring(0, 200));
+	          $('.charCnt').text("200/200");
+	      }
+	});	
+
+</script>    

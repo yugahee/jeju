@@ -155,6 +155,23 @@ public class MessengerService {
 	}
 
 
+	public int insertMessengerHost(Messenger messenger) {
+		Connection conn = getConnection();
+		
+		int result = messengerDao.insertMessengerHost(conn, messenger);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
 
 
 }

@@ -353,5 +353,30 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 
+	public int insertMessengerHost(Connection conn, Messenger messenger) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = messengerQuery.getProperty("insertMessenger");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messenger.getMsg_cate());
+			pstmt.setString(2, messenger.getMsg_content());
+			pstmt.setString(3, messenger.getFrom_user());
+			pstmt.setString(4, messenger.getTo_user());
+			pstmt.setString(5, messenger.getReport_user());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 }
