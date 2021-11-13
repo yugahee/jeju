@@ -574,7 +574,6 @@ WHERE RNUM BETWEEN ? AND ?
 		?,
 		0,
 		?,
-		null,
 		?
 	)
 </entry>
