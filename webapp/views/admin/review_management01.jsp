@@ -338,7 +338,6 @@ scope="application"/>
 			dataType : "json",
 			type : "post",
 			success : function(result){	
-				console.log(result);
 				if(result == "success"){
 					alert("성공적으로 적용되었습니다.");
 					location.reload();

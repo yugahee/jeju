@@ -8,11 +8,11 @@
 	            <form name="simpleRoomSearch">
 	                <div class="inp_text">
 	                    <label>체크인</label>
-	                    <input type="date" name="checkin" id="checkin" placeholder="체크인"/>
+	                    <input type="date" name="checkIn" id="checkIn" placeholder="체크인"/>
 	                </div>
 	                <div class="inp_text">
 	                    <label>체크아웃</label>
-	                    <input type="date" name="checkin" id="checkin" placeholder="체크아웃"/>
+	                    <input type="date" name="checkOut" id="checkOut" placeholder="체크아웃"/>
 	                </div>
 	                <div class="inp_box">
 	                    <label>위치선택</label>
@@ -20,23 +20,23 @@
 	                        <button class="title" type="button" title="위치옵션 선택">위치</button>
 	                        <ul class="selList">
 	                            <li>
-	                                <input type="radio" value="" class="option" id="east" name="east" />
+	                                <input type="radio" value="동부" class="option" id="east" name="east" />
 	                                <label for="sel1_1">동부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="" class="option" id="west" name="west" />
+	                                <input type="radio" value="서부" class="option" id="west" name="west" />
 	                                <label for="sel1_2">서부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="" class="option" id="north" name="north" />
+	                                <input type="radio" value="북부" class="option" id="north" name="north" />
 	                                <label for="sel1_3">북부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="" class="option" id="south" name="south">
+	                                <input type="radio" value="남부" class="option" id="south" name="south">
 	                                <label for="sel1_4">남부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="" class="option" id="center" name="center">
+	                                <input type="radio" value="중부" class="option" id="center" name="center">
 	                                <label for="sel1_4">중부</label>
 	                            </li>
 	                        </ul>

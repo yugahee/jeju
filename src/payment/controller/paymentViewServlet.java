@@ -39,6 +39,9 @@ public class paymentViewServlet extends HttpServlet {
 		
 		Reservation reservationInfo = new PaymentService().reservePayment(reserveNo);
 		
+		System.out.println(reservationInfo);
+		
+		
 		// 성수기 인지 아닌지 체크
 		int roomNo = reservationInfo.getRoom_info().getRoomNo();
 		
@@ -66,6 +69,8 @@ public class paymentViewServlet extends HttpServlet {
 		}else {
 			price = reservationInfo.getRoom_info().getPrice();			
 		}
+		
+		
 		
 		// 사용자 포인트 값 가져오기
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
