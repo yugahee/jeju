@@ -37,6 +37,7 @@ public class RecommendationSelectCategoryServlet extends HttpServlet {
 		if(request.getParameter("recoArea") != null && request.getParameter("recoCategory") != null) {		// 지역과 카테고리 모두 설정된 경우
 			int recoArea = Integer.parseInt(request.getParameter("recoArea"));
 			int recoCategory = Integer.parseInt(request.getParameter("recoCategory"));
+			//int radio1 = Integer.parseInt(request.getParameter("radio1"));
 			recoList = new RecoService().selectList(recoArea, recoCategory);			
 		} else {		// 지역과 카테고리 모두 설정되지 않은 경우
 			recoList = new RecoService().selectList();

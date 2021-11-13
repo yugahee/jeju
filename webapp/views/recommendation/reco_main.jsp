@@ -35,30 +35,14 @@
 							
 							<ul class="selList">
 								<li><input type="radio" value="1" class="option" id="tour"
-									name="recoCategory" <c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>> <label for="tour">관광지</label></li>
+									name="recoCategory" <c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>>
+									<label for="tour">관광지</label></li>
 								<li><input type="radio" value="2" class="option" id="restaurant"
-								name="recoCategory" <c:if test="${ param.recoCategory == '2' }">checked="checked"</c:if>> <label for="restaurant">식당</label>
-								</li>
+									name="recoCategory" <c:if test="${ param.recoCategory == '2' }">checked="checked"</c:if>>
+									<label for="restaurant">식당</label></li>
 								<li><input type="radio" value="3" class="option" id="cafe"
-									name="recoCategory" <c:if test="${ param.recoCategory == '3' }">checked="checked"</c:if>> <label for="cafe">카페</label></li>
-								
-								<li>
-									<input class="option" type="radio" id="sel_type1_1"
-									<c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
-									<label for="sel_type1_1">전체</label>
-								</li>
-								<%-- <li>
-									<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '관광지' }">checked="checked"</c:if>>
-									<label for="sel_type1_2">관광지</label>
-								</li>
-								<li>
-									<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '식당' }">checked="checked"</c:if>>
-									<label for="sel_type1_3">식당</label>
-								</li>
-								<li>
-									<input class="option" type="radio" id="sel_type1_4" <c:if test="${ param.searchCondition == '카페' }">checked="checked"</c:if>>
-									<label for="sel_type1_4">카페</label>
-								</li> --%>
+									name="recoCategory" <c:if test="${ param.recoCategory == '3' }">checked="checked"</c:if>>
+									<label for="cafe">카페</label></li>
 							</ul>
 						</div>
 						<!-- <div class="inp_text">
@@ -78,28 +62,30 @@
 
 				<div class="list_box">
 					<div class="reco_radio">
-						<span class="inp_radio checked"> <input type="radio"
-							name="radio1" id="radio1_1" checked="checked" onclick="submit();"
-							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>>
+						<span class="inp_radio <c:if test="${ param.radio1 == null || param.radio1 == '1' }">checked</c:if>"> <input type="radio" name="radio1"
+							id="radio1_1" value="1" onclick="submit();"
+							<c:if test="${ param.radio1 == '1' }">checked="checked"</c:if>>
 							<label for="radio1_1">최신순</label>
-						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_2" onclick="submit();"
-							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>>
+						</span>
+						<span class="inp_radio <c:if test="${ param.radio1 == '2' }">checked</c:if>"> <input type="radio" name="radio1"
+							id="radio1_2" value="2" onclick="submit();"
+							<c:if test="${ param.radio1 == '2' }">checked="checked"</c:if>>
 							<label for="radio1_2">선호도순</label>
-						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_3" onclick="submit();"
-							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>> <label for="radio1_3">별점순</label>
+						</span>
+						<span class="inp_radio <c:if test="${ param.radio1 == '3' }">checked</c:if>"> <input type="radio" name="radio1"
+							id="radio1_3" value="3" onclick="submit();"
+							<c:if test="${ param.radio1 == '3' }">checked="checked"</c:if>>
+							<label for="radio1_3">별점순</label>
 						</span>
 					</div>
 					</form><!-- form end -->
-					<div></div>
 	
 					<!-- 리스트 출력 영역 시작 -->
 					<div class="reco_list">
 					<%-- <c:forEach begin="1" end="4"> --%>
 					<c:forEach var="reco" items="${ recoList }">
 						<div class="reco_item">
-							<div class="imageArea" style="background-image: url(${ reco.recoImage });"	
+							<div class="imageArea" style="background-image: url(${ contextPath }${ reco.recoImage }${ reco.imageName });"	
 									onclick="detailView(${ reco.recoNo })">
 							</div>
 							
@@ -257,10 +243,7 @@
 										</div>
 									</form>
 								</div>		<!-- 레이어 끝 -->
-								
-							</div>
-
-	
+							</div>	
 					</div>
 					<!-- 리스트 끝 -->
 				</div>
@@ -281,6 +264,9 @@ location.href='${ contextPath }/reco/detailView?rno=' + rno;
  function submit() {
 	document.search.submit();
 }
+
+/* handleClick 함수 */
+ 
 
 /* 지역, 카테고리 버튼 내부 html 변경 */
 function changeBtnName() {
