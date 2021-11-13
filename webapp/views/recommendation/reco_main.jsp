@@ -92,6 +92,7 @@
 						</span>
 					</div>
 					</form><!-- form end -->
+					<div></div>
 	
 					<!-- 리스트 출력 영역 시작 -->
 					<div class="reco_list">
