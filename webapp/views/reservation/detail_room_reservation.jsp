@@ -323,8 +323,9 @@
                 	<a href="#" class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('reserveApply');"></a>
           	</div>
   
+ 
     <script>
-
+    // 예상금액 
     $("#checkOut").change(function(){
     	var startDate = new Date($("#checkIn").val());
         var endDate = new Date($("#checkOut").val());
@@ -344,7 +345,6 @@
         $("#won2").text(result);
     });
  
-    
     </script>      
           
   	<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->

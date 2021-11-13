@@ -688,6 +688,7 @@ public class ReservationDao {
 		return possibleReservList;
 	}
 
+	// 숙소 리스트 뷰에서 체크인, 체크아웃 날짜로 검색 시 
 	public List<Rooms> searchRoomList(Connection conn, RoomSearch search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -735,6 +736,8 @@ public class ReservationDao {
 		return roomList;
 	}
 
+	
+	// 숙소 리스트 뷰에서 조건 검색으로 검색 시  
 	public List<Rooms> searchRoomList2(Connection conn, RoomSearch search) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
