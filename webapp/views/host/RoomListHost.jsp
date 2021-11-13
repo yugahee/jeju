@@ -24,12 +24,12 @@
 								<ul class="selList">
 									<li>
 										<input type="radio" value="roomname" class="option" id="searchCondition1" name="searchCondition"
-										<c:if test="${param.searchCondition == 'roomname' }">selected="selected"</c:if> />
+										<c:if test="${param.searchCondition == 'roomname' }">selected="selected" checked="checked"</c:if> />
 										<label for="searchCondition1">숙소이름</label>
 									</li>
 									<li>
 										<input type="radio" value="roomstatus" class="option" id="searchCondition2" name="searchCondition"
-										<c:if test="${param.searchCondition == 'roomstatus' }">selected="selected"</c:if> />
+										<c:if test="${param.searchCondition == 'roomstatus' }">selected="selected" checked="checked"</c:if> />
 										<label for="searchCondition2">등록상태</label>
 									</li>
 								</ul>

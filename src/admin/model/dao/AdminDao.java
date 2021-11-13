@@ -20,6 +20,7 @@ import member.model.vo.Member;
 import messenger.model.vo.Messenger;
 import payment.model.vo.Payment;
 import reservation.model.vo.Reservation;
+import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
 
 public class AdminDao {
@@ -694,6 +695,7 @@ public class AdminDao {
 				reco.setImageName(rset.getString("image_name"));
 				reco.setRecoArea(rset.getInt("reco_area"));
 				reco.setScore(rset.getDouble("score"));
+				reco.setCoordinate(rset.getString("coordinate"));
 			}
 			
 		} catch (SQLException e) {
@@ -879,6 +881,7 @@ public class AdminDao {
 			/*
 			노출여부 			지역			주소			카테고리			설명
 			키워드			이름			네이버맵		카카오맵			이미지 명
+			api
 			*/
 			pstmt.setString(1, rec.getPublicYn());
 			pstmt.setInt(2, rec.getRecoArea());
@@ -891,6 +894,7 @@ public class AdminDao {
 			pstmt.setString(9, rec.getKakaoMap());
 			pstmt.setString(10, rec.getRecoImage());
 			pstmt.setString(11, rec.getImageName());
+			pstmt.setString(12, rec.getCoordinate());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -920,6 +924,7 @@ public class AdminDao {
 			pstmt.setString(9, rec.getRecoExpl());
 			pstmt.setString(10, rec.getImageName());
 			pstmt.setInt(11, rec.getRecoNo());
+			pstmt.setString(12, rec.getCoordinate());
 
 			result = pstmt.executeUpdate();
 			
@@ -1449,6 +1454,127 @@ public class AdminDao {
 		}
 				
 		return result;
+	}
+
+	public int getRRListCount(Connection conn, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		int cate = 0;
+		
+		String sql = adminQuery.getProperty("getRRListCount");
+
+		if(search.getSearchValue() != null) {
+			if(search.getSearchCondition().equals("관광지")) {
+				cate = 1;
+			}else if(search.getSearchCondition().equals("식당")) {
+				cate = 2;
+			}else if(search.getSearchCondition().equals("카페")) {
+				cate = 3;
+			}
+			if(!search.getSearchCondition().equals("전체")) {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountCateLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountCateId");
+				}
+			}else {
+				if(search.getSearchCondition2().equals("장소명")) {
+					sql = adminQuery.getProperty("getRRListCountLc");
+				}else if(search.getSearchCondition2().equals("ID")) {
+					sql = adminQuery.getProperty("getRRListCountId");
+				}
+			}
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1;
+			if(sql == adminQuery.getProperty("getRRListCountCateLc") || sql == adminQuery.getProperty("getRRListCountCateId")) {
+				pstmt.setInt(index++, cate);
+				pstmt.setString(index++, search.getSearchValue());
+			}else if(sql == adminQuery.getProperty("getRRListCountLc") || sql == adminQuery.getProperty("getRRListCountId")) {
+				pstmt.setString(index++, search.getSearchValue());
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}			
+		
+		return listCount;
+	}
+
+	public List<Reco_Review> selectRRList(Connection conn, PageInfo pi, Search search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("searchRR");
+		List<Reco_Review> RRList = new ArrayList<>();
+
+//		if(search.getSearchValue() != null) {
+//			if(!search.getSearchCondition().equals("전체")) {
+//				if(search.getSearchCondition2().equals("장소명")) {
+//					sql = adminQuery.getProperty("getRRListCountCateLc");
+//				}else if(search.getSearchCondition2().equals("ID")) {
+//					sql = adminQuery.getProperty("getRRListCountCateId");
+//				}
+//			}else {
+//				if(search.getSearchCondition2().equals("장소명")) {
+//					sql = adminQuery.getProperty("getRRListCountLc");
+//				}else if(search.getSearchCondition2().equals("ID")) {
+//					sql = adminQuery.getProperty("getRRListCountId");
+//				}
+//			}
+//		}
+		System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			 
+			int startRow = (pi.getPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			int index = 1;	
+//			if((sql == adminQuery.getProperty("searchMemberAllId")) || (sql == adminQuery.getProperty("searchMemberAllName"))) {
+//				pstmt.setString(index++, search.getSearchValue());
+//			}else if((sql == adminQuery.getProperty("searchMemberId")) || (sql == adminQuery.getProperty("searchMemberName"))) {
+//				pstmt.setString(index++, search.getSearchCondition());
+//				pstmt.setString(index++, search.getSearchValue());
+//			}
+			pstmt.setInt(index++, startRow);
+			pstmt.setInt(index, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Reco_Review rr = new Reco_Review();
+				rr.setRecoReviewNo(rset.getInt("reco_review_no"));
+				rr.setrCate(rset.getInt("reco_category"));
+				rr.setrArea(rset.getInt("reco_area"));
+				rr.setrName(rset.getString("reco_name"));
+				rr.setsComment(rset.getString("s_comment"));
+				rr.setUserId(rset.getString("user_id"));
+				rr.setScore(rset.getInt("score"));
+				rr.setWriteTime(rset.getDate("write_time"));
+				rr.setPublicYn(rset.getString("status"));
+				RRList.add(rr);
+			}			
+			System.out.println(RRList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return RRList;
 	}
 	
 	

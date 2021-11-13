@@ -54,7 +54,6 @@ public class RecoDao {
 											  , rset.getString("reco_image")
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
-											  , rset.getString("deleted_name")
 											  , rset.getString("coordinate")
 											  , rset.getDouble("avg_score")
 											  , rset.getInt("int_score")));
@@ -98,7 +97,6 @@ public class RecoDao {
 											  , rset.getString("reco_image")
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
-											  , rset.getString("deleted_name")
 											  , rset.getString("coordinate")
 											  , rset.getDouble("avg_score")
 											  , rset.getInt("int_score")));
@@ -140,7 +138,6 @@ public class RecoDao {
 											  , rset.getString("reco_image")
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
-											  , rset.getString("deleted_name")
 											  , rset.getString("coordinate")
 											  , rset.getDouble("avg_score")
 											  , rset.getInt("int_score")));
@@ -182,7 +179,6 @@ public class RecoDao {
 											  , rset.getString("reco_image")
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
-											  , rset.getString("deleted_name")
 											  , rset.getString("coordinate")
 											  , rset.getDouble("avg_score")
 											  , rset.getInt("int_score")));
@@ -226,7 +222,6 @@ public class RecoDao {
 											  , rset.getString("reco_image")
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
-											  , rset.getString("deleted_name")
 											  , rset.getString("coordinate")
 											  , rset.getDouble("avg_score")
 											  , rset.getInt("int_score")));
@@ -270,7 +265,6 @@ public class RecoDao {
 									  	, rset.getString("reco_image")
 									  	, rset.getInt("like_count")
 									  	, rset.getString("image_name")
-									  	, rset.getString("deleted_name")
 									  	, rset.getString("coordinate")
 									  	, rset.getDouble("avg_score")
 									  	, rset.getInt("int_score"));

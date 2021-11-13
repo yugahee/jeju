@@ -10,73 +10,89 @@
 	<div class="main">
 		<div class="container">
 			<div class="sub_upper">
-				<div class="reco_select">
-				<form method="get" action="${ contextPath }/reco/select/category">
+				<form method="get" name="search" action="${ contextPath }/reco/select/category"><!-- form start -->
+				<div class="reco_select">		<!-- 셀렉트박스 및 키워드 -->
 					<div class='input_box'>
 						<div class="selectbox">
 							<button class="title" type="button" title="구역 선택" id="btn1">구역을
 								선택하세요.</button>
 							<ul class="selList">
 								<li><input type="radio" value="1" class="option" id="east"
-									name="recoArea" /> <label for="east">동부</label></li>
+									name="recoArea" <c:if test="${ param.recoArea == '1' }">checked="checked"</c:if>> <label for="east">동부</label></li>
 								<li><input type="radio" value="2" class="option" id="west"
-									name="recoArea" /> <label for="west">서부</label></li>
+									name="recoArea" <c:if test="${ param.recoArea == '2' }">checked="checked"</c:if>> <label for="west">서부</label></li>
 								<li><input type="radio" value="3" class="option" id="south"
-									name="recoArea" /> <label for="south">남부</label></li>
+									name="recoArea" <c:if test="${ param.recoArea == '3' }">checked="checked"</c:if>> <label for="south">남부</label></li>
 								<li><input type="radio" value="4" class="option" id="north"
-									name="recoArea" /> <label for="north">북부</label></li>
+									name="recoArea" <c:if test="${ param.recoArea == '4' }">checked="checked"</c:if>> <label for="north">북부</label></li>
 							</ul>
 						</div>
 	
 						<div class="selectbox">
 							<button class="title" type="button" title="카테고리 선택" id="btn2">카테고리를
 								선택하세요.</button>
+								<%-- <c:if test="${ param.category == null }">카테고리</c:if> --%>
+							
 							<ul class="selList">
 								<li><input type="radio" value="1" class="option" id="tour"
-									name="recoCategory" /> <label for="tour">관광지</label></li>
-								<li><input type="radio" value="2" class="option"
-									id="restaurant" name="recoCategory" /> <label for="restaurant">식당</label>
+									name="recoCategory" <c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>> <label for="tour">관광지</label></li>
+								<li><input type="radio" value="2" class="option" id="restaurant"
+								name="recoCategory" <c:if test="${ param.recoCategory == '2' }">checked="checked"</c:if>> <label for="restaurant">식당</label>
 								</li>
 								<li><input type="radio" value="3" class="option" id="cafe"
-									name="recoCategory" /> <label for="cafe">카페</label></li>
+									name="recoCategory" <c:if test="${ param.recoCategory == '3' }">checked="checked"</c:if>> <label for="cafe">카페</label></li>
+								
+								<li>
+									<input class="option" type="radio" id="sel_type1_1"
+									<c:if test="${ param.searchCondition == '전체' }">checked="checked"</c:if>>
+									<label for="sel_type1_1">전체</label>
+								</li>
+								<%-- <li>
+									<input class="option" type="radio" id="sel_type1_2" <c:if test="${ param.searchCondition == '관광지' }">checked="checked"</c:if>>
+									<label for="sel_type1_2">관광지</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type1_3" <c:if test="${ param.searchCondition == '식당' }">checked="checked"</c:if>>
+									<label for="sel_type1_3">식당</label>
+								</li>
+								<li>
+									<input class="option" type="radio" id="sel_type1_4" <c:if test="${ param.searchCondition == '카페' }">checked="checked"</c:if>>
+									<label for="sel_type1_4">카페</label>
+								</li> --%>
 							</ul>
 						</div>
-						<div class="inp_text">
+						<!-- <div class="inp_text">
 							<input class="submit" type="submit" name="" id="" value="확인" />
-						</div>
+						</div> -->
 					</div>
-				</form>
 	
 					<div class='input_box'>
-							<!-- <div class="inp_text inp_text2">
-								<input type="text" name="recoKeyword" id="reco_keyword" placeholder="키워드를 입력하세요" />
-							</div>
-							<div class="inp_text">
-								<input class="submit" type="submit" value="확인" />
-							</div> -->
-
-							<div class="sortArea">
-								<div class="inp_text search inp_text2">
-								<form action="${ contextPath }/reco/select/keyword" method="get">
-									<input type="text" name="recoKeyword" id="" placeholder="키워드를 입력하세요">
-									<button type="submit" class="btn_sch">검색</button>
-								</form>
-								</div>
+						<div class="sortArea">
+							<div class="inp_text search inp_text2">
+								<input type="text" name="recoKeyword" id="" placeholder="키워드를 입력하세요" value="${ param.recoKeyword }">
+								<button type="submit" class="btn_sch">검색</button>
 							</div>
 						</div>
-					</div><!-- sub_upper END -->
+					</div>
+				</div><!-- sub_upper END -->
 
 				<div class="list_box">
 					<div class="reco_radio">
 						<span class="inp_radio checked"> <input type="radio"
-							name="radio1" id="radio1_1" checked="checked" onclick="location.href='${ contextPath }/reco/select/category'"> <label
-							for="radio1_1">최신순</label>
+							name="radio1" id="radio1_1" checked="checked" onclick="submit();"
+							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>>
+							<label for="radio1_1">최신순</label>
 						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_2" onclick="location.href='${ contextPath }/reco/select/like'"> <label for="radio1_2">선호도순</label>
+							id="radio1_2" onclick="submit();"
+							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>>
+							<label for="radio1_2">선호도순</label>
 						</span> <span class="inp_radio"> <input type="radio" name="radio1"
-							id="radio1_3" onclick="location.href='${ contextPath }/reco/select/star'"> <label for="radio1_3">별점순</label>
+							id="radio1_3" onclick="submit();"
+							<c:if test="${ param.recoCategory == '1' }">checked="checked"</c:if>> <label for="radio1_3">별점순</label>
 						</span>
 					</div>
+					</form><!-- form end -->
+					<div></div>
 	
 					<!-- 리스트 출력 영역 시작 -->
 					<div class="reco_list">
@@ -89,7 +105,15 @@
 							
 							<div class="item_info">
 									<a href="#" onclick="detailView(${ reco.recoNo })">		<!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
-										<p class="item_title">${ reco.recoName }</p>
+										<p class="item_title">
+										<c:set var="area" value="${ reco.recoArea }" />
+										<c:choose>
+											<c:when test="${ area eq 1 }">[동부]</c:when>
+											<c:when test="${ area eq 2 }">[서부]</c:when>
+											<c:when test="${ area eq 3 }">[남부]</c:when>
+											<c:when test="${ area eq 4 }">[북부]</c:when>
+										</c:choose>
+										${ reco.recoName }</p>
 									</a>
 									<div class="star_average">				<!-- 별점 부분 -->
 										<div class="rating_star">
@@ -143,18 +167,18 @@
 								<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
 									<form>
 										<div class="layerTit">
+											<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
 											<h4>리뷰 등록</h4>
 											
-											<button class="btn_closeLayer" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
 										</div>
 										<div class="layerBody">
-											<h4>장소명</h4>
+											<h2 id="recoH2">${ reco.recoName }</h2>
 											<h4>별점을 등록해주세요</h4>
 		
-											<div class="rating_star_large">		<!-- 별점 시작 -->
+											<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
 												<div class="pointArea">
 													<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
-													<span class="starPoint p2">
+													<span class="starPoint p4">
 														<button>1점 선택</button>
 														<button>2점 선택</button>
 														<button>3점 선택</button>
@@ -164,8 +188,7 @@
 												</div>
 											</div>		<!-- 별점 끝 -->
 											<div>
-												<textarea width="10px;" height="10px;" style="resize: none;" name="content">
-												</textarea>
+												<input type="text" placeholder="50자 내로 입력해주세요" style="width:400px;height:50px;">
 												<input type="submit">
 											</div>
 										</div>
@@ -252,6 +275,11 @@
 /* 함수 정의 */
 function detailView(rno) {
 location.href='${ contextPath }/reco/detailView?rno=' + rno;
+}
+
+/* submit 함수 */
+ function submit() {
+	document.search.submit();
 }
 
 /* 지역, 카테고리 버튼 내부 html 변경 */

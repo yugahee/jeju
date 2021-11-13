@@ -3,12 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
 <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">    
-<%@ include file="/views/common/header.jsp" %>    
+<%@ include file="/views/common/header.jsp" %>  
+<c:if test="${ !empty param.checkIn && !empty param.checkOut && !empty param.inwonsu }">
+	<c:set var="searchParam" value="&checkIn=${ param.checkIn }&checkOut=${ param.checkOut }&inwonsu=${ param.inwonsu }"/>
+</c:if>	  
 		<div class="lodging_reserve">
 			<div class="container">
 				<!-- <h2>타이틀</h2> -->
 				<!-- 여기서부터 내용 -->
-					<form action="">
+					<form action="${ contextPath }/room/reservation" method="get">
 						<div class="searchArea">
 							<div class="flex">
 								<div class="search_box">
@@ -27,18 +30,18 @@
 										<input type="date" name="checkOut" id="checkOut" />
 									</div>
 								</div>
-								<div class="inp_qty">
+								<%-- <div class="inp_qty">
 									<button type="button" onclick="qtyDown(this)" title="인원감소">
 										<img src="${contextPath}/resources/images/common/qty_down.gif" alt="인원감소">
 									</button>
-									<input type="text" title="인원수" value="1">
+									<input type="number" name="inwonsu" title="인원수" value="1">
 									<button type="button" onclick="qtyUp(this)" title="인원증가">
 										<img src="${contextPath}/resources/images/common/qty_up.gif" alt="인원증가">
 									</button>
-								</div>
+								</div> --%>
 						   </div>
 						   <div class="search_btn">
-								<button type="button" href="#" class="btn btnType1 btnSizeM"><span>검색</span></button>							   
+								<button href="#" class="btn btnType1 btnSizeM"><span>검색</span></button>							   
 								<button type="button" onclick="showLayer('filterSearch');" class="btn btnType2 btnSizeM"><span>조건검색</span></button>					   
 						   </div>
 						   
@@ -77,7 +80,7 @@
 			<button class="btn_closeLayer" onclick="hideLayer('filterSearch');"><span class="blind">레이어팝업 닫기</span></button>
 		</div>
 		<div class="layerBody">
-		 <form method="post" action="${contextPath}/room/reservation">	
+		 <form action="${contextPath}/room/reservation" method="get">	
 			<div class="layerSort" >
 				<div class="layerdiv layerdiv2">
 					가격 범위
@@ -96,23 +99,23 @@
 					지역
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="location" id="chk1_1">
+					<input type="checkbox" name="location" id="chk1_1" value="동부">
 					<label for="chk1_1">동부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="location" id="chk1_2">
+					<input type="checkbox" name="location" id="chk1_2" value="서부">
 					<label for="chk1_1">서부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="location" id="chk1_3">
+					<input type="checkbox" name="location" id="chk1_3" value="중부">
 					<label for="chk1_1">중부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="location" id="chk1_4">
+					<input type="checkbox" name="location" id="chk1_4" value="남부">
 					<label for="chk1_1">남부</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="location" id="chk1_5">
+					<input type="checkbox" name="location" id="chk1_5" value="북부">
 					<label for="chk1_1">북부</label>
 				</span>
 			</div>
@@ -121,19 +124,19 @@
 					숙소종류
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="room_type" id="chk1_6">
+					<input type="checkbox" name="room_type" id="chk1_6" value="원룸">
 					<label for="chk1_1">원룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="room_type" id="chk1_7">
+					<input type="checkbox" name="room_type" id="chk1_7" value="투룸">
 					<label for="chk1_1">투룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="room_type" id="chk1_8">
+					<input type="checkbox" name="room_type" id="chk1_8" value="복층">
 					<label for="chk1_1">복층</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="room_type" id="chk1_9">
+					<input type="checkbox" name="room_type" id="chk1_9" value="쓰리룸이상">
 					<label for="chk1_1">쓰리룸이상</label>
 				</span>
 			</div>
@@ -142,29 +145,29 @@
 					건물유형
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_10">
+					<input type="checkbox" name="building_type" id="chk1_10" value="원룸">
 					<label for="chk1_1">원룸</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_11">
+					<input type="checkbox" name="building_type" id="chk1_11" value="빌라" >
 					<label for="chk1_1">빌라</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_12">
+					<input type="checkbox" name="building_type" id="chk1_12" value="펜션">
 					<label for="chk1_1">펜션</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin2">
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_13">
+					<input type="checkbox" name="building_type" id="chk1_13" value="단독주택">
 					<label for="chk1_1">단독주택</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_14">
+					<input type="checkbox" name="building_type" id="chk1_14"  value="오피스텔">
 					<label for="chk1_1">오피스텔</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="building_type" id="chk1_15">
+					<input type="checkbox" name="building_type" id="chk1_15" value="쉐어하우스">
 					<label for="chk1_1">쉐어하우스</label>
 				</span>
 			</div>
@@ -173,11 +176,11 @@
 					특별시설
 				</div>  
 				<span class="inp_check">
-					<input type="checkbox" name="specialFac" id="chk1_16">
+					<input type="checkbox" name="specialFac" id="chk1_16" value="반려동물 입실가능">
 					<label for="chk1_1">반려동물 입실가능</label>
 				</span>
 				<span class="inp_check">
-					<input type="checkbox" name="specialFac" id="chk1_17">
+					<input type="checkbox" name="specialFac" id="chk1_17" value="휠체어 사용가능">
 					<label for="chk1_1">휠체어 사용가능</label>
 				</span>
 			</div>

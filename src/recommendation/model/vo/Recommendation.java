@@ -46,7 +46,7 @@ public class Recommendation {
 
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, String imageName, String deletedName, String coordinate, double avgScore, int intScore) {
+			int likeCount, String imageName, String coordinate, double avgScore, int intScore) {
 		super();
 		this.recoNo = recoNo;
 		this.publicYn = publicYn;
@@ -61,7 +61,6 @@ public class Recommendation {
 		this.recoImage = recoImage;
 		this.likeCount = likeCount;
 		this.imageName = imageName;
-		this.deletedName = deletedName;
 		this.coordinate = coordinate;
 		this.avgScore = avgScore;
 		this.intScore = intScore;
@@ -69,7 +68,7 @@ public class Recommendation {
 
 	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
 			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
-			int likeCount, String imageName, String deletedName, String coordinate, double avgScore, int intScore,
+			int likeCount, String imageName, String coordinate, double avgScore, int intScore,
 			List<Reco_Review> reviewList) {
 		super();
 		this.recoNo = recoNo;
@@ -85,11 +84,30 @@ public class Recommendation {
 		this.recoImage = recoImage;
 		this.likeCount = likeCount;
 		this.imageName = imageName;
-		this.deletedName = deletedName;
 		this.coordinate = coordinate;
 		this.avgScore = avgScore;
 		this.intScore = intScore;
 		this.reviewList = reviewList;
+	}
+
+	public Recommendation(int recoNo, String publicYn, int recoArea, String recoAddress, int recoCategory,
+			String recoExpl, String recoKeyword, String recoName, String naverMap, String kakaoMap, String recoImage,
+			int likeCount, String imageName, String coordinate) {
+		super();
+		this.recoNo = recoNo;
+		this.publicYn = publicYn;
+		this.recoArea = recoArea;
+		this.recoAddress = recoAddress;
+		this.recoCategory = recoCategory;
+		this.recoExpl = recoExpl;
+		this.recoKeyword = recoKeyword;
+		this.recoName = recoName;
+		this.naverMap = naverMap;
+		this.kakaoMap = kakaoMap;
+		this.recoImage = recoImage;
+		this.likeCount = likeCount;
+		this.imageName = imageName;
+		this.coordinate = coordinate;
 	}
 
 	public String getDeletedName() {

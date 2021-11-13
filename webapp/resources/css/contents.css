@@ -795,7 +795,9 @@
   bottom:0;
   cursor:pointer;
 	}
-
+	
+	 /* 지도 api 부분*/
+	 .room_reserv_map { width: 600px; height: 400px; margin: 50px auto;}
 
 
      .lodging_detail .text_group{
@@ -1367,7 +1369,7 @@
      /* test_result */
      /* 배경 재설정 */
      #test_result {
-          background: url('../images/ch/shine.png') no-repeat top 500px right 600px,
+          background: url('../images/ch/shine.png') no-repeat top 400px right 600px,
           linear-gradient(180deg, rgba(255,216,131,1) 0%, rgba(255,236,159,1) 36%, rgba(255,255,255,1) 100%);
           min-height: 100vh;
      }
@@ -1443,11 +1445,12 @@
      
      /* 내용 부분 메모 이미지 삽입 */                /* 왜 안될까.. */
      .memo_imageArea {
-          width: 100%;
+          width: 190%;
           height: 100%;
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
+          margin-left: -50%;
      }
      
      /* --------------------------- 버튼 부분 ----------------------- */
@@ -1588,19 +1591,6 @@
           
      }
      
-     /*
-     1. 버튼 클릭 시 폼 넣는 법
-     2. 배너 크기 조정 및 안 움직이게
-     3. 검색 텍스트영역 height 조정
-     */
- 
-     /* reco_detail */
-     /*
-     1. 이전으로 버튼 앞에 '<' 표시
-     2. 사진 크기 조정
-     3. 맵부분 버튼 세로 가운데 정렬 하는 법
-     */
-
      /* 이전으로 버튼&하트 일렬로 */
      .detail_upper {
           display: flex;
@@ -1678,6 +1668,22 @@
      	margin: 0 5px;
      }
      
+     /* 레이어 닫기 버튼 위치 */
+     #recoClose {
+     	top: 20px;
+     	right: 10px;
+     }
+     
+     /* 별점 위치 */
+     #moveStar {
+     	margin-bottom: 15px;
+     }
+     
+     /* 레이어 제목 */
+     #recoH2 {
+     	margin: 10px auto;
+     	line-height: 1;
+     }
      
      /* 제목 글씨 크기 */
      .star_average > p:first-child {
