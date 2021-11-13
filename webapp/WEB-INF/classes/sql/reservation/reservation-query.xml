@@ -53,6 +53,7 @@
 <entry key="detailSelectRoom">
 	SELECT 
 	       ROOM_NAME <!-- 숙소명 -->
+	     , USER_ID
 	     , ROOM_DES  <!-- 숙소 소개 -->
 	     , MIN_PEOPLE  <!-- 최소 인원 -->
 	     , MAX_PEOPLE  <!-- 최대 인원 -->

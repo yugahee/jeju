@@ -324,7 +324,13 @@
           	</div>
   
     <script>
-    $.(#won2).val();
+    /* $(#won2).val();
+    
+    var checkIn = $(#checkIn).val();
+    var checkOut = $(#checkOut).val();
+     */
+    
+    
     
     </script>      
           
