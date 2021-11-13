@@ -17,7 +17,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
@@ -41,7 +40,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
@@ -67,7 +65,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
@@ -92,7 +89,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
@@ -117,7 +113,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
@@ -141,7 +136,6 @@
 			 , RECO_IMAGE
 			 , LIKE_COUNT
 			 , IMAGE_NAME
-			 , DELETED_NAME
 			 , COORDINATE
 			 , AVG_SCORE
 			 , INT_SCORE
