@@ -163,6 +163,7 @@ public class ReservationDao {
 				room.setRoomLink(rset.getString("room_link"));
 				room.setAddress(rset.getString("address"));
 				room.setRoomNo(rset.getInt("room_no"));
+				room.setUserId(rset.getString("user_id"));
 				fileList = new ArrayList<>();
 			}
 				Files files = new Files();
