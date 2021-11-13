@@ -433,6 +433,9 @@
 						 document.forms.reserveinfo.action="${contextPath}/reservation/insert";
 					     document.forms.reserveinfo.submit();
 					}else{
+						const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+					    ch.click();    // 레이아웃 닫기
+						
 						alert("예약이 가득차 예약이 불가능합니다ㅠㅠ");
 					}
 				},
