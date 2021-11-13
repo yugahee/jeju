@@ -1243,15 +1243,4 @@ WHERE REVIEW_NO = ?
    ORDER BY RECO_REVIEW_NO DESC) A)
 WHERE RNUM BETWEEN ? AND ?
 </entry>
-<entry key="searchRR">
-	SELECT *
-	FROM(SELECT ROWNUM RNUM, A.*
-	  FROM(SELECT
-                 *
-    FROM MEMBER
-   WHERE USER_TYPE != '관리자'
-     AND USER_ID LIKE '%'|| ? ||'%'
-   ORDER BY ENROLL_DATE DESC) A)
-WHERE RNUM BETWEEN ? AND ?
-</entry>
 </properties>
