@@ -36,7 +36,7 @@ public class RecommendationSelectServlet extends HttpServlet {
 		
 		Recommendation result = new RecoService().selectReco(rNo);
 		
-		
+		System.out.println(result);
 		response.setContentType("application/json;charset=utf-8");
 	    new Gson().toJson(result, response.getWriter());
 	}
