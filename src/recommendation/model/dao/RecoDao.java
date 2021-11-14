@@ -412,22 +412,7 @@ public class RecoDao {
 		}
 		
 		
-//		if(recoArea != 0) {
-//			sql = recoQuery.getProperty("selectOnlyArea");
-//			if(recoCategory != 0) {
-//				if(recoKeyword != null) {
-//					if(radio1 != 0) {
-//						if(radio1 == 1) {			// 라디오버튼 최신순인 경우
-//							sql = recoQuery.getProperty("selectNewList");			
-//						} else if(radio1 == 2) {	// 라디오버튼 선호도순인 경우
-//							sql = recoQuery.getProperty("selectLikeList");
-//						} else if(radio1 == 3) {	// 라디오버튼 별점순인 경우
-//							sql = recoQuery.getProperty("selectStarList");
-//						}						
-//					}
-//				}
-//			}
-//		} 
+
 		 System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
