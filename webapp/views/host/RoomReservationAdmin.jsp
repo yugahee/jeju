@@ -108,7 +108,7 @@
 	                          				 </td> 
 		                       	   	   </c:when>
 		                       	   	   <c:when test="${reserveInfo.reserve_state eq '숙박완료'}">
-	                          				 <td> <a href="#" class="btn btnType2 btnSizeS"><span>게스트 신고하기</span></a> </td> 
+	                          				 <td> <a href="${contextPath}/messenger/list/sent?reportType=신고&reportUser=${reserveInfo.guest}"  class="btn btnType2 btnSizeS"><span>게스트 신고하기</span></a> </td> 
 		                       	   	   </c:when>
 		                       	   </c:choose>
 		                       </tr>
