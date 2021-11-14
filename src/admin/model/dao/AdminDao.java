@@ -1384,7 +1384,7 @@ public class AdminDao {
 				rr.setStarPoint(rset.getInt("star"));
 				rr.setReview(rset.getString("review"));
 				rr.setRoomNo(rset.getInt("room_no"));
-				rr.setReviewDate(rset.getDate("review_date"));
+				rr.setReviewDate(rset.getTimestamp("review_date"));
 				rr.setUserId(rset.getString("user_id"));
 				rr.setReserveNo(rset.getInt("recep_no"));
 				rr.setReviewStatus(rset.getString("review_status"));

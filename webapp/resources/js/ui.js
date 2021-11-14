@@ -281,7 +281,7 @@ function showLayer(e){
 			$('#' + e).find('.scrollarea').mCustomScrollbar();
 		}
 
-		$('#'+e).addClass('on').stop().fadeIn(200);
+		$('#'+e).addClass('on').stop().fadeIn(500);
 		$('#wrap').append('<div class="mask"></div>');
 	});
 }
@@ -327,7 +327,7 @@ function showLayerAlert(msg){
 			$('body').addClass('ofH');
 		}
 
-		$('#layer_alert').addClass('on').stop().fadeIn(200);
+		$('#layer_alert').addClass('on').stop().fadeIn(500);
 		$('#wrap').append('<div class="mask"></div>');
 	});
 	return {
@@ -365,7 +365,7 @@ function showLayerConfirm(msg){
 			$('#layer_confirm').css({'top' : '50%', 'margin-top' : -layerH/2});
 			$('body').addClass('ofH');
 		}
-		$('#layer_confirm').addClass('on').stop().fadeIn(200);
+		$('#layer_confirm').addClass('on').stop().fadeIn(500);
 		$('#wrap').append('<div class="mask"></div>');
 	});
 	
@@ -396,9 +396,9 @@ function showLayerConfirm(msg){
 };
 
 function hideLayer(e){
-	$('#'+e).removeClass('on, layerScale').hide();
+	$('#'+e).removeClass('on, layerScale').stop().fadeOut(500);
 	$('body').removeClass('ofH');
-	$('.mask').remove();
+	$('.mask').stop().fadeOut(500);
 	$('#wrap').css({'height' : '100%', 'overflow' : 'visible'});
 	$('html, body').stop().animate({scrollTop : open_pos}, 50);
 	if (hasScroll > 0) {

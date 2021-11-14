@@ -23,6 +23,7 @@
 				</div>
 			</div>
 		</footer>
+		<button type="button" class="btnTop"><span class="blind">TOP</span></button>
 	</div>
 </body>
 </html>

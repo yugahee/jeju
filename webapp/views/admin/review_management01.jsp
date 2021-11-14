@@ -116,8 +116,8 @@ scope="application"/>
 							<col width="15%">
 							<col width="*">
 							<col width="8%">
-							<col width="10%">
 							<col width="8%">
+							<col width="10%">
 							<col width="6%">
 						</colgroup>
 						<thead>
@@ -139,7 +139,11 @@ scope="application"/>
 								<td>${ review.review }</td>
 								<td>${ review.userId }</td>
 								<td>${ review.starPoint }</td>								
-								<td>${ review.reviewDate }</td>
+								<td>
+									<fmt:formatDate value="${review.reviewDate}" type="both" pattern="yyyy.MM.dd"/>
+										<br>
+									<fmt:formatDate value="${review.reviewDate}" type="both" pattern="HH:mm:ss"/>
+								</td>
 								<td>${ review.reviewStatus }</td>
 							</tr>
 							</c:forEach>							

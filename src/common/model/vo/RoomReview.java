@@ -1,6 +1,6 @@
 package common.model.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RoomReview {
 	private int reviewNo;        // 리뷰번호
