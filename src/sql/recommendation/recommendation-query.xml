@@ -152,16 +152,29 @@
 		     , WRITE_TIME
 		     , RECO_NO
 		     , USER_ID
-		     , PUBLIC_YN
+		     , STATUS
 		  FROM RECO_REVIEW
 		 WHERE RECO_NO = ?
-		   AND PUBLIC_YN = 'Y'
+		   AND STATUS = 'Y'
 	</entry>
 	
-	<entry key="deleteReivew">
+	<entry key="deleteReview">
 		UPDATE RECO_REVIEW
-		   SET PUBLIC_YN = 'N'
+		   SET STATUS = 'N'
 		 WHERE RECO_REVIEW_NO = ?
+	</entry>
+	
+	<entry key="insertReview">
+		INSERT INTO RECO_REVIEW VALUES
+	(
+	    SEQ_RECO_REVIEWNO.NEXTVAL,
+	    ?,
+	    ?,
+	    SYSDATE,
+	    ?,
+	    ?,
+	    DEFAULT
+	)
 	</entry>
 	
 	<entry key="selectOnlyAreaList">

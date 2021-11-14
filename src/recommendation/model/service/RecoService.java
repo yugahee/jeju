@@ -81,25 +81,20 @@ public class RecoService {
 	}
 	
 	// 리뷰 삭제
-	public List<Reco_Review> deleteReview(int reviewNo, int rno) {
+	public int deleteReview(int reviewNo) {
 		Connection conn = getConnection();
-		List<Reco_Review> reviewList = null;
 		int result = recoDao.deleteReview(conn, reviewNo);
 		
 		if(result > 0) {		// 삭제 잘 될 경우에 삭제된 리뷰 리스트 읽어오기
-			reviewList = recoDao.selectReviewList(conn, rno);
-			System.out.println(1);
 			commit(conn);
 		} else {
-			System.out.println(0);
 			rollback(conn);
 		}
 		
-		System.out.println(reviewList);		// 아 왜 계속 null 뜨지ㅠㅠㅠㅠㅠㅠ
 		
 		close(conn);
 		
-		return reviewList;
+		return result;
 	}
 	
 	// 지역만 선택된 경우 리스트 출력
@@ -130,6 +125,23 @@ public class RecoService {
 		close(conn);
 		
 		return recoList;
+	}
+	
+	
+	// 리뷰 등록
+	public int insertReview(String userId, int recoNo, int score, String sComment) {
+		Connection conn = getConnection();
+		int result = recoDao.insertReview(conn, userId, recoNo, score, sComment);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 	
 
