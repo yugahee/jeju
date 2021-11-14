@@ -122,6 +122,7 @@
 			</div>
 		</div>
 <%@ include file="/views/common/footer.jsp" %>
+
 <!-- 보낸 메시지 팝업 화면: 기본적으로 내용 변경 불가하게 모두 disable,readonly 처리 -->
 <div id="callMessage" class="layerPop calldMessage">
 	<div class="layerTit">
@@ -140,12 +141,10 @@
 					<col style="width:*;">
 				</colgroup>
 				<tbody>
-					<!-- <input type="hidden" id="mno" value=""> -->
 					<tr>
 						<th>보낸 사람</th>
 						<td>${ loginUser.user_id }</td>
 					</tr>
-					<!-- 메시지 보낼 때 선택했던 값으로 checked -->
 					<tr>
 						<th>카테고리</th>
 						<td id="call_cate">
@@ -169,16 +168,18 @@
 		</div>
 	</div>
 </div>
-<c:if test="${!empty reportType}">
+
+<%-- <c:if test="${!empty reportType}">
 <script>
 	$(function(){
 		showLayer('writingMessage');		
 	});
 </script>
-</c:if>
+</c:if> --%>
 
-<!-- 해당 메시지 상세 보기 & 상대방이 메시지를 읽지 않은 경우 수정 및 삭제 기능과 연결 -->
 <script>
+
+	// 해당 메시지 상세 보기 & 상대방이 메시지를 읽지 않은 경우 수정 및 삭제 기능과 연결
 	function msgDetail(elem){
 		let msgNo = $(elem).find('input').val();
 		
@@ -199,7 +200,8 @@
 							
 							// 답장이 없는 상태인 경우 = 내가 문의, 신고를 보낸 메세지인 경우
 							if(msg.reply_status != 'Y'){
-								
+							
+							// 삭제된 메시지가 아닌 경우
 							if(msg.chk_status == 'N'){
 								
 								if (msg.msg_cate == '문의') {
@@ -353,8 +355,6 @@
 	
 	// 답장 메시지 수정
 	function msgReModify(mno){
-		 
-		
 		
 		let msg_no = mno;
 		let Ncontent = $("#Rmodify_content").val();
@@ -372,6 +372,7 @@
 			}
 		});
 	}
+	
 	
 	// 메시지 삭제
 	function msgDelete(mno) {
@@ -395,7 +396,6 @@
 			return false;
 		}
 	}
-	
 	
 </script>
 
@@ -438,8 +438,7 @@
                                     </ul>
                                 </div>
                             </td>
-                        </tr>
-                      
+                        </tr>                                             
                         <!-- 카테고리에서 2.신고를 선택한 경우에만 보이게 -->
                         <tr id="report_id">
                             <th>피신고인</th>
@@ -471,7 +470,7 @@
     
 <script>
 	
-	// +신고 선택할 때만 피신고인 칸 입력 되게  
+	// 카테고리를 신고로 선택할 때만 피신고인 칸 입력 되게  
 	let cate = document.querySelectorAll('.category').forEach(item =>  item.addEventListener('change', test));
     function test(){
       let index = Array.from(document.querySelectorAll(".category")).indexOf(this);
@@ -483,8 +482,6 @@
          document.getElementById('in_report').classList.remove('readOnly')
       }
     }
-	
-
 
 	
 	// 글자수 체크
@@ -497,6 +494,4 @@
 	      }
 	});
 	
-	
-
 </script>
