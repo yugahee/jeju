@@ -903,11 +903,12 @@
      }
 
      .lodging_detail .hostName{
-     margin: 0 20px;
+        margin-right: 10px;
+    	margin-top: 10px;
      }
 
      .lodging_detail .hostName h3{
-     line-height: 50px;
+     line-height: 30px;
      }
 
      .lodging_detail .review{

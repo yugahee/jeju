@@ -170,13 +170,8 @@
 - 결제 24시간 이후부터 입실 180일 전인 경우 계약금 100% 환불이 가능합니다.
 					</pre>
 					<div class="hostBox">
-						<div class="profileSort">
-							<div class="profile">
-
-							</div>
-						</div>
 						<div class="hostName">
-							<h3>호스트 알리님</h3>
+							<h3>${room.userName}</h3>
 						</div>
 						<div>
 							<button class="btn btnType1 btnSizeL" type="button" onclick="showLayer('writingMessage');"><span>호스트에게 연락하기</span></button>
@@ -189,7 +184,7 @@
 					</div>
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">후기 ${reviewPi.listCount}</span>
+						<span class="text3">후기 ${reviewPi.listCount}개</span>
 					</div>
 				<!-- <div class="reviewFlexBox"> -->
 					<div class="reviewBox">

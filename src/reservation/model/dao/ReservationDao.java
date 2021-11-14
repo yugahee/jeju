@@ -52,6 +52,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setReviewCount(rset.getInt("review"));
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
@@ -166,6 +167,7 @@ public class ReservationDao {
 				room.setAddress(rset.getString("address"));
 				room.setRoomNo(rset.getInt("room_no"));
 				room.setUserId(rset.getString("user_id"));
+				room.setUserName(rset.getString("user_name"));
 				fileList = new ArrayList<>();
 			}
 				Files files = new Files();
@@ -428,7 +430,6 @@ public class ReservationDao {
 				sql = roomQuery.getProperty("selectReserveNumList");
 			}
 		}
-		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

@@ -35,7 +35,8 @@ public class ReservationPayWaitingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 업데이트 시 구분 값 
+	
+		// 업데이트 시 구분 값(예약번호)
 		int reserve_no = Integer.parseInt(request.getParameter("reserve_no"));
 		
 		int result = new ReservationService().paymentWaitUpdate(reserve_no);
