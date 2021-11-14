@@ -3,6 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 	<div class="banner"><!--배너-->
 		<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
@@ -141,7 +142,12 @@
 									<p class="adress">${ reco.recoAddress }</p>
 									<div class="reco_review">
 										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('reviewPop')">
-											<span class="arr-right">리뷰쓰기</span>
+											<c:if test="${ !empty loginUser }">
+											<span class="arr-right" onclick="rNos(${reco.recoNo});">리뷰쓰기</span>
+											</c:if>
+											<c:if test="${ empty loginUser }">
+											<span class="arr-right" onclick="loginPlz();">리뷰쓰기</span>
+											</c:if>
 										</a>
 										<a href="#">
 											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
@@ -225,12 +231,13 @@
 <div id="reviewPop" class="layerPop">		<!-- 레이어 시작 -->
 	<form action="${ contextPath }/reco/insertReview" method="get">
 		<div class="layerTit">
-			<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('reviewPop');"><span class="blind">레이어팝업 닫기</span></button>
+			<button type="reset" class="btn_closeLayer" id="recoClose" onclick="hideLayer('reviewPop');"><span class="blind">레이어팝업 닫기</span></button>
 			<h4>리뷰 등록</h4>
 			
 		</div>
 		<div class="layerBody">
-			<input type="hidden" name="rno" id="rNo">
+		<div class="hiddenDiv"></div>
+			
 			<input type="hidden" name="starScore" id="starScore" value="5" />
 			<h2 id="recoH2"></h2>
 			<h4>별점을 등록해주세요</h4>
@@ -254,6 +261,19 @@
 		</div>
 	</form>
 </div>		<!-- 레이어 끝 -->
+<script>
+function rNos(rno){
+let html = '<input type="hidden" value="'+rno+'" name="rNo">';
+$(".hiddenDiv").html(html);
+}
+
+function loginPlz(){
+	if(confirm("로그인 후 이용 가능한 서비스입니다. 로그인 하시겠습니까?")){
+		location.href ="${contextPath}/login";
+	}
+}
+</script>
+
 <script>
 /* 함수 정의 */
 function detailView(rno) {
