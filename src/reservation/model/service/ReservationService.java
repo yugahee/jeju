@@ -255,5 +255,15 @@ public class ReservationService {
 		return possibleReservList;
 	}
 
+//	public int getReviewCount() {
+//		Connection conn = getConnection();
+//		
+//		int reviewCount = reservationDao.getReviewCount(conn);
+//		 
+//		close(conn);
+//		
+//		return reviewCount;
+//	}
+
 	
 }
