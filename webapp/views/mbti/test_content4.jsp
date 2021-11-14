@@ -44,8 +44,8 @@
                 <p>4/4</p>
             </div>
             <div class="select-button">
-                <a href="${ contextPath }/mbti/resultView" class="btn btnType2 btnSizeL"><span>변경된 시간에 맞춰서 일정을 새로 계획한다.</span></a>
-                <a href="${ contextPath }/mbti/resultView" class="btn btnType2 btnSizeL"><span>늦으면 뭐 어때~ 느긋하게 즐기고 새로운 장소로 간다.</span></a>
+                <a href="${ contextPath }/mbti/resultView?test1=${test1}&test2=${test2}&test3=${test3}&test4=1" class="btn btnType2 btnSizeL"><span>변경된 시간에 맞춰서 일정을 새로 계획한다.</span></a>
+                <a href="${ contextPath }/mbti/resultView?test1=${test1}&test2=${test2}&test3=${test3}&test4=2" class="btn btnType2 btnSizeL"><span>늦으면 뭐 어때~ 느긋하게 즐기고 새로운 장소로 간다.</span></a>
             </div>
         </div>
     </div>

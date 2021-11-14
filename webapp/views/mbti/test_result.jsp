@@ -50,8 +50,8 @@
             <!--내용부 시작 -->
             <div class="result_type">
                 <p>나의 여행 유형은</p>
-                <p>mbti 타입</p>
-                <p>mbti 설명</p>
+                <p>${ mbti.mbtiType }</p>
+                <p>${ mbti.mbtiType }</p>
             </div>
 
             <div class="result_place">

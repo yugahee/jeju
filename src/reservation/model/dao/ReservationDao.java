@@ -785,6 +785,61 @@ public class ReservationDao {
 		return roomList;
 	}
 
+	public List<Rooms> searchRoomList3(Connection conn, RoomSearch search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Rooms> roomList = new ArrayList<>();
+		String sql = roomQuery.getProperty("roomSearch3");			
+		
+		if(search.getCheckIn().equals("") || search.getCheckOut().equals("")) {
+			sql = roomQuery.getProperty("roomSearch4");
+		}
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			if(!search.getCheckIn().equals("") || !search.getCheckOut().equals("")) {
+				pstmt.setString(1, search.getCheckIn());
+				pstmt.setString(2, search.getCheckOut());
+				pstmt.setString(3, search.getLocation());
+			}else {
+				pstmt.setString(1, search.getLocation());
+			}
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Rooms rooms = new Rooms();
+				rooms.setLocation(rset.getString("location"));
+				rooms.setRoomName(rset.getString("room_name"));
+				rooms.setRoomTitle(rset.getString("room_title"));
+				rooms.setPrice(rset.getInt("price"));
+				rooms.setStar(rset.getDouble("star"));
+				rooms.setRoomNo(rset.getInt("room_no"));
+				
+				List<Files> fileList = new ArrayList<>();
+				Files files = new Files();
+				files.setFilePath(rset.getString("file_path"));
+				files.setChangeName(rset.getString("change_name"));
+				
+				fileList.add(files);
+				rooms.setFileList(fileList);
+
+				roomList.add(rooms);
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return roomList;
+	}
+
 
 
 	
