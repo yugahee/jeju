@@ -388,6 +388,7 @@ public class RecoDao {
 		List<Recommendation> recoList = new ArrayList<>();
 		String sql = recoQuery.getProperty("selectList");
 		
+		
 		if(recoArea == null) {
 			recoArea = "";
 		} 
@@ -400,9 +401,16 @@ public class RecoDao {
 		
 		if(recoArea != "" || recoCategory != "" || recoKeyword != "" || radio1 != "") {
 			
-			sql = recoQuery.getProperty("searchList");
+			if(radio1.equals("2")) {	// 라디오버튼 선호도순인 경우
+				sql = recoQuery.getProperty("searchLikeList");
+			} else if(radio1.equals("3")) {	// 라디오버튼 별점순인 경우
+				sql = recoQuery.getProperty("searchStarList");
+			} else {
+				sql = recoQuery.getProperty("searchList");				
+			}
 
 		}
+		
 		
 //		if(recoArea != 0) {
 //			sql = recoQuery.getProperty("selectOnlyArea");
@@ -427,6 +435,7 @@ public class RecoDao {
 				pstmt.setString(1, recoArea);
 				pstmt.setString(2, recoCategory);
 				pstmt.setString(3, recoKeyword);
+				
 				
 			}
 			

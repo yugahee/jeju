@@ -41,6 +41,8 @@ public class RecommendationSelectCategoryServlet extends HttpServlet {
 		String recoKeyword = request.getParameter("recoKeyword");
 		String radio1 = request.getParameter("radio1");
 		
+		System.out.println(radio1);
+		
 		recoList = new RecoService().selectList(recoArea, recoCategory, recoKeyword, radio1);
 		
 
