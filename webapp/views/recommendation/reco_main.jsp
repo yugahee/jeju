@@ -3,6 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 	<div class="banner"><!--배너-->
 		<a href="${ contextPath }/mbti/mainView"><img src="${ contextPath }/resources/images/ch/banner.jpg"></a>
 	</div><!--배너 끝-->
@@ -76,15 +77,84 @@
 				</form><!-- form end -->
 			</div><!-- sub_upper END -->
 
-	
-			<!-- 리스트 출력 영역 시작 -->
-			<div class="reco_list">
-				<%-- <c:forEach begin="1" end="4"> --%>
-				<c:forEach var="reco" items="${ recoList }">
-				<div class="reco_item">
-					<div class="imageArea" style="background-image: url(${ contextPath }${ reco.recoImage }${ reco.imageName });"	
-							onclick="detailView(${ reco.recoNo })">
-					</div>
+					<!-- 리스트 출력 영역 시작 -->
+					<div class="reco_list">
+					<%-- <c:forEach begin="1" end="4"> --%>
+					<c:forEach var="reco" items="${ recoList }">
+						<div class="reco_item">
+							<div class="imageArea" style="background-image: url(${ contextPath }${ reco.recoImage }${ reco.imageName });"	
+									onclick="detailView(${ reco.recoNo })">
+							</div>
+							
+							<div class="item_info">
+									<a href="#" onclick="detailView(${ reco.recoNo })">		<!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
+										<p class="item_title">
+										<c:set var="area" value="${ reco.recoArea }" />
+										<c:choose>
+											<c:when test="${ area eq 1 }">[동부]</c:when>
+											<c:when test="${ area eq 2 }">[서부]</c:when>
+											<c:when test="${ area eq 3 }">[남부]</c:when>
+											<c:when test="${ area eq 4 }">[북부]</c:when>
+										</c:choose>
+										${ reco.recoName }</p>
+									</a>
+									<div class="star_average">				<!-- 별점 부분 -->
+										<div class="rating_star">
+										<c:set var="star" value="${ reco.intScore }" />
+										<c:set var="avg" value="${ reco.avgScore }" />
+										<c:choose>
+											<c:when test="${ star eq 5 }">
+												<span class="starPoint p5">5</span>
+												<p>  ${ avg } / 5</p>									
+											</c:when>
+											
+											<c:when test="${ star eq 4 }">
+												<span class="starPoint p4">4</span>
+												<p>${ avg } / 5</p>							
+											</c:when>
+											
+											<c:when test="${ star eq 3 }">
+												<span class="starPoint p3">3</span>
+												<p>${ avg } / 5</p>						
+											</c:when>
+											
+											<c:when test="${ star eq 2 }">
+												<span class="starPoint p2">2</span>	
+												<p>${ avg } / 5</p>								
+											</c:when>
+											
+											<c:when test="${ star eq 1 }">
+												<span class="starPoint p1">1</span>
+												<p>${ avg } / 5</p>					
+											</c:when>
+											
+											<c:when test="${ star eq 0 }">
+												<span class="starPoint p0">0</span>
+												<p>${ avg } / 5</p>									
+											</c:when>
+										</c:choose>
+										</div>
+									</div>
+									<p class="adress">${ reco.recoAddress }</p>
+									<div class="reco_review">
+										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('reviewPop')">
+											<c:if test="${ !empty loginUser }">
+											<span class="arr-right" onclick="rNos(${reco.recoNo});">리뷰쓰기</span>
+											</c:if>
+											<c:if test="${ empty loginUser }">
+											<span class="arr-right" onclick="loginPlz();">리뷰쓰기</span>
+											</c:if>
+										</a>
+										<a href="#">
+											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
+										</a>
+										<p class="count">200</p>
+									</div>
+								</div>
+							
+						</div>
+					</c:forEach>
+
 					
 					<div class="item_info"><!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
 						<a href="#" onclick="detailView(${ reco.recoNo })">		
@@ -155,16 +225,21 @@
 		</div>
 	</div>
 <%@ include file="/views/common/footer.jsp" %>
-<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
-	<div class="layerTit">
-		<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
-		<h4>리뷰 등록</h4>
-	</div>
-	<div class="layerBody">
-		<input type="hidden" name="rno" id="rNo">
-		<input type="hidden" name="starScore" id="starScore" value="5" />
-		<h2 id="recoH2"></h2>
-		<h4>별점을 등록해주세요</h4>
+
+<div id="reviewPop" class="layerPop">		<!-- 레이어 시작 -->
+	<form action="${ contextPath }/reco/insertReview" method="get">
+		<div class="layerTit">
+			<button type="reset" class="btn_closeLayer" id="recoClose" onclick="hideLayer('reviewPop');"><span class="blind">레이어팝업 닫기</span></button>
+			<h4>리뷰 등록</h4>
+			
+		</div>
+		<div class="layerBody">
+		<div class="hiddenDiv"></div>
+			
+			<input type="hidden" name="starScore" id="starScore" value="5" />
+			<h2 id="recoH2"></h2>
+			<h4>별점을 등록해주세요</h4>
+
 
 		<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
 			<div class="pointArea">
@@ -184,6 +259,19 @@
 		</div>
 	</div>
 </div>		<!-- 레이어 끝 -->
+<script>
+function rNos(rno){
+let html = '<input type="hidden" value="'+rno+'" name="rNo">';
+$(".hiddenDiv").html(html);
+}
+
+function loginPlz(){
+	if(confirm("로그인 후 이용 가능한 서비스입니다. 로그인 하시겠습니까?")){
+		location.href ="${contextPath}/login";
+	}
+}
+</script>
+
 <script>
 /* 함수 정의 */
 function detailView(rno) {

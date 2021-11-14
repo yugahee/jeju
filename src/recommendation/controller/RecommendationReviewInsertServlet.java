@@ -31,13 +31,15 @@ public class RecommendationReviewInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(((Member)request.getSession().getAttribute("loginUser")) == null) {
-	         request.getSession().setAttribute("message", "로그인을 해주셔야 리뷰 작성이 가능합니다.");
-	         response.sendRedirect(request.getContextPath() + "/login");
+			/*
+			 * request.getSession().setAttribute("message", "로그인을 해주셔야 리뷰 작성이 가능합니다.");
+			 * response.sendRedirect(request.getContextPath() + "/login");
+			 */
 	         return;
 	      }
 		
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUser_id();
-		int recoNo = Integer.parseInt(request.getParameter("rno"));
+		int recoNo = Integer.parseInt(request.getParameter("rNo"));
 		int score = Integer.parseInt(request.getParameter("starScore"));
 		String sComment = request.getParameter("comment");
 		
