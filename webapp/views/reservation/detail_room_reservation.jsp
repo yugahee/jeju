@@ -94,25 +94,6 @@
 					</div>
 					
 					
-			  <%-- 	<%
-					String[] roomFac = room.getRoomFac().split(",");
-			  		
-					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
-							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
-					
-					/* String samDefaultFac = null; */
-					String[] result = new String[11];
-					int index = 0;
-					for(int i = 0; i < roomFac.length; i++) {
-						for(int j = 0; j < defaultFac.length; j++) {
-							if(roomFac[i].equals(defaultFac[j])) {
-								result[index++] = roomFac[i];
-							}
-						}
-					}
-					
-				%>    --%>
-					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>

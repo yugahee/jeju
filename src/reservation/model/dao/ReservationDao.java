@@ -840,6 +840,39 @@ public class ReservationDao {
 		return roomList;
 	}
 
+//	public int getReviewCount(Connection conn) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int reviewCount = 0;
+//		String sql = roomQuery.getProperty("reviewCount");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			pstmt.setInt(1, roomNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			
+//			while(rset.next()) {
+//				Reservation reserve = new Reservation();
+//				reserve.setStart_date(rset.getDate("start_date"));
+//				reserve.setEnd_date(rset.getDate("end_date"));
+//				
+//				possibleReservList.add(reserve);
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		return possibleReservList;
+//	}
+
 
 
 	
