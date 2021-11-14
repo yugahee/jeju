@@ -40,7 +40,6 @@ public class RecommendationSelectServlet extends HttpServlet {
 		response.setContentType("application/json;charset=utf-8");
 	    new Gson().toJson(result, response.getWriter());
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
