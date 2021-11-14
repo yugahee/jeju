@@ -62,7 +62,7 @@
 							<div class="roomReview">
 								<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
 								<span class="text3" id="reviewStar">${ room.star }</span>
-								<span class="text3" id="reviewCount">(후기 12개)</span>
+								<span class="text3" id="reviewCount">${room.reviewCount }</span>
 							</div>
 							<div class="roomPrice">
 								<span>${room.price}/박</span>
@@ -81,19 +81,6 @@
 		</div>
 		<div class="layerBody">
 		 <form action="${contextPath}/room/reservation" method="get">	
-			<div class="layerSort" >
-				<div class="layerdiv layerdiv2">
-					가격 범위
-				</div>
-				<div>
-					<div class="slideBox">
-						<div class="slidecontainer">
-						<input type="range" min="0" max="1000000" value="1" class="slider" id="myRange">
-						<p><span id="slideBoxValue"></span>￦</p>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="locationSrot locationMargin1">
 				<div class="layerdiv">
 					지역

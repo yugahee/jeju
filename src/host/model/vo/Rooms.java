@@ -36,6 +36,9 @@ public class Rooms {
 	private String status;        // 상태 (삭제 : N)
 	private String returnReason;  // 승인 반려 이유
 	
+	private int reviewCount;  
+	private String userName;
+	
 	private PeakSeason peak;      // 성수기 객체
 	private List<Files> fileList;    // 파일 리스트
 	private double star; //숙소리뷰테이블의 별점 
@@ -71,12 +74,13 @@ STATUS	VARCHAR2(1 BYTE)*/
 	
 	public Rooms() {}
 
+
 	public Rooms(int roomNo, String userId, String address, String location, String roomName, String roomTitle,
 			String roomDes, String roomType, String roomFac, int price, int extraCost, int minPeople, int maxPeople,
 			String startTime, String endTime, Date createDate, Date modifyDate, Date enrollDate, String enrollStatus,
 			int room, int bed, int bath, String buildingType, String roomSize, int minStay, int maxStay,
-			String roomLink, String status, String returnReason, PeakSeason peak, List<Files> fileList, double star,
-			List<RoomReview> reviewList) {
+			String roomLink, String status, String returnReason, int reviewCount, String userName, PeakSeason peak,
+			List<Files> fileList, double star, List<RoomReview> reviewList) {
 		super();
 		this.roomNo = roomNo;
 		this.userId = userId;
@@ -107,11 +111,17 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.roomLink = roomLink;
 		this.status = status;
 		this.returnReason = returnReason;
+		this.reviewCount = reviewCount;
+		this.userName = userName;
 		this.peak = peak;
 		this.fileList = fileList;
 		this.star = star;
 		this.reviewList = reviewList;
 	}
+
+
+
+
 
 
 	public int getRoomNo() {
@@ -384,6 +394,30 @@ STATUS	VARCHAR2(1 BYTE)*/
 		this.reviewList = reviewList;
 	}
 
+	
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+
+	
+	
+	
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Rooms [roomNo=" + roomNo + ", userId=" + userId + ", address=" + address + ", location=" + location
@@ -393,8 +427,15 @@ STATUS	VARCHAR2(1 BYTE)*/
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", enrollDate=" + enrollDate
 				+ ", enrollStatus=" + enrollStatus + ", room=" + room + ", bed=" + bed + ", bath=" + bath
 				+ ", buildingType=" + buildingType + ", roomSize=" + roomSize + ", minStay=" + minStay + ", maxStay="
-				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", peak=" + peak + ", fileList="
-				+ fileList + ", star=" + star + ", returnReason=" + returnReason + ", reviewList=" + reviewList + "]";
-	}	
+				+ maxStay + ", roomLink=" + roomLink + ", status=" + status + ", returnReason=" + returnReason
+				+ ", reviewCount=" + reviewCount + ", userName=" + userName + ", peak=" + peak + ", fileList="
+				+ fileList + ", star=" + star + ", reviewList=" + reviewList + "]";
+	}
+
+
+
+
+
+
 
 }
