@@ -123,6 +123,13 @@ WHERE RNUM BETWEEN ? AND ?
 	SET STATUS = ?
    WHERE USER_ID = ?
 </entry>
+<!-- 어드민 블랙 회원 상태 수정 -->
+<entry key="updateBMemberStatus">
+	UPDATE MEMBER
+	SET STATUS = ?,
+	    REPORT_COUNT = ?
+   WHERE USER_ID = ?
+</entry>
 <!-- 어드민 회원 삭제 -->
 <entry key="deleteMemberStatus">
 	DELETE MEMBER

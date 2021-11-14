@@ -246,7 +246,7 @@ scope="application"/>
 	</div>
 	
 	<!-- 팝업 -->
-	<div id="blackUserPop" class="layerPop">
+	<div id="blackUserPop" class="layerPop" style="min-height:600px;">
 		<div class="layerTit">
 			<h4>신고 내역</h4>
 			<button class="btn_closeLayer" onclick="hideLayer('blackUserPop');"><span class="blind">레이어팝업 닫기</span></button>
@@ -271,6 +271,10 @@ scope="application"/>
 						<col style="width:*;">
 					</colgroup>
 					<tbody>
+						<tr style="display:none;">
+							<th>아이디</th>
+							<td id="rid"></td>
+						</tr>
 						<tr>
 							<th>신고횟수</th>
 							<td>
@@ -296,8 +300,8 @@ scope="application"/>
 				</table>
 			</div>
 			<div class="btn_wrap">
-                <a href="#" class="btn btnType1 btnSizeM"><span>적용</span></a>
-				<a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="commitData();hideLayer('blackUserPop');"><span>적용</span></a>
+				<a href="javaScript:void(0);" class="btn btnType2 btnSizeM" onclick="hideLayer('blackUserPop');"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
@@ -336,14 +340,33 @@ scope="application"/>
 							report+= '<tr><th>내용</th><td>'+user.msgList[i].msg_content+'</td></tr>';
 						}
 					}
+					$("#rid").html(userId);
 					$("#mstatus").html(html);
-					$(".reportList").append(report);
+					$(".reportList").html(report);
 				}else{
 					alert('존재하지 않는 회원번호입니다!');
 				}			
 			},
 			error : function(e){
 				console.log(e);
+			}
+		});
+	}
+	function commitData(){
+		let statusVal = $('.statusVal').val();
+		let idVal = $('#rid').text();
+		let rcount = $("input[name='reportCount']").val();
+		$.ajax({
+			url : "${contextPath}/admin/blackDetailModify",
+			data : {statusVal : statusVal, idVal : idVal, rcount : rcount},
+			//dataType : "json",
+			type : "post",
+			success : function(member){	
+				alert('정보 수정 완료');
+				location.reload();
+			},
+			error : function(e){
+				alert('정보 수정 실패');
 			}
 		});
 	}

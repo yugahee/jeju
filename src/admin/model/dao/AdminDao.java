@@ -1648,6 +1648,7 @@ public class AdminDao {
 				msg.setFrom_user(rset.getString("from_user"));
 				msg.setMsg_content(rset.getString("msg_content"));
 				msg.setMsg_date(rset.getTimestamp("msg_date"));
+				msg.setReport_user(rset.getString("report_user"));
 				msgList.add(msg);
 			}
 			
@@ -1665,5 +1666,27 @@ public class AdminDao {
 		}
 		
 		return msgList;
+	}
+
+	public int modifyMember(Connection conn, Member member, String idVal, String statusVal, int rcount) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("updateBMemberStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, statusVal);
+			pstmt.setInt(2, rcount);
+			pstmt.setString(3, idVal);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

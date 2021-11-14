@@ -464,5 +464,20 @@ public class AdminService{
 		
 		return msgList;
 	}
+
+	public int modifyMember(Member member, String idVal, String statusVal, int rcount) {
+		Connection conn = getConnection();		
+		int result = adminDao.modifyMember(conn, member, idVal, statusVal, rcount);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 }

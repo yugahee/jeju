@@ -311,8 +311,8 @@ scope="application"/>
 				</table>
 			</div>			
 			<div class="btn_wrap">
-                <a href="#none" class="btn btnType1 btnSizeM" onclick="commitData();hideLayer('userAdPop');"><span>적용</span></a>
-				<a href="#none" class="btn btnType2 btnSizeM" onclick="hideLayer('userAdPop');"><span>취소</span></a>
+                <a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="commitData();hideLayer('userAdPop');"><span>적용</span></a>
+				<a href="javaScript:void(0);" class="btn btnType2 btnSizeM" onclick="hideLayer('userAdPop');"><span>취소</span></a>
             </div>
 		</div> 
 	</div>
