@@ -1631,4 +1631,39 @@ public class AdminDao {
 				
 		return result;
 	}
+
+	public List<Messenger> reportMsg(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		List<Messenger> msgList = new ArrayList<>();
+		ResultSet rset = null;
+		String sql = adminQuery.getProperty("blackMsg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Messenger msg = new Messenger();
+				msg.setFrom_user(rset.getString("from_user"));
+				msg.setMsg_content(rset.getString("msg_content"));
+				msg.setMsg_date(rset.getTimestamp("msg_date"));
+				msgList.add(msg);
+			}
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return msgList;
+	}
 }

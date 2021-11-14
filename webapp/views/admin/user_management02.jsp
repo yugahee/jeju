@@ -307,17 +307,18 @@ scope="application"/>
 		let userId = $(elem).find('input').val();	
 		console.log(userId);
 		$.ajax({
-			url : "${contextPath}/admin/userDetail",
+			url : "${contextPath}/admin/blackDetail",
 			data : {input : userId},
 			dataType : "json",
 			type : "get",
-			success : function(user){			
+			success : function(user){	
+				console.log(user.msgList);
 				var html = '';		
 				var report = '';
 				if(user){
-					$(".reportCount").text(user.report_count);
-					$("input[name='reportCount']").val(user.report_count);
-					if(user.status == 'Y'){										
+					$(".reportCount").text(user.member.report_count);
+					$("input[name='reportCount']").val(user.member.report_count);
+					if(user.member.status == 'Y'){										
 						html = '<button class="title" type="button" title="상태">Y</button>'
 							+ '<input class="statusVal inputVal" type="hidden" name="statusVal" value="Y">'
 							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" checked="checked" /><label for="sel1_1">Y</label></li>'
@@ -328,10 +329,13 @@ scope="application"/>
 							+ '<ul class="selList"><li><input type="radio" value="Y" class="option" id="sel1_1" name="select1" /><label for="sel1_1">Y</label></li>'
 							+ '<li><input type="radio" value="N" class="option" id="sel1_2" name="select1" checked="checked"/><label for="sel1_2">N</label></li></ul>';
 					}
-					
-					report+= '<tr><th>신고자</th><td>'+user.user_id+'</td></tr>';
-					report+= '<tr><th>제목</th><td>시간을 안지켜요</td></tr>';
-					report+= '<tr><th>내용</th><td>시간을 안지켜요</td></tr>';
+					if(user.msgList.length > 0){
+						for(var i=0; i < user.msgList.length; i++){
+							report+= '<tr><th>신고자</th><td>'+user.msgList[i].from_user+'</td></tr>';
+							report+= '<tr><th>날짜</th><td>'+user.msgList[i].msg_date+'</td></tr>';
+							report+= '<tr><th>내용</th><td>'+user.msgList[i].msg_content+'</td></tr>';
+						}
+					}
 					$("#mstatus").html(html);
 					$(".reportList").append(report);
 				}else{

@@ -456,5 +456,13 @@ public class AdminService{
 		
 		return result;
 	}
+
+	public List<Messenger> selectReport(String userId) {
+		Connection conn = getConnection();
+		List<Messenger> msgList = adminDao.reportMsg(conn, userId);		
+		close(conn);
+		
+		return msgList;
+	}
 	
 }

@@ -1304,4 +1304,9 @@ WHERE RNUM BETWEEN ? AND ?
 	SET STATUS = ?
 	WHERE RECO_REVIEW_NO = ?
 </entry>
+<entry key="blackMsg">
+	SELECT * FROM
+		MESSAGE
+	WHERE REPORT_USER = ?
+</entry>
 </properties>
