@@ -13,16 +13,16 @@ import com.google.gson.Gson;
 import recommendation.model.service.RecoService;
 
 /**
- * Servlet implementation class RecommendationReviewDeleteServlet
+ * Servlet implementation class RecommendationSelectServlet
  */
-@WebServlet("/reco/deleteReview")
-public class RecommendationReviewDeleteServlet extends HttpServlet {
+@WebServlet("/reco/recoSelect")
+public class RecommendationSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecommendationReviewDeleteServlet() {
+    public RecommendationSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +31,9 @@ public class RecommendationReviewDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
+		int rNo = Integer.parseInt(request.getParameter("rNo"));
 		
-		int reviewList = new RecoService().deleteReview(reviewNo);
-		
-		String result = "";
+		int result = new RecoService().selectReco(rNo);
 		
 		if(reviewList > 0 ) {
 			result = "success";
@@ -53,6 +43,15 @@ public class RecommendationReviewDeleteServlet extends HttpServlet {
 		
 		response.setContentType("application/json;charset=utf-8");
 	    new Gson().toJson(result, response.getWriter());
+	}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

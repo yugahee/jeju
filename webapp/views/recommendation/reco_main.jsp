@@ -140,7 +140,7 @@
 									</div>
 									<p class="adress">${ reco.recoAddress }</p>
 									<div class="reco_review">
-										<a href="#" class="btn btnType1 btnSizeS" onclick="showLayer('layerPop1')">
+										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('layerPop1')">
 											<span class="arr-right">리뷰쓰기</span>
 										</a>
 										<a href="#">
@@ -149,42 +149,11 @@
 										<p class="count">200</p>
 									</div>
 								</div>
-								
-								<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
-									<form>
-										<div class="layerTit">
-											<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
-											<h4>리뷰 등록</h4>
-											
-										</div>
-										<div class="layerBody">
-											<h2 id="recoH2">${ reco.recoName }</h2>
-											<h4>별점을 등록해주세요</h4>
-		
-											<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
-												<div class="pointArea">
-													<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
-													<span class="starPoint p4">
-														<button>1점 선택</button>
-														<button>2점 선택</button>
-														<button>3점 선택</button>
-														<button>4점 선택</button>
-														<button>5점 선택</button>
-													</span>
-												</div>
-											</div>		<!-- 별점 끝 -->
-											<div>
-												<input type="text" placeholder="50자 내로 입력해주세요" style="width:400px;height:50px;">
-												<input type="submit">
-											</div>
-										</div>
-									</form>
-								</div>		<!-- 레이어 끝 -->
 							
 						</div>
 					</c:forEach>
 					
-						<div class="reco_item">
+						<%-- <div class="reco_item">
 								<div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);"
 									onclick="location.href='${ contextPath }/reco/detailView'">
 								</div>
@@ -244,7 +213,7 @@
 									</form>
 								</div>		<!-- 레이어 끝 -->
 							</div>	
-					</div>
+					</div> --%>
 					<!-- 리스트 끝 -->
 				</div>
 				<!-- list_box END -->
@@ -253,7 +222,38 @@
 	</div>
 
 <%@ include file="/views/common/footer.jsp" %>
+<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
+	<form action="${ contextPath }/reco/insertReview" method="get">
+		<div class="layerTit">
+			<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
+			<h4>리뷰 등록</h4>
+			
+		</div>
+		<div class="layerBody">
+			<input type="hidden" name="rno" id="rNo">
+			<input type="hidden" name="starScore" id="starScore" value="5" />
+			<h2 id="recoH2"></h2>
+			<h4>별점을 등록해주세요</h4>
 
+			<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
+				<div class="pointArea">
+					<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
+					<span class="starPoint p4">
+						<button type="button" onclick="starBtn(1)">1점 선택</button>
+	                   	<button type="button" onclick="starBtn(2)">2점 선택</button>
+	                   	<button type="button" onclick="starBtn(3)">3점 선택</button>
+	                   	<button type="button" onclick="starBtn(4)">4점 선택</button>
+	                   	<button type="button" onclick="starBtn(5)">5점 선택</button>
+					</span>
+				</div>
+			</div>		<!-- 별점 끝 -->
+			<div>
+				<input type="text" placeholder="50자 내로 입력해주세요" style="width:400px;height:50px;" name="comment">
+				<input type="submit">
+			</div>
+		</div>
+	</form>
+</div>		<!-- 레이어 끝 -->
 <script>
 /* 함수 정의 */
 function detailView(rno) {
@@ -267,6 +267,10 @@ location.href='${ contextPath }/reco/detailView?rno=' + rno;
 
 /* handleClick 함수 */
  
+ function starBtn(num){
+		let score = num;
+		document.getElementById("starScore").value = score;
+}
 
 /* 지역, 카테고리 버튼 내부 html 변경 */
 function changeBtnName() {
@@ -310,5 +314,24 @@ function changeBtnName() {
 		document.getElementById("btn1").innerHTML = recoArea;
 		document.getElementById("btn2").innerHTML = recoCategory;
 	}
+	
+}
+
+function reviewDetail(recoNo){
+	$.ajax({
+		url : "${ contextPath }/reco/recoSelect",
+		type : "get",
+		dataType : "json",
+		data : { rNo : rNo },
+		success : function(data) {
+			console.log(data);
+			if(data == "success") {
+				location.reload();
+			}
+		},
+		error : function(e) {
+			console.log(e);
+		}
+	});
 }
 </script>
