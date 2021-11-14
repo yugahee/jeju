@@ -65,8 +65,24 @@
 		</div>
         <div class="test_result-button wrapper mbti-bottom"><!-- 버튼부 시작 -->
             <a href="${ contextPath }/mbti/mainView"><img src='${ contextPath }/resources/images/ch/retry.png'></a>
-            <a href='#'><img src='${ contextPath }/resources/images/ch/share.png'></a>
+            <a href='#' onclick="clip(); return false;"><img src='${ contextPath }/resources/images/ch/share.png'></a>
         </div><!-- 버튼부 끝 -->
     </div>
 </body>
 </html>
+<script>
+
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
+</script>
