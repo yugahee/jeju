@@ -172,6 +172,7 @@ public class RoomEnrollFinServlet extends HttpServlet {
 		int result = new RoomsService().insertRooms(rooms);
 		
 		if(result > 0) {
+			request.getSession().setAttribute("message", "숙소 설정을 완료했습니다. 관리자에게 등록 승인 요청을 하였습니다. 등록완료가 되면 게스트가 해당 숙소를 이용할 수 있습니다.");
 			response.sendRedirect(request.getContextPath() + "/host/roomlist");
 			
 		} else {
