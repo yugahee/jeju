@@ -94,25 +94,6 @@
 					</div>
 					
 					
-			  <%-- 	<%
-					String[] roomFac = room.getRoomFac().split(",");
-			  		
-					String[] defaultFac = { "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
-							"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
-					
-					/* String samDefaultFac = null; */
-					String[] result = new String[11];
-					int index = 0;
-					for(int i = 0; i < roomFac.length; i++) {
-						for(int j = 0; j < defaultFac.length; j++) {
-							if(roomFac[i].equals(defaultFac[j])) {
-								result[index++] = roomFac[i];
-							}
-						}
-					}
-					
-				%>    --%>
-					
 					<!--숙소 시설 글씨-->
 					<div class="title_text">
 						<span>숙소 시설</span>
@@ -126,8 +107,7 @@
 						</ul>
 						
 						<span class="minititle_text">기본 시설</span>
-						<ul class="text_group">
-						<!-- 이 부분 참조하세요!!    -->					
+						<ul class="text_group">	
 						<c:forTokens var="fac" items="${ room.roomFac }" delims=",">
 						<c:set var="basic">TV, 에어컨, 와이파이, 전기포트, 전자렌지, 밥솥, 수건, 식기, 다리미, 헤어드라이기, 냉장고</c:set>
 						<c:if test="${ fn:contains(basic, fac) }"><li>${ fac }</li></c:if>						
@@ -189,13 +169,8 @@
 - 결제 24시간 이후부터 입실 180일 전인 경우 계약금 100% 환불이 가능합니다.
 					</pre>
 					<div class="hostBox">
-						<div class="profileSort">
-							<div class="profile">
-
-							</div>
-						</div>
 						<div class="hostName">
-							<h3>호스트 알리님</h3>
+							<h3>${room.userName}</h3>
 						</div>
 						<div>
 							<button class="btn btnType1 btnSizeL" type="button" onclick="showLayer('writingMessage');"><span>호스트에게 연락하기</span></button>
@@ -208,7 +183,7 @@
 					</div>
 					<div class="review roomReview">
 						<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-						<span class="text3">후기 ${reviewPi.listCount}</span>
+						<span class="text3">후기 ${reviewPi.listCount}개</span>
 					</div>
 				<!-- <div class="reviewFlexBox"> -->
 					<div class="reviewBox">
@@ -354,7 +329,6 @@
         
         $("#won2").text(result);
     });
- 
     </script>      
           
   	<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->
@@ -415,7 +389,7 @@
     }  
  	</script>
 	
-	
+	    <!-- 예약 신청 확인 시 동작 -->  
 	<script>
 		 function reserveChk(roomNo){			
 			 if( '${loginUser.user_type}' != '게스트') {

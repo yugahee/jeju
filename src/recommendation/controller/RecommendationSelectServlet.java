@@ -35,7 +35,7 @@ public class RecommendationSelectServlet extends HttpServlet {
 		int rNo = Integer.parseInt(request.getParameter("rNo"));
 		
 		Recommendation result = new RecoService().selectReco(rNo);
-		
+
 		response.setContentType("application/json;charset=utf-8");
 	    new Gson().toJson(result, response.getWriter());
 	}

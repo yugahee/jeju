@@ -903,11 +903,12 @@
      }
 
      .lodging_detail .hostName{
-     margin: 0 20px;
+        margin-right: 10px;
+    	margin-top: 10px;
      }
 
      .lodging_detail .hostName h3{
-     line-height: 50px;
+     line-height: 30px;
      }
 
      .lodging_detail .review{
@@ -1410,12 +1411,15 @@
      /* 내용 부분 위치 지정 */
      .test_result-content {
           text-align: center;
-          padding: 5% 10%;
+          padding: 5% 17%;
      }
      
      /* 내용 부분 분리 */
      .test_result-content > div {
-          margin: 40% auto;
+          margin: 0 auto;
+     }
+     .test_result-content .result_type {
+     	margin-bottom: 100px;
      }
      
      /* 내용 부분 글자 지정 */
@@ -1445,12 +1449,12 @@
      
      /* 내용 부분 메모 이미지 삽입 */                /* 왜 안될까.. */
      .memo_imageArea {
-          width: 190%;
+          width: 100%;
           height: 100%;
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
-          margin-left: -50%;
+
      }
      
      /* --------------------------- 버튼 부분 ----------------------- */
@@ -1753,3 +1757,20 @@
           color: white;
      }*/
 /* 지희님 : E*/
+
+#test_result {
+	position: relative;
+}
+
+#test_result .mbti-imgArea {
+	position: absolute;
+	top: 30%;
+	left: 0;
+	z-index : 999;
+}
+
+#test_result .mbti-bottom{
+	position: absolute;
+	top: 50px;
+	right: 150px;
+}

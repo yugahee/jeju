@@ -104,6 +104,12 @@
 		)  	
 	</entry>
 	
+	<entry key="updateReport">
+		UPDATE MEMBER
+   		   SET REPORT_COUNT = REPORT_COUNT + 1
+ 		 WHERE USER_ID = ?
+	</entry>
+	
 	<entry key="replyMessenger">
 		UPDATE MESSAGE
 		   SET CHK_STATUS = 'N'

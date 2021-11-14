@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.List;
 
+import member.model.vo.Member;
 import recommendation.model.dao.RecoDao;
 import recommendation.model.vo.Reco_Review;
 import recommendation.model.vo.Recommendation;
@@ -143,6 +144,5 @@ public class RecoService {
 		
 		return result;
 	}
-	
 
 }

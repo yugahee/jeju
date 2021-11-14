@@ -35,34 +35,7 @@ public class ReservevationInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Rooms room = new Rooms();
-		
-		
-		String[] roomFac;
-		if( room.getRoomFac() != null) {
-			roomFac = room.getRoomFac().split("\\,"); // 배열로 잘라짐
-		} else {
-			roomFac = new String[] {"", "", "", "", ""};
-		}
-		
-		String[] defaultFac = { "tv", "TV", "에어컨", "와이파이", "전기포트", "전자렌지",
-				"밥솥", "수건", "식기", "다리미", "헤어드라이기", "냉장고"};
-		
-		
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		Member loginUser = ((Member)request.getSession().getAttribute("loginUser"));
 		
 		//if문을 위한 user_type

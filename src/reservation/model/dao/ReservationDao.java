@@ -52,6 +52,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setReviewCount(rset.getInt("review"));
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
@@ -166,6 +167,7 @@ public class ReservationDao {
 				room.setAddress(rset.getString("address"));
 				room.setRoomNo(rset.getInt("room_no"));
 				room.setUserId(rset.getString("user_id"));
+				room.setUserName(rset.getString("user_name"));
 				fileList = new ArrayList<>();
 			}
 				Files files = new Files();
@@ -428,7 +430,6 @@ public class ReservationDao {
 				sql = roomQuery.getProperty("selectReserveNumList");
 			}
 		}
-		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -693,18 +694,12 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
-		
 		String sql = roomQuery.getProperty("roomSearch1");
-
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-
 			pstmt.setString(1, search.getCheckIn());
 			pstmt.setString(2, search.getCheckOut());
 
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -839,6 +834,39 @@ public class ReservationDao {
 
 		return roomList;
 	}
+
+//	public int getReviewCount(Connection conn) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int reviewCount = 0;
+//		String sql = roomQuery.getProperty("reviewCount");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			pstmt.setInt(1, roomNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			
+//			while(rset.next()) {
+//				Reservation reserve = new Reservation();
+//				reserve.setStart_date(rset.getDate("start_date"));
+//				reserve.setEnd_date(rset.getDate("end_date"));
+//				
+//				possibleReservList.add(reserve);
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		return possibleReservList;
+//	}
 
 
 

@@ -34,8 +34,6 @@ public class RecommendationMainViewServlet extends HttpServlet {
 		
 		request.setAttribute("recoList", recoList);
 		
-		System.out.println(recoList);
-		
 		request.getRequestDispatcher("/views/recommendation/reco_main.jsp").forward(request, response);
 	}
 
