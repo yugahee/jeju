@@ -83,8 +83,6 @@ public class adminRecPlaceModServlet extends HttpServlet {
 		String uploadName = "uploadName";
 		String coordinate = multiRequest.getParameter("coordinate");
 		
-		System.out.println(imageName);
-		
 		rec.setRecoNo(recoNo);
 		rec.setRecoName(recoName);
 		rec.setPublicYn(publicYn);
@@ -104,8 +102,6 @@ public class adminRecPlaceModServlet extends HttpServlet {
 			rec.setRecoImage("/resources/uploadFiles/");
 			rec.setImageName(multiRequest.getFilesystemName(uploadName));		
 		}
-		
-		System.out.println("값 확인 : " + rec);
 				
 		int result = new AdminService().updateRecoPhoto(rec);
 		if(result > 0) {

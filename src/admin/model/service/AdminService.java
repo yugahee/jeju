@@ -251,12 +251,6 @@ public class AdminService{
 		return result;
 	}	
 
-	
-	
-	
-	
-	
-	
 
 	public Reservation reserveDetail(int reserveNo) {
 		Connection conn = getConnection();
