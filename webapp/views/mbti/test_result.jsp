@@ -38,32 +38,32 @@
 <body>
     <div id="test_result" class="test_big-bg">
         <!-- 사진부 시작 -->
-        <div class="test_result-sub wrapper">
-            <div class="imageArea" style="background-image: url(${ contextPath }/resources/images/ch/item.jpg);">
+        <div class="test_result-sub wrapper mbti-imgArea">
+            <div class="imageArea" style="background-image: url(${ contextPath }/resources/images/mbti/${ mbti.recoImage });">
             </div>
             <div>
-                <a href="reco_detail.html"><img src='${ contextPath }/resources/images/ch/more.png'></a>
+                <a href="${ contextPath }/reco/mainView"><img src='${ contextPath }/resources/images/ch/more.png'></a>
             </div>
         </div><!-- 사진부 끝 -->
-
+		<div class="container">
         <div class="test_result-content wrapper">
             <!--내용부 시작 -->
             <div class="result_type">
                 <p>나의 여행 유형은</p>
                 <p>${ mbti.mbtiType }</p>
-                <p>${ mbti.mbtiType }</p>
+                <p>${ mbti.mbtiContent }</p>
             </div>
 
             <div class="result_place">
-                <div class="memo_imageArea" style="background-image: url(${ contextPath }/resources/images/ch/memo.png);">
+                <div class="memo_imageArea" style="background-image: url(${ contextPath }/resources/images/mbti/memo.png);">
                     <p>&lt;나와 어울리는 제주 여행지?&gt;</p>
-                    <p>추천 장소 결과</p>
-                    <p>장소 설명</p>
+                    <p>${ mbti.reco }</p>
+                    <p>${ mbti.recoContent }</p>
                 </div>
             </div>
         </div><!-- 내용부 끝 -->
-
-        <div class="test_result-button wrapper"><!-- 버튼부 시작 -->
+		</div>
+        <div class="test_result-button wrapper mbti-bottom"><!-- 버튼부 시작 -->
             <a href="${ contextPath }/mbti/mainView"><img src='${ contextPath }/resources/images/ch/retry.png'></a>
             <a href='#'><img src='${ contextPath }/resources/images/ch/share.png'></a>
         </div><!-- 버튼부 끝 -->
