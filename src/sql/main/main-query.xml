@@ -11,7 +11,7 @@
 		    , CHANGE_NAME
 		FROM ROOMS R
 		JOIN FILES USING(ROOM_NO)
-		WHERE R.STATUS = 'Y'
+		WHERE ENROLL_STATUS = '등록완료'
 		AND FILE_LEVEL = 0
 	</entry>
 </properties>
