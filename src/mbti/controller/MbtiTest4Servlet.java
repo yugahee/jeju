@@ -26,6 +26,13 @@ public class MbtiTest4Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int test1 = Integer.parseInt(request.getParameter("test1"));
+		int test2 = Integer.parseInt(request.getParameter("test2"));
+		int test3 = Integer.parseInt(request.getParameter("test3"));
+		
+		request.setAttribute("test1", test1);
+		request.setAttribute("test2", test2);
+		request.setAttribute("test3", test3);
 		request.getRequestDispatcher("/views/mbti/test_content4.jsp").forward(request, response);
 	}
 

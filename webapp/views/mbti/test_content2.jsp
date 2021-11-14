@@ -44,8 +44,8 @@
                 <p>2/4</p>
             </div>
             <div class="select-button">
-                <a href="${ contextPath }/mbti/test3" class="btn btnType2 btnSizeL"><span>여행에서 있었던 온갖 에피소드를 줄줄이 얘기해준다.</span></a>
-                <a href="${ contextPath }/mbti/test3" class="btn btnType2 btnSizeL"><span>딱 큰 느낌 정도만 간추려서 얘기해준다.</span></a>
+                <a href="${ contextPath }/mbti/test3?test1=${test1}&test2=1" class="btn btnType2 btnSizeL"><span>여행에서 있었던 온갖 에피소드를 줄줄이 얘기해준다.</span></a>
+                <a href="${ contextPath }/mbti/test3?test1=${test1}&test2=2" class="btn btnType2 btnSizeL"><span>딱 큰 느낌 정도만 간추려서 얘기해준다.</span></a>
             </div>
         </div>
     </div>

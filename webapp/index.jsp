@@ -5,7 +5,35 @@
 	<div class="sec01">
 	    <div class="container">
 	        <div class="simple_search">
-	            <form name="simpleRoomSearch">
+	            <form name="simpleRoomSearch" action="${contextPatn}/jeju/room/reservation" method="get">
+	            	<div class="inp_box">
+	                    <label>위치선택</label>
+	                    <div class="selectbox">
+	                        <button class="title" type="button" title="위치옵션 선택">위치</button>
+	                        <ul class="selList">
+	                            <li>
+	                                <input type="radio" value="동부" class="option" id="east" name="location" />
+	                                <label for="sel1_1">동부</label>
+	                            </li>
+	                            <li>
+	                                <input type="radio" value="서부" class="option" id="west" name="location" />
+	                                <label for="sel1_2">서부</label>
+	                            </li>
+	                            <li>
+	                                <input type="radio" value="북부" class="option" id="north" name="location" />
+	                                <label for="sel1_3">북부</label>
+	                            </li>
+	                            <li>
+	                                <input type="radio" value="남부" class="option" id="south" name="location">
+	                                <label for="sel1_4">남부</label>
+	                            </li>
+	                            <li>
+	                                <input type="radio" value="중부" class="option" id="center" name="location">
+	                                <label for="sel1_4">중부</label>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                </div>
 	                <div class="inp_text">
 	                    <label>체크인</label>
 	                    <input type="date" name="checkIn" id="checkIn" placeholder="체크인"/>
@@ -14,47 +42,7 @@
 	                    <label>체크아웃</label>
 	                    <input type="date" name="checkOut" id="checkOut" placeholder="체크아웃"/>
 	                </div>
-	                <div class="inp_box">
-	                    <label>위치선택</label>
-	                    <div class="selectbox">
-	                        <button class="title" type="button" title="위치옵션 선택">위치</button>
-	                        <ul class="selList">
-	                            <li>
-	                                <input type="radio" value="동부" class="option" id="east" name="east" />
-	                                <label for="sel1_1">동부</label>
-	                            </li>
-	                            <li>
-	                                <input type="radio" value="서부" class="option" id="west" name="west" />
-	                                <label for="sel1_2">서부</label>
-	                            </li>
-	                            <li>
-	                                <input type="radio" value="북부" class="option" id="north" name="north" />
-	                                <label for="sel1_3">북부</label>
-	                            </li>
-	                            <li>
-	                                <input type="radio" value="남부" class="option" id="south" name="south">
-	                                <label for="sel1_4">남부</label>
-	                            </li>
-	                            <li>
-	                                <input type="radio" value="중부" class="option" id="center" name="center">
-	                                <label for="sel1_4">중부</label>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-	                <div class="inp_box">
-	                    <label>인원수</label>
-	                    <div class="inp_qty">
-	                        <button type="button" onclick="qtyDown(this)" title="인원감소">
-	                            <img src="${contextPath}/resources/images/common/qty_down.gif" alt="인원감소">
-	                        </button>
-	                        <input type="text" title="인원수입력" value="1">
-	                        <button type="button" onclick="qtyUp(this)" title="인원추가">
-	                            <img src="${contextPath}/resources/images/common/qty_up.gif" alt="인원추가">
-	                        </button>
-	                    </div>
-	                </div>
-	                <button type="button" class="btn btnType1 btnSizeL" onclick="simpleSearch()"><span>검색</span></button>
+	                <button type="submit" class="btn btnType1 btnSizeL"><span>검색</span></button>
 	            </form>
 	        </div>
 	    </div>

@@ -35,6 +35,10 @@ public class ReservationService {
 		}else {
 			roomList = reservationDao.selectRoomList(conn);	
 		}
+		
+		if(search.getLocation() != null && search.getCheckIn() != null && search.getCheckOut() != null) {
+			roomList = reservationDao.searchRoomList3(conn, search);
+		}
 				
 		close(conn);
 		
