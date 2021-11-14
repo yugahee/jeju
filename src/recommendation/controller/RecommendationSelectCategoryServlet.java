@@ -34,8 +34,6 @@ public class RecommendationSelectCategoryServlet extends HttpServlet {
 
 		List<Recommendation> recoList = null;
 		
-		
-		
 		String recoArea = request.getParameter("recoArea");
 		String recoCategory =  request.getParameter("recoCategory");
 		String recoKeyword = request.getParameter("recoKeyword");
