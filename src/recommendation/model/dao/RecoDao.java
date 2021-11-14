@@ -381,7 +381,7 @@ public class RecoDao {
 		return recoList;
 	}
 	
-	// 최종
+	// 최종///
 	public List<Recommendation> selectList(Connection conn, String recoArea, String recoCategory, String recoKeyword, String radio1) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
