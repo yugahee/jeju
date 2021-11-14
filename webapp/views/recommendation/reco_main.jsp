@@ -140,7 +140,7 @@
 									</div>
 									<p class="adress">${ reco.recoAddress }</p>
 									<div class="reco_review">
-										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('layerPop1')">
+										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('reviewPop')">
 											<span class="arr-right">리뷰쓰기</span>
 										</a>
 										<a href="#">
@@ -222,10 +222,10 @@
 	</div>
 
 <%@ include file="/views/common/footer.jsp" %>
-<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
+<div id="reviewPop" class="layerPop">		<!-- 레이어 시작 -->
 	<form action="${ contextPath }/reco/insertReview" method="get">
 		<div class="layerTit">
-			<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
+			<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('reviewPop');"><span class="blind">레이어팝업 닫기</span></button>
 			<h4>리뷰 등록</h4>
 			
 		</div>
@@ -322,15 +322,13 @@ function reviewDetail(recoNo){
 		url : "${ contextPath }/reco/recoSelect",
 		type : "get",
 		dataType : "json",
-		data : { rNo : rNo },
+		data : { rNo : recoNo },
 		success : function(data) {
 			console.log(data);
-			if(data == "success") {
-				location.reload();
-			}
+			
 		},
 		error : function(e) {
-			console.log(e);
+			//console.log(e);
 		}
 	});
 }

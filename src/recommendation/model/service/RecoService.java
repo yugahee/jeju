@@ -70,7 +70,7 @@ public class RecoService {
 		Connection conn = getConnection();
 		Recommendation reco = recoDao.selectReco(conn, rno);
 		
-		// 댓글 조회 추가
+		// 리뷰 조회 추가
 		List<Reco_Review> reviewList = recoDao.selectReviewList(conn, rno);
 		
 		reco.setReviewList(reviewList);
