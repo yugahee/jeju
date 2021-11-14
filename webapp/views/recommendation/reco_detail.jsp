@@ -78,7 +78,7 @@
 					<!-- 한줄평 리스트 시작 -->
 					<div class="detail_review">
 						<p>회원 리뷰</p>
-						<form method="POST" action="${ contextPath }/reco/deleteReview">
+						
 						<c:forEach var="review" items="${ reco.reviewList }">
 							<div class="detail_comment">
 							<input type="hidden">
@@ -90,13 +90,13 @@
 								<p>${ review.writeTime }</p>
 								<c:if test="${ loginUser.user_id == review.userId }">
 								<div class="change_button">
-									<a href="#" class="btnTypeIcon btn_modify">수정</a>
-									<a href="#" onclick= "deleteReview(${ review.recoReviewNo }, ${ review.recoNo });" class="btnTypeIcon btn_delete">삭제</a>
+									<!-- <a href="#" class="btnTypeIcon btn_modify">수정</a> -->
+									<a href="#" onclick= "deleteReview(${ review.recoReviewNo });" class="btnTypeIcon btn_delete">삭제</a>
 								</div>
 								</c:if>
 							</div>
 						</c:forEach>
-						</form>
+						
 					</div>
 					<!-- 한줄평 끝 -->
 					
@@ -129,14 +129,17 @@
 
 <!-- 리뷰 삭제 -->
 <script>
-	function deleteReview(reviewNo, recoNo) {
+	function deleteReview(reviewNo) {
 		$.ajax({
 			url : "${ contextPath }/reco/deleteReview",
 			type : "post",
-			dataType : "gson",
-			data : { reviewNo : reviewNo, rno : recoNo },
+			dataType : "json",
+			data : { reviewNo : reviewNo },
 			success : function(data) {
 				console.log(data);
+				if(data == "success") {
+					location.reload();
+				}
 			},
 			error : function(e) {
 				console.log(e);

@@ -305,7 +305,7 @@ public class RecoDao {
 											 , rset.getDate("write_time")
 											 , rset.getInt("reco_no")
 											 , rset.getString("user_id")
-											 , rset.getString("public_yn")));
+											 , rset.getString("status")));
 			}
 			
 		} catch (SQLException e) {
@@ -323,7 +323,6 @@ public class RecoDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = recoQuery.getProperty("deleteReview");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -339,49 +338,8 @@ public class RecoDao {
 		return result;
 	}
 	
-	// 지역만 선택된 경우 리스트 출력
-	public List<Recommendation> selectList(Connection conn, int recoArea) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		List<Recommendation> recoList = new ArrayList<>();
-		
-		String sql = recoQuery.getProperty("selectOnlyAreaList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, recoArea);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				recoList.add(new Recommendation(rset.getInt("reco_no")
-											  , rset.getString("public_yn")
-											  , rset.getInt("reco_area")
-											  , rset.getString("reco_address")
-											  , rset.getInt("reco_category")
-											  , rset.getString("reco_expl")
-											  , rset.getString("reco_keyword")
-											  , rset.getString("reco_name")
-											  , rset.getString("naver_map")
-											  , rset.getString("kakao_map")
-											  , rset.getString("reco_image")
-											  , rset.getInt("like_count")
-											  , rset.getString("image_name")
-											  , rset.getString("coordinate")
-											  , rset.getDouble("avg_score")
-											  , rset.getInt("int_score")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return recoList;
-	}
 	
-	// 최종///
+	// 최종
 	public List<Recommendation> selectList(Connection conn, String recoArea, String recoCategory, String recoKeyword, String radio1) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -453,6 +411,31 @@ public class RecoDao {
 		}
 		
 		return recoList;
+	}
+	
+	// 리뷰 등록
+	public int insertReview(Connection conn, String userId, int recoNo, int score, String sComment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = recoQuery.getProperty("insertReview");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, score);
+			pstmt.setString(2, sComment);
+			pstmt.setInt(3, recoNo);
+			pstmt.setString(4, userId);
+			
+			System.out.println(sql);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
