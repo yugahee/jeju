@@ -923,8 +923,8 @@ public class AdminDao {
 			pstmt.setString(8, rec.getRecoKeyword());
 			pstmt.setString(9, rec.getRecoExpl());
 			pstmt.setString(10, rec.getImageName());
-			pstmt.setInt(11, rec.getRecoNo());
-			pstmt.setString(12, rec.getCoordinate());
+			pstmt.setString(11, rec.getCoordinate());
+			pstmt.setInt(12, rec.getRecoNo());
 
 			result = pstmt.executeUpdate();
 			

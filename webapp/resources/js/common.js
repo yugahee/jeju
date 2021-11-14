@@ -8,14 +8,7 @@ function userCon(){
     }
 }
 
-function scrollSet(scrollPo){
-	if ($(scrollPo).closest('.terms_page, .privacy_page')){
-		$('html, body').animate({'scrollTop' : $(scrollPo).offset().top - 50},200);
-	} else {
-		$('html, body').animate({'scrollTop' : $(scrollPo).offset().top + 4},200);
-	}	
-}
-
+// 스크롤 탑
 $(document).on('click', '.btnTop', function(){
 	$('html, body').animate({'scrollTop' : 0},200);
 });

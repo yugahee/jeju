@@ -285,6 +285,6 @@
      AND RECO_AREA LIKE '%' || ? || '%'
      AND RECO_CATEGORY LIKE '%' || ? || '%'
      AND RECO_KEYWORD LIKE '%' || ? || '%'
- ORDER BY RECO_NO DESC;
+ ORDER BY RECO_NO DESC
 	</entry>
 </properties>
