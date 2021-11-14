@@ -60,11 +60,6 @@ public class Room_reservationServlet extends HttpServlet {
 		if(specialFacArr != null && !specialFacArr[0].equals("")) {
 			specialFac = String.join("%", specialFacArr);
 		}
-		
-		System.out.println(location);
-		System.out.println(room_type);
-		System.out.println(building_type);
-		System.out.println(specialFac);
 
 		String checkIn = request.getParameter("checkIn");
 		String checkOut = request.getParameter("checkOut");
