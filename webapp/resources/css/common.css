@@ -521,4 +521,7 @@ body.ofH {overflow-y:hidden;min-width:1280px;}
 
 /* Scroll Top */
 .btnTop{display:none;position:fixed;right:24px;bottom:30px;z-index:999999999;transition:0.5s;width:55px;height:55px;background:#fff url('/jeju/resources/images/common/ico_top.png') no-repeat center center;border-radius:50%;box-shadow:rgba(0, 0, 0, 0.1) 2px 0.2em 0.8em;}
-.btnTop:hover{background:#ff8b33 url('/jeju/resources/images/common/ico_top.png') no-repeat center center;}
+.btnTop:hover{background:#ff8b33 url('/jeju/resources/images/common/ico_top.png') no-repeat center center;animation:updown 0.5s ease infinite alternate;}
+@keyframes updown{
+	100%{bottom:40px;}
+}
