@@ -107,8 +107,7 @@
 						</ul>
 						
 						<span class="minititle_text">기본 시설</span>
-						<ul class="text_group">
-						<!-- 이 부분 참조하세요!!    -->					
+						<ul class="text_group">	
 						<c:forTokens var="fac" items="${ room.roomFac }" delims=",">
 						<c:set var="basic">TV, 에어컨, 와이파이, 전기포트, 전자렌지, 밥솥, 수건, 식기, 다리미, 헤어드라이기, 냉장고</c:set>
 						<c:if test="${ fn:contains(basic, fac) }"><li>${ fac }</li></c:if>						
@@ -330,7 +329,6 @@
         
         $("#won2").text(result);
     });
- 
     </script>      
           
   	<!-- 지도 api(kakao map) 적용시키기  : appkey 입력 후 스크립트 작성 -->
@@ -391,7 +389,7 @@
     }  
  	</script>
 	
-	
+	    <!-- 예약 신청 확인 시 동작 -->  
 	<script>
 		 function reserveChk(roomNo){			
 			 if( '${loginUser.user_type}' != '게스트') {
