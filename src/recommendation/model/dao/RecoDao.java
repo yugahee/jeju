@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import admin.model.vo.PageInfo;
+import admin.model.vo.Search;
+
 import static common.JDBCTemplate.close;
 
 import recommendation.model.vo.Reco_Review;
@@ -333,6 +337,128 @@ public class RecoDao {
 		}
 		
 		return result;
+	}
+	
+	// 지역만 선택된 경우 리스트 출력
+	public List<Recommendation> selectList(Connection conn, int recoArea) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Recommendation> recoList = new ArrayList<>();
+		
+		String sql = recoQuery.getProperty("selectOnlyAreaList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, recoArea);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				recoList.add(new Recommendation(rset.getInt("reco_no")
+											  , rset.getString("public_yn")
+											  , rset.getInt("reco_area")
+											  , rset.getString("reco_address")
+											  , rset.getInt("reco_category")
+											  , rset.getString("reco_expl")
+											  , rset.getString("reco_keyword")
+											  , rset.getString("reco_name")
+											  , rset.getString("naver_map")
+											  , rset.getString("kakao_map")
+											  , rset.getString("reco_image")
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return recoList;
+	}
+	
+	// 최종
+	public List<Recommendation> selectList(Connection conn, String recoArea, String recoCategory, String recoKeyword, String radio1) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Recommendation> recoList = new ArrayList<>();
+		String sql = recoQuery.getProperty("selectList");
+		
+		if(recoArea == null) {
+			recoArea = "";
+		} 
+		if(recoCategory == null) {
+			recoCategory = "";
+		} 
+		if(recoKeyword == null) {
+			recoKeyword = "";
+		} 
+		
+		if(recoArea != "" || recoCategory != "" || recoKeyword != "" || radio1 != "") {
+			
+			sql = recoQuery.getProperty("searchList");
+
+		}
+		
+//		if(recoArea != 0) {
+//			sql = recoQuery.getProperty("selectOnlyArea");
+//			if(recoCategory != 0) {
+//				if(recoKeyword != null) {
+//					if(radio1 != 0) {
+//						if(radio1 == 1) {			// 라디오버튼 최신순인 경우
+//							sql = recoQuery.getProperty("selectNewList");			
+//						} else if(radio1 == 2) {	// 라디오버튼 선호도순인 경우
+//							sql = recoQuery.getProperty("selectLikeList");
+//						} else if(radio1 == 3) {	// 라디오버튼 별점순인 경우
+//							sql = recoQuery.getProperty("selectStarList");
+//						}						
+//					}
+//				}
+//			}
+//		} 
+		 System.out.println(sql);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(recoArea != "" || recoCategory != "" || recoKeyword != "" || radio1 != "") {
+				pstmt.setString(1, recoArea);
+				pstmt.setString(2, recoCategory);
+				pstmt.setString(3, recoKeyword);
+				
+			}
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				recoList.add(new Recommendation(rset.getInt("reco_no")
+											  , rset.getString("public_yn")
+											  , rset.getInt("reco_area")
+											  , rset.getString("reco_address")
+											  , rset.getInt("reco_category")
+											  , rset.getString("reco_expl")
+											  , rset.getString("reco_keyword")
+											  , rset.getString("reco_name")
+											  , rset.getString("naver_map")
+											  , rset.getString("kakao_map")
+											  , rset.getString("reco_image")
+											  , rset.getInt("like_count")
+											  , rset.getString("image_name")
+											  , rset.getString("coordinate")
+											  , rset.getDouble("avg_score")
+											  , rset.getInt("int_score")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return recoList;
 	}
 
 }

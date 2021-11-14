@@ -101,5 +101,36 @@ public class RecoService {
 		
 		return reviewList;
 	}
+	
+	// 지역만 선택된 경우 리스트 출력
+	/*public List<Recommendation> selectList(int recoArea) {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectList(conn, recoArea);
+		
+		close(conn);
+		
+		return recoList;
+	}*/
+
+	// 지역과 카테고리, 라디오버튼 선택 시 리스트 출력
+	/*public List<Recommendation> selectNewList(int recoArea, int recoCategory, int radio1) {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectList(conn, recoArea, recoCategory, radio1);
+		
+		close(conn);
+		
+		return recoList;
+	}*/
+	
+	// 최종
+	public List<Recommendation> selectList(String recoArea, String recoCategory, String recoKeyword, String radio1) {
+		Connection conn = getConnection();
+		List<Recommendation> recoList = recoDao.selectList(conn, recoArea, recoCategory, recoKeyword, radio1);
+		
+		close(conn);
+		
+		return recoList;
+	}
+	
 
 }
