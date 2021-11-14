@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import recommendation.model.service.RecoService;
+import recommendation.model.vo.Recommendation;
 
 /**
  * Servlet implementation class RecommendationSelectServlet
@@ -33,17 +34,11 @@ public class RecommendationSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rNo = Integer.parseInt(request.getParameter("rNo"));
 		
-		int result = new RecoService().selectReco(rNo);
+		Recommendation result = new RecoService().selectReco(rNo);
 		
-		if(reviewList > 0 ) {
-			result = "success";
-		}else {
-			result = "fail";
-		}
 		
 		response.setContentType("application/json;charset=utf-8");
 	    new Gson().toJson(result, response.getWriter());
-	}
 	}
 
 	/**
