@@ -8,13 +8,6 @@
 					<div class="prev_page"> <!-- back 버튼 -->
 						<a href="${ contextPath }/reco/mainView" class="btn btnType2 btnSizeM"><span class="arr-left">&lt;&lt; &nbsp;이전으로</span></a>
 					</div>
-					
-					<div class="like"><!-- 하트 -->
-						<a href="#">
-							<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
-						</a>
-						<p class="count">200</p>
-					</div>
 				</div><!-- detail_upper end -->
 
 				<div class="banner"><!--배너-->
