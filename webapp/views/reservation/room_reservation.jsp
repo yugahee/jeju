@@ -91,19 +91,19 @@
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="location" id="chk1_2" value="서부">
-					<label for="chk1_1">서부</label>
+					<label for="chk1_2">서부</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="location" id="chk1_3" value="중부">
-					<label for="chk1_1">중부</label>
+					<label for="chk1_3">중부</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="location" id="chk1_4" value="남부">
-					<label for="chk1_1">남부</label>
+					<label for="chk1_4">남부</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="location" id="chk1_5" value="북부">
-					<label for="chk1_1">북부</label>
+					<label for="chk1_5">북부</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin1">
@@ -112,19 +112,19 @@
 				</div>  
 				<span class="inp_check">
 					<input type="checkbox" name="room_type" id="chk1_6" value="원룸">
-					<label for="chk1_1">원룸</label>
+					<label for="chk1_6">원룸</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="room_type" id="chk1_7" value="투룸">
-					<label for="chk1_1">투룸</label>
+					<label for="chk1_7">투룸</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="room_type" id="chk1_8" value="복층">
-					<label for="chk1_1">복층</label>
+					<label for="chk1_8">복층</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="room_type" id="chk1_9" value="쓰리룸이상">
-					<label for="chk1_1">쓰리룸이상</label>
+					<label for="chk1_9">쓰리룸이상</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin1">
@@ -133,29 +133,29 @@
 				</div>  
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_10" value="원룸">
-					<label for="chk1_1">원룸</label>
+					<label for="chk1_10">원룸</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_11" value="빌라" >
-					<label for="chk1_1">빌라</label>
+					<label for="chk1_11">빌라</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_12" value="펜션">
-					<label for="chk1_1">펜션</label>
+					<label for="chk1_12">펜션</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin2">
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_13" value="단독주택">
-					<label for="chk1_1">단독주택</label>
+					<label for="chk1_13">단독주택</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_14"  value="오피스텔">
-					<label for="chk1_1">오피스텔</label>
+					<label for="chk1_14">오피스텔</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="building_type" id="chk1_15" value="쉐어하우스">
-					<label for="chk1_1">쉐어하우스</label>
+					<label for="chk1_15">쉐어하우스</label>
 				</span>
 			</div>
 			<div class="locationSrot locationMargin1">
@@ -164,11 +164,11 @@
 				</div>  
 				<span class="inp_check">
 					<input type="checkbox" name="specialFac" id="chk1_16" value="반려동물 입실가능">
-					<label for="chk1_1">반려동물 입실가능</label>
+					<label for="chk1_16">반려동물 입실가능</label>
 				</span>
 				<span class="inp_check">
 					<input type="checkbox" name="specialFac" id="chk1_17" value="휠체어 사용가능">
-					<label for="chk1_1">휠체어 사용가능</label>
+					<label for="chk1_17">휠체어 사용가능</label>
 				</span>
 			</div>
 			<div class="btn_wrap btnMargin">
