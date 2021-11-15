@@ -62,7 +62,7 @@
 							<div class="roomReview">
 								<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
 								<span class="text3" id="reviewStar">${ room.star }</span>
-								<span class="text3" id="reviewCount">${room.reviewCount }</span>
+								<span class="text3" id="reviewCount">(후기 : ${room.reviewCount }개)</span>
 							</div>
 							<div class="roomPrice">
 								<span>${room.price}/박</span>
