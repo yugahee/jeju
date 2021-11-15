@@ -32,6 +32,7 @@ public class RecommendationMainViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		List<Recommendation> recoList = new RecoService().selectList();
 		
+		
 		request.setAttribute("recoList", recoList);
 		
 		request.getRequestDispatcher("/views/recommendation/reco_main.jsp").forward(request, response);

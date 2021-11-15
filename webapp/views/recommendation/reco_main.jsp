@@ -83,8 +83,7 @@
 				<div class="reco_item">
 					<div class="imageArea" style="background-image: url(${ contextPath }${ reco.recoImage }${ reco.imageName });"	
 							onclick="detailView(${ reco.recoNo })">
-					</div>
-					
+					</div>					
 					<div class="item_info"><!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
 						<a href="#" onclick="detailView(${ reco.recoNo })">		
 							<p class="item_title">
@@ -98,44 +97,43 @@
 								${ reco.recoName }
 							</p>
 						</a>
+						<p class="adress">${ reco.recoAddress }</p>
 						<div class="star_average">				<!-- 별점 부분 -->
-							<div class="rating_star">
-							<c:set var="star" value="${ reco.intScore }" />
+							<div class="rating_star">							
 							<c:set var="avg" value="${ reco.avgScore }" />
 							<c:choose>
-								<c:when test="${ star eq 5 }">
+								<c:when test="${ avg >= 5 }">
 									<span class="starPoint p5">5</span>
 									<p>  ${ avg } / 5</p>									
 								</c:when>
 								
-								<c:when test="${ star eq 4 }">
+								<c:when test="${ avg >= 4 }">
 									<span class="starPoint p4">4</span>
 									<p>${ avg } / 5</p>							
 								</c:when>
 								
-								<c:when test="${ star eq 3 }">
+								<c:when test="${ avg >= 3 }">
 									<span class="starPoint p3">3</span>
 									<p>${ avg } / 5</p>						
 								</c:when>
 								
-								<c:when test="${ star eq 2 }">
+								<c:when test="${ avg >= 2 }">
 									<span class="starPoint p2">2</span>	
 									<p>${ avg } / 5</p>								
 								</c:when>
 								
-								<c:when test="${ star eq 1 }">
+								<c:when test="${ avg >= 1 }">
 									<span class="starPoint p1">1</span>
 									<p>${ avg } / 5</p>					
 								</c:when>
 								
-								<c:when test="${ star eq 0 }">
+								<c:when test="${ avg == 0 }">
 									<span class="starPoint p0">0</span>
 									<p>${ avg } / 5</p>									
 								</c:when>
 							</c:choose>
 							</div>
-						</div>
-						<p class="adress">${ reco.recoAddress }</p>
+						</div>						
 						<div class="reco_review">
 							<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('layerPop1')">
 								<span class="arr-right">리뷰쓰기</span>
