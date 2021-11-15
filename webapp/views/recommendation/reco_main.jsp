@@ -160,7 +160,7 @@
 	</div>
 	<div class="layerBody">
 		<form action="${contextPath}/reco/insertReview" method="get">
-			<input type="hidden" name="rno" id="rNo">
+			<input type="hidden" name="rNo" id="rNo">
 			<input type="hidden" name="starScore" id="starScore" value="5" />
 			<h2 id="recoH2"></h2>
 			<h4 class="text">별점을 등록해주세요</h4>
