@@ -147,35 +147,13 @@ $(function(){
 		return false;
 	});
 
-	//구매후기 별점부여
+	//별점
 	$('.rating_star_large .starPoint button').on('click', function(){
 		var point = $(this).index() + 1;
 		$('.rating_star_large .pointBg em').text(point);
 		$('.rating_star_large .pointBg').css({'left': (point * 20) + '%'});
 		$('.rating_star_large .pointBg').attr('point', (point * 20));
 	});
-
-	//포토후기
-	if ($('#photoUpload').size() >= 1){
-		$('#photoUpload .articleArea').sortable({
-			items: '.articleItem'
-			,helper: 'original'
-			,axis: 'y'
-			,handle: '.drag_guide'
-			,forceHelperSize: true
-			,forcePlaceholderSize: true
-			,scroll: true
-			,scrollSensitivity: 230
-			,scrollSpeed: 20
-			,activate: function(event, ui){
-				ui.helper.css('height', 150).siblings().css('opacity', 0.6);
-			}
-			,beforeStop: function(event, ui){ 
-				ui.helper.css('height', 'auto').siblings().css('opacity', 1);
-			}
-		});
-		$('#photoUpload .articleArea').disableSelection();
-	}
 	
 	//셀렉트바 초기 선택 표기
 	$('.selectbox').each(function(){
@@ -237,7 +215,7 @@ $(function(){
 	});
 });
 
-//제품수량 up down 버튼
+//up down 버튼
 function qtyUp(num){
 	if ($(num).parent('.inp_qty').hasClass('readOnly')) {return false;}
 	var thisVal = parseInt($(num).parents('.inp_qty').find("input").val());
