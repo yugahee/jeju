@@ -169,13 +169,13 @@
 	</div>
 </div>
 
-<%-- <c:if test="${!empty reportType}">
+<c:if test="${!empty reportType}">
 <script>
 	$(function(){
 		showLayer('writingMessage');		
 	});
 </script>
-</c:if> --%>
+</c:if>
 
 <script>
 

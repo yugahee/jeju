@@ -79,8 +79,8 @@
 			</div>
 		</div>
 <%@ include file="/views/common/footer.jsp" %>
+   
     <!-- 팝업 화면 -->
-
 	<div id="findPwd" class="layerPop findPwd">
 		<div class="layerTit">
 			<h4>비밀번호 재설정</h4>
@@ -140,7 +140,7 @@
 		</div>
 	</div>
 
-<!-- 비밀번호 재설정에서 메일 인증 부분 비동기 처리 -->	
+<!-- 비밀번호 재설정에서 메일 인증 부분 ajax로 처리 -->	
 <script>
 
 	// 인증 메일 전송 버튼 ajax

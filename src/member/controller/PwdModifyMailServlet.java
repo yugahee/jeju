@@ -92,7 +92,7 @@ public class PwdModifyMailServlet extends HttpServlet {
 
 		 // 비밀번호 재설정의 경우에는 입력받은 메일 값이 존재해야 하기 때문에 result가 1로 돌아와야 성공(메일 재설정의 경우는 0)
 		 if(result < 0) {
-			// 입력한 메일 주소가 user와 달라도 fail전달
+			// result가 1이 아닌 경우 fail 전달
             out.print("fail");				
 		 } else {
 			// 인증 메일 전송
