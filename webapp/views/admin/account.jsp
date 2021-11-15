@@ -212,9 +212,7 @@ scope="application"/>
 	// 인증 메일 전송 버튼 ajax
 	$("#sendEmail").on('click',function(){
 		var newMail = $("[name=newUmail]");		
-		// 새로 등록할 이메일도 기존 가입 시 적은 이메일 정규식과 같게 적용
 		var regExp = (/^[a-zA-Z0-9]([-_\.]?[a-zA-Z0-9])*@[a-zA-Z0-9]([-_\.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,3}$/i);				
-		
 		if(!newMail || newMail.val().match(regExp) == null){
 			alert("올바른 이메일 형식이 아닙니다.");
 			newMail.focus();
@@ -238,11 +236,9 @@ scope="application"/>
 			});		
 		}	
 	});	
-		
 	// 인증 코드 확인 버튼 ajax
 	$("#numberChk").click(function(){
 		var numChk = $("[name=numberConfirm]");		
-		// 최종 저장 submit버튼이 가능하게 하기 위한 확인용 변수
 		var mailConfirm = false;	
 		$.ajax({
 			url : "${contextPath}/mypage/checkNumber",
@@ -257,10 +253,8 @@ scope="application"/>
 					mailConfirm = false;
 					numChk.focus();
 				}				
-				// 메일 인증 확인이 완료된 경우  저장하기 disabled 속성을 없애고
 				if(mailConfirm){
 					$("#save").removeAttr("disabled");
-					// 클래스명에서 disabled도 지워짐
 					document.getElementById("save").className = "btn btnType1 btnSizeM";
 				} else {
 					$("#save").attr("disabled", true);
@@ -269,7 +263,6 @@ scope="application"/>
 			},
 			error : function (e){
 				console.log(e);
-			
 			}
 		});
 	});
