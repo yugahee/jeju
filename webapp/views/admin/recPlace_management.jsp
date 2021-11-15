@@ -144,9 +144,9 @@ scope="application"/>
 					<table summary="추천장소 테이블">
 						<caption>추천장소 테이블</caption>
 						<colgroup>
-							<col width="6%">
-							<col width="6%">
-							<col width="6%">
+							<col width="8%">
+							<col width="8%">
+							<col width="8%">
 							<col width="*">
 							<col width="30%">
 							<col width="6%">
@@ -263,6 +263,10 @@ scope="application"/>
 	                <p>해당 정보가 없습니다</p>
 	                <p class="subtxt">새로운 검색어를 입력해주세요</p>
 	            </div>
+                <div class="btn_wrap recPlace">
+                    <a href="${contextPath }/admin/recPlace_add" class="btn btnType1 btnSizeS"><span>추가</span></a>
+                    <a href="#none" onclick="deleteRec();" class="btn btnType2 btnSizeS"><span>삭제</span></a>
+                </div>
 				</c:otherwise>
 				</c:choose>
 			</div>

@@ -20,8 +20,6 @@ scope="application"/>
     <script src="${contextPath}/resources/js/common.js"></script>    
     <script type="text/javascript" src="${contextPath}/resources/js/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/imagesloaded.pkgd.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/jquery.mCustomScrollbar.min.js"></script>
-    <script type="text/javascript" src="${contextPath}/resources/js/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/ui.js"></script>
     <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/common.css">
     <link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/main.css">
