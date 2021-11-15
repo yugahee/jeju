@@ -63,13 +63,14 @@
 					<!-- 동영상 -->
 					<div class="videoWrap"> 
 						<div class="content"> 
-							<iframe width="956" height="538" src="https://www.youtube.com/embed/bzS-w6D3nGc" 
-							title="YouTube video player" frameborder="0"
-							 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<c:if test="${ !empty room.roomLink}">
+							<iframe width="956" height="538" src="${room.roomLink}" 
+							title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+							encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</c:if>
 						</div> 
 					</div>
 					<!-- 숙소소개 설명 -->
-					
 					<div class="moreSee1">					
 					<pre class="room_content">
 	${room.roomDes}	
