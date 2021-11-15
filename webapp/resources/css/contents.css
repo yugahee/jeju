@@ -1583,6 +1583,11 @@
      .item_info > a > p:first-child {
           font-size: 2rem;
           line-height: 1.25;
+          margin-bottom: 10px;
+     }
+     
+     .reco_item .star_average {
+     	margin: 10px 0 30px;
      }
      
      /* 장소명 및 사진 클릭 시 커서 모양 변경 */

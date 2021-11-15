@@ -4,25 +4,43 @@
 <properties>
 	<entry key="selectAllList">
 		SELECT
-			   RECO_NO
-			 , PUBLIC_YN
-			 , RECO_AREA
-			 , RECO_ADDRESS
-			 , RECO_CATEGORY
-			 , RECO_EXPL
-			 , RECO_KEYWORD
-			 , RECO_NAME
-			 , NAVER_MAP
-			 , KAKAO_MAP
-			 , RECO_IMAGE
-			 , LIKE_COUNT
-			 , IMAGE_NAME
-			 , COORDINATE
-			 , AVG_SCORE
-			 , INT_SCORE
-		  FROM RECOMMENDATION
-		 WHERE PUBLIC_YN = 'Y'
-		 ORDER BY RECO_NO DESC
+       RECO_NO
+     , PUBLIC_YN
+     , RECO_AREA
+     , RECO_ADDRESS
+     , RECO_CATEGORY
+     , RECO_EXPL
+     , RECO_KEYWORD
+     , RECO_NAME
+     , NAVER_MAP
+     , KAKAO_MAP
+     , RECO_IMAGE
+     , LIKE_COUNT
+     , IMAGE_NAME
+     , COORDINATE
+     , AVG_SCORE
+     , INT_SCORE
+     , ROUND(AVG(SCORE),1) SCORE
+ 	FROM RECOMMENDATION R
+	LEFT OUTER JOIN RECO_REVIEW W USING(RECO_NO)
+	WHERE PUBLIC_YN = 'Y'
+	GROUP BY RECO_NO
+	     , PUBLIC_YN
+	     , RECO_AREA
+	     , RECO_ADDRESS
+	     , RECO_CATEGORY
+	     , RECO_EXPL
+	     , RECO_KEYWORD
+	     , RECO_NAME
+	     , NAVER_MAP
+	     , KAKAO_MAP
+	     , RECO_IMAGE
+	     , LIKE_COUNT
+	     , IMAGE_NAME
+	     , COORDINATE
+	     , AVG_SCORE
+	     , INT_SCORE
+	ORDER BY RECO_NO DESC
 	</entry>
 	
 	<entry key="selectList">
