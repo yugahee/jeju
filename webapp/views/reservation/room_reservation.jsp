@@ -4,8 +4,8 @@
 <link type="text/css" rel="stylesheet" href="../resources/css/common.css">
 <link type="text/css" rel="stylesheet" href="../resources/css/contents.css">    
 <%@ include file="/views/common/header.jsp" %>  
-<c:if test="${ !empty param.checkIn && !empty param.checkOut && !empty param.inwonsu }">
-	<c:set var="searchParam" value="&checkIn=${ param.checkIn }&checkOut=${ param.checkOut }&inwonsu=${ param.inwonsu }"/>
+<c:if test="${ !empty param.checkIn && !empty param.checkOut && !empty param.mainLocation }">
+	<c:set var="searchParam" value="&checkIn=${ param.checkIn }&checkOut=${ param.checkOut }&mainLocation=${ param.mainLocation }"/>
 </c:if>	  
 		<div class="lodging_reserve">
 			<div class="container">
@@ -48,28 +48,38 @@
 						</div>
 					</form>
 						<!--여기 아래부터 숙소 사진과 옆에 숙소명+숙소제목...-->
-					<c:forEach var="room" items="${ roomList }">
-					<%-- <c:if test=></c:if> --%>
-					<div class="lodging_lineup" onclick="detailReservation(${room.roomNo})">
-						<div class="child1">
-							<img src="${contextPath}${room.fileList.get(0).filePath}
-							${room.fileList.get(0).changeName}">
-						</div>
-						<div class="child2">
-							<br>
-							<span class="text1" >[${ room.location }] ${ room.roomName }</span> 
-							<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
-							<div class="roomReview">
-								<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
-								<span class="text3" id="reviewStar">${ room.star }</span>
-								<span class="text3" id="reviewCount">(후기 : ${room.reviewCount }개)</span>
+					<c:choose>
+					<c:when test="${!empty roomList}">
+						<c:forEach var="room" items="${ roomList }">
+						<%-- <c:if test=></c:if> --%>
+						<div class="lodging_lineup" onclick="detailReservation(${room.roomNo})">
+							<div class="child1">
+								<img src="${contextPath}${room.fileList.get(0).filePath}
+								${room.fileList.get(0).changeName}">
 							</div>
-							<div class="roomPrice">
-								<span>${room.price}/박</span>
+							<div class="child2">
+								<br>
+								<span class="text1" >[${ room.location }] ${ room.roomName }</span> 
+								<span class="text2">${ room.roomTitle }</span> <br> <br> <br> 
+								<div class="roomReview">
+									<img src="${contextPath}/resources/images/star.png" width="20px" height="20px">
+									<span class="text3" id="reviewStar">${ room.star }</span>
+									<span class="text3" id="reviewCount">(후기 : ${room.reviewCount }개)</span>
+								</div>
+								<div class="roomPrice">
+									<span>${room.price}/박</span>
+								</div>
 							</div>
-						</div>
-					</div> 	
-					</c:forEach>	
+						</div> 	
+						</c:forEach>
+					</c:when>	
+					<c:otherwise>
+						<div class="noData">
+			                <p>해당 정보가 없습니다</p>
+			                <p class="subtxt">새롭게 다시 검색해주세요</p>
+			            </div>
+					</c:otherwise>
+					</c:choose>
 			</div>
 		</div>
 	</div>
