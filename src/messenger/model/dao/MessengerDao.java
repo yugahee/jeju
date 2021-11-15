@@ -29,6 +29,7 @@ private Properties messengerQuery = new Properties();
 		}
 	}
 
+	// 보낸 메시지 리스트
 	public int getSentListCount(Connection conn, String fromUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -56,6 +57,7 @@ private Properties messengerQuery = new Properties();
 		return listCount;
 	}
 
+	// 보낸 메시지 리스트 페이징
 	public List<Messenger> selectSentList(Connection conn, PageInfo pi, String fromUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -103,6 +105,7 @@ private Properties messengerQuery = new Properties();
 	}
 
 
+	// 받은 메시지 리스트
 	public int getReceiveListCount(Connection conn, String toUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -130,6 +133,7 @@ private Properties messengerQuery = new Properties();
 		return listCount;
 	}
 
+	// 받은 메시지 리스트 페이징
 	public List<Messenger> selectReceiveList(Connection conn, PageInfo pi, String toUser) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -177,6 +181,8 @@ private Properties messengerQuery = new Properties();
 	}
 
 	
+	
+	// 메시지 클릭 시 상세 보기
 	public Messenger selectMessage(Connection conn, int msgNo, String loginUser) {
 
 		// 메시지 상세 보기 시 읽음 표시 'Y' 처리 
@@ -199,7 +205,7 @@ private Properties messengerQuery = new Properties();
 		  }
 		 	
 
-		// 메시지 상세 보기
+		// 메시지  상세 보기
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Messenger messenger = null;
@@ -238,6 +244,8 @@ private Properties messengerQuery = new Properties();
 	}
 	
 	
+	
+	// 보낸 메시지 수정
 	public int modifyMessenger(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -261,6 +269,9 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 	
+	
+	
+	// 답장했던 메시지 수정
 	public int modifyReMessenger(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -283,6 +294,9 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 
+	
+	
+	// 메시지 삭제
 	public int deleteMessage(Connection conn, int msgNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -304,31 +318,39 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 
+	
+	
+	// 관리자에게 메시지 작성
 	public int insertMessenger(Connection conn, Messenger messenger) {
+		
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result = 0;	
 		String sql = messengerQuery.getProperty("insertMessenger");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
+					
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, messenger.getMsg_cate());
+				pstmt.setString(2, messenger.getMsg_content());
+				pstmt.setString(3, messenger.getFrom_user());
+				pstmt.setString(4, messenger.getTo_user());
+				pstmt.setString(5, messenger.getReport_user());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
 			
-			pstmt.setString(1, messenger.getMsg_cate());
-			pstmt.setString(2, messenger.getMsg_content());
-			pstmt.setString(3, messenger.getFrom_user());
-			pstmt.setString(4, messenger.getTo_user());
-			pstmt.setString(5, messenger.getReport_user());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
+				
 		return result;
 	}
 
+	
+	
+	// 메시지 답장
 	public int replyMessenger(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -353,6 +375,9 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 
+	
+	
+	// 호스트에게 문의 메시지 작성
 	public int insertMessengerHost(Connection conn, Messenger messenger) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -378,5 +403,27 @@ private Properties messengerQuery = new Properties();
 		return result;
 	}
 
+	
+	
+	// 관리자에게 신고 메시지 보낸 경우 신고당한 회원은 신고 횟수 업데이트하기
+	public int updateReport(Connection conn, Messenger messenger) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = messengerQuery.getProperty("updateReport");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, messenger.getReport_user());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}		
+		return result;
+	}
 	
 }

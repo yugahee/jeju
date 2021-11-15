@@ -127,7 +127,13 @@ public class MessengerService {
 		int result = messengerDao.insertMessenger(conn, messenger);
 		
 		if(result > 0) {
+			// 신고 메시지인 경우 신고당한 사람 신고 횟수 +1
+			if(messenger.getMsg_cate().equals("신고")) {
+				messengerDao.updateReport(conn, messenger);
+			}
+			
 			commit(conn);
+			
 		} else {
 			rollback(conn);
 		}

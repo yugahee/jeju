@@ -694,18 +694,12 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
-		
 		String sql = roomQuery.getProperty("roomSearch1");
-
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-
 			pstmt.setString(1, search.getCheckIn());
 			pstmt.setString(2, search.getCheckOut());
 
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
