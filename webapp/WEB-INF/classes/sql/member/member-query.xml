@@ -36,6 +36,7 @@
 		 , PHONE
 		 , EMAIL
 		 , USER_TYPE
+		 , POINT
 		 , ENROLL_DATE
 		 , MODIFY_DATE
 		 , STATUS
@@ -48,6 +49,7 @@
 		 , ?
 		 , ?
 		 , ?
+		 , 0
 		 , SYSDATE
 		 , SYSDATE
 		 , DEFAULT
