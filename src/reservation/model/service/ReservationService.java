@@ -30,7 +30,7 @@ public class ReservationService {
 		
 		System.out.println(search);
 		
-		if(search.getCheckIn() != "" && search.getCheckOut() != "" && search.getRoom_type() == "" && search.getLocation() == "" && search.getSpecialFac() == "" && search.getBuilding_type() == ""){
+		if(search.getCheckIn() != null && search.getCheckOut() != null && search.getRoom_type() == "" && search.getLocation() == "" && search.getSpecialFac() == "" && search.getBuilding_type() == ""){
 			// 체크인 체크아웃 만
 			roomList = reservationDao.searchRoomList(conn, search);
 		}else if(search.getCheckIn() == "" && search.getCheckOut() == "" && search.getRoom_type() == "" && search.getLocation() != "" && search.getSpecialFac() == "" && search.getBuilding_type() == "") {

@@ -5,7 +5,7 @@
 <!-- 숙소예약 화면(썸네일 부분) list  -->
 <entry key="selectRoomList">
 	   SELECT 
-		     COUNT(ROOM_REVIEW) REVIEW,
+		     COUNT(REVIEW) REVIEW,
 		     LOCATION,
 		     ROOM_NAME,
 		     ROOM_TITLE,
@@ -13,7 +13,7 @@
 		     ROUND(AVG(STAR),1) STAR,
 		     FILE_PATH,
 		     CHANGE_NAME,
-		     ROOM_NO,
+		     ROOM_NO
 		 FROM ROOMS R
 		 LEFT OUTER JOIN FILES F USING(ROOM_NO)
 	  	 LEFT OUTER JOIN ROOMS_REVIEW USING(ROOM_NO)
@@ -343,6 +343,7 @@
 <!-- 게스트들이 예약해놓은 날짜 피해서 조회(체크인 날짜 이전과 체크아웃 날짜 이후의 숙소들만 조회) -->
 <entry key="roomSearch1">
 	SELECT 
+	COUNT(REVIEW) REVIEW,
      LOCATION,
      ROOM_NAME,
      ROOM_TITLE,
@@ -367,6 +368,7 @@ ORDER BY ROOM_NO DESC
 <!-- 조건검색으로 검색 시 -->
 <entry key="roomSearch2">
 SELECT 
+	COUNT(REVIEW) REVIEW,
      LOCATION,
      ROOM_NAME,
      ROOM_TITLE,
@@ -382,16 +384,17 @@ SELECT
 WHERE FILE_LEVEL = 0
   AND R.STATUS = 'Y'
   AND ENROLL_STATUS = '등록완료'
-  AND (ROOM_FAC LIKE '%' || ? || '%'
-  OR LOCATION LIKE '%' || ? || '%'
-  OR ROOM_TYPE LIKE '%' || ? || '%'
-  OR BUILDING_TYPE LIKE '%' || ? || '%')
+  AND ROOM_FAC LIKE '%' || ? || '%'
+  AND LOCATION LIKE '%' || ? || '%'
+  AND ROOM_TYPE LIKE '%' || ? || '%'
+  AND BUILDING_TYPE LIKE '%' || ? || '%'
 GROUP BY LOCATION, ROOM_NAME, ROOM_TITLE, PRICE, FILE_PATH, CHANGE_NAME, ROOM_NO
 ORDER BY ROOM_NO DESC
 </entry>
 
 <entry key="roomSearch3">
 	SELECT 
+	COUNT(REVIEW) REVIEW,
      LOCATION,
      ROOM_NAME,
      ROOM_TITLE,
@@ -416,6 +419,7 @@ ORDER BY ROOM_NO DESC
 
 <entry key="roomSearch4">
 	SELECT 
+	COUNT(REVIEW) REVIEW,
      LOCATION,
      ROOM_NAME,
      ROOM_TITLE,
@@ -431,7 +435,7 @@ ORDER BY ROOM_NO DESC
 WHERE FILE_LEVEL = 0
   AND R.STATUS = 'Y'
   AND ENROLL_STATUS = '등록완료'
-  AND LOCATION LIKE '%' || ? 
+  AND LOCATION LIKE '%' || ? || '%'
 GROUP BY LOCATION, ROOM_NAME, ROOM_TITLE, PRICE, FILE_PATH, CHANGE_NAME, ROOM_NO
 ORDER BY ROOM_NO DESC
 </entry>

@@ -38,6 +38,7 @@ public class ReservationDao {
 	
 	// 숙소예약 클릭 시 숙소 전체목록 조회 
 	public List<Rooms> selectRoomList(Connection conn) {
+		//System.out.println("selectRoomList");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
@@ -690,7 +691,8 @@ public class ReservationDao {
 	}
 
 	// 숙소 리스트 뷰에서 체크인, 체크아웃 날짜로 검색 시 
-	public List<Rooms> searchRoomList(Connection conn, RoomSearch search) {
+	public List<Rooms> searchRoomList(Connection conn, RoomSearch search) {		
+		//System.out.println("searchRoomList");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
@@ -704,6 +706,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setReviewCount(rset.getInt("review"));
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
@@ -734,6 +737,7 @@ public class ReservationDao {
 	
 	// 숙소 리스트 뷰에서 조건 검색으로 검색 시  
 	public List<Rooms> searchRoomList2(Connection conn, RoomSearch search) {
+		//System.out.println("searchRoomList2");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
@@ -753,6 +757,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setReviewCount(rset.getInt("review"));
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
@@ -781,15 +786,17 @@ public class ReservationDao {
 	}
 
 	public List<Rooms> searchRoomList3(Connection conn, RoomSearch search) {
+		//System.out.println("searchRoomList3");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		List<Rooms> roomList = new ArrayList<>();
 		String sql = roomQuery.getProperty("roomSearch3");			
 		
-		if(search.getCheckIn().equals("") || search.getCheckOut().equals("")) {
+		if(search.getCheckIn() == "" || search.getCheckIn() == null || search.getCheckOut() == "" || search.getCheckOut() == null) {
 			sql = roomQuery.getProperty("roomSearch4");
 		}
 		
+		System.out.println(sql);
 		try {
 			pstmt = conn.prepareStatement(sql);			
 			
@@ -806,6 +813,7 @@ public class ReservationDao {
 			
 			while(rset.next()) {
 				Rooms rooms = new Rooms();
+				rooms.setReviewCount(rset.getInt("review"));
 				rooms.setLocation(rset.getString("location"));
 				rooms.setRoomName(rset.getString("room_name"));
 				rooms.setRoomTitle(rset.getString("room_title"));
