@@ -85,12 +85,15 @@ scope="application"/>
 					<section class="surname"><span class="letter letter--0">A</span><span class="letter letter--1">D</span><span class="letter letter--2">M</span><span class="letter letter--3">I</span><span class="letter letter--4">N</span><span class="letter letter--5">P</span><span class="letter letter--6">A</span><span class="letter letter--7">G</span><span class="letter letter--8">E</span>
 					</section>
 				</div>
-				<div id="score">꼬리잡기</div>
+				<div id="score">꼬리잡기 미니게임<br>
+					<p style="font-size:1rem;margin-top:20px;">방향키를 누르면 START★😎</p>
+					<div>
+						<a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="init(0);" style=""><span>초보모드</span></a>
+						<a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="init(1);" style=""><span>지옥모드</span></a>
+					</div>
+				</div>
         		<div id="plus"></div>
         		<div id="board"></div>
-        		<script>
-        		 init();
-        		</script>
 			</div>
 			<!-- //contet -->
 		</div>

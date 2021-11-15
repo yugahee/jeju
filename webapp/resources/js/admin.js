@@ -97,11 +97,10 @@ var keepMove;
 var direction; // 0 1 2 3 상 하 좌 우
 var speed;
 var snakeQueue = new Array();
-var snakeColor = "#ED5B5B",
-    tileColor = "#EEEEEE"
-    wallColor = "#2E2E2E",
-    coinColor = "#4476C6";
-
+var snakeColor = "#ff8b33",
+	tileColor = "#EEEEEE"
+	wallColor = "#2E2E2E",
+	coinColor = "#4476C6";
 // 키보드 입력 이벤트 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
@@ -112,7 +111,19 @@ function keyDownEventHandler(e){
 }
 
 // 초기 설정
-function init(){
+function init(e){
+    if(e == 0){
+    	speed=80;
+    	snakeColor = "#ff8b33";
+    	wallColor = "#2E2E2E";
+    	coinColor = "#4476C6";
+    }else if(e == 1){
+    	speed=30;
+    	snakeColor = "#ff8b33";
+    	wallColor = "#bb5f5f";
+    	coinColor = "#e8e2ff";
+    }
+    $('.btn').fadeOut(500);
     drawBoard();
     drawWall();
     y=parseInt(MY/2);
@@ -121,7 +132,6 @@ function init(){
     setCoin();
     score=0;
     direction=-1;
-    speed=50;
     keepMove = setInterval("move(direction)",speed);
 }
 
