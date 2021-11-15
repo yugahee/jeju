@@ -417,11 +417,12 @@
 						endDate : $("#checkOut").val()},
 				/* dataType : "json", */
 				type : "post",
-				success : function(result){					
+				success : function(result){
+					console.log(result);
 					if(result == "success"){
 						const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
 					     ch.click();    // 레이아웃 닫기
-						
+						 
 						 alert("예약 신청이 완료되었습니다.");
 					     
 					     // 예약 정보 인서트 

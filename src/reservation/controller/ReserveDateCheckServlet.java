@@ -48,31 +48,36 @@ public class ReserveDateCheckServlet extends HttpServlet {
 		Date startDate = Date.valueOf(request.getParameter("startDate")); 
 		Date endDate = Date.valueOf(request.getParameter("endDate"));
 		
-		System.out.println(startDate);
-		System.out.println(endDate);
-		
+//		System.out.println(startDate);
+//		System.out.println(endDate);
+//		System.out.println(roomNo);
 		// 예약 체킹
 		List<Reservation> possibleReservList = new ReservationService().possibleReservation(roomNo);
-		System.out.println(possibleReservList);
 		
 		//response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
 		int result = 0; // 성공시 1, 실패시 0
-		String sresult = "";
-		for(Reservation DateCheck : possibleReservList) {
-			Date startDateDB = DateCheck.getStart_date();
-			Date endDateDB = DateCheck.getEnd_date();
+		System.out.println(possibleReservList);
+		if(possibleReservList.isEmpty()) {
+			result = 1;
 			
-			//인수 날짜가Date 객체와 같으면0을 반환합니다.
-			//Date 객체가 인수 날짜 이후 인 경우 양수 값을 반환합니다.
-			//Date 객체가 인수 날짜보다 앞에 있으면 음수를 반환합니다.
-			if(startDateDB.compareTo(startDate) == 0 && endDateDB.compareTo(endDate) == 0) {
-				result = 0;
-				break;
-			} else if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
-				result = 1;
+		}else {
+			for(Reservation DateCheck : possibleReservList) {
+				Date startDateDB = DateCheck.getStart_date();
+				Date endDateDB = DateCheck.getEnd_date();
+				
+				//인수 날짜가Date 객체와 같으면0을 반환합니다.
+				//Date 객체가 인수 날짜 이후 인 경우 양수 값을 반환합니다.
+				//Date 객체가 인수 날짜보다 앞에 있으면 음수를 반환합니다.
+				if(startDateDB.compareTo(startDate) == 0 && endDateDB.compareTo(endDate) == 0) {
+					result = 0;
+					break;
+				} else if(startDateDB.compareTo(startDate) != 0 && endDateDB.compareTo(endDate) != 0) {
+					result = 1;
+				}
 			}
+			
 		}
 		
 		if(result > 0 ) {
@@ -80,17 +85,7 @@ public class ReserveDateCheckServlet extends HttpServlet {
 	      }else {
 	    	  out.print("fail"); 
 	      }
-		
-//		if(result > 0 ) {
-//	         sresult = "success";
-//	      }else {
-//	         sresult = "fail";
-//	      }
-//	      
-//	      response.setContentType("application/json;charset=utf-8");
-//	      new Gson().toJson(sresult, response.getWriter());
-		
-		
+
 	}
 
 }
