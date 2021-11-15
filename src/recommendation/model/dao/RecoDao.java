@@ -400,7 +400,7 @@ public class RecoDao {
 											  , rset.getInt("like_count")
 											  , rset.getString("image_name")
 											  , rset.getString("coordinate")
-											  , rset.getDouble("avg_score")
+											  , rset.getDouble("STARSCORE")
 											  , rset.getInt("int_score")));
 			}
 		} catch (SQLException e) {
