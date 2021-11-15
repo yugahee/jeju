@@ -133,19 +133,3 @@ function newPwd(){
 /* delete */
 // 체크 박스 눌리면 탈퇴 버튼 활성화 되게 
 // => 버튼 클래스 이름 바꿔주고 disabled=false;
-
-
-$(document).ready(function(){
-    /* 지희님 */
-    /* 하트 체크 */
-    $(function(){
-        $('.heart').click(function(){
-            if($(this).attr('src') == '/jeju/resources/images/ch/heart_empty.png'){
-                $(this).attr('src', '/jeju/resources/images/ch/heart.png');
-                console.log("ddd");
-            }else{
-                $(this).attr('src', '/jeju/resources/images/ch/heart_empty.png');
-            }
-        });
-    });
-});

@@ -194,6 +194,11 @@
 	    DEFAULT
 	)
 	</entry>
+	<entry key="countLike">
+		UPDATE RECOMMENDATION
+		   SET LIKE_COUNT = LIKE_COUNT+1
+		 WHERE RECO_NO = ?
+	</entry>
 	
 	<entry key="selectOnlyAreaList">
 		SELECT

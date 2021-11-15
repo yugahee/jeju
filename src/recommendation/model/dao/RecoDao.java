@@ -436,4 +436,22 @@ public class RecoDao {
 		return result;
 	}
 
+	public int countLike(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = recoQuery.getProperty("countLike");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

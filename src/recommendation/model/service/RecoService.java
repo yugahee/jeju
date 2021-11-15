@@ -145,4 +145,19 @@ public class RecoService {
 		return result;
 	}
 
+	public int countLike(int no) {
+		Connection conn = getConnection();		
+		int result = recoDao.countLike(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
 }

@@ -138,19 +138,94 @@
 							<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('layerPop1')">
 								<span class="arr-right">리뷰쓰기</span>
 							</a>
-							<a href="#">
-								<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
-							</a>
-							<p class="count">200</p>
 						</div>
 					</div>
+					<div class="likeCount">
+						<div class="likeAnime"></div>
+						<div class="likeBtn">
+							<a href="javascript:saveLike(${reco.recoNo});"></a>
+						</div>
+						<span class="clickCount">${reco.likeCount }</span>
+					</div>
 				</div>
-				</c:forEach>					
+				</c:forEach>
+				<style>
+					.reco_item{position:relative;}
+					.likeCount{position: absolute;bottom: 15px;right: 15px;width: 100%;width:50px;height:50px;border-radius:50%;background:#ccc;}
+					.likeCount .likeAnime{position: absolute;bottom: 100%;left: 50%;width: 100%;transform: translateX(-50%);}
+					.likeCount .likeAnime .heart .heart01{opacity:0;position: absolute;left: 50%;bottom: 0;width: 32px;height: 24px;margin-left: -16px;}
+					.likeCount .likeAnime .heart .heart01:before{position: absolute;content: "";left: 0;top: 0;width: 16px;height: 24px;margin-left: 16px;border-radius: 16px 16px 0 0;transform-origin: 0 100%;transform: rotate(-45deg);background: #ff65af;}
+					.likeCount .likeAnime .heart .heart01:after{position: absolute;content: "";left: 16px;top: 0;width: 16px;height: 24px;margin-left: -16px;border-radius: 16px 16px 0 0;transform-origin: 100% 100%;transform: rotate(45deg);background: #ff65af;}
+					.likeCount .likeAnime .heart .heart02{opacity:0;position: absolute;left: 50%;bottom: 0;width: 20px;height: 16px;margin-left: -10px;}
+					.likeCount .likeAnime .heart .heart02:before{position: absolute;content: "";left: 0;top: 0;width: 10px;height: 16px;margin-left: 10px;border-radius: 10px 10px 0 0;transform-origin: 0 100%;transform: rotate(-45deg);background: #a962ff;}
+					.likeCount .likeAnime .heart .heart02:after{position: absolute;content: "";left: 10px;top: 0;width: 10px;height: 16px;margin-left: -10px;border-radius: 10px 10px 0 0;transform-origin: 100% 100%;transform: rotate(45deg);background: #a962ff;}
+					.likeCount .likeAnime .heart.style1 .heart01{animation: flying1 1.5s linear 0s forwards;}
+					.likeCount .likeAnime .heart.style1 .heart02{animation: flying2 1.5s linear 0.3s forwards;}
+					.likeCount .likeAnime .heart.style2 .heart01{animation: flying3 1.5s linear 0s forwards;}
+					.likeCount .likeAnime .heart.style2 .heart02{animation: flying4 1.5s linear 0.3s forwards;}
+					.likeCount .likeAnime .heart.style3 .heart01{animation: flying2 1.5s linear 0s forwards;}
+					.likeCount .likeAnime .heart.style3 .heart02{animation: flying3 1.5s linear 0.3s forwards;}
+					.likeCount .likeAnime .heart.style4 .heart01{animation: flying1 1.5s linear 0s forwards;}
+					.likeCount .likeAnime .heart.style4 .heart02{animation: flying4 1.5s linear 0.3s forwards;}
+					.likeCount .likeBtn{position:relative;display: inline-block;width: 20px;height: 20px;margin-top:5px;}
+					.likeCount .likeBtn a{display: block;position:absolute;top:50%;left:50%;width: 100%;height: 100%;background: url(/jeju/resources/images/ch/likeCount.png) no-repeat center top / 100% auto;transform: translate(-50%, -50%);}
+					.likeCount .clickCount{display: block;font-size: 11px;line-height: 15px;margin-top: 3px;font-weight: bold;color: #fff;}
+					
+					@keyframes flying1 {
+					  0% {
+					    transform: translate(0, 0) scale(1);
+					    opacity: 1;
+					  }
+					  100% {
+					    transform: translate(45px, -200px) scale(1.5);
+					    opacity: 0;
+					  }
+					}
+					@keyframes flying2 {
+					  0% {
+					    transform: translate(0, 0) scale(1);
+					    opacity: 1;
+					  }
+					  100% {
+					    transform: translate(15px, -200px) scale(1.5);
+					    opacity: 0;
+					  }
+					}
+					@keyframes flying3 {
+					  0% {
+					    transform: translate(0, 0) scale(1);
+					    opacity: 1;
+					  }
+					  100% {
+					    transform: translate(-15px, -200px) scale(1.5);
+					    opacity: 0;
+					  }
+					}
+					@keyframes flying4 {
+					  0% {
+					    transform: translate(0, 0) scale(1);
+					    opacity: 1;
+					  }
+					  100% {
+					    transform: translate(-45px, -200px) scale(1.5);
+					    opacity: 0;
+					  }
+					}
+				</style>
+				<script>
+				$('.likeBtn a').on('click', function() {
+					$(this).stop().animate({height: '14px', width: '14px'}, 100, function(){
+						$(this).stop().animate({height: '100%', width: '100%'}, 100)
+					})
+					$(this).closest('.likeCount').find('.likeAnime').append('<span class="heart style'+Math.floor(4*Math.random()+1)+'"><span class="heart01"></span><span class="heart02"></span></span>')
+					$(this).closest('.likeCount').find('.clickCount').html(parseFloat($(this).closest('.likeCount').find('.clickCount').html())+1)
+				})
+				</script>	
 			</div>
 			<!-- list_box END -->
 		</div>
 	</div>
-<%@ include file="/views/common/footer.jsp" %>
+	<%@ include file="/views/common/footer.jsp" %>
 <div id="layerPop1" class="layerPop reco-review-pop">		<!-- 레이어 시작 -->
 	<div class="layerTit">
 		<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
@@ -263,4 +338,16 @@ function reviewDetail(rNo){
 		}
 	});
 }
+
+function saveLike(no){
+	 $.ajax({
+		type : "post",
+        url: "${contextPath}/reco/likeCount",
+        //dataType: 'json',
+        data : {"no" : no},
+		success:function(data){
+		}
+	});
+}
+
 </script>
