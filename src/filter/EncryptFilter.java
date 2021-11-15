@@ -23,7 +23,7 @@ import wrapper.PwdEncryptWrapper;
 
 // 암호화 적용 시킬 서블릿 = 로그인, 회원가입, 비밀번호 수정
 // servletName을 기준으로 매핑
-@WebFilter(filterName="encrypt", servletNames= {"LoginServlet", "JoinServlet", "PwdModifyServlet"})
+@WebFilter(filterName="encrypt", servletNames= {"LoginServlet", "JoinServlet", "PwdModifyServlet", "pwdReset", "AdminLogin", "AdminModify"})
 	
 public class EncryptFilter implements Filter {
 

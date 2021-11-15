@@ -2,6 +2,10 @@ package admin.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Properties;
 import java.util.Random;
 
@@ -23,7 +27,7 @@ import member.model.service.MemberService;
 /**
  * Servlet implementation class MypageMailChangeServlet
  */
-@WebServlet("/admin/pwdReset")
+@WebServlet(name="pwdReset", urlPatterns="/admin/pwdReset")
 public class pwdSendMailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -83,42 +87,52 @@ public class pwdSendMailServlet extends HttpServlet {
 		 
 		 // ajax 결과로 보내줄 출력문 작성을 위해 out 정의해둠
 		 PrintWriter out = response.getWriter();
-		 
-		 int result = new AdminService().checkEmail(to_email);
-		 
-		 // 입력한 메일 주소가 String user와 일치하면 메일 보내기
+		 try {
+			 MimeMessage msg = new MimeMessage(session);
+			 // 메일 발신자 이름
+			 msg.setFrom(new InternetAddress(user, "제주라도 넘어갈까"));
+			 msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+			 // 메일 제목
+			 msg.setSubject("'제주라도 넘어갈까' 비밀번호 초기화 메일입니다.");
+			 // 메일 내용
+			 msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 임시 비밀번호는 [ " + temp + " ] 입니다. \n 개인정보 보호를 위해 로그인 후 비밀번호를 변경해주세요😊");
 
-		 if(result > 0) {
-			// 입력한 메일 주소가 user와 달라도 fail전달
-            out.print("fail");				
-		 } else {
-			// 인증 메일 전송
-			 try {
-				 MimeMessage msg = new MimeMessage(session);
-				 // 메일 발신자 이름
-				 msg.setFrom(new InternetAddress(user, "제주라도 넘어갈까"));
-				 msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
-				 // 메일 제목
-				 msg.setSubject("'제주라도 넘어갈까' 비밀번호 초기화 메일입니다.");
-				 // 메일 내용
-				 msg.setText("안녕하세요. 제주라도 넘어갈까 관리자입니다.\n 회원님의 임시 비밀번호는 [ " + temp + " ] 입니다. \n 개인정보 보호를 위해 로그인 후 비밀번호를 변경해주세요😊");
-			
-				 Transport.send(msg);
-		
-				 // 메일 전송이 완료되면 success 전달
-				 out.print("success");
-				 
-			 } catch (Exception e) {
-	            e.printStackTrace();
-	            // 메일 전송에 실패하면 fail 전달
-	            out.print("fail");
-			}
+			 Transport.send(msg);
+		 } catch (Exception e) {
+            e.printStackTrace();
 		 }
-		 
+
+		 String checkKey = getSha512(temp.toString());
+		 System.out.println(checkKey);
 		 // 인증 코드 문자열로 저장하고
-		 String checkKey = temp.toString();
-		 int result2 = new AdminService().pwdReset(checkKey, to_email);
+		 int result = new AdminService().pwdReset(checkKey, to_email);
 		 	
+	}
+
+	private String getSha512(String userPwd) {
+		
+		String encPwd = null;
+		
+		try {
+			// sha512 방식의 암호화 객체
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			
+			// 요청에서 전달받은 String 타입의 userPwd를 바이트 배열로 변경
+			byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+			
+			// md 객체에 userPwd 바이트 배열을 전달해서 update 호출
+			md.update(bytes);
+			
+			// md.digest() => 해쉬 함수 처리 된 결과를 byte 배열로 리턴
+			// 해당 바이트 배열을 다시 String타입으로 인코딩
+			encPwd = Base64.getEncoder().encodeToString(md.digest());
+			
+		} catch (NoSuchAlgorithmException e) {
+			// 매개변수로 전달한 알고리즘 명이 틀렸을 경우 예외 발생
+			e.printStackTrace();
+		}
+		
+		return encPwd;
 	}
 
 }

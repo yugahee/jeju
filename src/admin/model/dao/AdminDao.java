@@ -1005,7 +1005,7 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = adminQuery.getProperty("resetPwd");
-		
+		System.out.println("sql checkKey : " + checkKey);
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -1687,6 +1687,29 @@ public class AdminDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int pwdEmail(Connection conn, String to_email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String sql = adminQuery.getProperty("pwdEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, to_email);			
+			rset = pstmt.executeQuery();			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }

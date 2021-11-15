@@ -24,7 +24,7 @@ public class PwdEncryptWrapper extends HttpServletRequestWrapper {
 	public String getParameter(String key) {
 		String value = "";
 		
-		if(key != null && (key.equals("userPwd") || key.equals("newPwd1"))) {
+		if(key != null && (key.equals("userPwd") || key.equals("newPwd1") || key.equals("adUserPwd") || key.equals("checkKey"))) {
 			// request 객체에 담긴 파라미터 키 값이 userPwd 또는 newPwd1(비번재설정 서블릿으로 넘긴 요청값)인 경우 암호화
 			value = getSha512(super.getParameter(key));
 			

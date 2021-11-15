@@ -15,7 +15,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class adminModifyServlet
  */
-@WebServlet("/admin/modify")
+@WebServlet(name="AdminModify", urlPatterns="/admin/modify")
 public class adminModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
