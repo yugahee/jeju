@@ -61,19 +61,29 @@
 						<span>숙소 소개</span>
 					</div>
 					<!-- 동영상 -->
+					<c:choose>
+					<c:when test="${ !empty room.roomLink}">
 					<div class="videoWrap"> 
 						<div class="content"> 
-							<c:if test="${ !empty room.roomLink}">
 							<iframe width="956" height="538" src="${room.roomLink}"
 							title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
 							encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							</c:if>
 						</div> 
 					</div>
+					</c:when>
+					<c:otherwise>
+					<div class="noVideo">
+					
+					</div>
+					</c:otherwise>
+					</c:choose>
 					<!-- 숙소소개 설명 -->
-					<div class="moreSee1">					
-					<pre class="room_content">
-	${room.roomDes}	
+					<div class="moreSee1">	
+						<div class="room_content1"> 
+						${room.roomDes}	 
+						</div>			
+	
+					<pre class="room_content2">
 	▶ 이용인원 안내 ◀
 	- 기본인원 : <span>${room.minPeople}인</span>
 	- 최대인원 : <span>${room.maxPeople}인</span>
