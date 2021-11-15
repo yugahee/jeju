@@ -1647,7 +1647,7 @@ public class AdminDao {
 				Messenger msg = new Messenger();
 				msg.setFrom_user(rset.getString("from_user"));
 				msg.setMsg_content(rset.getString("msg_content"));
-				msg.setMsg_date(rset.getTimestamp("msg_date"));
+				msg.setMsg_date(rset.getDate("msg_date"));
 				msg.setReport_user(rset.getString("report_user"));
 				msgList.add(msg);
 			}

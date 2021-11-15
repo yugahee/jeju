@@ -132,24 +132,6 @@ scope="application"/>
 				<div class="listTotal">
 					<div class="sortArea">
 						<p class="totalCnt">총 ${listCount} 개</p>
-						<%-- <div class="selectbox">
-							<button class="title" type="button" title="목록 선택">목록 10개</button>
-							<input class="inputVal" type="hidden" name="sel_type3_chk" value="아이디">
-							<ul class="selList" style="max-height: 0px; display: none;">
-								<li>
-									<input type="radio" value="10" class="option" id="sel_type3_1" name="sel_type3" checked="checked">
-									<label for="sel_type3_1">목록 10개</label>
-								</li>
-								<li>
-									<input type="radio" value="20" class="option" id="sel_type3_2" name="sel_type3">
-									<label for="sel_type3_2">목록 20개</label>
-								</li>
-								<li>
-									<input type="radio" value="${listCount}" class="option" id="sel_type3_3" name="sel_type3">
-									<label for="sel_type3_3">전체보기</label>
-								</li>
-							</ul>
-						</div> --%>
 					</div>
 				</div>
 				<c:choose>

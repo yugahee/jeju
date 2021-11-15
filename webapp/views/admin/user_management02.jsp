@@ -336,7 +336,7 @@ scope="application"/>
 					if(user.msgList.length > 0){
 						for(var i=0; i < user.msgList.length; i++){
 							report+= '<tr><th>신고자</th><td>'+user.msgList[i].from_user+'</td></tr>';
-							report+= '<tr><th>날짜</th><td>'+user.msgList[i].msg_date+'</td></tr>';
+							report+= '<tr><th>날짜</th><td>'+user.msgList[i].msg_date.split(',')[1]+'년 '+user.msgList[i].msg_date.split(',')[0]+'일</td></tr>';
 							report+= '<tr><th>내용</th><td>'+user.msgList[i].msg_content+'</td></tr>';
 						}
 					}
