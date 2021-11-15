@@ -1774,3 +1774,9 @@
 	top: 50px;
 	right: 150px;
 }
+
+.reco-review-pop .text { text-align: center; }
+.reco-review-pop .rating_star_large { margin : 20px 0; }
+.reco-review-pop .btn { margin-top: 20px; }
+.reco-review-pop .comment-box { text-align: center }
+.reco-review-pop #moveStar { text-align: center; }

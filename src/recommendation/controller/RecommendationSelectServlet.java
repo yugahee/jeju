@@ -32,20 +32,20 @@ public class RecommendationSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rNo = Integer.parseInt(request.getParameter("rNo"));
 		
-		Recommendation result = new RecoService().selectReco(rNo);
-
-		response.setContentType("application/json;charset=utf-8");
-	    new Gson().toJson(result, response.getWriter());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int rNo = Integer.parseInt(request.getParameter("rNo"));
+		
+		Recommendation result = new RecoService().selectReco(rNo);
+		
+		System.out.println("result" + result);
+		response.setContentType("application/json;charset=utf-8");
+	    new Gson().toJson(result, response.getWriter());
 	}
 
 }
