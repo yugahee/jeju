@@ -87,10 +87,8 @@ public class MypageSendMailServlet extends HttpServlet {
 		 
 		 int result = new MemberService().checkEmail(to_email);
 		 
-		 // 입력한 메일 주소가 String user와 일치하면 메일 보내기
-
 		 if(result > 0) {
-			// 입력한 메일 주소가 user와 달라도 fail전달
+			// result가 0이 아닌 경우 fail 전달
             out.print("fail");				
 		 } else {
 			// 인증 메일 전송
