@@ -27,20 +27,28 @@ public class ReservationService {
 		Connection conn = getConnection();
 		
 		List<Rooms> roomList;
-				
-		if(search.getCheckIn() != null && search.getCheckOut() != null) {
+		
+		System.out.println(search);
+		
+		if(search.getCheckIn() != "" && search.getCheckOut() != "" && search.getRoom_type() == "" && search.getLocation() == "" && search.getSpecialFac() == "" && search.getBuilding_type() == ""){
+			// 체크인 체크아웃 만
 			roomList = reservationDao.searchRoomList(conn, search);
-		}else if(search.getLocation() != null || search.getRoom_type() != null 
-				|| search.getSpecialFac() != null || search.getBuilding_type() != null) {
+		}else if(search.getCheckIn() == "" && search.getCheckOut() == "" && search.getRoom_type() == "" && search.getLocation() != "" && search.getSpecialFac() == "" && search.getBuilding_type() == "") {
+			// 위치만
+			roomList = reservationDao.searchRoomList3(conn, search);
+		}else if(search.getCheckIn() != "" && search.getCheckOut() != "" && search.getRoom_type() == "" && search.getLocation() != "" && search.getSpecialFac() == "" && search.getBuilding_type() == "") {
+			// 체크인, 체크아웃, 위치만
+			roomList = reservationDao.searchRoomList3(conn, search);
+		}else if(search.getLocation() != "" || search.getRoom_type() != "" || search.getSpecialFac() != "" || search.getBuilding_type() != "") {
+			// 상세조건들이 있을 때
 			roomList = reservationDao.searchRoomList2(conn, search);
-		}else {
+		}else{
+			// 모든 리스트
 			roomList = reservationDao.selectRoomList(conn);	
 		}
 		
-		if(search.getLocation() != null && search.getCheckIn() != null && search.getCheckOut() != null) {
-			roomList = reservationDao.searchRoomList3(conn, search);
-		}
-				
+		
+	
 		close(conn);
 		
 		return roomList;

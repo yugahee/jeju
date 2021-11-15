@@ -790,17 +790,15 @@ public class ReservationDao {
 			sql = roomQuery.getProperty("roomSearch4");
 		}
 		
-		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);			
 			
-			
-			if(!search.getCheckIn().equals("") || !search.getCheckOut().equals("")) {
+			if(search.getCheckIn().equals("") || search.getCheckOut().equals("")) {
+				pstmt.setString(1, search.getLocation());				
+			}else {
 				pstmt.setString(1, search.getCheckIn());
 				pstmt.setString(2, search.getCheckOut());
 				pstmt.setString(3, search.getLocation());
-			}else {
-				pstmt.setString(1, search.getLocation());
 			}
 			
 			

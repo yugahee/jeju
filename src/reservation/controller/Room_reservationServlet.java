@@ -42,8 +42,7 @@ public class Room_reservationServlet extends HttpServlet {
 		String location = "";
 		String room_type = "";
 		String building_type = "";
-		String specialFac  = "";
-		
+		String specialFac  = "";		
 		
 		if(locationArr != null && !locationArr[0].equals("")) {
 			location = String.join("%" , locationArr);
@@ -67,13 +66,14 @@ public class Room_reservationServlet extends HttpServlet {
 		
 		if(mainLocation != null) {
 			location = mainLocation;
-		}
+		}		
 		
 		// 숙소예약화면 클릭 시 OR 조건검색 적용시 
 		List<Rooms> roomList = new ReservationService().selectRoomList(new RoomSearch(location, room_type, building_type, specialFac, checkIn, checkOut));
-		//System.out.println(roomList);
 		
-		request.setAttribute("roomList", roomList);			
+		System.out.println(roomList);
+		
+		request.setAttribute("roomList", roomList);
 		
 		//int reviewCount = new ReservationService().getReviewCount();
 		

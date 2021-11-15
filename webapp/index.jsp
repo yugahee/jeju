@@ -12,24 +12,24 @@
 	                        <button class="title" type="button" title="위치옵션 선택">위치</button>
 	                        <ul class="selList">
 	                            <li>
-	                                <input type="radio" value="동부" class="option" id="east" name="location" />
-	                                <label for="sel1_1">동부</label>
+	                                <input type="radio" value="동부" class="option" id="east" name="mainLocation" />
+	                                <label for="east">동부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="서부" class="option" id="west" name="location" />
-	                                <label for="sel1_2">서부</label>
+	                                <input type="radio" value="서부" class="option" id="west" name="mainLocation" />
+	                                <label for="west">서부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="북부" class="option" id="north" name="location" />
-	                                <label for="sel1_3">북부</label>
+	                                <input type="radio" value="북부" class="option" id="north" name="mainLocation" />
+	                                <label for="north">북부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="남부" class="option" id="south" name="location">
-	                                <label for="sel1_4">남부</label>
+	                                <input type="radio" value="남부" class="option" id="south" name="mainLocation" />
+	                                <label for="south">남부</label>
 	                            </li>
 	                            <li>
-	                                <input type="radio" value="중부" class="option" id="center" name="location">
-	                                <label for="sel1_4">중부</label>
+	                                <input type="radio" value="중부" class="option" id="center" name="mainLocation" />
+	                                <label for="center">중부</label>
 	                            </li>
 	                        </ul>
 	                    </div>
