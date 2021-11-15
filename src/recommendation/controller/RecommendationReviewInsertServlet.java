@@ -31,10 +31,10 @@ public class RecommendationReviewInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(((Member)request.getSession().getAttribute("loginUser")) == null) {
-			/*
-			 * request.getSession().setAttribute("message", "로그인을 해주셔야 리뷰 작성이 가능합니다.");
-			 * response.sendRedirect(request.getContextPath() + "/login");
-			 */
+			
+			 request.getSession().setAttribute("message", "로그인을 해주셔야 리뷰 작성이 가능합니다.");
+			 response.sendRedirect(request.getContextPath() + "/login");
+			 
 	         return;
 	      }
 		
@@ -44,7 +44,6 @@ public class RecommendationReviewInsertServlet extends HttpServlet {
 		String sComment = request.getParameter("comment");
 		
 		int result = new RecoService().insertReview(userId, recoNo, score, sComment);
-		System.out.println(result);
 		
 		if(result > 0) {
 			/* 성공 시 "리뷰 등록이 완료되었습니다" alert 후 추천장소 리스트로 */

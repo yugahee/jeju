@@ -104,7 +104,8 @@ public class LoginCheckFilter implements Filter {
 		permitList.add("/jeju/mbti/test3");
 		permitList.add("/jeju/mbti/test4");
 		permitList.add("/jeju/admin/login");
-		
+		permitList.add("/jeju/reco/recoSelect");
+		permitList.add("/jeju/reco/insertReview");
 		
 		resourceList = new ArrayList<String>();
 		resourceList.add("/resources/");

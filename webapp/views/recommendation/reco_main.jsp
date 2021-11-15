@@ -147,117 +147,43 @@
 						</div>
 					</div>
 				</div>
-				</c:forEach>
-					<!-- 리스트 출력 영역 시작 -->
-					<div class="reco_list">
-					<%-- <c:forEach begin="1" end="4"> --%>
-					<c:forEach var="reco" items="${ recoList }">
-						<div class="reco_item">
-							<div class="imageArea" style="background-image: url(${ contextPath }${ reco.recoImage }${ reco.imageName });"	
-									onclick="detailView(${ reco.recoNo })">
-							</div>
-							
-							<div class="item_info">
-									<a href="#" onclick="detailView(${ reco.recoNo })">		<!-- href는 주소값을 넣어줘야 함. 함수식은 작동 안됨 -->
-										<p class="item_title">
-										<c:set var="area" value="${ reco.recoArea }" />
-										<c:choose>
-											<c:when test="${ area eq 1 }">[동부]</c:when>
-											<c:when test="${ area eq 2 }">[서부]</c:when>
-											<c:when test="${ area eq 3 }">[남부]</c:when>
-											<c:when test="${ area eq 4 }">[북부]</c:when>
-										</c:choose>
-										${ reco.recoName }</p>
-									</a>
-									<div class="star_average">				<!-- 별점 부분 -->
-										<div class="rating_star">
-										<c:set var="star" value="${ reco.intScore }" />
-										<c:set var="avg" value="${ reco.avgScore }" />
-										<c:choose>
-											<c:when test="${ star eq 5 }">
-												<span class="starPoint p5">5</span>
-												<p>  ${ avg } / 5</p>									
-											</c:when>
-											
-											<c:when test="${ star eq 4 }">
-												<span class="starPoint p4">4</span>
-												<p>${ avg } / 5</p>							
-											</c:when>
-											
-											<c:when test="${ star eq 3 }">
-												<span class="starPoint p3">3</span>
-												<p>${ avg } / 5</p>						
-											</c:when>
-											
-											<c:when test="${ star eq 2 }">
-												<span class="starPoint p2">2</span>	
-												<p>${ avg } / 5</p>								
-											</c:when>
-											
-											<c:when test="${ star eq 1 }">
-												<span class="starPoint p1">1</span>
-												<p>${ avg } / 5</p>					
-											</c:when>
-											
-											<c:when test="${ star eq 0 }">
-												<span class="starPoint p0">0</span>
-												<p>${ avg } / 5</p>									
-											</c:when>
-										</c:choose>
-										</div>
-									</div>
-									<p class="adress">${ reco.recoAddress }</p>
-									<div class="reco_review">
-										<a href="#" class="btn btnType1 btnSizeS" onclick="reviewDetail(${reco.recoNo}); showLayer('reviewPop')">
-											<c:if test="${ !empty loginUser }">
-											<span class="arr-right" onclick="rNos(${reco.recoNo});">리뷰쓰기</span>
-											</c:if>
-											<c:if test="${ empty loginUser }">
-											<span class="arr-right" onclick="loginPlz();">리뷰쓰기</span>
-											</c:if>
-										</a>
-										<a href="#">
-											<img class="heart" src="${ contextPath }/resources/images/ch/heart_empty.png" />
-										</a>
-										<p class="count">200</p>
-									</div>
-								</div>
-							
-						</div>
-					</c:forEach>
-				<!-- 리스트 끝 -->
+				</c:forEach>					
 			</div>
 			<!-- list_box END -->
 		</div>
 	</div>
 <%@ include file="/views/common/footer.jsp" %>
-<div id="layerPop1" class="layerPop">		<!-- 레이어 시작 -->
+<div id="layerPop1" class="layerPop reco-review-pop">		<!-- 레이어 시작 -->
 	<div class="layerTit">
 		<button class="btn_closeLayer" id="recoClose" onclick="hideLayer('layerPop1');"><span class="blind">레이어팝업 닫기</span></button>
 		<h4>리뷰 등록</h4>
 	</div>
 	<div class="layerBody">
-		<input type="hidden" name="rno" id="rNo">
-		<input type="hidden" name="starScore" id="starScore" value="5" />
-		<h2 id="recoH2"></h2>
-		<h4>별점을 등록해주세요</h4>
-
-		<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
-			<div class="pointArea">
-				<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
-				<span class="starPoint p4">
-					<button type="button" onclick="starBtn(1)">1점 선택</button>
-                   	<button type="button" onclick="starBtn(2)">2점 선택</button>
-                   	<button type="button" onclick="starBtn(3)">3점 선택</button>
-                   	<button type="button" onclick="starBtn(4)">4점 선택</button>
-                   	<button type="button" onclick="starBtn(5)">5점 선택</button>
-				</span>
+		<form action="${contextPath}/reco/insertReview" method="get">
+			<input type="hidden" name="rno" id="rNo">
+			<input type="hidden" name="starScore" id="starScore" value="5" />
+			<h2 id="recoH2"></h2>
+			<h4 class="text">별점을 등록해주세요</h4>
+	
+			<div class="rating_star_large" id="moveStar">		<!-- 별점 시작 -->
+				<div class="pointArea">
+					<span class="pointBg">이 장소는 <em>3</em>점입니다.</span>
+					<span class="starPoint p4">
+						<button type="button" onclick="starBtn(1)">1점 선택</button>
+	                   	<button type="button" onclick="starBtn(2)">2점 선택</button>
+	                   	<button type="button" onclick="starBtn(3)">3점 선택</button>
+	                   	<button type="button" onclick="starBtn(4)">4점 선택</button>
+	                   	<button type="button" onclick="starBtn(5)">5점 선택</button>
+					</span>
+				</div>
+			</div>		<!-- 별점 끝 -->
+			<div class="textbox">
+                <textarea placeholder="50자 내로 입력해주세요" name="comment"></textarea>                
+            </div>
+			<div class="comment-box">
+				<button type="submit" class="btn btnType1 btnSizeL"><span>완료</span></button>
 			</div>
-		</div>		<!-- 별점 끝 -->
-		<div>
-			<input type="text" placeholder="50자 내로 입력해주세요" style="width:400px;height:50px;" name="comment">
-			<input type="submit">
-		</div>
+		</form>
 	</div>
 </div>		<!-- 레이어 끝 -->
 <script>
@@ -323,17 +249,16 @@ function changeBtnName() {
 	
 }
 
-function reviewDetail(recoNo){
+function reviewDetail(rNo){
 	$.ajax({
 		url : "${ contextPath }/reco/recoSelect",
-		type : "get",
+		type : "post",
 		dataType : "json",
-		data : { rNo : recoNo },
+		data : { rNo : rNo },
 		success : function(data) {
 			console.log(data);
-			if(data == "success") {
-				location.reload();
-			}
+			document.getElementById("recoH2").innerText = data.recoName;
+			document.getElementById("rNo").value = data.recoNo;
 		},
 		error : function(e) {
 			console.log(e);

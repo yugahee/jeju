@@ -426,8 +426,6 @@ public class RecoDao {
 			pstmt.setInt(3, recoNo);
 			pstmt.setString(4, userId);
 			
-			System.out.println(sql);
-			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
