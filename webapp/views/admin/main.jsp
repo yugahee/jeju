@@ -86,7 +86,7 @@ scope="application"/>
 					</section>
 				</div>
 				<div id="score">꼬리잡기 미니게임<br>
-					<p style="font-size:1rem;margin-top:20px;">방향키를 누르면 START★😎</p>
+					<p style="font-size:1rem;margin:20px;">방향키를 누르면 START★😎</p>
 					<div>
 						<a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="init(0);" style=""><span>초보모드</span></a>
 						<a href="javaScript:void(0);" class="btn btnType1 btnSizeM" onclick="init(1);" style=""><span>지옥모드</span></a>
