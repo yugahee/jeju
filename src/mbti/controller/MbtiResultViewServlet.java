@@ -129,34 +129,34 @@ public class MbtiResultViewServlet extends HttpServlet {
 			mbti.setReco("함덕해수욕장");
 			mbti.setRecoContent("아 제주도에서는 해변 보는 것만으로도 힐링이라구요~!\n심신안정을 찾고 싶은 ESTJ에게 추천하는 파란 잉크빛 물결 세상!");
 			mbti.setRecoImage("estj.jpg");
-		} else if(test1 == 2 && test2 == 2 && test3 == 2 && test4 == 2) {									// 여기부터 이미지 출력 X
+		} else if(test1 == 2 && test2 == 2 && test3 == 2 && test4 == 2) {
 			// ISFP <느긋한 여행가> 언제 어디서나 여유 있는 삶을 원하는 당신! 여행에서 가장 중요한 것도 바로 느긋하게 쉬는 일?! ~~장소추천~~ 휴양이 좋은 ISFP에겐 푸르른 이 곳이 안성맞춤!
 			mbti.setMbtiType("느긋한 여행가 ISFP");
 			mbti.setMbtiContent("언제 어디서나 여유 있는 삶을 원하는 당신! \n여행에서 가장 중요한 것도 바로 느긋하게 쉬는 일?!");
 			mbti.setReco("소천지");
 			mbti.setRecoContent("숨겨진 명물 소천지! \n휴양이 좋은 ISFP에겐 푸르른 이 곳이 안성맞춤!");
-			mbti.setRecoImage("isfp");
+			mbti.setRecoImage("isfp.jpg");
 		} else if(test1 == 2 && test2 == 2 && test3 == 2 && test4 == 1) {
 			// ISFJ <일석이조 여행집사> 차분하게 상황을 정리하는 여행지 최고의 서포터! 서로 다른 의견도 적절히 조율해 두 마리 토끼를 잡는 타입! ~~장소추천~~ 힐링과 재미, 모두 놓칠 수 없는 ISFJ에게 안성맞춤!
 			mbti.setMbtiType("일석이조 여행집사 ISFJ");
 			mbti.setMbtiContent("차분하게 상황을 정리하는 여행지 최고의 서포터! \n서로 다른 의견도 적절히 조율해 두 마리 토끼를 잡는 타입!");
 			mbti.setReco("휴애리자연생활공원");
 			mbti.setRecoContent("1년 365일 계절별 꽃과 함께하는 축제!\n힐링과 재미, 모두 놓칠 수 없는 ISFJ에게 안성맞춤!");
-			mbti.setRecoImage("isfj");
+			mbti.setRecoImage("isfj.jpg");
 		} else if(test1 == 1 && test2 == 2 && test3 == 2 && test4 == 2) {
 			// ESFP <여행 트렌드 베타테스터> 왕성한 호기심은 여행지에서도 마찬가지! 새로운 장소와 액티비티는 꼭 경험해봐야 하는 타입! ~~장소추천~~ 새롭고 다양한 전시/공연은 트렌드리더인 ESFP 취향 저격!
 			mbti.setMbtiType("여행 트렌드 베타테스터 ESFP");
 			mbti.setMbtiContent("왕성한 호기심은 여행지에서도 마찬가지! \n새로운 장소와 액티비티는 꼭 경험해봐야 하는 타입!");
 			mbti.setReco("소인국테마파크");
 			mbti.setRecoContent("국내 최대의 미니어처 테마파크!\n새롭고 다양한 전시와 체험은 트렌드리더인 ESFP 취향 저격!");
-			mbti.setRecoImage("esfp");
+			mbti.setRecoImage("esfp.jpg");
 		} else if(test1 == 1 && test2 == 2 && test3 == 2 && test4 == 1) {
 			// ESFJ <여행지 무드메이커> 친구들의 선호도를 기반으로 여행을 계획하는 당신! 무엇이든 호응해주는 리액션봇으로 여행의 분위기를 주도! ~~장소추천~~ 마음 맞는 사람들과의 시간을 좋아하는 ESFJ에게 강추!
 			mbti.setMbtiType("여행지 무드메이커 ESFJ");
 			mbti.setMbtiContent("친구들의 선호도를 기반으로 여행을 계획하는 당신! \n무엇이든 호응해주는 리액션봇으로 여행의 분위기를 주도!");
 			mbti.setReco("노리매");
 			mbti.setRecoContent("자연과 전시, 포토존이 한 번에!\n마음 맞는 사람들과의 시간을 좋아하는 ESFJ에게 강추!");
-			mbti.setRecoImage("esfj");
+			mbti.setRecoImage("esfj.jpg");
 		}
 		
 		
