@@ -183,17 +183,24 @@
 			</div>
 			<div class="btn_wrap btnMargin">
                 <button class="btn btnType1 btnSizeM"><span>적용</span></button>
-                <a href="#" class="btn btnType2 btnSizeM"><span>취소</span></a>
+                <a href="#"  onclick="reserveCancell();" class="btn btnType2 btnSizeM"><span>취소</span></a>
             </div>
           </form>
 		</div>  
 	</div>
 	
-<%--   	<form name="reservationForm" method="post" action="${contextPath}/room/reserve/detail">
-		<c:forEach var="room" items="${roomList}">
-		<input type="hidden" name="roomNo" value="${room.roomNo}">
-		</c:forEach>
-	</form> --%>
+   	<div class="hiddenlayerpop">
+         <a class="btn btnType1 btnSizeS" type="button" onclick = "hideLayer('filterSearch');"></a>
+     </div>
+  
+	
+	 <script>
+    function reserveCancell(){
+        const ch = document.querySelector(".hiddenlayerpop").firstElementChild;
+        ch.click();    // 레이아웃 닫기
+
+    }  
+ 	</script>
 	
 	<script>
 	function detailReservation(roomNo) {
