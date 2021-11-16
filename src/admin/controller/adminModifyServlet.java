@@ -40,12 +40,12 @@ public class adminModifyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		int result = 0;
 		String adminName = request.getParameter("adminName");
 		String newUmail = request.getParameter("newUmail");
 		String adminPhone = request.getParameter("adminPhone");
 		String newPwd = request.getParameter("newPwd1");
-		int result = new AdminService().modifyAdmin(adminName, newUmail, adminPhone, newPwd);
+		result = new AdminService().modifyAdmin(adminName, newUmail, adminPhone, newPwd);
 		
 		if(result > 0) {
 			request.getSession().setAttribute("message", "내 정보 수정이 완료되었습니다. 다시 로그인해주세요!");

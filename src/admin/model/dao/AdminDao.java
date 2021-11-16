@@ -503,12 +503,14 @@ public class AdminDao {
 		int result = 0;
 		String sql = adminQuery.getProperty("updateAdminNP");
 
-		if(!newUmail.equals("") && newPwd.equals("")) {
-			sql = adminQuery.getProperty("updateAdminMail");
-		}else if(newUmail.equals("") && !newPwd.equals("")) {
-			sql = adminQuery.getProperty("updateAdminPwd");
-		}else if(!newUmail.equals("") && !newPwd.equals("")) {
-			sql = adminQuery.getProperty("updateAdminAll");
+		if(!newPwd.equals("z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg==")) {
+			if(!newUmail.equals("") && newPwd.equals("")) {
+				sql = adminQuery.getProperty("updateAdminMail");
+			}else if(newUmail.equals("") && !newPwd.equals("")) {
+				sql = adminQuery.getProperty("updateAdminPwd");
+			}else if(!newUmail.equals("") && !newPwd.equals("")) {
+				sql = adminQuery.getProperty("updateAdminAll");
+			}
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);
