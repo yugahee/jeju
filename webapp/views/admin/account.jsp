@@ -128,7 +128,7 @@ scope="application"/>
                         <dt>비밀번호</dt>
                         <dd>
                             <div class="inp_text">
-                                <input type="password" name="" id="" class="readOnly" readonly value="<%= loginUser.getUser_pwd() %>" />
+                                <input type="password" name="" id="" class="readOnly" readonly value="password" />
                             </div>
                             <a href="#none" onclick="showPwd();" class="btn btnType1 btnSizeS"><span>재설정</span></a>
                         </dd>
