@@ -119,8 +119,8 @@
 										<td><div class="review_no">${ no = no + 1 }</div></td>
 										<td><div class="review_roomname">${ review.roomName }</div></td>
 										<!-- 리뷰 내용은 글자 50개 까지 노출 -->
-										<td><a href="#"><div class="review_content" onclick="showLayer('reviewdetail'); showdetail(${ review.reviewNo });">${ review.review }
-										</div></a></td>
+										<td><div class="review_content" onclick="showLayer('reviewdetail'); showdetail(${ review.reviewNo });"><a href="#">${ review.review }
+										</a></div></td>
 										<%-- <td><div class="review_date">${ review.reviewDate }</div></td> --%>
 										<td>
 											<div class="rating_star_large review_star">
@@ -233,7 +233,7 @@
 									<div class="rating_star_large">
 										<div class="pointArea">
 											<!-- 별 선택시마다 point: 20/40/60/80/100 , style: 20%/40%/60%/80%/100% 로 변경됨 -->
-											<span class="pointBg" point="80" style="left: 80%;"></span>
+											<span class="pointBg changeBg"></span>
 											<span class="starPoint p2">
 												<button disabled="disabled">1점 선택</button>
 												<button disabled="disabled">2점 선택</button>
@@ -323,24 +323,24 @@
 				
 				switch(review.starPoint){
 				case 1 :
-					document.querySelector('.pointBg').setAttribute('point', '20');
-					document.querySelector('.pointBg').setAttribute('style', 'left: 20%');
+					document.querySelector('.changeBg').setAttribute('point', '20');
+					document.querySelector('.changeBg').setAttribute('style', 'left: 20%');
 					break;
 				case 2 :
-					document.querySelector('.pointBg').setAttribute('point', '40');
-					document.querySelector('.pointBg').setAttribute('style', 'left: 40%');
+					document.querySelector('.changeBg').setAttribute('point', '40');
+					document.querySelector('.changeBg').setAttribute('style', 'left: 40%');
 					break;
 				case 3 :
-					document.querySelector('.pointBg').setAttribute('point', '60');
-					document.querySelector('.pointBg').setAttribute('style', 'left: 60%');
+					document.querySelector('.changeBg').setAttribute('point', '60');
+					document.querySelector('.changeBg').setAttribute('style', 'left: 60%');
 					break;
 				case 4 :
-					document.querySelector('.pointBg').setAttribute('point', '80');
-					document.querySelector('.pointBg').setAttribute('style', 'left: 80%');
+					document.querySelector('.changeBg').setAttribute('point', '80');
+					document.querySelector('.changeBg').setAttribute('style', 'left: 80%');
 					break;
 				case 5 :
-					document.querySelector('.pointBg').setAttribute('point', '100');
-					document.querySelector('.pointBg').setAttribute('style', 'left: 100%');
+					document.querySelector('.changeBg').setAttribute('point', '100');
+					document.querySelector('.changeBg').setAttribute('style', 'left: 100%');
 					break;
 				}
 				
