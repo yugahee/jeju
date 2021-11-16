@@ -28,8 +28,16 @@
 							<ul class="roomli_box">
 							<c:forEach var="room" items="${ roomList }">
 							<li class="main_roomlist">     <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
+							<c:choose>
+								<c:when test="${ room.enrollStatus eq '등록완료' }">
 								<a href="${ contextPath }/room/reserve/detail?roomNo=${ room.roomNo }">
 								<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
+								</c:when>
+								<c:otherwise>
+								<a href="#" onclick="alert('\'등록완료\' 상태인 경우에만 상세 예약페이지로 이동이 가능합니다.');">
+								<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}"></a><br>
+								</c:otherwise>
+							</c:choose>
 								<h3>${ room.roomName }</h3>
 							</li>
 							</c:forEach>

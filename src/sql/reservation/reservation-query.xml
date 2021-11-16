@@ -86,6 +86,7 @@
        AND F.STATUS = 'Y'
        AND ROOM_NO = ? 
        AND USER_TYPE = '호스트'
+     ORDER BY FILE_NO
 </entry>
 
 

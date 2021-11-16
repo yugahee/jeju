@@ -81,6 +81,8 @@ public class RoomUpdate3Servlet extends HttpServlet {
 		
 		for(int i = 0; i < fileNames.length; i++) {
 			 /* 서브 이미지 : 파일이 업로드되지 않았을 경우 다음 fileName으로 넘어감 */
+			// System.out.println(fileNames[i] + ", " + multiRequest.getFilesystemName(fileNames[i]));
+			
 			if(multiRequest.getFilesystemName(fileNames[i]) == null)
 				continue;
 			

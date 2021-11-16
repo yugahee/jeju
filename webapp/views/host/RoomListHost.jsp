@@ -76,9 +76,20 @@
 											<c:forEach var="room" items="${ roomList }">													
 												<tr>
 													<td>${ no = no + 1 }</td>    <!-- 방 사진 클릭시 해당 숙소의 상세페이지로 이동하도록!! -->
-													<td class="al_l"><a href="${ contextPath }/room/reserve/detail?roomNo=${ room.roomNo }">  
+													<td class="al_l">
+													<c:choose>
+													<c:when test="${ room.enrollStatus eq '등록완료' }">
+													<a href="${ contextPath }/room/reserve/detail?roomNo=${ room.roomNo }">  
 													<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}" class="roomlist_img">
-													</a></td>
+													</a>
+													</c:when>
+													<c:otherwise>
+													<a href="#" onclick="alert('\'등록완료\' 상태인 경우에만 상세 예약페이지로 이동이 가능합니다.');">  
+													<img src="${contextPath}${room.fileList.get(0).filePath}${room.fileList.get(0).changeName}" class="roomlist_img">
+													</a>
+													</c:otherwise>
+													</c:choose>
+													</td>
 													<td><span class="roomlist_status" 
 													<c:if test="${ room.enrollStatus eq '승인대기' }">style="color:#ff8b33"</c:if> 
 													<c:if test="${ room.enrollStatus eq '승인반려' }">style="color:#d10000"</c:if>

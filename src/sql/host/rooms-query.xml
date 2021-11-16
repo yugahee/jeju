@@ -224,6 +224,7 @@
 		     , FILE_LEVEL
 		  FROM FILES
 		 WHERE ROOM_NO = ?	
+		 ORDER BY FILE_NO
 	</entry>
 	
 	<entry key="updateRoomPhoto">
