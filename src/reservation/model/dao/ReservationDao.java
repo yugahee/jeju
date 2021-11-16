@@ -359,6 +359,9 @@ public class ReservationDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		return roomReviewList;
