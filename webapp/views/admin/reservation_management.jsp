@@ -187,7 +187,9 @@ scope="application"/>
 								<td>
 									<c:choose>
 										<c:when test="${ reserve.payment_info.payDate != null}">
-											<fmt:formatDate value="${ reserve.payment_info.payDate }" type="both" pattern="yyyy.MM.dd HH:mm:ss"/>											
+											<fmt:formatDate value="${ reserve.payment_info.payDate }" type="both" pattern="yyyy.MM.dd"/>
+											<br>
+											<fmt:formatDate value="${ reserve.payment_info.payDate }" type="both" pattern="HH:mm:ss"/>											
 										</c:when>
 										<c:otherwise>
 											-
@@ -335,10 +337,11 @@ scope="application"/>
 				document.getElementById("rNo").innerText = result.room_reserve;
 				document.getElementById("rName").innerText = result.room_info.roomName;
 				document.getElementById("rGuest").innerText = result.guest;
-				
+				console.log(result);
 				if(result.payment_info.price != 0){
 					document.getElementById("rPrice").innerText = result.payment_info.price;
-					document.getElementById("rPaydate").innerText = result.payment_info.payDate;					
+					document.getElementById("rPaydate").innerText = result.payment_info.payDate.split(',')[1]
+																  +'년 '+result.payment_info.payDate.split(',')[0]+'일';					
 				}else{
 					document.getElementById("rPrice").innerText = "-";
 					document.getElementById("rPaydate").innerText = "-";
