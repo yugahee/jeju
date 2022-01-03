@@ -425,19 +425,10 @@
                             <th>카테고리</th>
                             <td>
                                 <div class="selectbox">
-                                    <button class="title" type="button" title="카테고리 선택" id="selectCate">
-                                    	<c:choose>
-                                    		<c:when test="${reportType eq '신고'}">
-                                    			2. 신고
-                                    		</c:when>
-                                    		<c:otherwise>
-	                                    		카테고리를 선택하세요
-                                    		</c:otherwise>
-                                    	</c:choose>
-                                    </button>
+                                    <button class="title" type="button" title="카테고리 선택" id="selectCate">카테고리를 선택하세요</button>
                                     <ul class="selList">
                                         <li>
-                                            <input type="radio" value="신고" class="option" id="sel1_2" name="category" <c:if test="${reportType eq '신고'}">checked="checked"</c:if> />
+                                            <input type="radio" value="문의" class="option category" id="sel1_2" name="category" />
                                             <label for="sel1_1">1. 문의</label>
                                         </li>
                                         <li>
@@ -453,7 +444,7 @@
                             <th>피신고인</th>
                             <td>
                                 <div class="inp_text inp_cell">
-                                    <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." <c:if test="${!empty reportUser}">value="${reportUser}" readonly</c:if> />
+                                    <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." class="readOnly" readonly />
                                 </div>
                             </td>
                         </tr>
@@ -480,7 +471,7 @@
 <script>
 	
 	// 카테고리를 신고로 선택할 때만 피신고인 칸 입력 되게  
-	let cate = document.querySelectorAll('.category').forEach(item =>  item.addEventListener('change', test));
+	let cate = document.querySelectorAll('.category').forEach(item => item.addEventListener('change', test));
     function test(){
       let index = Array.from(document.querySelectorAll(".category")).indexOf(this);
       if(index == 0){
@@ -491,7 +482,8 @@
          document.getElementById('in_report').classList.remove('readOnly')
       }
     }
-
+    
+ 
 	
 	// 글자수 체크
 	$('#Mcontent').on('keyup', function() {

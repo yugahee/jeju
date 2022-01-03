@@ -47,12 +47,16 @@ public class MessengerInsertServlet extends HttpServlet {
 		String report_user = request.getParameter("reportId");
 		String msg_content = request.getParameter("msg_content");
 		
+		System.out.println(msg_cate);
+		System.out.println(report_user);
+		System.out.println(msg_content);
+		
 		Messenger messenger = new Messenger();
 		
 		messenger.setTo_user(to_user);
 		messenger.setFrom_user(from_user);
 		messenger.setMsg_cate(msg_cate);
-		messenger.setReport_user(report_user);
+		messenger.setReport_user(report_user);	
 		messenger.setMsg_content(msg_content);
 		
 		int result = new MessengerService().insertMessenger(messenger);
