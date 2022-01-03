@@ -425,10 +425,18 @@
                             <th>카테고리</th>
                             <td>
                                 <div class="selectbox">
+<<<<<<< HEAD
                                     <button class="title" type="button" title="카테고리 선택" id="selectCate">카테고리를 선택하세요</button>
+=======
+                                    <button class="title" type="button" title="카테고리 선택" id="selectCate">카테고리를 선택하세요 </button>
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
                                     <ul class="selList">
                                         <li>
+<<<<<<< HEAD
                                             <input type="radio" value="문의" class="option category" id="sel1_2" name="category" />
+=======
+                                            <input type="radio" value="문의" class="option category" id="sel1_1" name="category" />
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
                                             <label for="sel1_1">1. 문의</label>
                                         </li>
                                         <li>
@@ -444,7 +452,11 @@
                             <th>피신고인</th>
                             <td>
                                 <div class="inp_text inp_cell">
+<<<<<<< HEAD
                                     <input type="text" name="reportId" id="userId" placeholder="신고하실 회원의 아이디를 입력하세요." class="readOnly" readonly />
+=======
+                                    <input type="text" class="readOnly" name="reportId" id="in_report" placeholder="신고하실 회원의 아이디를 입력하세요." readonly/>
+>>>>>>> branch 'main' of https://github.com/yugahee/jeju.git
                                 </div>
                             </td>
                         </tr>
@@ -458,7 +470,7 @@
                             </td>
                         </tr>
                     </tbody>
-               </table>
+                </table>
             </div>
             <div class="btn_wrap" id="msg_btnWrap">
                 <button type="submit" class="btn btnType1 btnSizeM" name="btn_messenger" id="btn_messenger"><span>보내기</span></button>
